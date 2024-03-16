@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:description" content="code zone">
+    <meta property="og:type" content="website">
+    <meta name="description" content="code zone">
+    <meta name="keyword"  content="服务器,全栈开发,">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        1.4. GIF动画 - Bug Terminator
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_28hi1hpxx24.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    
+
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> think twice before coding </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/images/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>WER</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/collect/">
+                    <i class="iconfont icon-shoucang1"></i>
+                    <span>收藏</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0"><span class="toc-text">练习</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-bg" id="search-bg"></div>
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> think twice before coding </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        1.4. GIF动画
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2024-03-17 00:55:55</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#go" title="go">go</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#Go语言圣经" title="Go语言圣经">Go语言圣经</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>下面的程序会演示Go语言标准库里的image这个package的用法，我们会用这个包来生成一系列的bit-mapped图，然后将这些图片编码为一个GIF动画。我们生成的图形名字叫利萨如图形(Lissajous figures)，这种效果是在1960年代的老电影里出现的一种视觉特效。它们是协振子在两个纬度上振动所产生的曲线，比如两个sin正弦波分别在x轴和y轴输入会产生的曲线。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Lissajous generates GIF animations of random Lissajous figures.</span></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;image&quot;</span></span><br><span class="line">	<span class="string">&quot;image/color&quot;</span></span><br><span class="line">	<span class="string">&quot;image/gif&quot;</span></span><br><span class="line">	<span class="string">&quot;io&quot;</span></span><br><span class="line">	<span class="string">&quot;math&quot;</span></span><br><span class="line">	<span class="string">&quot;math/rand&quot;</span></span><br><span class="line">	<span class="string">&quot;os&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> palette = []color.Color&#123;color.White, color.Black&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	whiteIndex = <span class="number">0</span> <span class="comment">// first color in palette</span></span><br><span class="line">	blackIndex = <span class="number">1</span> <span class="comment">// next color in palette</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	lissajous(os.Stdout)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">lissajous</span><span class="params">(out io.Writer)</span></span> &#123;</span><br><span class="line">	<span class="keyword">const</span> (</span><br><span class="line">		cycles  = <span class="number">5</span>     <span class="comment">// number of complete x oscillator revolutions</span></span><br><span class="line">		res     = <span class="number">0.001</span> <span class="comment">// angular resolution</span></span><br><span class="line">		size    = <span class="number">100</span>   <span class="comment">// image canvas covers[-size..size]</span></span><br><span class="line">		nframes = <span class="number">64</span>    <span class="comment">// number of animation frames</span></span><br><span class="line">		delay   = <span class="number">8</span>     <span class="comment">// delay between frames in 10ms units</span></span><br><span class="line">	)</span><br><span class="line">	freq := rand.Float64() * <span class="number">3.0</span> <span class="comment">// relative frequency of y oscillator</span></span><br><span class="line">	anim := gif.GIF&#123;LoopCount: nframes&#125;</span><br><span class="line">	phase := <span class="number">0.0</span> <span class="comment">// phase difference</span></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; nframes; i++ &#123;</span><br><span class="line">		rect := image.Rect(<span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>*size+<span class="number">1</span>, <span class="number">2</span>*size+<span class="number">1</span>)</span><br><span class="line">		img := image.NewPaletted(rect, palette)</span><br><span class="line">		<span class="keyword">for</span> t := <span class="number">0.0</span>; t &lt; cycles*<span class="number">2</span>*math.Pi; t += res &#123;</span><br><span class="line">			x := math.Sin(t)</span><br><span class="line">			y := math.Sin(t*freq + phase)</span><br><span class="line">			img.SetColorIndex(size+<span class="type">int</span>(x*size+<span class="number">0.5</span>), size+<span class="type">int</span>(y*size+<span class="number">0.5</span>), blackIndex)</span><br><span class="line">		&#125;</span><br><span class="line">		phase += <span class="number">0.1</span></span><br><span class="line">		anim.Delay = <span class="built_in">append</span>(anim.Delay, delay)</span><br><span class="line">		anim.Image = <span class="built_in">append</span>(anim.Image, img)</span><br><span class="line">	&#125;</span><br><span class="line">	gif.EncodeAll(out, &amp;anim) <span class="comment">// <span class="doctag">NOTE:</span> ignoring encoding errors</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用以下命令生成一个GIF动画。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">go build lissajous</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">./lissajous &gt;out.gif</span></span><br></pre></td></tr></table></figure>
+<p>效果图：</p>
+<p><img src="/./images/out.gif" alt="out"></p>
+<p>练习 1.5： 修改前面的Lissajous程序里的调色板，由黑色改为绿色。我们可以用color.RGBA{0xRR, 0xGG, 0xBB, 0xff}来得到#RRGGBB这个色值，三个十六进制的字符串分别代表红、绿、蓝像素。<br>解答：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;image&quot;</span></span><br><span class="line">	<span class="string">&quot;image/color&quot;</span></span><br><span class="line">	<span class="string">&quot;image/gif&quot;</span></span><br><span class="line">	<span class="string">&quot;io&quot;</span></span><br><span class="line">	<span class="string">&quot;math&quot;</span></span><br><span class="line">	<span class="string">&quot;math/rand&quot;</span></span><br><span class="line">	<span class="string">&quot;os&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> palette = []color.Color&#123;color.RGBA&#123;<span class="number">0</span>, <span class="number">0xff</span>, <span class="number">0</span>, <span class="number">0x1</span>&#125;, color.Black&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	whiteIndex = <span class="number">0</span></span><br><span class="line">	blackIndex = <span class="number">1</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	lissajous(os.Stdout)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">lissajous</span><span class="params">(out io.Writer)</span></span> &#123;</span><br><span class="line">	<span class="keyword">const</span> (</span><br><span class="line">		cycles  = <span class="number">5</span></span><br><span class="line">		res     = <span class="number">0.001</span></span><br><span class="line">		size    = <span class="number">100</span></span><br><span class="line">		nframes = <span class="number">64</span></span><br><span class="line">		delay   = <span class="number">8</span></span><br><span class="line">	)</span><br><span class="line">	freq := rand.Float64() * <span class="number">3.0</span></span><br><span class="line">	anim := gif.GIF&#123;LoopCount: nframes&#125;</span><br><span class="line">	phase := <span class="number">0.0</span></span><br><span class="line">	<span class="keyword">for</span> nf := <span class="number">0</span>; nf &lt; nframes; nf++ &#123;</span><br><span class="line">		rect := image.Rect(<span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>*size+<span class="number">1</span>, <span class="number">2</span>*size+<span class="number">1</span>)</span><br><span class="line">		img := image.NewPaletted(rect, palette)</span><br><span class="line">		<span class="keyword">for</span> t := <span class="number">0.0</span>; t &lt; cycles*<span class="number">2</span>*math.Pi; t += res &#123;</span><br><span class="line">			x := math.Sin(t)</span><br><span class="line">			y := math.Sin(t*freq + phase)</span><br><span class="line">			img.SetColorIndex(size+<span class="type">int</span>(x*size+<span class="number">0.5</span>), size+<span class="type">int</span>(y*size+<span class="number">0.5</span>), blackIndex)</span><br><span class="line">		&#125;</span><br><span class="line">		phase += <span class="number">0.1</span></span><br><span class="line">		anim.Delay = <span class="built_in">append</span>(anim.Delay, delay)</span><br><span class="line">		anim.Image = <span class="built_in">append</span>(anim.Image, img)</span><br><span class="line">	&#125;</span><br><span class="line">	gif.EncodeAll(out, &amp;anim)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>效果图：</p>
+<p><img src="/./images/out_1.gif" alt="out"></p>
+<h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><p><strong>练习 1.6：</strong> 修改Lissajous程序，修改其调色板来生成更丰富的颜色，然后修改SetColorIndex的第三个参数，看看显示结果吧。<br>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;image&quot;</span></span><br><span class="line">	<span class="string">&quot;image/color&quot;</span></span><br><span class="line">	<span class="string">&quot;image/gif&quot;</span></span><br><span class="line">	<span class="string">&quot;io&quot;</span></span><br><span class="line">	<span class="string">&quot;math&quot;</span></span><br><span class="line">	<span class="string">&quot;math/rand&quot;</span></span><br><span class="line">	<span class="string">&quot;os&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> palette = []color.Color&#123;color.RGBA&#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0xff</span>, <span class="number">0x1</span>&#125;, color.White&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	whiteIndex = <span class="number">0</span></span><br><span class="line">	blackIndex = <span class="number">3</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	lissajous(os.Stdout)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">lissajous</span><span class="params">(out io.Writer)</span></span> &#123;</span><br><span class="line">	<span class="keyword">const</span> (</span><br><span class="line">		cycles  = <span class="number">5</span></span><br><span class="line">		res     = <span class="number">0.001</span></span><br><span class="line">		size    = <span class="number">100</span></span><br><span class="line">		nframes = <span class="number">64</span></span><br><span class="line">		delay   = <span class="number">8</span></span><br><span class="line">	)</span><br><span class="line">	freq := rand.Float64() * <span class="number">3.0</span></span><br><span class="line">	anim := gif.GIF&#123;LoopCount: nframes&#125;</span><br><span class="line">	phase := <span class="number">0.0</span></span><br><span class="line">	<span class="keyword">for</span> nf := <span class="number">0</span>; nf &lt; nframes; nf++ &#123;</span><br><span class="line">		rect := image.Rect(<span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>*size+<span class="number">1</span>, <span class="number">2</span>*size+<span class="number">1</span>)</span><br><span class="line">		img := image.NewPaletted(rect, palette)</span><br><span class="line">		<span class="keyword">for</span> t := <span class="number">0.0</span>; t &lt; cycles*<span class="number">2</span>*math.Pi; t += res &#123;</span><br><span class="line">			x := math.Sin(t)</span><br><span class="line">			y := math.Sin(t*freq + phase)</span><br><span class="line">			img.SetColorIndex(size+<span class="type">int</span>(x*size+<span class="number">0.5</span>), size+<span class="type">int</span>(y*size+<span class="number">0.5</span>), blackIndex)</span><br><span class="line">		&#125;</span><br><span class="line">		phase += <span class="number">0.1</span></span><br><span class="line">		anim.Delay = <span class="built_in">append</span>(anim.Delay, delay)</span><br><span class="line">		anim.Image = <span class="built_in">append</span>(anim.Image, img)</span><br><span class="line">	&#125;</span><br><span class="line">	gif.EncodeAll(out, &amp;anim)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>效果图：</p>
+<p><img src="/./images/lissajous2.gif" alt="lissajous2"></p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+        <div id="lv-container"></div>
+        <div class="giscus"></div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/Succeedwer">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+<!--         <span id="busuanzi_container_site_pv"> -->
+<!--             <span id="busuanzi_value_site_pv"></span>PV -->
+<!--         </span> -->
+<!--         <span id="busuanzi_container_site_uv"> -->
+<!--             <span id="busuanzi_value_site_uv"></span>UV -->
+<!--         </span> -->
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://giscus.app/client.js" data-repo="Succeedwer/blog" data-repo-id="R_kgDOLg3A1g" data-category="blog" data-category-id="DIC_kwDOLg3A1s4CeBCf" data-mapping="title" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="zh-CN" crossorigin="anonymous" async> </script>
+
+
+
+</html>

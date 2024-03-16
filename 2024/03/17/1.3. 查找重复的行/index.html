@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:description" content="code zone">
+    <meta property="og:type" content="website">
+    <meta name="description" content="code zone">
+    <meta name="keyword"  content="服务器,全栈开发,">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        1.3. 查找重复的行 - Bug Terminator
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_28hi1hpxx24.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    
+
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> think twice before coding </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/images/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>WER</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/collect/">
+                    <i class="iconfont icon-shoucang1"></i>
+                    <span>收藏</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0"><span class="toc-text">练习</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-bg" id="search-bg"></div>
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> think twice before coding </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        1.3. 查找重复的行
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2024-03-17 00:55:55</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#go" title="go">go</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#Go语言圣经" title="Go语言圣经">Go语言圣经</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>对文件做拷贝、打印、搜索、排序、统计或类似事情的程序都有一个差不多的程序结构：一个处理输入的循环，在每个元素上执行计算处理，在处理的同时或最后产生输出。我们会展示一个名为dup的程序的三个版本；灵感来自于Unix的uniq命令，其寻找相邻的重复行。该程序使用的结构和包是个参考范例，可以方便地修改。</p>
+<p>dup的第一个版本打印标准输入中多次出现的行，以重复次数开头。该程序将引入if语句，<code>map</code>数据类型以及<code>bufio</code>包。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Dup1 prints the text of each line that appears more than</span></span><br><span class="line"><span class="comment">// once in the standard input, preceded by its count.</span></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;bufio&quot;</span></span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;os&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	counts := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span>)</span><br><span class="line">	input := bufio.NewScanner(os.Stdin)</span><br><span class="line">	<span class="keyword">for</span> input.Scan() &#123;</span><br><span class="line">		counts[input.Text()]++</span><br><span class="line">		<span class="keyword">if</span> input.Text() == <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// <span class="doctag">NOTE:</span> ignoring potential errors from input.Err()</span></span><br><span class="line">	<span class="keyword">for</span> line, n := <span class="keyword">range</span> counts &#123;</span><br><span class="line">		<span class="keyword">if</span> n &gt; <span class="number">1</span> &#123;</span><br><span class="line">			fmt.Printf(<span class="string">&quot;%d\t%s\n&quot;</span>, n, line)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>正如for循环一样，if语句条件两边也不加括号，但是主体部分需要加。<br>if语句的else部分是可选的，在if的条件为false时执行。<br><code>map</code>存储了键&#x2F;值（key&#x2F;value）的集合，对集合元素，提供常数时间的存、取或测试操作。键可以是任意类型，只要其值能用<code>==</code>运算符比较，最常见的例子是字符串；值则可以是任意类型。这个例子中的键是字符串，值是整数。内置函数<code>make</code>创建空<code>map</code>，此外，它还有别的作用。<br>从功能和实现上说，Go的<code>map</code>类似于Java语言中的<code>HashMap</code>，Python语言中的<code>dict</code>，Lua语言中的<code>table</code>，通常使用hash实现。遗憾的是，对于该词的翻译并不统一，数学界术语为映射，而计算机界众说纷纭莫衷一是。<br><code>counts[input.Text()]++</code>语句等价于：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">line := input.Text()</span><br><span class="line">counts[line] = counts[line] + <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p><code>Printf</code>部分格式字符</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">%d          十进制整数</span><br><span class="line">%x, %o, %b  十六进制，八进制，二进制整数。</span><br><span class="line">%f, %g, %e  浮点数： 3.141593 3.141592653589793 3.141593e+00</span><br><span class="line">%t          布尔：true或false</span><br><span class="line">%c          字符（rune） (Unicode码点)</span><br><span class="line">%s          字符串</span><br><span class="line">%q          带双引号的字符串&quot;abc&quot;或带单引号的字符&#x27;c&#x27;</span><br><span class="line">%v          变量的自然形式（natural format）</span><br><span class="line">%T          变量的类型</span><br><span class="line">%%          字面上的百分号标志（无操作数）</span><br></pre></td></tr></table></figure>
+
+<p>制表符<code>\t</code>和换行符<code>\n</code>,称为<code>转义字符</code>(escap sequences)。<br>按照惯例，以字母<code>f</code>结尾的格式化函数，如<code>log.Printf</code>和<code>fmt.Errof</code>,都采用了<code>fmt.Printf</code>的格式化准则。<br>以<code>ln</code>结尾的格式化函数，则遵循<code>Printlin</code>的方式，以跟<code>%v</code>差不多的方式格式化参数，并在最后添加一个换行符。<br>后缀<code>f</code>指<code>format</code>, <code>ln</code>指<code>line</code>。<br>很多程序要么从标准输入中读取数据，如上面的例子所示，要么从一系列具名文件中读取数据。<code>dup</code>程序的下个版本读取标准输入或是使用<code>os.Open</code>打开各个具名文件，并操作它们。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Dup2 prints the count and text of lines that appear more than once</span></span><br><span class="line"><span class="comment">// in the input. It reads from stdin or from a list of named files.</span></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;bufio&quot;</span></span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;os&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	counts := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span>)</span><br><span class="line">	files := os.Args[<span class="number">1</span>:]</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(files) == <span class="number">0</span> &#123;</span><br><span class="line">		countLines(os.Stdin, counts)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">for</span> _, arg := <span class="keyword">range</span> files &#123;</span><br><span class="line">			f, err := os.Open(arg)</span><br><span class="line">			<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">				fmt.Fprintf(os.Stderr, <span class="string">&quot;dup2:%v\n&quot;</span>, err)</span><br><span class="line">				<span class="keyword">continue</span></span><br><span class="line">			&#125;</span><br><span class="line">			countLines(f, counts)</span><br><span class="line">			f.Close()</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> line, n := <span class="keyword">range</span> counts &#123;</span><br><span class="line">		<span class="keyword">if</span> n &gt; <span class="number">1</span> &#123;</span><br><span class="line">			fmt.Printf(<span class="string">&quot;%d\t%s\n&quot;</span>, n, line)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">countLines</span><span class="params">(f *os.File, counts <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span>)</span></span> &#123;</span><br><span class="line">	input := bufio.NewScanner(f)</span><br><span class="line">	<span class="keyword">for</span> input.Scan() &#123;</span><br><span class="line">		counts[input.Text()]++</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// <span class="doctag">NOTE:</span> ignoring potential errors form input.Err()</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>dup</code>的前两个版本以”流”模式读取输入，并根据需要拆分成多个行。理论上，这些程序可以处理任意数量的输入数据。还有另一个方法，就是一口气把全部输入数据读到内存中，一次分割为多行，然后处理它们。下面这个版本，dup3，就是这么操作的。这个例子引入了<code>ReadFile</code>函数（来自于<code>io/ioutil</code>包），其读取指定文件的全部内容，<code>strings.Split</code>函数把字符串分割成子串的切片。（<code>Split</code>的作用与前文提到的<code>strings.Join</code>相反。）<br>我们略微简化了dup3。首先，由于<code>ReadFile</code>函数需要文件名作为参数，因此只读指定文件，不读标准输入。其次，由于行计数代码只在一处用到，故将其移回<code>main</code>函数。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;os&quot;</span></span><br><span class="line">	<span class="string">&quot;strings&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	counts := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span>)</span><br><span class="line">	<span class="keyword">for</span> _, filename := <span class="keyword">range</span> os.Args &#123;</span><br><span class="line">		data, err := os.ReadFile(filename)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			fmt.Fprintf(os.Stderr, <span class="string">&quot;dup3:%v\n&quot;</span>, err)</span><br><span class="line">			<span class="keyword">continue</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> _, line := <span class="keyword">range</span> strings.Split(<span class="type">string</span>(data), <span class="string">&quot;\n&quot;</span>) &#123;</span><br><span class="line">			counts[line]++</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> line, n := <span class="keyword">range</span> counts &#123;</span><br><span class="line">		<span class="keyword">if</span> n &gt; <span class="number">1</span> &#123;</span><br><span class="line">			fmt.Printf(<span class="string">&quot;%d\t%s\n&quot;</span>, n, line)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><p><strong>练习 1.4：</strong> 修改dup2，出现重复的行时打印文件名称。<br>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;bufio&quot;</span></span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;os&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	counts := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span>)</span><br><span class="line">	files := os.Args[<span class="number">1</span>:]</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(files) == <span class="number">0</span> &#123;</span><br><span class="line">		countLines(os.Stdin, counts)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">for</span> _, arg := <span class="keyword">range</span> files &#123;</span><br><span class="line">			f, err := os.Open(arg)</span><br><span class="line">			<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">				fmt.Fprintf(os.Stderr, <span class="string">&quot;dup2:%v\n&quot;</span>, err)</span><br><span class="line">				<span class="keyword">continue</span></span><br><span class="line">			&#125;</span><br><span class="line">			countLines(f, counts)</span><br><span class="line">			f.Close()</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> line, n := <span class="keyword">range</span> counts &#123;</span><br><span class="line">		<span class="keyword">if</span> n &gt; <span class="number">1</span> &#123;</span><br><span class="line">			fmt.Printf(<span class="string">&quot;%d\t%s\n&quot;</span>, n, line)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">countLines</span><span class="params">(f *os.File, counts <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span>)</span></span> &#123;</span><br><span class="line">	input := bufio.NewScanner(f)</span><br><span class="line">	<span class="keyword">for</span> input.Scan() &#123;</span><br><span class="line">		counts[input.Text()]++</span><br><span class="line">		<span class="keyword">if</span> counts[input.Text()] &gt; <span class="number">1</span> &#123;</span><br><span class="line">			fmt.Println(f.Name())</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// <span class="doctag">NOTE:</span> ignoring potential errors form input.Err()</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+        <div id="lv-container"></div>
+        <div class="giscus"></div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/Succeedwer">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+<!--         <span id="busuanzi_container_site_pv"> -->
+<!--             <span id="busuanzi_value_site_pv"></span>PV -->
+<!--         </span> -->
+<!--         <span id="busuanzi_container_site_uv"> -->
+<!--             <span id="busuanzi_value_site_uv"></span>UV -->
+<!--         </span> -->
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://giscus.app/client.js" data-repo="Succeedwer/blog" data-repo-id="R_kgDOLg3A1g" data-category="blog" data-category-id="DIC_kwDOLg3A1s4CeBCf" data-mapping="title" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="zh-CN" crossorigin="anonymous" async> </script>
+
+
+
+</html>
