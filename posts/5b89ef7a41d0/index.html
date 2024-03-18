@@ -19,14 +19,14 @@
   <meta name="author" content="WER">
   <meta name="keywords" content="">
   
-    <meta name="description" content="传统案例“hello world” 12345678package mainimport &quot;fmt&quot;func main() &#123;	fmt.Println(&quot;hello, world&quot;)&#125; 运行指令 1$ go run helloworld.go 毫无疑问，这个命令会输出： 1hello, world Go语言原生支持Unicode, 可以处">
+    <meta name="description" content="声明语句将程序中的实体和名字关联，如函数，变量。声明语句的作用域是指源代码中可以有效使用这个名字的范围。 不能将作用域与生命周期混为一谈。声明语句的作用域对应的是源代码的文本区域；是一个编译时的属性。变量的生命周期是指程序运行的是变量存在的有效时间段，在此时间段内可以被程序的其它部分引用；是一个运行时的概念。 语法块是由花括弧所包含的一系列语句，如函数体或循环体花括弧对应的语法块一样。语法块内部声">
 <meta property="og:type" content="article">
-<meta property="og:title" content="1.1. Hello, World">
-<meta property="og:url" content="https://succeedwer.github.io/posts/02fc6779c7cd/index.html">
+<meta property="og:title" content="2.7. 作用域">
+<meta property="og:url" content="https://succeedwer.github.io/posts/5b89ef7a41d0/index.html">
 <meta property="og:site_name" content="Bug Terminator">
-<meta property="og:description" content="传统案例“hello world” 12345678package mainimport &quot;fmt&quot;func main() &#123;	fmt.Println(&quot;hello, world&quot;)&#125; 运行指令 1$ go run helloworld.go 毫无疑问，这个命令会输出： 1hello, world Go语言原生支持Unicode, 可以处">
+<meta property="og:description" content="声明语句将程序中的实体和名字关联，如函数，变量。声明语句的作用域是指源代码中可以有效使用这个名字的范围。 不能将作用域与生命周期混为一谈。声明语句的作用域对应的是源代码的文本区域；是一个编译时的属性。变量的生命周期是指程序运行的是变量存在的有效时间段，在此时间段内可以被程序的其它部分引用；是一个运行时的概念。 语法块是由花括弧所包含的一系列语句，如函数体或循环体花括弧对应的语法块一样。语法块内部声">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-03-10T04:52:19.000Z">
+<meta property="article:published_time" content="2023-03-12T10:52:19.000Z">
 <meta property="article:modified_time" content="2024-03-18T05:20:20.000Z">
 <meta property="article:author" content="WER">
 <meta property="article:tag" content="读书笔记">
@@ -37,7 +37,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>1.1. Hello, World - Bug Terminator</title>
+  <title>2.7. 作用域 - Bug Terminator</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -203,7 +203,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="1.1. Hello, World"></span>
+            <span id="subtitle" data-typed-text="2.7. 作用域"></span>
           
         </div>
 
@@ -214,8 +214,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-03-10 12:52" pubdate>
-          2023年3月10日 下午
+        <time datetime="2023-03-12 18:52" pubdate>
+          2023年3月12日 晚上
         </time>
       </span>
     
@@ -226,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          126 字
+          1.4k 字
         
       </span>
     
@@ -237,7 +237,7 @@
         
         
         
-          2 分钟
+          12 分钟
         
       </span>
     
@@ -274,23 +274,39 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">1.1. Hello, World</h1>
+            <h1 id="seo-header">2.7. 作用域</h1>
             
             
               <div class="markdown-body">
                 
-                <p>传统案例“hello world”</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;hello, world&quot;</span>)<br>&#125;<br><br></code></pre></td></tr></table></figure>
-<p>运行指令</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go run helloworld.go</span><br></code></pre></td></tr></table></figure>
-<p>毫无疑问，这个命令会输出：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">hello, world<br></code></pre></td></tr></table></figure>
-<p>Go语言原生支持Unicode, 可以处理全世界任何语言的文本。<br>如果不只是一次性实验，可以进行编译重新，并保留编译结果以备将来之用。<br>编译命令</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go build helloworld.go</span><br></code></pre></td></tr></table></figure>
-<p>编译命令生成一个名为helloworld的可执行的二进制文件。<br>运行可执行文件：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">./helloworld</span><br>hello,world<br></code></pre></td></tr></table></figure>
+                <p>声明语句将程序中的实体和名字关联，如函数，变量。<br>声明语句的作用域是指源代码中可以有效使用这个名字的范围。</p>
+<p>不能将作用域与生命周期混为一谈。<br>声明语句的作用域对应的是源代码的文本区域；是一个编译时的属性。<br>变量的生命周期是指程序运行的是变量存在的有效时间段，在此时间段内可以被程序的其它部分引用；是一个运行时的概念。</p>
+<p><strong>语法块</strong>是由花括弧所包含的一系列语句，如函数体或循环体花括弧对应的语法块一样。<br>语法块内部声明的名字是无法被外部语法块访问的。<br>语法块决定了内部声明的名字的作用域范围。</p>
+<ul>
+<li>包含其它类似组批量声明等没有用花括弧包含的代码，称为语法块；</li>
+<li>语法块为整个源代码时，称为全局语法块；</li>
+<li>每个包的包语法块；</li>
+<li>每个for、if和switch语句的语法块；</li>
+<li>每个switch或select的分支也有独立的语法块；</li>
+<li>显式书写的语法块（花括弧包含的语句）；</li>
+</ul>
+<p>声明语句对应的词法域决定了作用域范围的大小。<br>对应内置的类型、函数和常量，如int、len和true等是在全局作用域的，因此可以在整个程序中直接使用。<br>任何在函数外部（包级语法域）声明的名字可以在同一个包的任何源文件中访问的。<br>对于导入的包，如<code>fmt</code>包，则是对应源文件级的作用域，因此只能在当前文件中文件中访问导入的包，当前包的其它源文件无法访问在当前源文件中导入的包。<br>还有许多声明语句，如<code>tempconv.CToF</code>函数中的变量c，则是局部作用域的，它只能在函数内部（甚至只能局部的某些部分）访问。</p>
+<p>控制流符号，就是<code>break</code>、<code>continue</code>或<code>goto</code>语句后面跟着的那种标号，则是函数级的作用域。</p>
+<p>一个程序中可能包含多个同名的声明，但只需要它们在不同的词法域中。<br>如，局部变量和包级的变量同名；或函数参数名字声明为new，虽然内置的new是全局作用域的。<br>如果滥用不同词法域可重名的特性，可能导致程序的可读性变差。</p>
+<p>当编译器编译到一个名字引用时，如果是一个声明，它首先从最内层的词法域向全局作用域查找。<br>如果查找失败，则报错<code>未声明的名字</code>这样的错误。<br>如果该名字在内部和外部的语法块分别声明过，则内部块的声明首先会被找到。<br>这种情况下，内部声明屏蔽了外部同名的声明，让外部的声明的名字无法被访问。<br>如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f</span><span class="hljs-params">()</span></span> &#123;&#125;<br><br><span class="hljs-keyword">var</span> g = <span class="hljs-string">&quot;g&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    f := <span class="hljs-string">&quot;f&quot;</span><br>    fmt.Println(f) <span class="hljs-comment">// &quot;f&quot;; local var f shadows package-level func f</span><br>    fmt.Println(g) <span class="hljs-comment">// &quot;g&quot;; package-level var</span><br>    fmt.Println(h) <span class="hljs-comment">// compile error: undefined: h</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
+<p>在函数中词法域可以深度嵌套，因此内部的声明可以屏蔽外部的声明。<br>下面的代码有三个不同的变量x，因为它们是定义在不同的词法域：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    x := <span class="hljs-string">&quot;hello!&quot;</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(x); i++ &#123;<br>        x := x[i]<br>        <span class="hljs-keyword">if</span> x != <span class="hljs-string">&#x27;!&#x27;</span> &#123;<br>            x := x + <span class="hljs-string">&#x27;A&#x27;</span> - <span class="hljs-string">&#x27;a&#x27;</span><br>            fmt.Printf(<span class="hljs-string">&quot;%c&quot;</span>, x) <span class="hljs-comment">// &quot;HELLO&quot; (one letter per iteration)</span><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
+<p>上面for语句副本创建了两个词法域：一个显式部分是for的循环体部分词法域，另一个隐式部分是循环的初始化部分（迭代变量i的初始化）。隐式的词法域部分的作用域还包含了条件测试部分和循环后的迭代部分（i++），还包含了循环体词法域。<br>在x[i]和x + ‘A’ - ‘a’声明语句的初始化的表达式中都引用了外部作用域声明的x变量。</p>
+<p>下面的例子同样有三个不同的x变量，每个声明在不同的词法域，一个在函数体词法域，一个在for隐式的初始化词法域，一个在for循环体词法域；只有两个块是显式创建的：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    x := <span class="hljs-string">&quot;hello&quot;</span><br>    <span class="hljs-keyword">for</span> _, x := <span class="hljs-keyword">range</span> x &#123;<br>        x := x + <span class="hljs-string">&#x27;A&#x27;</span> - <span class="hljs-string">&#x27;a&#x27;</span><br>        fmt.Printf(<span class="hljs-string">&quot;%c&quot;</span>, x) <span class="hljs-comment">// &quot;HELLO&quot; (one letter per iteration)</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>和for循环类似，if和switch语句也会在条件部分创建隐式词法域，还有它们对应的执行体词法域。下面的if-else测试链演示了x和y的有效作用域范围：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">if</span> x := f(); x == <span class="hljs-number">0</span> &#123;<br>    fmt.Println(x)<br>&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> y := g(x); x == y &#123;<br>    fmt.Println(x, y)<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>    fmt.Println(x, y)<br>&#125;<br>fmt.Println(x, y) <span class="hljs-comment">// compile error: x and y are not visible here</span><br></code></pre></td></tr></table></figure>
+<p>第二个if语句被嵌套在第一个if语句的内部，因此在第一个if语句条件初始化词法域声明的变量在第二个if语句中也可以访问。<br>switch语句的每个分支也有类似的词法域规则：条件部分为一个隐式词法域，然后每个是每个分支的词法域。</p>
+<p>在包级别，声明的顺序并不影响作用域范围，因此先声明的可以引用它自身或者引用后面的声明，这样就可以定义一些相互嵌套或递归的类型或函数。<br>如果变量或常量递归引用了自身，则会产生编译错误。</p>
 
                 
               </div>
@@ -345,8 +361,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>1.1. Hello, World</div>
-      <div>https://succeedwer.github.io/posts/02fc6779c7cd/</div>
+      <div>2.7. 作用域</div>
+      <div>https://succeedwer.github.io/posts/5b89ef7a41d0/</div>
     </div>
     <div class="license-meta">
       
@@ -358,7 +374,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年3月10日</div>
+          <div>2023年3月12日</div>
         </div>
       
       
@@ -395,18 +411,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/b7c6dc0a75aa/" title="1.2. 命令行参数">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">1.2. 命令行参数</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/b721eb61c1a0/" title="第一章 入门">
-                        <span class="hidden-mobile">第一章 入门</span>
+                      <a href="/posts/4bd2d633ee16/" title="2.6. 包和文件">
+                        <span class="hidden-mobile">2.6. 包和文件</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

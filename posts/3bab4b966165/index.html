@@ -19,14 +19,14 @@
   <meta name="author" content="WER">
   <meta name="keywords" content="">
   
-    <meta name="description" content="传统案例“hello world” 12345678package mainimport &quot;fmt&quot;func main() &#123;	fmt.Println(&quot;hello, world&quot;)&#125; 运行指令 1$ go run helloworld.go 毫无疑问，这个命令会输出： 1hello, world Go语言原生支持Unicode, 可以处">
+    <meta name="description" content="使用赋值语句可以更新一个变量的值。 1234x &#x3D; 1						&#x2F;&#x2F; 命名变量的赋值*p &#x3D; true					&#x2F;&#x2F; 通过指针间接赋值person.name &#x3D; &quot;bob&quot;			&#x2F;&#x2F; 结构体字段赋值count[x] &#x3D; count[x] * scale &#x2F;&#x2F; 数组、slice或map的元素赋值 二元算术运算符和赋值语句的复合操作可以进行简化： 1count[x] *&#x3D; sca">
 <meta property="og:type" content="article">
-<meta property="og:title" content="1.1. Hello, World">
-<meta property="og:url" content="https://succeedwer.github.io/posts/02fc6779c7cd/index.html">
+<meta property="og:title" content="2.4. 赋值">
+<meta property="og:url" content="https://succeedwer.github.io/posts/3bab4b966165/index.html">
 <meta property="og:site_name" content="Bug Terminator">
-<meta property="og:description" content="传统案例“hello world” 12345678package mainimport &quot;fmt&quot;func main() &#123;	fmt.Println(&quot;hello, world&quot;)&#125; 运行指令 1$ go run helloworld.go 毫无疑问，这个命令会输出： 1hello, world Go语言原生支持Unicode, 可以处">
+<meta property="og:description" content="使用赋值语句可以更新一个变量的值。 1234x &#x3D; 1						&#x2F;&#x2F; 命名变量的赋值*p &#x3D; true					&#x2F;&#x2F; 通过指针间接赋值person.name &#x3D; &quot;bob&quot;			&#x2F;&#x2F; 结构体字段赋值count[x] &#x3D; count[x] * scale &#x2F;&#x2F; 数组、slice或map的元素赋值 二元算术运算符和赋值语句的复合操作可以进行简化： 1count[x] *&#x3D; sca">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-03-10T04:52:19.000Z">
+<meta property="article:published_time" content="2023-03-12T07:52:19.000Z">
 <meta property="article:modified_time" content="2024-03-18T05:20:20.000Z">
 <meta property="article:author" content="WER">
 <meta property="article:tag" content="读书笔记">
@@ -37,7 +37,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>1.1. Hello, World - Bug Terminator</title>
+  <title>2.4. 赋值 - Bug Terminator</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -203,7 +203,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="1.1. Hello, World"></span>
+            <span id="subtitle" data-typed-text="2.4. 赋值"></span>
           
         </div>
 
@@ -214,8 +214,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-03-10 12:52" pubdate>
-          2023年3月10日 下午
+        <time datetime="2023-03-12 15:52" pubdate>
+          2023年3月12日 下午
         </time>
       </span>
     
@@ -226,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          126 字
+          1.1k 字
         
       </span>
     
@@ -237,7 +237,7 @@
         
         
         
-          2 分钟
+          10 分钟
         
       </span>
     
@@ -274,23 +274,47 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">1.1. Hello, World</h1>
+            <h1 id="seo-header">2.4. 赋值</h1>
             
             
               <div class="markdown-body">
                 
-                <p>传统案例“hello world”</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;hello, world&quot;</span>)<br>&#125;<br><br></code></pre></td></tr></table></figure>
-<p>运行指令</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go run helloworld.go</span><br></code></pre></td></tr></table></figure>
-<p>毫无疑问，这个命令会输出：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">hello, world<br></code></pre></td></tr></table></figure>
-<p>Go语言原生支持Unicode, 可以处理全世界任何语言的文本。<br>如果不只是一次性实验，可以进行编译重新，并保留编译结果以备将来之用。<br>编译命令</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go build helloworld.go</span><br></code></pre></td></tr></table></figure>
-<p>编译命令生成一个名为helloworld的可执行的二进制文件。<br>运行可执行文件：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">./helloworld</span><br>hello,world<br></code></pre></td></tr></table></figure>
+                <p>使用赋值语句可以更新一个变量的值。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go">x = <span class="hljs-number">1</span>						<span class="hljs-comment">// 命名变量的赋值</span><br>*p = <span class="hljs-literal">true</span>					<span class="hljs-comment">// 通过指针间接赋值</span><br>person.name = <span class="hljs-string">&quot;bob&quot;</span>			<span class="hljs-comment">// 结构体字段赋值</span><br>count[x] = count[x] * scale <span class="hljs-comment">// 数组、slice或map的元素赋值</span><br></code></pre></td></tr></table></figure>
+<p>二元算术运算符和赋值语句的复合操作可以进行简化：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">count[x] *= scale<br></code></pre></td></tr></table></figure>
+<p>数值变量也可以支持<code>++</code>递增和<code>--</code>递减语句（自增和自减是语句，而不是表达式，因此<code>x = i++</code>之类的表达式是错误的）：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go">v := <span class="hljs-number">1</span><br>v++		<span class="hljs-comment">// 等价 v = v + 1； v变成2</span><br>v--		<span class="hljs-comment">// 等价 v = v - 1； v变成1</span><br></code></pre></td></tr></table></figure>
+<h1 id="2-4-1-元组赋值"><a href="#2-4-1-元组赋值" class="headerlink" title="2.4.1. 元组赋值"></a>2.4.1. 元组赋值</h1><p>元组赋值允许同时更新多个变量的值。<br>赋值之前，赋值语句右边的所有表达式将会先进行求值，然后再统一更新左边对应变量的值。<br>下面是对变量的值进行交换：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go">x, y = y, x<br>a[i], a[j] = a[j], a[i]<br></code></pre></td></tr></table></figure>
+<p>下面是计算两个整数值的最大公约数(<code>GCD</code>, greatest common divisor)，欧几里得的GCD是最早的非平凡算法:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">gcd</span><span class="hljs-params">(x, y <span class="hljs-type">int</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">for</span> y != <span class="hljs-number">0</span> &#123;<br>		x, y = y, x%y<br>	&#125;<br>	<span class="hljs-keyword">return</span> x<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>计算斐波那契数列（Fibonacci）的第N个数：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">fib</span><span class="hljs-params">(n <span class="hljs-type">int</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>	x, y := <span class="hljs-number">0</span>, <span class="hljs-number">1</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; i++ &#123;<br>		x, y = y, x+y<br>	&#125;<br>	<span class="hljs-keyword">return</span> x<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>元组赋值可以简化一系列琐碎赋值：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">i, j, k = <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span><br></code></pre></td></tr></table></figure>
+<p>但如果表达式太复杂，尽量避免过度使用元组赋值；单独对每个变量赋值的会提高代码的可读性。</p>
+<p>表达式产生多个值时，左边变量数目必须和右边一致：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">f, err = os.Open(<span class="hljs-string">&quot;foo.txt&quot;</span>) <span class="hljs-comment">// function call returns two values</span><br></code></pre></td></tr></table></figure>
+<p>通常，这类函数会用额外的返回值来表达某种错误类型。如<code>os.Open</code>。<br>还有一些是用来返回布尔值，通常被称为ok，如<code>map查找</code>、<code>类型断言</code>和<code>通道接收</code>，都可能产生了两个结果，有一个额外的布尔结果表示操作是否成功。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go">v, ok = m[key]			<span class="hljs-comment">// map lookup  		map查找</span><br>v, ok = x.(T)			<span class="hljs-comment">// type assertion	类型断言</span><br>v, ok = &lt;-ch        	<span class="hljs-comment">// channel receive	通道接收</span><br></code></pre></td></tr></table></figure>
+<p>值得一提的是，<code>map查找</code>、<code>类型断言</code>和<code>通道接收</code>并不一定参数两个结果，也可能只产生一个结果。<br>如：</p>
+<ul>
+<li>map查找失败时会返回零值。</li>
+<li>类型断言失败时会发送运行时painc异常。</li>
+<li>通道接收失败时会返回零值（阻塞不算是失败）。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go">v = m[key] 				<span class="hljs-comment">// map查找,失败时会返回零值</span><br>v = x.(T)               <span class="hljs-comment">// type断言，失败时panic异常</span><br>v = &lt;-ch				<span class="hljs-comment">// 管道接收，失败时返回零值（阻塞不算是失败）</span><br><br>_, ok = m[key]			<span class="hljs-comment">// map返回2个值</span><br>_, ok = mm[<span class="hljs-string">&quot;&quot;</span>], <span class="hljs-literal">false</span>	<span class="hljs-comment">// map返回1个值</span><br>_ = mm[<span class="hljs-string">&quot;&quot;</span>]				<span class="hljs-comment">// map返回1个值</span><br></code></pre></td></tr></table></figure>
 
-
+<p>和变量声明一样，可以用下划线空白标识符_来丢弃不需要的值。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go">_, err = io.Copy(dst, src) <span class="hljs-comment">// 丢弃字节数</span><br>_, ok = x.(T)              <span class="hljs-comment">// 只检测类型，忽略具体值</span><br></code></pre></td></tr></table></figure>
+<h1 id="2-4-2-可赋值性"><a href="#2-4-2-可赋值性" class="headerlink" title="2.4.2. 可赋值性"></a>2.4.2. 可赋值性</h1><p>赋值语句是显式的赋值形式，但是程序中还有很多地方会发生隐式的赋值行为：函数调用会隐式地将调用参数的值赋值给函数的参数变量，一个返回语句将隐式地将返回操作的值赋值给结果变量，一个复合类型的字面量也会产生赋值行为。例如下面的语句：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">medals := []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;gold&quot;</span>, <span class="hljs-string">&quot;silver&quot;</span>, <span class="hljs-string">&quot;bronze&quot;</span>&#125;<br></code></pre></td></tr></table></figure>
+<p>隐式地对<code>slice</code>的每个元素进行赋值操作，类型这样写：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go">medals[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;gold&quot;</span> <br>medals[<span class="hljs-number">1</span>] = <span class="hljs-string">&quot;silver&quot;</span> <br>medals[<span class="hljs-number">2</span>] = <span class="hljs-string">&quot;bronze”</span><br></code></pre></td></tr></table></figure>
+<p><code>map</code>和<code>chan</code>的元素，也有类似的隐式赋值行为。<br>无论是隐式还是显式地赋值，在赋值语句左边的变量和右边最终的求到的值必须有相同的数据类型。即，只有右边的值对于左边的变量是可赋值的，赋值语句才是允许的。</p>
+<p>可赋值性的规则对于不同类型有着不同要求。<br>最简单地规则：类型必须完全匹配，nil可以赋值给任何指针或引用类型的变量。<br>常量的可赋值性可见3.6。</p>
+<p>对于两个值是否可以用<code>==</code>或<code>!=</code>进行相等比较的能力也和可赋值能力有关系：<br>对应任何类型的值的相等比较，第二个值必须是对第一个值类型对应的变量是可赋值的，反之依然。当然，每个类型都会有比较特殊的地方。</p>
 
                 
               </div>
@@ -345,8 +369,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>1.1. Hello, World</div>
-      <div>https://succeedwer.github.io/posts/02fc6779c7cd/</div>
+      <div>2.4. 赋值</div>
+      <div>https://succeedwer.github.io/posts/3bab4b966165/</div>
     </div>
     <div class="license-meta">
       
@@ -358,7 +382,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年3月10日</div>
+          <div>2023年3月12日</div>
         </div>
       
       
@@ -395,9 +419,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/b7c6dc0a75aa/" title="1.2. 命令行参数">
+                      <a href="/posts/7095472d910d/" title="2.3.变量">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">1.2. 命令行参数</span>
+                        <span class="hidden-mobile">2.3.变量</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -405,8 +429,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/b721eb61c1a0/" title="第一章 入门">
-                        <span class="hidden-mobile">第一章 入门</span>
+                      <a href="/posts/2628b27da087/" title="2.2. 声明">
+                        <span class="hidden-mobile">2.2. 声明</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

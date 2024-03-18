@@ -19,14 +19,14 @@
   <meta name="author" content="WER">
   <meta name="keywords" content="">
   
-    <meta name="description" content="传统案例“hello world” 12345678package mainimport &quot;fmt&quot;func main() &#123;	fmt.Println(&quot;hello, world&quot;)&#125; 运行指令 1$ go run helloworld.go 毫无疑问，这个命令会输出： 1hello, world Go语言原生支持Unicode, 可以处">
+    <meta name="description" content="变量或表达式的类型定义了对应存储值的属性特征，如：  值在内存的存储大小（或者是元素的bit个数）。 它们在内部是如何表达的。 是否支持一些操作符。 它们自己关联的方法集。  类型声明语句创建了一个新的类型名称，和现有类型具有相同的底层结构。新命名的类型提供了一个方法，用来分隔不同概念的类型，这样即使它们底层类型相同也是不兼容的。 1type 类型名称 底层类型 类型声明语句一般出现在包一级，且新">
 <meta property="og:type" content="article">
-<meta property="og:title" content="1.1. Hello, World">
-<meta property="og:url" content="https://succeedwer.github.io/posts/02fc6779c7cd/index.html">
+<meta property="og:title" content="2.5. 类型">
+<meta property="og:url" content="https://succeedwer.github.io/posts/9f13bfd0f9d8/index.html">
 <meta property="og:site_name" content="Bug Terminator">
-<meta property="og:description" content="传统案例“hello world” 12345678package mainimport &quot;fmt&quot;func main() &#123;	fmt.Println(&quot;hello, world&quot;)&#125; 运行指令 1$ go run helloworld.go 毫无疑问，这个命令会输出： 1hello, world Go语言原生支持Unicode, 可以处">
+<meta property="og:description" content="变量或表达式的类型定义了对应存储值的属性特征，如：  值在内存的存储大小（或者是元素的bit个数）。 它们在内部是如何表达的。 是否支持一些操作符。 它们自己关联的方法集。  类型声明语句创建了一个新的类型名称，和现有类型具有相同的底层结构。新命名的类型提供了一个方法，用来分隔不同概念的类型，这样即使它们底层类型相同也是不兼容的。 1type 类型名称 底层类型 类型声明语句一般出现在包一级，且新">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-03-10T04:52:19.000Z">
+<meta property="article:published_time" content="2023-03-12T08:52:19.000Z">
 <meta property="article:modified_time" content="2024-03-18T05:20:20.000Z">
 <meta property="article:author" content="WER">
 <meta property="article:tag" content="读书笔记">
@@ -37,7 +37,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>1.1. Hello, World - Bug Terminator</title>
+  <title>2.5. 类型 - Bug Terminator</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -203,7 +203,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="1.1. Hello, World"></span>
+            <span id="subtitle" data-typed-text="2.5. 类型"></span>
           
         </div>
 
@@ -214,8 +214,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-03-10 12:52" pubdate>
-          2023年3月10日 下午
+        <time datetime="2023-03-12 16:52" pubdate>
+          2023年3月12日 下午
         </time>
       </span>
     
@@ -226,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          126 字
+          941 字
         
       </span>
     
@@ -237,7 +237,7 @@
         
         
         
-          2 分钟
+          8 分钟
         
       </span>
     
@@ -274,24 +274,35 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">1.1. Hello, World</h1>
+            <h1 id="seo-header">2.5. 类型</h1>
             
             
               <div class="markdown-body">
                 
-                <p>传统案例“hello world”</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;hello, world&quot;</span>)<br>&#125;<br><br></code></pre></td></tr></table></figure>
-<p>运行指令</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go run helloworld.go</span><br></code></pre></td></tr></table></figure>
-<p>毫无疑问，这个命令会输出：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">hello, world<br></code></pre></td></tr></table></figure>
-<p>Go语言原生支持Unicode, 可以处理全世界任何语言的文本。<br>如果不只是一次性实验，可以进行编译重新，并保留编译结果以备将来之用。<br>编译命令</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go build helloworld.go</span><br></code></pre></td></tr></table></figure>
-<p>编译命令生成一个名为helloworld的可执行的二进制文件。<br>运行可执行文件：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">./helloworld</span><br>hello,world<br></code></pre></td></tr></table></figure>
+                <p>变量或表达式的类型定义了对应存储值的属性特征，如：</p>
+<ul>
+<li>值在内存的存储大小（或者是元素的bit个数）。</li>
+<li>它们在内部是如何表达的。</li>
+<li>是否支持一些操作符。</li>
+<li>它们自己关联的方法集。</li>
+</ul>
+<p>类型声明语句创建了一个新的类型名称，和现有类型具有相同的底层结构。<br>新命名的类型提供了一个方法，用来分隔不同概念的类型，这样即使它们底层类型相同也是不兼容的。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> 类型名称 底层类型<br></code></pre></td></tr></table></figure>
+<p>类型声明语句一般出现在包一级，且新的类型名称首字母大写，则在外部包也可以使用。<br>注：对于中文汉字，Unicode标志都作为小写字母处理，因此不能将其命名导出。<br>为了说明类型声明，将不同温度单位分别定义为不同的类型：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Package tempconv performs Celsius and Fahrenheit temperature computations.</span><br><span class="hljs-keyword">package</span> tempconv<br><br><span class="hljs-keyword">type</span> Celsius <span class="hljs-type">float64</span>    <span class="hljs-comment">// 摄氏温度</span><br><span class="hljs-keyword">type</span> Fahrenheit <span class="hljs-type">float64</span> <span class="hljs-comment">// 华氏温度</span><br><br><span class="hljs-keyword">const</span> (<br>	AbsoluteZeroC Celsius = <span class="hljs-number">-273.15</span> <span class="hljs-comment">// 绝对零度</span><br>	FreezingC     Celsius = <span class="hljs-number">0</span>       <span class="hljs-comment">// 结冰温度</span><br>	BoilingC      Celsius = <span class="hljs-number">100</span>     <span class="hljs-comment">// 沸水温度</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">CToF</span><span class="hljs-params">(c Celsius)</span></span> Fahrenheit &#123;<br>	<span class="hljs-keyword">return</span> Fahrenheit(c*<span class="hljs-number">9</span>/<span class="hljs-number">5</span> + <span class="hljs-number">32</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">FToC</span><span class="hljs-params">(f Fahrenheit)</span></span> Celsius &#123;<br>	<span class="hljs-keyword">return</span> Celsius((f - <span class="hljs-number">32</span>) * <span class="hljs-number">5</span> / <span class="hljs-number">9</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>Celsius(t)</code>和<code>Fahrenheit(t)</code>是类型转换操作，并非函数调用。<br>对于每一个类型T，都有一个对应的类型转换操作T(x)，将x转为T类型。<br>如果T是指针类型，可能需要用小括弧包装T，如<code>(*int)(0)</code>。<br><code>只有当两个类型的底层基础类型相同时，才允许类型转换, 或者两者都是指向相同底层结构的指针类型。</code><br>如果x是可以赋值给T类型的值，那么x必然也可以被转为T类型。</p>
+<p>数值类型之间的类型转换也是允许的，并且字符串和一些特定类型的slice之间也是可以转换，但有可能改变值。<br>如：浮点数转换为整数将丢弃小数部分；字符串转为<code>[]byte</code>类型的slice将拷贝一个人字符串数据的副本。</p>
+<p>底层数据类型决定了内部结构和表达方式，也决定是否可以像底层类型一样对内置运算符的支持。这意味着，Celsius和Fahrenheit类型的算术运算行为和底层的float64类型一样。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go">fmt.Printf(<span class="hljs-string">&quot;%g\n&quot;</span>, BoilingC - FreezingC) <span class="hljs-comment">// 100°C</span><br>boilingF := CToF(BoilingC)<br>fmt.Printf(<span class="hljs-string">&quot;%g\n&quot;</span>, boilingF-CToF(FreezingC)) <span class="hljs-comment">// 180°F</span><br>fmt.Printf(<span class="hljs-string">&quot;%g\n&quot;</span>, boilingF-FreezingC) <span class="hljs-comment">//  Invalid operation: boilingF-FreezingC (mismatched types Fahrenheit and Celsius)</span><br></code></pre></td></tr></table></figure>
 
-
-
+<p>比较运算符<code>==</code>和<code>&lt;</code>也可以用来比较一个命名类型的变量和另一个有相同类型的变量，或有着相同底层类型的未命名类型的值之间做比较。但如果两个值有着不同的类型，则不能直接进行比较：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> c Celsius<br><span class="hljs-keyword">var</span> f Fahrenheit<br>fmt.Println(c == <span class="hljs-number">0</span>)          <span class="hljs-comment">// &quot;true&quot;</span><br>fmt.Println(f &gt;= <span class="hljs-number">0</span>)          <span class="hljs-comment">// &quot;true&quot;</span><br>fmt.Println(c == f)          <span class="hljs-comment">// compile error: type mismatch</span><br>fmt.Println(c == Celsius(f)) <span class="hljs-comment">// &quot;true&quot;!</span><br></code></pre></td></tr></table></figure>
+<p><code>Celsius(f)</code>是类型转换操作，并不会改变值，仅改变了值的类型。</p>
+<p>命名类型更方便书写，避免重复书写复杂类型，如匿名结构体定义变量。</p>
+<p>命名类型还可以为该类型的值定义新的行为。这些行为表示为一组关联到该类型的函数集合，即类型的方法集。<br>如：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c Celsius)</span></span> String() <span class="hljs-type">string</span> &#123; <br> 	<span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;%g°C&quot;</span>, c) <br>&#125;<br></code></pre></td></tr></table></figure>
+<p>一般情况下，类型都会定义一个<code>String</code>方法，当使用<code>fmt</code>包的打印方法时，将优先使用该类型对应的<code>String</code>方法返回的结果打印。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go">c := FToC(<span class="hljs-number">212.0</span>)<br>fmt.Println(c.String()) <span class="hljs-comment">// &quot;100°C&quot;</span><br>fmt.Printf(<span class="hljs-string">&quot;%v\n&quot;</span>, c)   <span class="hljs-comment">// &quot;100°C&quot;; no need to call String explicitly</span><br>fmt.Printf(<span class="hljs-string">&quot;%s\n&quot;</span>, c)   <span class="hljs-comment">// &quot;100°C&quot;</span><br>fmt.Println(c)          <span class="hljs-comment">// &quot;100°C&quot;</span><br>fmt.Printf(<span class="hljs-string">&quot;%g\n&quot;</span>, c)   <span class="hljs-comment">// &quot;100&quot;; does not call String</span><br>fmt.Println(<span class="hljs-type">float64</span>(c)) <span class="hljs-comment">// &quot;100&quot;; does not call String</span><br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -345,8 +356,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>1.1. Hello, World</div>
-      <div>https://succeedwer.github.io/posts/02fc6779c7cd/</div>
+      <div>2.5. 类型</div>
+      <div>https://succeedwer.github.io/posts/9f13bfd0f9d8/</div>
     </div>
     <div class="license-meta">
       
@@ -358,7 +369,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年3月10日</div>
+          <div>2023年3月12日</div>
         </div>
       
       
@@ -395,9 +406,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/b7c6dc0a75aa/" title="1.2. 命令行参数">
+                      <a href="/posts/4bd2d633ee16/" title="2.6. 包和文件">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">1.2. 命令行参数</span>
+                        <span class="hidden-mobile">2.6. 包和文件</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -405,8 +416,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/b721eb61c1a0/" title="第一章 入门">
-                        <span class="hidden-mobile">第一章 入门</span>
+                      <a href="/posts/7095472d910d/" title="2.3.变量">
+                        <span class="hidden-mobile">2.3.变量</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

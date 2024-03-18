@@ -1,0 +1,751 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="var声明语句可以创建一个特定类型的变量，然后给变量附加一个名字，并且设置变量的初始值。变量声明的一般语法如下： 1var 变量名称 类型 &#x3D; 表达式 类型或”&#x3D;表达式”两个部分可以省略其中的一个。如果省略的是类型，那么将根据初始化表达式来推导变量的类型。如果初始化表达式被省略，那么将用零值初始化该变量。数值类型变量对应的零值是0，布尔类型变量对应的零值是false，字符串类型对应的零值">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2.3.变量">
+<meta property="og:url" content="https://succeedwer.github.io/posts/7095472d910d/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:description" content="var声明语句可以创建一个特定类型的变量，然后给变量附加一个名字，并且设置变量的初始值。变量声明的一般语法如下： 1var 变量名称 类型 &#x3D; 表达式 类型或”&#x3D;表达式”两个部分可以省略其中的一个。如果省略的是类型，那么将根据初始化表达式来推导变量的类型。如果初始化表达式被省略，那么将用零值初始化该变量。数值类型变量对应的零值是0，布尔类型变量对应的零值是false，字符串类型对应的零值">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-12T07:52:19.000Z">
+<meta property="article:modified_time" content="2024-03-18T05:20:20.000Z">
+<meta property="article:author" content="WER">
+<meta property="article:tag" content="读书笔记">
+<meta property="article:tag" content="go">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>2.3.变量 - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="2.3.变量"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-12 15:52" pubdate>
+          2023年3月12日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          27 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">2.3.变量</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p><code>var</code>声明语句可以创建一个特定类型的变量，然后给变量附加一个名字，并且设置变量的初始值。<br>变量声明的一般语法如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> 变量名称 类型 = 表达式<br></code></pre></td></tr></table></figure>
+<p>类型或”&#x3D;表达式”两个部分可以省略其中的一个。<br>如果省略的是类型，那么将根据初始化表达式来推导变量的类型。<br>如果初始化表达式被省略，那么将用零值初始化该变量。<br>数值类型变量对应的零值是<code>0</code>，布尔类型变量对应的零值是<code>false</code>，字符串类型对应的零值是<code>空字符串</code>，接口或引用类型（包含slice、map、chan和函数）变量对应的零值是<code>nil</code>。数组或结构体等聚合类型对应的零值是每一个元素或字段都是对应该类型的零值。</p>
+<p>零值初始化机制可以确保每一个声明的变量总是有一个良好定义的值，因此在Go语言中不存在未初始化的变量。该特性可以简化代码，确保边界条件下的合理行为。<br>如：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> s <span class="hljs-type">string</span><br>fmt.Println(s) <span class="hljs-comment">//&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+<p>该代码将打印一个空字符串，而非导致错误或产生不可以预知的行为。<br>所以也应该使一些聚合类型的零值有一定意义，可以确保不管任何类型的变量总是有一个合理有效的零值状态。</p>
+<p>简化变量的类型，如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> i, j, k <span class="hljs-type">int</span>		<span class="hljs-comment">//int, int, int</span><br><span class="hljs-keyword">var</span> b, f, s = <span class="hljs-literal">true</span>, <span class="hljs-number">2.3</span>, <span class="hljs-string">&quot;four&quot;</span> <span class="hljs-comment">// bool, float64, string</span><br></code></pre></td></tr></table></figure>
+<p> 一组变量也可以通过调用一个函数，由函数返回的多个返回值初始化：<br> <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> f, err = os.Open(name) <span class="hljs-comment">// os.Open returns a file and an error</span><br></code></pre></td></tr></table></figure></p>
+<h1 id="2-3-1-简短变量声明"><a href="#2-3-1-简短变量声明" class="headerlink" title="2.3.1. 简短变量声明"></a>2.3.1. 简短变量声明</h1><p>简短变量声明语法：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">名字:=表达式<br></code></pre></td></tr></table></figure>
+<p>变量的类型根据表达式来自动推导。<br>下面有几个例子：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go">i := <span class="hljs-number">100</span> <span class="hljs-comment">// an int</span><br><span class="hljs-keyword">var</span> boiling <span class="hljs-type">float64</span> = <span class="hljs-number">100</span> <span class="hljs-comment">// a float64</span><br><span class="hljs-keyword">var</span> names []<span class="hljs-type">string</span><br><span class="hljs-keyword">var</span> err <span class="hljs-type">error</span><br><span class="hljs-keyword">var</span> p Point<br></code></pre></td></tr></table></figure>
+<p>和var形式声明语句一样，简短变量声明语句也可以用来声明和初始化一组变量：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">i, j := <span class="hljs-number">0</span>, <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+<p><code>:=</code>是一个变量声明语句。<br><code>=</code>是一个变量赋值操作。</p>
+<p>简短变量声明语句中必须至少要声明一个新的变量。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go">f,err := os.Open(infile) <span class="hljs-comment">// 简短声明语句</span><br>f, err = os.Create(outfile) <span class="hljs-comment">// 赋值语句</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="2-3-2-指针"><a href="#2-3-2-指针" class="headerlink" title="2.3.2. 指针"></a>2.3.2. 指针</h1><p>一个变量对应一个保存了变量对应类型值的内存空间。<br>一个指针的值是另一个变量的地址。<br>一个指针对应一个变量在内存中的存储位置。<br>并不是每一个值都有一个内存地址，但是对于每一个变量必然有对应的内存地址。<br>通过指针，可以直接读或更新对应变量的值。</p>
+<p>如果用<code>var x int</code>声明语句声明一个<code>x</code>变量，那么<code>&amp;x</code>表达式（取x变量的内存地址）将产生一个指向该整数变量的指针，指针对应的数据类型是<code>*int</code>，指针被称之为<code>指向int类型的指针</code>。如果指针名字为p，那么可以说<code>p指针指向变量x</code>，或者说<code>p指针保存了x变量的内存地址</code>。同时<code>*p</code>表达式对应<code>p指针</code>指向的变量的值。一般<code>*p</code>表达式读取指针指向的变量的值，这里为<code>int</code>类型的值，同时因为<code>*p</code>对应一个变量，所以该表达式也可以出现在赋值语句的左边，表示更新指针所指向的变量的值。<br><code>&amp;</code>取址符<br><code>*</code>取值符<br><code>*int</code>指向int类型的指针</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go">x := <span class="hljs-number">1</span><br>p := &amp;x 		<span class="hljs-comment">// p, 类型*int,指向变量x</span><br>fmt.Println(*p) <span class="hljs-comment">// 1</span><br>*p = <span class="hljs-number">2</span>			<span class="hljs-comment">// 给x赋值2 等同于x=2</span><br>fmt.Println(x) 	<span class="hljs-comment">// 2</span><br></code></pre></td></tr></table></figure>
+<p>对应聚合类型的每一个成员，如结构体的每个字段，数组的每个元素，也都是对应一个变量，因此也可以被取地址。</p>
+<p>变量有时候被称为可寻址的值，即使变量由表达式临时生成，那么表达式也必须能接受<code>&amp;</code>取地址操作。</p>
+<p>任何类型的指针的零值都是<code>nil</code>。如果<code>p != nil</code>为真，那么<code>p</code>是指向某个有效变量。指针之间同一个变量或全为<code>nil</code>时才相等。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> x, y <span class="hljs-type">int</span><br>fmt.Println(&amp;x == &amp;x, &amp;x == &amp;y, &amp;x == <span class="hljs-literal">nil</span>) <span class="hljs-comment">// true false false</span><br></code></pre></td></tr></table></figure>
+
+<p>在Go语言中，返回函数中局部变量的地址也是安全的。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> p = f()<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f</span><span class="hljs-params">()</span></span> *<span class="hljs-type">int</span> &#123;<br>v := <span class="hljs-number">1</span><br><span class="hljs-keyword">return</span> &amp;v<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>每次调用f函数都返回不同的结果：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">fmt.Println(f()==f()) <span class="hljs-comment">// false</span><br></code></pre></td></tr></table></figure>
+
+<p>通过指针改变变量的值，例子如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">incr</span><span class="hljs-params">(p *<span class="hljs-type">int</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>	*p++				<span class="hljs-comment">// 只是增加p指向的变量的值，并不改变p指针！！！</span><br>	<span class="hljs-keyword">return</span> *p<br>&#125;<br>	<br>v := <span class="hljs-number">1</span><br>incr(&amp;v)				<span class="hljs-comment">// side effect: v is now 2</span><br>fmt.Println(incr(&amp;v))	<span class="hljs-comment">// 3 and v is 3</span><br></code></pre></td></tr></table></figure>
+<p>每次对变量取地址或者复制指针，都是为原变量创建了新别名。如，<code>*p</code>就是变量<code>v</code>的别名。<br>指针的特有价值是在于可以不通过名称而访问变量，但是也是一把双刃剑：<br>要找到一个变量的所有访问者并不容易，就必须知道变量全部的别名（即Go语言的垃圾回收器所做的工作）。</p>
+<p>指针式实现标准库中<code>flag</code>包的关键技术，它使用命令行参数来设置对应变量的值，而这些对应命令行标志参数的变量可能会零散分布在整个程序中。<br>在先前的<code>echo</code>版本中，就包含了两个可选的命令行参数：<code>-n</code>用于忽略行尾的换行符，<code>-s sep</code>用于指定分隔字符（默认是空格）。下面是新的例子：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Echo4 prints its command-line arguments.</span><br><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;flag&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;strings&quot;</span><br>)<br><br><span class="hljs-keyword">var</span> n = flag.Bool(<span class="hljs-string">&quot;n&quot;</span>, <span class="hljs-literal">false</span>, <span class="hljs-string">&quot;omit trailing newline&quot;</span>)<br><span class="hljs-keyword">var</span> sep = flag.String(<span class="hljs-string">&quot;s&quot;</span>, <span class="hljs-string">&quot; &quot;</span>, <span class="hljs-string">&quot;separator&quot;</span>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	flag.Parse()<br>	fmt.Print(strings.Join(flag.Args(), *sep))<br>	<span class="hljs-keyword">if</span> !*n &#123;<br>		fmt.Println()<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>flag.Bool</code>函数会创建一个新的对应布尔型标志参数的变量。它有三个参数：</p>
+<ul>
+<li>第一个是命令行标志参数的名字，<code>n</code>。</li>
+<li>第二个是第一个参数的默认值，<code>false</code>。</li>
+<li>第三个是第一个标志参数对应的描述信息，<code>omit trailing newline</code>。</li>
+</ul>
+<p>如果用户在命令行输入了一个无效的标志参数，或输入<code>-n</code>或<code>-help</code>参数，那么将打印所有标志参数的名字、默认值和描述信息。<br>当然，<code>flag.String</code>函数与<code>flag.Bool</code>函数的区别在于，命令行标志参数的值类型不同罢了。<br>程序中的<code>sep</code>和<code>n</code>变量分别是指向命令行标志参数变量的指针，因此必须使用<code>*sep</code>和<code>*n</code>形式的指针语法简接引用它们。<br>在使用标志参数对应的变量之前，要先调用<code>flag.Parse</code>函数，用于更新每个标志参数对应变量的值（之前是默认值）。<br>对于非标志参数的普通命令行参数可以通过调用<code>flag.Args()</code>函数来访问，返回值对应一个字符串类型的<code>slice</code>。<br>如果在<code>flag.Parse</code>函数解析命令行参数时遇到错误，默认将打印相关的提示信息，然后调用<code>os.Exit(2)</code>终止程序。<br>下面是<code>echo</code>的测试用例</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go build main.go</span> <br><span class="hljs-meta prompt_">$ </span><span class="language-bash">./main a bc def</span><br>a bc def<br><span class="hljs-meta prompt_">$ </span><span class="language-bash">./main -s / a bc def</span><br>a/bc/def<br><span class="hljs-meta prompt_">$ </span><span class="language-bash">./main -f</span><br>flag provided but not defined: -f<br>Usage of ./main:<br>  -n    omit trailing newline<br>  -s string<br>        separator (default &quot; &quot;)<br><span class="hljs-meta prompt_">$ </span><span class="language-bash">./main -h</span><br>Usage of ./main:<br>  -n    omit trailing newline<br>  -s string<br>        separator (default &quot; &quot;)<br></code></pre></td></tr></table></figure>
+
+<h1 id="2-3-3-new函数"><a href="#2-3-3-new函数" class="headerlink" title="2.3.3. new函数"></a>2.3.3. new函数</h1><p>另一个创建变量的方法是调用内建的<code>new</code>函数。<br>表达式<code>new(T)</code>将创建一个T类型的匿名变量，初始化为T类型的零值，然后返回变量地址，返回的指针类型为<code>*T</code>。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go">p := <span class="hljs-built_in">new</span>(<span class="hljs-type">int</span>) 	<span class="hljs-comment">// p,*int类型，指向匿名的int变量</span><br>fmt.Println(*p) <span class="hljs-comment">// 0</span><br>*p = <span class="hljs-number">2</span>			<span class="hljs-comment">// 设置int匿名变量的值为2</span><br>fmt.Println(*p) <span class="hljs-comment">// 2</span><br></code></pre></td></tr></table></figure>
+<p>使用<code>new</code>创建变量和普通变量声明语句方式创建变量没有什么区别，除了不需要声明一个临时变量的名字外。<br>换言之，<code>new</code>函数类似一种语法糖，而不是一个新的基础概念。<br>下面的两个<code>newInt</code>函数有着相同的行为:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">newInt</span><span class="hljs-params">()</span></span> *<span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">new</span>(<span class="hljs-type">int</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">newInt</span><span class="hljs-params">()</span></span> *<span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">var</span> dummy <span class="hljs-type">int</span><br>	<span class="hljs-keyword">return</span> &amp;dummy<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>每次调用<code>new</code>函数都是返回一个新的变量的地址，因此下面两个地址是不同的：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go">p := <span class="hljs-built_in">new</span>(<span class="hljs-type">int</span>)<br>q := <span class="hljs-built_in">new</span>(<span class="hljs-type">int</span>)<br>fmt.Println(p == q) <span class="hljs-comment">// false</span><br></code></pre></td></tr></table></figure>
+<p>但是也有一种特殊情况：如果两个类型都是空的，也就是说类型的大小是0，例如<code>struct&#123;&#125;</code>和<code>[0]int</code>，有可能有相同的地址。<br>慎用大小为0的类型，因为如果类型的大小为0的话，可能导致Go语言的自动垃圾回收器有不同的行为，具体可查<code>runtime.SetFinalizer</code>函数相关文档。</p>
+<p>由于<code>new</code>只是一个预定义的函数，它并不是一个关键字，因此可以将<code>new</code>名字重新定义为别的类型。如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">delta</span><span class="hljs-params">(old, <span class="hljs-built_in">new</span> <span class="hljs-type">int</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">new</span> - old<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>由于<code>new</code>被定义为<code>int</code>类型的变量名，因此在<code>deltal</code>函数内部无法使用内置的<code>new</code>函数。</p>
+<h1 id="2-3-4-变量的生命周期"><a href="#2-3-4-变量的生命周期" class="headerlink" title="2.3.4. 变量的生命周期"></a>2.3.4. 变量的生命周期</h1><p>变量的生命周期指的是在程序运行期间变量有效存在的时间间隔。<br>对于在包一级声明的变量来说，它们的生命周期和整个程序的运行周期是一致的。<br>而局部变量的生命周期则是动态的：从每次创建一个新变量的声明语句开始，直到该变量不再被引用为止，然后变量的内存空间可能被回收。<br>函数的参数变量和返回值变量都是局部变量，它们在函数每次被调用的时候创建。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">for</span> t := <span class="hljs-number">0.0</span>; t &lt; cycles*<span class="hljs-number">2</span>*math.Pi; t += res &#123;<br>    x := math.Sin(t)<br>    y := math.Sin(t*freq + phase)<br>    img.SetColorIndex(<br>        size+<span class="hljs-type">int</span>(x*size+<span class="hljs-number">0.5</span>), size+<span class="hljs-type">int</span>(y*size+<span class="hljs-number">0.5</span>),<br>        blackIndex, <span class="hljs-comment">// 最后插入的逗号不会导致编译错误，这是Go编译器的一个特性</span><br>    )               <span class="hljs-comment">// 小括弧另起一行缩进，和大括弧的风格保存一致</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>每次循环的开始都会创建临时变量<code>t</code>，然后在每次循环迭代中创建临时变量<code>x</code>和<code>y</code>。</p>
+<p>那么Go语言的自动垃圾收集器是如何知道一个变量是何时可以被回收的呢？<br>基本实现思路：从每个包级的变量和每个当前运行函数的每一个局部变量开始，通过指针或引用的访问路径遍历，是否可以找到该变量。如果不存在这样的访问路径，那么说明该变量是不可达的，也就是说它是否存在并不会影响程序后续的计算结果。<br>因为一个变量的有效生命周期只取决于是否可达，因此一个循环迭代内部的局部变量的生命周期可能会超出其局部作用域。同时，局部变量可能在函数返回之后依然存在。<br>编译器会自动选择在栈上还是在堆上分配局部变量的存储空间，但这个选择并不是由用<code>var</code>还是<code>new</code>声明变量的方式决定的。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> global *<span class="hljs-type">int</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> x <span class="hljs-type">int</span><br>	x = <span class="hljs-number">1</span><br>	global = &amp;x<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">g</span><span class="hljs-params">()</span></span> &#123;<br>	y := <span class="hljs-built_in">new</span>(<span class="hljs-type">int</span>)<br>	*y = <span class="hljs-number">1</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>f</code>函数里的<code>x</code>变量一定是在堆上分配的，因为它在函数退出后依然可以通过包一级的<code>global</code>变量找到，尽管它是在函数内部定义的。即可以说，这个<code>x</code>局部变量从函数<code>f</code>中逃逸了。<br>相反，当<code>g</code>函数返回时，变量<code>*y</code>将是不可达的，也就是说可以马上被回收的。因此，<code>*y</code>并没有从函数<code>g</code>中逃逸，编译器可以选择在栈上分配<code>*y</code>的存储空间（也可以选择在堆上分配，然后有Go语言的GC回收这个变量的内存空间），虽然这里使用了<code>new</code>方式。</p>
+<p>其实在编写代码时不需要特意去考虑变量的逃逸行为，但是逃逸的变量需要额外分配内存空间，同时对性能可能会产生影响。</p>
+<p>虽然自动垃圾收集器可以帮助我们不需要显式地分配和释放内存，但是编写高效的程序时依然需要了解变量的生命周期。<br>如将指向短生命周期对象的指针保存到具有长生命周期的对象中，特别是保存到全局变量时，会阻止对短生命周期对象的垃圾回收，从而可能影响程序的性能。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="print-no-link">#读书笔记</a>
+      
+        <a href="/tags/go/" class="print-no-link">#go</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>2.3.变量</div>
+      <div>https://succeedwer.github.io/posts/7095472d910d/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WER</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月12日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年3月18日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/9f13bfd0f9d8/" title="2.5. 类型">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">2.5. 类型</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/3bab4b966165/" title="2.4. 赋值">
+                        <span class="hidden-mobile">2.4. 赋值</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,739 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="包的存在是为了支持模块化、封装、单独编译和代码重用。 每个包都对应一个独立的命名空间。如: image包中的Decode函数和在unicode&#x2F;uft16包中的Decode函数是不同的。要在外部引用该函数，必须显式使用image.Decode或uft16.Decode形式来访问。 包还可以实现可见性。规则：以大写字母开头的，那么该名字是可导出的。（因为中文汉字不区分大小写，因此汉字开头的名字是不可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2.6. 包和文件">
+<meta property="og:url" content="https://succeedwer.github.io/posts/4bd2d633ee16/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:description" content="包的存在是为了支持模块化、封装、单独编译和代码重用。 每个包都对应一个独立的命名空间。如: image包中的Decode函数和在unicode&#x2F;uft16包中的Decode函数是不同的。要在外部引用该函数，必须显式使用image.Decode或uft16.Decode形式来访问。 包还可以实现可见性。规则：以大写字母开头的，那么该名字是可导出的。（因为中文汉字不区分大小写，因此汉字开头的名字是不可">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-12T09:52:19.000Z">
+<meta property="article:modified_time" content="2024-03-18T05:20:20.000Z">
+<meta property="article:author" content="WER">
+<meta property="article:tag" content="读书笔记">
+<meta property="article:tag" content="go">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>2.6. 包和文件 - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="2.6. 包和文件"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-12 17:52" pubdate>
+          2023年3月12日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          24 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">2.6. 包和文件</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>包的存在是为了支持模块化、封装、单独编译和代码重用。</p>
+<p>每个包都对应一个独立的命名空间。如: <code>image</code>包中的<code>Decode</code>函数和在<code>unicode/uft16</code>包中的<code>Decode</code>函数是不同的。要在外部引用该函数，必须显式使用<code>image.Decode</code>或<code>uft16.Decode</code>形式来访问。</p>
+<p>包还可以实现可见性。规则：以大写字母开头的，那么该名字是可导出的。（因为中文汉字不区分大小写，因此汉字开头的名字是不可导出的。）</p>
+<p>在每个源文件的包声明前是包注释。<br>包注释的第一句为包的功能概要说明。<br>通常情况下，包内只有一个源文件有包注释，如有多个包注释，文档工具会根据源文件名的先后顺序将包注释链接为一个包注释。<br>如果包注释很大，通常会放到单独的<code>doc.go</code>文件中。</p>
+<p><strong>练习 2.1：</strong> 向tempconv包添加类型、常量和函数用来处理Kelvin绝对温度的转换，Kelvin 绝对零度是−273.15°C，Kelvin绝对温度1K和摄氏度1°C的单位间隔是一样的。<br>解答：<br>tempconv.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Package tempconv performs Celsius and Fahrenheit conversions.</span><br><span class="hljs-keyword">package</span> tempconv<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-keyword">type</span> Celsius <span class="hljs-type">float64</span><br><span class="hljs-keyword">type</span> Fahrenheit <span class="hljs-type">float64</span><br><span class="hljs-keyword">type</span> Kelvin <span class="hljs-type">float64</span><br><br><span class="hljs-keyword">const</span> (<br>	AbsoluteZeroC Celsius = <span class="hljs-number">-273.15</span><br>	FreezingC     Celsius = <span class="hljs-number">0</span><br>	BoilingC      Celsius = <span class="hljs-number">100</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c Celsius)</span></span> String() <span class="hljs-type">string</span> &#123;<br>	<span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;%g°C&quot;</span>, c)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(f Fahrenheit)</span></span> String() <span class="hljs-type">string</span> &#123;<br>	<span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;%g°F&quot;</span>, f)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(k Kelvin)</span></span> String() <span class="hljs-type">string</span> &#123;<br>	<span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;%gK&quot;</span>, k)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>conve.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> tempconv<br><br><span class="hljs-comment">// CToF converts a Celsius temperature to Fahrenheit.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">CToF</span><span class="hljs-params">(c Celsius)</span></span> Fahrenheit &#123;<br>	<span class="hljs-keyword">return</span> Fahrenheit(c*<span class="hljs-number">9</span>/<span class="hljs-number">5</span> + <span class="hljs-number">32</span>)<br>&#125;<br><br><span class="hljs-comment">// FToC converts a Fahrenheit temperature to Celsius.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">FToC</span><span class="hljs-params">(f Fahrenheit)</span></span> Celsius &#123;<br>	<span class="hljs-keyword">return</span> Celsius((f - <span class="hljs-number">32</span>) * <span class="hljs-number">5</span> / <span class="hljs-number">9</span>)<br>&#125;<br><br><span class="hljs-comment">// CToK converts a Celsius temperature to Kelvin.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">CToK</span><span class="hljs-params">(c Celsius)</span></span> Kelvin &#123;<br>	<span class="hljs-keyword">return</span> Kelvin(c)<br>&#125;<br><br><span class="hljs-comment">// KToC converts a Kelvin temperature to Celsius.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">KToC</span><span class="hljs-params">(k Kelvin)</span></span> Celsius &#123;<br>	<span class="hljs-keyword">return</span> Celsius(k)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="2-6-1-导入包"><a href="#2-6-1-导入包" class="headerlink" title="2.6.1. 导入包"></a>2.6.1. 导入包</h1><p>每个包都是有一个全局唯一的导入路径。如：<code>go-learn-gopl/ch/ch2/tempconv</code>。<br>一个导入路径代表一个目录中的一个或多个Go源文件。</p>
+<p>除了包路径，每个包还有一个包民，包名通常是短小的名字（并不要求包名是唯一的），包名在包的声明处指定。<br>通常，包的名字和包的导入路径的最后一个字段相同，如<code>go-learn-gopl/ch/ch2/tempconv</code>包的名字一般是<code>tempconv</code>。</p>
+<p>要使用<code>go-learn-gopl/ch/ch2/tempconv</code>包，需要先导入：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Cf converts its numeric argument to Celsius and Fahrenheit.</span><br><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;go-learn-gopl/ch/ch2/tempconv&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;strconv&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">for</span> _, arg := <span class="hljs-keyword">range</span> os.Args[<span class="hljs-number">1</span>:] &#123;<br>		t, err := strconv.ParseFloat(arg, <span class="hljs-number">64</span>)<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;cf: %v\n&quot;</span>, err)<br>			os.Exit(<span class="hljs-number">1</span>)<br>		&#125;<br>		f := tempconv.Fahrenheit(t)<br>		c := tempconv.Celsius(t)<br>		fmt.Printf(<span class="hljs-string">&quot;%s=%s, %s=%s\n&quot;</span>, f, tempconv.FToC(f), c, tempconv.CToF(c))<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>cf程序是将命令行输入的一个温度在<code>Celsius</code>和<code>Fahrenheit</code>温度单位之间转换:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs markdown">$ go build ./ch/ch2/cf/main.go <br>$ ./main 24.2<br>24.2°F=-4.333333333333333°C, 24.2°C=75.56°F<br><br></code></pre></td></tr></table></figure>
+
+<p>如果导入一个包，但是却没有使用，就将会被当做编译错误处理。<br>这种强制规则可以有效减少不必要的依赖。<br>可以使用<code>golang.org/x/tools/cmd/goimports</code>导入工具，它可以根据需要自动添加或删除导入的包；许多编辑器都可以集成<code>goimports</code>工具，然后在保存文件时自动运行。类似还有<code>gofmt</code>工具，用于格式化Go源文件。</p>
+<p><strong>练习 2.2：</strong> 写一个通用的单位转换程序，用类似cf程序的方式从命令行读取参数，如果缺省的话则是从标准输入读取参数，然后做类似Celsius和Fahrenheit的单位转换，长度单位可以对应英尺和米，重量单位可以对应磅和公斤等。<br>unitconv.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Package unitconv performs Meter and Foot, Pounds and Kilogram conversions.</span><br><span class="hljs-keyword">package</span> unitconv<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-keyword">type</span> Meter <span class="hljs-type">float64</span><br><span class="hljs-keyword">type</span> Foot <span class="hljs-type">float64</span><br><br><span class="hljs-keyword">type</span> Pounds <span class="hljs-type">float64</span><br><span class="hljs-keyword">type</span> Kilogram <span class="hljs-type">float64</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(m Meter)</span></span> String() <span class="hljs-type">string</span> &#123;<br>	<span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;%g m&quot;</span>, m)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(f Foot)</span></span> String() <span class="hljs-type">string</span> &#123;<br>	<span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;%g ft&quot;</span>, f)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p Pounds)</span></span> String() <span class="hljs-type">string</span> &#123;<br>	<span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;%g lb&quot;</span>, p)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(k Kilogram)</span></span> String() <span class="hljs-type">string</span> &#123;<br>	<span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;%g kg&quot;</span>, k)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>conv.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> unitconv<br><br><span class="hljs-comment">// MToF converts Meter to Foot.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">MToF</span><span class="hljs-params">(m Meter)</span></span> Foot &#123;<br>	<span class="hljs-keyword">return</span> Foot(m * <span class="hljs-number">3.28083989501</span>)<br>&#125;<br><br><span class="hljs-comment">// FToM converts Foot to Meter.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">FToM</span><span class="hljs-params">(f Foot)</span></span> Meter &#123;<br>	<span class="hljs-keyword">return</span> Meter(f * <span class="hljs-number">0.3048</span>)<br>&#125;<br><br><span class="hljs-comment">// KToP converts Kilogram to Pounds.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">KToP</span><span class="hljs-params">(k Kilogram)</span></span> Pounds &#123;<br>	<span class="hljs-keyword">return</span> Pounds(k * <span class="hljs-number">2.20462262185</span>)<br>&#125;<br><br><span class="hljs-comment">// PToK converts Pounds to Kilogram.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">PToK</span><span class="hljs-params">(p Pounds)</span></span> Kilogram &#123;<br>	<span class="hljs-keyword">return</span> Kilogram(p * <span class="hljs-number">0.4535924</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>uconv.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;flag&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;go-learn-gopl/ex/ex2/unitconv&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>)<br><br><span class="hljs-keyword">var</span> m = flag.Float64(<span class="hljs-string">&quot;m&quot;</span>, <span class="hljs-number">-1</span>, <span class="hljs-string">&quot;converts Meter to Foot.&quot;</span>)<br><span class="hljs-keyword">var</span> f = flag.Float64(<span class="hljs-string">&quot;f&quot;</span>, <span class="hljs-number">-1</span>, <span class="hljs-string">&quot;converts Foot to Meter.&quot;</span>)<br><span class="hljs-keyword">var</span> k = flag.Float64(<span class="hljs-string">&quot;k&quot;</span>, <span class="hljs-number">-1</span>, <span class="hljs-string">&quot;converts Kilogram to Pounds.&quot;</span>)<br><span class="hljs-keyword">var</span> p = flag.Float64(<span class="hljs-string">&quot;p&quot;</span>, <span class="hljs-number">-1</span>, <span class="hljs-string">&quot;converts Pounds to Kilogram.&quot;</span>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	flag.Parse()<br>	<span class="hljs-keyword">if</span> *m &gt;= <span class="hljs-number">0</span> &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;%s = %s\n&quot;</span>, unitconv.Meter(*m), unitconv.MToF(unitconv.Meter(*m)))<br>	&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> *f &gt;= <span class="hljs-number">0</span> &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;%s = %s\n&quot;</span>, unitconv.Foot(*f), unitconv.FToM(unitconv.Foot(*f)))<br>	&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> *k &gt;= <span class="hljs-number">0</span> &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;%s = %s\n&quot;</span>, unitconv.Kilogram(*k), unitconv.KToP(unitconv.Kilogram(*k)))<br>	&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> *p &gt;= <span class="hljs-number">0</span> &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;%s = %s\n&quot;</span>, unitconv.Pounds(*p), unitconv.PToK(unitconv.Pounds(*p)))<br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		fmt.Fprintln(os.Stderr, <span class="hljs-string">&quot;value must be granter than 0.&quot;</span>)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>编译运行：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs markdown">$ go build conv/uconv.go<br>$ ./uconv -m 1<br>1 m = 3.28083989501 ft<br>$ ./uconv -f 1<br>1 ft = 0.3048 m<br>$ ./uconv -k 10<br>10 kg = 22.0462262185 lb<br>$ ./uconv -p 2<br>2 lb = 0.9071848 kg<br>$ ./uconv -m -1<br>value must be granter than 0.<br>$ ./uconv -h<br>Usage of ./uconv:<br>  -f float<br><span class="hljs-code">        converts Foot to Meter. (default -1)</span><br><span class="hljs-code">  -k float</span><br><span class="hljs-code">        converts Kilogram to Pounds. (default -1)</span><br><span class="hljs-code">  -m float</span><br><span class="hljs-code">        converts Meter to Foot. (default -1)</span><br><span class="hljs-code">  -p float</span><br><span class="hljs-code">        converts Pounds to Kilogram. (default -1)</span><br><span class="hljs-code"></span><br></code></pre></td></tr></table></figure>
+
+<h1 id="2-6-2-包的初始化"><a href="#2-6-2-包的初始化" class="headerlink" title="2.6.2. 包的初始化"></a>2.6.2. 包的初始化</h1><p>包的初始化首先是解决包级变量的依赖顺序，然后安装包级变量声明出现的顺序依次初始化。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> a = b + c <span class="hljs-comment">// a 第三个初始化, 为 3</span><br><span class="hljs-keyword">var</span> b = f()   <span class="hljs-comment">// b 第二个初始化, 为 2, 通过调用 f (依赖c)</span><br><span class="hljs-keyword">var</span> c = <span class="hljs-number">1</span>     <span class="hljs-comment">// c 第一个初始化, 为 1</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f</span><span class="hljs-params">()</span></span> <span class="hljs-type">int</span> &#123; <span class="hljs-keyword">return</span> c + <span class="hljs-number">1</span> &#125;<br></code></pre></td></tr></table></figure>
+
+<p>如果包中含有多个.go源文件，它们将按照发给编译器的顺序进行初始化，Go语言的构建工具首先会将.go文件根据文件名排序，然后依次调用编译器编译。</p>
+<p>对于在包级别声明的变量，如果有初始化表达式则用表达式初始化，但有些数据初始化并非一个简单的赋值过程。这种情况下，可以使用<code>init</code>初始化函数来简化初始化工作，每个文件都可以包含多个<code>init</code>初始化函数。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">init</span><span class="hljs-params">()</span></span>&#123;<br>	<span class="hljs-comment">/*...*/</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>init</code>初始化函数除了不能被调用或引用外，其他行为与普通函数无异。<br>每个文件中的<code>init</code>初始化函数，在程序开始执行时按照声明的顺序被自动调用。</p>
+<p>每个包在解决依赖的前提下，以导入声明的顺序初始化，每个包只会被初始化一次。<br>如果<code>p</code>包导入了<code>q</code>包，那么在<code>p</code>包初始化的时候可以认为<code>q</code>包必然已经初始化过了。<br>初始化工作时自下而上进行的，<code>main</code>包最后被初始化。确保在<code>main</code>函数执行之前，所有依赖的包都已经完成初始化。</p>
+<p>下面的代码定义了一个PopCount函数，用于返回一个数字中含二进制1bit的个数。它使用init初始化函数来生成辅助表格pc，pc表格用于处理每个8bit宽度的数字含二进制的1bit的bit个数，这样的话在处理64bit宽度的数字时就没有必要循环64次，只需要8次查表就可以了。（这并不是最快的统计1bit数目的算法，但是它可以方便演示init函数的用法，并且演示了如果预生成辅助表格，这是编程中常用的技术）。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> popcount<br><br><span class="hljs-comment">// pc[i] is the population count of i.</span><br><span class="hljs-keyword">var</span> pc [<span class="hljs-number">256</span>]<span class="hljs-type">byte</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">init</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> pc &#123;<br>		pc[i] = pc[i/<span class="hljs-number">2</span>] + <span class="hljs-type">byte</span>(i&amp;<span class="hljs-number">1</span>)<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">// PopCount returns the population count (number of set bits) of x.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">PopCount</span><span class="hljs-params">(x <span class="hljs-type">uint64</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-type">int</span>(pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">0</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">1</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">2</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">3</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">4</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">5</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">6</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">7</span>*<span class="hljs-number">8</span>))])<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>pc可以将初始化逻辑包装为匿名函数处理：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// pc[i] is the population count of i.</span><br><span class="hljs-keyword">var</span> pc [<span class="hljs-number">256</span>]<span class="hljs-type">byte</span> = <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> (pc [<span class="hljs-number">256</span>]<span class="hljs-type">byte</span>) &#123;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> pc &#123;<br>		pc[i] = pc[i/<span class="hljs-number">2</span>] + <span class="hljs-type">byte</span>(i&amp;<span class="hljs-number">1</span>)<br>	&#125;<br>	<span class="hljs-keyword">return</span><br>&#125;()<br></code></pre></td></tr></table></figure>
+<p>for循环只用到索引部分，可以使用<code>_</code>忽略值。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">for</span> i, _ := <span class="hljs-keyword">range</span> pc &#123;&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>练习 2.3：</strong> 重写PopCount函数，用一个循环代替单一的表达式。比较两个版本的性能。（11.4节将展示如何系统地比较两个不同实现的性能。）<br>解答：<br>popcount.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> popcount<br><br><span class="hljs-comment">// pc[i] is the population count of i.</span><br><span class="hljs-keyword">var</span> pc [<span class="hljs-number">256</span>]<span class="hljs-type">byte</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">init</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> pc &#123;<br>		pc[i] = pc[i/<span class="hljs-number">2</span>] + <span class="hljs-type">byte</span>(i&amp;<span class="hljs-number">1</span>)<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">// PopCount returns the population count (number of set bits) of x.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">PopCount</span><span class="hljs-params">(x <span class="hljs-type">uint64</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-type">int</span>(pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">0</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">1</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">2</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">3</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">4</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">5</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">6</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">7</span>*<span class="hljs-number">8</span>))])<br>&#125;<br><br><span class="hljs-comment">// PopCountByLoop returns the population count (number of set bits) of x.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">PopCountByLoop</span><span class="hljs-params">(x <span class="hljs-type">uint64</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">var</span> c <span class="hljs-type">int</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">8</span>; i++ &#123;<br>		c += <span class="hljs-type">int</span>(pc[<span class="hljs-type">byte</span>(x&gt;&gt;(i*<span class="hljs-number">8</span>))])<br>	&#125;<br>	<span class="hljs-keyword">return</span> c<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>popcount_test.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> popcount<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;reflect&quot;</span><br>	<span class="hljs-string">&quot;testing&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">assert</span><span class="hljs-params">(t *testing.T, expected, actual <span class="hljs-keyword">interface</span>&#123;&#125;)</span></span> &#123;<br>	<span class="hljs-keyword">if</span> !reflect.DeepEqual(expected, actual) &#123;<br>		t.Errorf(<span class="hljs-string">&quot;(expected, actual) = (%v, %v)\n&quot;</span>, expected, actual)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestPopCount</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	assert(t, <span class="hljs-number">32</span>, PopCount(<span class="hljs-number">0x1234567890ABCDEF</span>))<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestPopCountByLoop</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	assert(t, <span class="hljs-number">32</span>, PopCountByLoop(<span class="hljs-number">0x1234567890ABCDEF</span>))<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">BenchmarkPopCount</span><span class="hljs-params">(b *testing.B)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; b.N; i++ &#123;<br>		PopCount(<span class="hljs-number">0x1234567890ABCDEF</span>)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">BenchmarkPopCountByLoop</span><span class="hljs-params">(b *testing.B)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; b.N; i++ &#123;<br>		PopCountByLoop(<span class="hljs-number">0x123456790ABCDEF</span>)<br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p><strong>练习 2.4：</strong> 用移位算法重写PopCount函数，每次测试最右边的1bit，然后统计总数。比较和查表算法的性能差异。<br>解答：<br>popcount.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> popcount<br><br><span class="hljs-comment">// pc[i] is the population count of i.</span><br><span class="hljs-keyword">var</span> pc [<span class="hljs-number">256</span>]<span class="hljs-type">byte</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">init</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> pc &#123;<br>		pc[i] = pc[i/<span class="hljs-number">2</span>] + <span class="hljs-type">byte</span>(i&amp;<span class="hljs-number">1</span>)<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">// PopCount returns the population count (number of set bits) of x.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">PopCount</span><span class="hljs-params">(x <span class="hljs-type">uint64</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-type">int</span>(pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">0</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">1</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">2</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">3</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">4</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">5</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">6</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">7</span>*<span class="hljs-number">8</span>))])<br>&#125;<br><br><span class="hljs-comment">// PopCountByLoop returns the population count (number of set bits) of x.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">PopCountByLoop</span><span class="hljs-params">(x <span class="hljs-type">uint64</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">var</span> c <span class="hljs-type">int</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">8</span>; i++ &#123;<br>		c += <span class="hljs-type">int</span>(pc[<span class="hljs-type">byte</span>(x&gt;&gt;(i*<span class="hljs-number">8</span>))])<br>	&#125;<br>	<span class="hljs-keyword">return</span> c<br>&#125;<br><br><span class="hljs-comment">// PopCountByBitShift returns the population count (number of set bits) of x.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">PopCountByBitShift</span><span class="hljs-params">(x <span class="hljs-type">uint64</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>	c := <span class="hljs-number">0</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">64</span>; i++ &#123;<br>		<span class="hljs-keyword">if</span> (x&gt;&gt;i)&amp;<span class="hljs-number">1</span> != <span class="hljs-number">0</span> &#123;<br>			c++<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> c<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>popcount_test.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> popcount<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;reflect&quot;</span><br>	<span class="hljs-string">&quot;testing&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">assert</span><span class="hljs-params">(t *testing.T, expected, actual <span class="hljs-keyword">interface</span>&#123;&#125;)</span></span> &#123;<br>	<span class="hljs-keyword">if</span> !reflect.DeepEqual(expected, actual) &#123;<br>		t.Errorf(<span class="hljs-string">&quot;(expected, actual) = (%v, %v)\n&quot;</span>, expected, actual)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestPopCount</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	assert(t, <span class="hljs-number">32</span>, PopCount(<span class="hljs-number">0x1234567890ABCDEF</span>))<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestPopCountByLoop</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	assert(t, <span class="hljs-number">32</span>, PopCountByLoop(<span class="hljs-number">0x1234567890ABCDEF</span>))<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestPopCountByBitShift</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	assert(t, <span class="hljs-number">32</span>, PopCountByBitShift(<span class="hljs-number">0x1234567890ABCDEF</span>))<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">BenchmarkPopCount</span><span class="hljs-params">(b *testing.B)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; b.N; i++ &#123;<br>		PopCount(<span class="hljs-number">0x1234567890ABCDEF</span>)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">BenchmarkPopCountByLoop</span><span class="hljs-params">(b *testing.B)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; b.N; i++ &#123;<br>		PopCountByLoop(<span class="hljs-number">0x123456790ABCDEF</span>)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">BenchmarkPopCountByBitShift</span><span class="hljs-params">(b *testing.B)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; b.N; i++ &#123;<br>		PopCountByBitShift(<span class="hljs-number">0x123456790ABCDEF</span>)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>练习 2.5：</strong> 表达式x&amp;(x-1)用于将x的最低的一个非零的bit位清零。使用这个算法重写PopCount函数，然后比较性能。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> popcount<br><br><span class="hljs-comment">// pc[i] is the population count of i.</span><br><span class="hljs-keyword">var</span> pc [<span class="hljs-number">256</span>]<span class="hljs-type">byte</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">init</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> pc &#123;<br>		pc[i] = pc[i/<span class="hljs-number">2</span>] + <span class="hljs-type">byte</span>(i&amp;<span class="hljs-number">1</span>)<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">// PopCount returns the population count (number of set bits) of x.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">PopCount</span><span class="hljs-params">(x <span class="hljs-type">uint64</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-type">int</span>(pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">0</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">1</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">2</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">3</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">4</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">5</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">6</span>*<span class="hljs-number">8</span>))] +<br>		pc[<span class="hljs-type">byte</span>(x&gt;&gt;(<span class="hljs-number">7</span>*<span class="hljs-number">8</span>))])<br>&#125;<br><br><span class="hljs-comment">// PopCountByLoop returns the population count (number of set bits) of x.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">PopCountByLoop</span><span class="hljs-params">(x <span class="hljs-type">uint64</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">var</span> c <span class="hljs-type">int</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">8</span>; i++ &#123;<br>		c += <span class="hljs-type">int</span>(pc[<span class="hljs-type">byte</span>(x&gt;&gt;(i*<span class="hljs-number">8</span>))])<br>	&#125;<br>	<span class="hljs-keyword">return</span> c<br>&#125;<br><br><span class="hljs-comment">// PopCountByBitShift returns the population count (number of set bits) of x.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">PopCountByBitShift</span><span class="hljs-params">(x <span class="hljs-type">uint64</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>	c := <span class="hljs-number">0</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">64</span>; i++ &#123;<br>		<span class="hljs-keyword">if</span> (x&gt;&gt;i)&amp;<span class="hljs-number">1</span> != <span class="hljs-number">0</span> &#123;<br>			c++<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> c<br>&#125;<br><br><span class="hljs-comment">// PopCountByBitClear returns the population count (number of set bits) of x.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">PopCountByBitClear</span><span class="hljs-params">(x <span class="hljs-type">uint64</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>	c := <span class="hljs-number">0</span><br>	<span class="hljs-keyword">for</span> x != <span class="hljs-number">0</span> &#123;<br>		x &amp;= x - <span class="hljs-number">1</span><br>		c++<br>	&#125;<br>	<span class="hljs-keyword">return</span> c<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>popcount_test.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> popcount<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;reflect&quot;</span><br>	<span class="hljs-string">&quot;testing&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">assert</span><span class="hljs-params">(t *testing.T, expected, actual <span class="hljs-keyword">interface</span>&#123;&#125;)</span></span> &#123;<br>	<span class="hljs-keyword">if</span> !reflect.DeepEqual(expected, actual) &#123;<br>		t.Errorf(<span class="hljs-string">&quot;(expected, actual) = (%v, %v)\n&quot;</span>, expected, actual)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestPopCount</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	assert(t, <span class="hljs-number">32</span>, PopCount(<span class="hljs-number">0x1234567890ABCDEF</span>))<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestPopCountByLoop</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	assert(t, <span class="hljs-number">32</span>, PopCountByLoop(<span class="hljs-number">0x1234567890ABCDEF</span>))<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestPopCountByBitShift</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	assert(t, <span class="hljs-number">32</span>, PopCountByBitShift(<span class="hljs-number">0x1234567890ABCDEF</span>))<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestPopCountByBitClear</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	assert(t, <span class="hljs-number">32</span>, PopCountByBitClear(<span class="hljs-number">0x1234567890ABCDEF</span>))<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">BenchmarkPopCount</span><span class="hljs-params">(b *testing.B)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; b.N; i++ &#123;<br>		PopCount(<span class="hljs-number">0x1234567890ABCDEF</span>)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">BenchmarkPopCountByLoop</span><span class="hljs-params">(b *testing.B)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; b.N; i++ &#123;<br>		PopCountByLoop(<span class="hljs-number">0x123456790ABCDEF</span>)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">BenchmarkPopCountByBitShift</span><span class="hljs-params">(b *testing.B)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; b.N; i++ &#123;<br>		PopCountByBitShift(<span class="hljs-number">0x123456790ABCDEF</span>)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">BenchmarkPopCountByBitClear</span><span class="hljs-params">(b *testing.B)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; b.N; i++ &#123;<br>		PopCountByBitClear(<span class="hljs-number">0x1234567890ABCDEF</span>)<br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="print-no-link">#读书笔记</a>
+      
+        <a href="/tags/go/" class="print-no-link">#go</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>2.6. 包和文件</div>
+      <div>https://succeedwer.github.io/posts/4bd2d633ee16/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WER</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月12日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年3月18日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/5b89ef7a41d0/" title="2.7. 作用域">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">2.7. 作用域</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/9f13bfd0f9d8/" title="2.5. 类型">
+                        <span class="hidden-mobile">2.5. 类型</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
