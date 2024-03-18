@@ -4,27 +4,6 @@
   
   
   <entry>
-    <title>1.1. Hello,World</title>
-    <link href="/posts/86cfc706002e/"/>
-    <url>/posts/86cfc706002e/</url>
-    
-    <content type="html"><![CDATA[<p>传统案例“hello world”</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>fmt.Println(<span class="hljs-string">&quot;hello, world&quot;</span>)<br>&#125;<br><br></code></pre></td></tr></table></figure><p>运行指令</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go run helloworld.go</span><br></code></pre></td></tr></table></figure><p>毫无疑问，这个命令会输出：</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">hello, world<br></code></pre></td></tr></table></figure><p>Go语言原生支持Unicode, 可以处理全世界任何语言的文本。<br>如果不只是一次性实验，可以进行编译重新，并保留编译结果以备将来之用。<br>编译命令</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go build helloworld.go</span><br></code></pre></td></tr></table></figure><p>编译命令生成一个名为helloworld的可执行的二进制文件。<br>运行可执行文件：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">./helloworld</span><br>hello,world<br></code></pre></td></tr></table></figure>]]></content>
-    
-    
-    
-    <tags>
-      
-      <tag>go</tag>
-      
-      <tag>Go语言圣经</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>1.8. 本章要点</title>
     <link href="/posts/f529e3c31d9e/"/>
     <url>/posts/f529e3c31d9e/</url>
