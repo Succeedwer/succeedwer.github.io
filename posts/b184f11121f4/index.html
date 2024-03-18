@@ -1,0 +1,732 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="定义JSON（JavaScript Object Notation）是基于JavaScript语言的轻量级的数据交换格式，也常用于发送和接收结构化信息的标准协议。还有类似的协议，如XML、ASN.1和Google的Protocol Buffers。 Go语言对于这些标准格式的编码和解码都有良好的支持，标准库中对应的包有encoding&#x2F;json、encoding&#x2F;xml、encoding&#x2F;asn1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4.5. JSON">
+<meta property="og:url" content="https://succeedwer.github.io/posts/b184f11121f4/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:description" content="定义JSON（JavaScript Object Notation）是基于JavaScript语言的轻量级的数据交换格式，也常用于发送和接收结构化信息的标准协议。还有类似的协议，如XML、ASN.1和Google的Protocol Buffers。 Go语言对于这些标准格式的编码和解码都有良好的支持，标准库中对应的包有encoding&#x2F;json、encoding&#x2F;xml、encoding&#x2F;asn1">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-14T07:52:19.000Z">
+<meta property="article:modified_time" content="2024-03-18T05:20:20.000Z">
+<meta property="article:author" content="WER">
+<meta property="article:tag" content="读书笔记">
+<meta property="article:tag" content="go">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>4.5. JSON - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="4.5. JSON"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-14 15:52" pubdate>
+          2023年3月14日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          26 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">4.5. JSON</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>JSON（JavaScript Object Notation）是基于JavaScript语言的轻量级的数据交换格式，也常用于发送和接收结构化信息的标准协议。<br>还有类似的协议，如XML、ASN.1和Google的Protocol Buffers。</p>
+<p>Go语言对于这些标准格式的编码和解码都有良好的支持，标准库中对应的包有<code>encoding/json</code>、<code>encoding/xml</code>、<code>encoding/asn1</code>。“Protocol Buffers的支持由 github.com&#x2F;golang&#x2F;protobuf 包提供）。</p>
+<h1 id="JSON支持的类型"><a href="#JSON支持的类型" class="headerlink" title="JSON支持的类型"></a>JSON支持的类型</h1><p>JSON是对JavaScript中各种类型的Unicode文本编码。<br>JSON类型如下：</p>
+<ul>
+<li>字符串<br>  字符串是以双引号包含的Unicode字符序列，支持和Go语言类似的反斜杠转义特性，不过JSON使用的是\Uhhhh转义数字来表示一个UTF-16编码（译注：UTF-16和UTF-8一样是一种变长的编码，有些Unicode码点较大的字符需要用4个字节表示；而且UTF-16还有大端和小端的问题），而不是Go语言的rune类型。如：”She said &quot;Hello,BF&quot;“</li>
+<li>数字number<br>  十进制或科学计数法，如：-273.15</li>
+<li>布尔值boolean<br>  true或false</li>
+<li>数组array<br>  如：[“gold”,”silver”,”bronze”]</li>
+<li>对象object<br>  如：<br>  {<br>          “year”: 1980,<br>           “event”: “archery”,<br>           “medals”: [“gold”, “silver”, “bronze”]<br>  }</li>
+</ul>
+<p>下面程序负责收集各种电影评论并提供反馈功能。它的Movie数据类型和一个典型的表示电影的值列表如下所示:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">type</span> Movie <span class="hljs-keyword">struct</span> &#123;<br>	Title  <span class="hljs-type">string</span><br>	Year   <span class="hljs-type">int</span>  <span class="hljs-string">`json:&quot;released&quot;`</span><br>	Color  <span class="hljs-type">bool</span> <span class="hljs-string">`json:&quot;color,omitempty&quot;`</span><br>	Actors []<span class="hljs-type">string</span><br>&#125;<br><br><span class="hljs-keyword">var</span> movies = []Movie&#123;<br>	&#123;Title: <span class="hljs-string">&quot;Casablanca&quot;</span>, Year: <span class="hljs-number">1942</span>, Color: <span class="hljs-literal">false</span>, Actors: []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;Humphrey Bogart&quot;</span>, <span class="hljs-string">&quot;Ingrid Bergman&quot;</span>&#125;&#125;,<br>	&#123;Title: <span class="hljs-string">&quot;Cool Hand Luke&quot;</span>, Year: <span class="hljs-number">1967</span>, Color: <span class="hljs-literal">true</span>, Actors: []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;Paul Newman&quot;</span>&#125;&#125;,<br>	&#123;Title: <span class="hljs-string">&quot;Bullitt&quot;</span>, Year: <span class="hljs-number">1968</span>, Color: <span class="hljs-literal">true</span>, Actors: []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;Steve McQueen&quot;</span>, <span class="hljs-string">&quot;Jacqueline Bisset&quot;</span>&#125;&#125;,<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="JSON的编码与解码"><a href="#JSON的编码与解码" class="headerlink" title="JSON的编码与解码"></a>JSON的编码与解码</h1><h2 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h2><p>将一个Go语言中类似movies的结构体slice转为JSON的过程叫编码（marshaling）。<br>通过<code>json.Marshall</code>函数完成：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go">data, err := json.Marshal(movies)<br><span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>	log.Fatalf(<span class="hljs-string">&quot;JSON marshaling failed:%s&quot;</span>, err)<br>&#125;<br>fmt.Printf(<span class="hljs-string">&quot;%s\n&quot;</span>, data)<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">[&#123;&quot;Title&quot;:&quot;Casablanca&quot;,&quot;released&quot;:1942,&quot;Actors&quot;:[&quot;Humphrey Bogart&quot;,&quot;Ingrid Bergman&quot;]&#125;,&#123;&quot;Title&quot;:&quot;Cool Hand Luke&quot;,&quot;released&quot;:1967,&quot;color&quot;:true,&quot;Actors&quot;:[&quot;Paul Newman&quot;]&#125;,&#123;&quot;Title&quot;:&quot;Bullitt&quot;,&quot;released&quot;:1968,&quot;color&quot;:true,&quot;Actors&quot;:[&quot;Steve McQueen&quot;,&quot;Jacqueline Bisset&quot;]&#125;]</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+<p><code>json.MarshalIndent</code>函数可以产生整齐缩进的输出，以便阅读。<br>该函数有两个字符串参数，分别表示每一行输出的前缀和每一个层级的缩进。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs go">data, err := json.MarshalIndent(movies, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;	&quot;</span>)<br><span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>	log.Fatalf(<span class="hljs-string">&quot;JSON marshaling failed:%s&quot;</span>, err)<br>&#125;<br>fmt.Printf(<span class="hljs-string">&quot;%s\n&quot;</span>, data)<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">		[</span><br><span class="hljs-comment">	        &#123;</span><br><span class="hljs-comment">	                &quot;Title&quot;: &quot;Casablanca&quot;,</span><br><span class="hljs-comment">	                &quot;released&quot;: 1942,</span><br><span class="hljs-comment">	                &quot;Actors&quot;: [</span><br><span class="hljs-comment">	                        &quot;Humphrey Bogart&quot;,</span><br><span class="hljs-comment">	                        &quot;Ingrid Bergman&quot;</span><br><span class="hljs-comment">	                ]</span><br><span class="hljs-comment">	        &#125;,</span><br><span class="hljs-comment">	        &#123;</span><br><span class="hljs-comment">	                &quot;Title&quot;: &quot;Cool Hand Luke&quot;,</span><br><span class="hljs-comment">	                &quot;released&quot;: 1967,</span><br><span class="hljs-comment">	                &quot;color&quot;: true,</span><br><span class="hljs-comment">	                &quot;Actors&quot;: [</span><br><span class="hljs-comment">	                        &quot;Paul Newman&quot;</span><br><span class="hljs-comment">	                ]</span><br><span class="hljs-comment">	        &#125;,</span><br><span class="hljs-comment">	        &#123;</span><br><span class="hljs-comment">	                &quot;Title&quot;: &quot;Bullitt&quot;,</span><br><span class="hljs-comment">	                &quot;released&quot;: 1968,</span><br><span class="hljs-comment">	                &quot;color&quot;: true,</span><br><span class="hljs-comment">	                &quot;Actors&quot;: [</span><br><span class="hljs-comment">	                        &quot;Steve McQueen&quot;,</span><br><span class="hljs-comment">	                        &quot;Jacqueline Bisset&quot;</span><br><span class="hljs-comment">	                ]</span><br><span class="hljs-comment">	        &#125;</span><br><span class="hljs-comment">		]</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+<p>在编码时，默认使用Go语言结构体的成员名字作为JSON的对象（通过reflect反射技术，我们将在12.6节讨论）。<br><strong>只有导出的结构体成员才会被编码</strong>，这也就是我们为什么选择用大写字母开头的成员名称。</p>
+<p>其中Year名字的成员在编码后变成了released，还有Color成员编码后变成了小写字母开头的color。这是因为构体成员<code>Tag</code>所导致的。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go">Year  <span class="hljs-type">int</span>  <span class="hljs-string">`json:&quot;released&quot;`</span><br>Color <span class="hljs-type">bool</span> <span class="hljs-string">`json:&quot;color,omitempty&quot;`</span><br></code></pre></td></tr></table></figure>
+<p>结构体的成员Tag可以是任意的字符串面值，但是通常是一系列用空格分隔的key:”value”键值对序列；因为值中含义双引号字符，因此成员Tag一般用原生字符串面值的形式书写。<br>json开头键名对应的值用于控制encoding&#x2F;json包的编码和解码的行为，并且encoding&#x2F;…下面其它的包也遵循这个约定。<br>成员的Tag中json对应值的第一部分用于指定JSON对象的名字，比如将Go语言中的TotalCount成员对应到JSON中的total_count对象。<br>Color成员的Tag还带了一个额外的omitempty选项，表示当Go语言结构体成员为空或零值时不生成JSON对象（这里false为零值）。</p>
+<h2 id="解码"><a href="#解码" class="headerlink" title="解码"></a>解码</h2><p>编码的逆操作是解码，对应将JSON数据解码为Go语言的数据结构，Go语言中一般叫<code>unmarshaling</code>，通过<code>json.Unmarshal</code>函数完成。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> titles []<span class="hljs-keyword">struct</span>&#123; Title <span class="hljs-type">string</span> &#125;<br><span class="hljs-keyword">if</span> err := json.Unmarshal(data, &amp;titles); err != <span class="hljs-literal">nil</span> &#123;<br>	log.Fatalf(<span class="hljs-string">&quot;JSON unmarshaling failed:%s&quot;</span>, err)<br>&#125;<br>fmt.Println(titles) <span class="hljs-comment">// [&#123;Casablanca&#125; &#123;Cool Hand Luke&#125; &#123;Bullitt&#125;]</span><br></code></pre></td></tr></table></figure>
+<p>通过定义合适的Go语言数据结构，可以选择性地解码JSON中感兴趣的成员。<br>当Unmarshal函数返回时，slice将只含有Title信息值填充，其它的JSON成员将被忽略。</p>
+<h1 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h1><h2 id="Github的issue查询服务"><a href="#Github的issue查询服务" class="headerlink" title="Github的issue查询服务"></a>Github的issue查询服务</h2><p>许多web服务都提供JSON接口，通过HTTP接口发送JSON格式请求并返回JSON格式的信息。为了说明这一点，我们通过Github的issue查询服务来演示类似的用法。<br>定义合适的类型和常量：<br>github.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> github<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-keyword">const</span> IssuesURL = <span class="hljs-string">&quot;https://api.github.com/search/issues&quot;</span><br><br><span class="hljs-keyword">type</span> User <span class="hljs-keyword">struct</span> &#123;<br>	Login   <span class="hljs-type">string</span><br>	HTMLURL <span class="hljs-type">string</span> <span class="hljs-string">`json:&quot;html_url&quot;`</span><br>&#125;<br><br><span class="hljs-keyword">type</span> Issue <span class="hljs-keyword">struct</span> &#123;<br>	Number    <span class="hljs-type">int</span><br>	HTMLURL   <span class="hljs-type">string</span> <span class="hljs-string">`json:&quot;html_url&quot;`</span><br>	Title     <span class="hljs-type">string</span><br>	State     <span class="hljs-type">string</span><br>	User      *User<br>	CreatedAt time.Time <span class="hljs-string">`json:&quot;created_at&quot;`</span><br>	Body      <span class="hljs-type">string</span>    <span class="hljs-comment">// in Markdown format</span><br>&#125;<br><br><span class="hljs-keyword">type</span> IssuesSearchResult <span class="hljs-keyword">struct</span> &#123;<br>	TotalCount <span class="hljs-type">int</span> <span class="hljs-string">`json:&quot;total_count&quot;`</span><br>	Items      []*Issue<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>定义查询方法：<br>search.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> github<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;encoding/json&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;net/http&quot;</span><br>	<span class="hljs-string">&quot;net/url&quot;</span><br>	<span class="hljs-string">&quot;strings&quot;</span><br>)<br><br><span class="hljs-comment">// SearchIssues queries the GitHub issue tracker.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">SearchIssues</span><span class="hljs-params">(terms []<span class="hljs-type">string</span>)</span></span> (*IssuesSearchResult, <span class="hljs-type">error</span>) &#123;<br>	q := url.QueryEscape(strings.Join(terms, <span class="hljs-string">&quot;&quot;</span>))<br>	resp, err := http.Get(IssuesURL + <span class="hljs-string">&quot;?q=&quot;</span> + q)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err<br>	&#125;<br><br>	<span class="hljs-comment">// We must close resp.Body on all executing paths.</span><br>	<span class="hljs-keyword">if</span> resp.StatusCode != http.StatusOK &#123;<br>		resp.Body.Close()<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, fmt.Errorf(<span class="hljs-string">&quot;search query failed:%s&quot;</span>, resp.Status)<br>	&#125;<br><br>	<span class="hljs-keyword">var</span> result IssuesSearchResult<br>	<span class="hljs-keyword">if</span> err := json.NewDecoder(resp.Body).Decode(&amp;result); err != <span class="hljs-literal">nil</span> &#123;<br>		resp.Body.Close()<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err<br>	&#125;<br>	resp.Body.Close()<br>	<span class="hljs-keyword">return</span> &amp;result, <span class="hljs-literal">nil</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>编写主程序，包含输出请求结果：<br>issue&#x2F;main.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;go-learn-gopl/ch/ch4/github&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// windows+label:bug</span><br>	result, err := github.SearchIssues(os.Args[<span class="hljs-number">1</span>:])<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br>	fmt.Printf(<span class="hljs-string">&quot;%d issues:\n&quot;</span>, result.TotalCount)<br>	<span class="hljs-keyword">for</span> _, item := <span class="hljs-keyword">range</span> result.Items &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;#%-5d %9.9s %.55s\n&quot;</span>, item.Number, item.User.Login, item.Title)<br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>通过一下命令进行程序运行及输出：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go build ./issues/main.go</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">./main.go windows+label:bug</span><br>649797 issues:<br><span class="hljs-meta prompt_">#</span><span class="language-bash">14     deondreE Windows Integration</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">11948  wujunwei fix: failed testcase on windows</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">20821  joker5bb Build fails on windows</span> <br><span class="hljs-meta prompt_">#</span><span class="language-bash">272    tieugene Windows issues</span><br>...<br></code></pre></td></tr></table></figure>
+
+<h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><p><strong>练习 4.10：</strong>  修改issues程序，根据问题的时间进行分类，比如不到一个月的、不到一年的、超过一年。<br>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;go-learn-gopl/ch/ch4/github&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> class <span class="hljs-type">string</span><br><br><span class="hljs-keyword">const</span> (<br>	LTOM class = <span class="hljs-string">&quot;less than one month&quot;</span><br>	MTOM class = <span class="hljs-string">&quot;more than one month&quot;</span><br>	LTOY class = <span class="hljs-string">&quot;less than one year&quot;</span><br>	MTOY class = <span class="hljs-string">&quot;more than one year&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	result, err := github.SearchIssues(os.Args[<span class="hljs-number">1</span>:])<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br><br>	issueClass := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[class][]github.Issue)<br>	<span class="hljs-keyword">for</span> _, item := <span class="hljs-keyword">range</span> result.Items &#123;<br>		item := *item<br>		y, m, _ := item.CreatedAt.Date()<br>		cy, cm, _ := time.Now().Date()<br>		<span class="hljs-keyword">switch</span> &#123;<br>		<span class="hljs-keyword">case</span> cm-m &lt;= time.Month(<span class="hljs-number">1</span>):<br>			issueClass[LTOM] = <span class="hljs-built_in">append</span>(issueClass[LTOM], item)<br>		<span class="hljs-keyword">case</span> cm-m &gt; time.Month(<span class="hljs-number">1</span>):<br>			issueClass[MTOM] = <span class="hljs-built_in">append</span>(issueClass[MTOM], item)<br>		<span class="hljs-keyword">case</span> cy-y &lt;= <span class="hljs-number">1</span>:<br>			issueClass[LTOY] = <span class="hljs-built_in">append</span>(issueClass[LTOY], item)<br>		<span class="hljs-keyword">case</span> cy-y &gt; <span class="hljs-number">1</span>:<br>			issueClass[MTOY] = <span class="hljs-built_in">append</span>(issueClass[MTOY], item)<br>		&#125;<br>	&#125;<br><br>	<span class="hljs-keyword">for</span> class, issues := <span class="hljs-keyword">range</span> issueClass &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;class: %s, issue: %v\n&quot;</span>, class, issues)<br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p><strong>练习 4.11：</strong> 编写一个工具，允许用户在命令行创建、读取、更新和关闭GitHub上的issue，当必要的时候自动打开用户默认的编辑器用于输入文本信息。<br>解：<br>issue&#x2F;issue.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> issue<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;bytes&quot;</span><br>	<span class="hljs-string">&quot;encoding/json&quot;</span><br>	<span class="hljs-string">&quot;net/http&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> Params <span class="hljs-keyword">struct</span> &#123;<br>	Owner  <span class="hljs-type">string</span><br>	Repo   <span class="hljs-type">string</span><br>	Number <span class="hljs-type">string</span><br>	Token  <span class="hljs-type">string</span><br>	Issue<br>&#125;<br><br><span class="hljs-keyword">type</span> Issue <span class="hljs-keyword">struct</span> &#123;<br>	Title <span class="hljs-type">string</span> <span class="hljs-string">`json:&quot;title&quot;`</span><br>	Body  <span class="hljs-type">string</span> <span class="hljs-string">`json:&quot;body&quot;`</span><br>&#125;<br><br><span class="hljs-keyword">const</span> baseURL = <span class="hljs-string">&quot;https://api.github.com/repos/&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p Params)</span></span> GetIssues() ([]Issue, <span class="hljs-type">error</span>) &#123;<br>	u := baseURL + p.Owner + <span class="hljs-string">&quot;/&quot;</span> + p.Repo + <span class="hljs-string">&quot;/issues&quot;</span><br>	resp, err := http.Get(u)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err<br>	&#125;<br>	<span class="hljs-keyword">defer</span> resp.Body.Close()<br><br>	<span class="hljs-keyword">var</span> issues []Issue<br>	<span class="hljs-keyword">if</span> err := json.NewDecoder(resp.Body).Decode(&amp;issues); err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err<br>	&#125;<br>	<span class="hljs-keyword">return</span> issues, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p Params)</span></span> GetIssue() (Issue, <span class="hljs-type">error</span>) &#123;<br>	u := baseURL + p.Owner + <span class="hljs-string">&quot;/&quot;</span> + p.Repo + <span class="hljs-string">&quot;/issue&quot;</span> + <span class="hljs-string">&quot;/&quot;</span> + p.Number<br>	resp, err := http.Get(u)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> Issue&#123;&#125;, err<br>	&#125;<br>	<span class="hljs-keyword">defer</span> resp.Body.Close()<br><br>	<span class="hljs-keyword">var</span> issue Issue<br>	<span class="hljs-keyword">if</span> err := json.NewDecoder(resp.Body).Decode(&amp;issue); err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> Issue&#123;&#125;, err<br>	&#125;<br>	<span class="hljs-keyword">return</span> issue, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p Params)</span></span> CreateIssue() <span class="hljs-type">bool</span> &#123;<br>	<span class="hljs-keyword">var</span> buf bytes.Buffer<br>	<span class="hljs-keyword">if</span> err := json.NewEncoder(&amp;buf).Encode(p.Issue); err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>	&#125;<br>	u := baseURL + p.Owner + <span class="hljs-string">&quot;/&quot;</span> + p.Repo + <span class="hljs-string">&quot;/issues&quot;</span> + <span class="hljs-string">&quot;?access_token&quot;</span> + p.Token<br>	_, err := http.Post(u, <span class="hljs-string">&quot;application/json&quot;</span>, &amp;buf)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p Params)</span></span> EditIssue() <span class="hljs-type">bool</span> &#123;<br>	<span class="hljs-keyword">var</span> buf bytes.Buffer<br>	<span class="hljs-keyword">if</span> err := json.NewEncoder(&amp;buf).Encode(p.Issue); err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>	&#125;<br>	u := baseURL + p.Owner + <span class="hljs-string">&quot;/&quot;</span> + p.Repo + <span class="hljs-string">&quot;/issues&quot;</span> + <span class="hljs-string">&quot;/&quot;</span> + p.Number + <span class="hljs-string">&quot;?access+token=&quot;</span> + p.Token<br>	request, err := http.NewRequest(http.MethodPatch, u, &amp;buf)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>	&#125;<br>	request.Header.Set(<span class="hljs-string">&quot;Content-Type&quot;</span>, <span class="hljs-string">&quot;application/json&quot;</span>)<br>	client := &amp;http.Client&#123;&#125;<br>	_, err = client.Do(request)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>main.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;flag&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;go-learn-gopl/ex/ex4.11/issue&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>)<br><br><span class="hljs-keyword">var</span> (<br>	create = flag.Bool(<span class="hljs-string">&quot;c&quot;</span>, <span class="hljs-literal">false</span>, <span class="hljs-string">&quot;&quot;</span>)<br>	list   = flag.Bool(<span class="hljs-string">&quot;l&quot;</span>, <span class="hljs-literal">false</span>, <span class="hljs-string">&quot;&quot;</span>)<br>	read   = flag.Bool(<span class="hljs-string">&quot;r&quot;</span>, <span class="hljs-literal">false</span>, <span class="hljs-string">&quot;&quot;</span>)<br>	edit   = flag.Bool(<span class="hljs-string">&quot;e&quot;</span>, <span class="hljs-literal">false</span>, <span class="hljs-string">&quot;&quot;</span>)<br><br>	owner  = flag.String(<span class="hljs-string">&quot;owner&quot;</span>, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)<br>	repo   = flag.String(<span class="hljs-string">&quot;repo&quot;</span>, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)<br>	number = flag.String(<span class="hljs-string">&quot;number&quot;</span>, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)<br>	token  = flag.String(<span class="hljs-string">&quot;token&quot;</span>, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)<br><br>	title = flag.String(<span class="hljs-string">&quot;title&quot;</span>, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)<br>	body  = flag.String(<span class="hljs-string">&quot;body&quot;</span>, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)<br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	flag.Parse()<br>	<span class="hljs-keyword">switch</span> &#123;<br>	<span class="hljs-keyword">case</span> *create:<br>		p := issue.Params&#123;Owner: *owner,<br>			Repo:  *repo,<br>			Token: *token,<br>			Issue: issue.Issue&#123;Title: *title, Body: *body&#125;&#125;<br>		<span class="hljs-keyword">if</span> !p.CreateIssue() &#123;<br>			fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;create issue fail&quot;</span>)<br>		&#125;<br>	<span class="hljs-keyword">case</span> *list:<br>		p := issue.Params&#123;Owner: *owner, Repo: *repo&#125;<br>		issues, err := p.GetIssues()<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			fmt.Fprint(os.Stderr, err)<br>		&#125;<br>		<span class="hljs-keyword">for</span> _, i := <span class="hljs-keyword">range</span> issues &#123;<br>			fmt.Printf(<span class="hljs-string">&quot;%s\t%s\n&quot;</span>, i.Title, i.Body)<br>		&#125;<br>	<span class="hljs-keyword">case</span> *read:<br>		p := issue.Params&#123;Owner: *owner, Repo: *repo, Number: *number&#125;<br>		i, err := p.GetIssue()<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			fmt.Fprint(os.Stderr, err)<br>		&#125;<br>		fmt.Printf(<span class="hljs-string">&quot;%s\t%s\n&quot;</span>, i.Title, i.Body)<br>	<span class="hljs-keyword">case</span> *edit:<br>		p := issue.Params&#123;<br>			Owner:  *owner,<br>			Repo:   *repo,<br>			Token:  *token,<br>			Number: *number,<br>			Issue:  issue.Issue&#123;Title: *token, Body: *body&#125;,<br>		&#125;<br>		<span class="hljs-keyword">if</span> !p.EditIssue() &#123;<br>			fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;edit issue fail&quot;</span>)<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>练习 4.12：</strong> 流行的web漫画服务xkcd也提供了JSON接口。例如，一个 <a target="_blank" rel="noopener" href="https://xkcd.com/571/info.0.json">https://xkcd.com/571/info.0.json</a> 请求将返回一个很多人喜爱的571编号的详细描述。下载每个链接（只下载一次）然后创建一个离线索引。编写一个xkcd工具，使用这些离线索引，打印和命令行输入的检索词相匹配的漫画的URL。<br>解：<br>xkcd&#x2F;xkcd.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> xkcd<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;encoding/json&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;net/http&quot;</span><br>	<span class="hljs-string">&quot;strconv&quot;</span><br>	<span class="hljs-string">&quot;strings&quot;</span><br>)<br><br><span class="hljs-keyword">const</span> (<br>	MinNum = <span class="hljs-number">1</span><br>	MaxNum = <span class="hljs-number">2125</span><br>)<br><br><span class="hljs-keyword">type</span> comic <span class="hljs-keyword">struct</span> &#123;<br>	Month      <span class="hljs-type">string</span><br>	Num        <span class="hljs-type">int</span><br>	Link       <span class="hljs-type">string</span><br>	Year       <span class="hljs-type">string</span><br>	News       <span class="hljs-type">string</span><br>	SafeTitle  <span class="hljs-type">string</span> <span class="hljs-string">`json:&quot;sale_title&quot;`</span><br>	Transcript <span class="hljs-type">string</span><br>	Alt        <span class="hljs-type">string</span><br>	Img        <span class="hljs-type">string</span><br>	Title      <span class="hljs-type">string</span><br>	Day        <span class="hljs-type">string</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *comic)</span></span> String() <span class="hljs-type">string</span> &#123;<br>	<span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;Comic: %d\n&quot;</span>, c.Num) +<br>		fmt.Sprintf(<span class="hljs-string">&quot;Image: %s\n&quot;</span>, c.Img) +<br>		fmt.Sprintf(<span class="hljs-string">&quot;Transcript: %s\n&quot;</span>, c.Transcript)<br>&#125;<br><br><span class="hljs-keyword">type</span> Index <span class="hljs-keyword">struct</span> &#123;<br>	Comic []*comic<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">New</span><span class="hljs-params">()</span></span> Index &#123;<br>	<span class="hljs-keyword">return</span> Index&#123;[]*comic&#123;&#125;&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Get</span><span class="hljs-params">(num <span class="hljs-type">int</span>)</span></span> (*comic, <span class="hljs-type">error</span>) &#123;<br>	url := <span class="hljs-string">&quot;https://xkcd.com/&quot;</span> + strconv.Itoa(num) + <span class="hljs-string">&quot;/info.0.json&quot;</span><br>	resp, err := http.Get(url)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, <span class="hljs-literal">nil</span><br>	&#125;<br>	<span class="hljs-keyword">defer</span> resp.Body.Close()<br>	<span class="hljs-keyword">var</span> comic comic<br>	<span class="hljs-keyword">if</span> err := json.NewDecoder(resp.Body).Decode(&amp;comic); err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err<br>	&#125;<br>	<span class="hljs-keyword">return</span> &amp;comic, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Search</span><span class="hljs-params">(index Index, keywords []<span class="hljs-type">string</span>)</span></span> []*comic &#123;<br>	<span class="hljs-keyword">var</span> result []*comic<br>	<span class="hljs-keyword">for</span> _, c := <span class="hljs-keyword">range</span> index.Comic &#123;<br>		isMatch := <span class="hljs-literal">true</span><br>		<span class="hljs-keyword">for</span> _, term := <span class="hljs-keyword">range</span> keywords &#123;<br>			<span class="hljs-keyword">if</span> !match(c, term) &#123;<br>				isMatch = <span class="hljs-literal">false</span><br>			&#125;<br>		&#125;<br>		<span class="hljs-keyword">if</span> isMatch &#123;<br>			result = <span class="hljs-built_in">append</span>(result, c)<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> result<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">match</span><span class="hljs-params">(c *comic, keyword <span class="hljs-type">string</span>)</span></span> <span class="hljs-type">bool</span> &#123;<br>	<span class="hljs-keyword">return</span> strings.Contains(c.Month, keyword) ||<br>		strings.Contains(strconv.Itoa(c.Num), keyword) ||<br>		strings.Contains(c.Link, keyword) ||<br>		strings.Contains(c.Year, keyword) ||<br>		strings.Contains(c.News, keyword) ||<br>		strings.Contains(c.SafeTitle, keyword) ||<br>		strings.Contains(c.Transcript, keyword) ||<br>		strings.Contains(c.Alt, keyword) ||<br>		strings.Contains(c.Img, keyword) ||<br>		strings.Contains(c.Title, keyword) ||<br>		strings.Contains(c.Day, keyword)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>main.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;encoding/json&quot;</span><br>	<span class="hljs-string">&quot;flag&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;go-learn-gopl/ex/ex4/ex4.12/xkcd&quot;</span><br>	<span class="hljs-string">&quot;io&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>)<br><br><span class="hljs-keyword">var</span> (<br>	f = flag.Bool(<span class="hljs-string">&quot;f&quot;</span>, <span class="hljs-literal">false</span>, <span class="hljs-string">&quot;&quot;</span>)<br>	n = flag.Int(<span class="hljs-string">&quot;n&quot;</span>, <span class="hljs-number">100</span>, <span class="hljs-string">&quot;&quot;</span>)<br>)<br><br><span class="hljs-comment">// fetch: go run main.go -f -n=100 &gt; in.json</span><br><span class="hljs-comment">// search: cat in.json | go run main.go keywords</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	flag.Parse()<br>	<span class="hljs-keyword">if</span> *f &#123;<br>		<span class="hljs-keyword">if</span> *n &gt; xkcd.MaxNum &#123;<br>			log.Fatalf(<span class="hljs-string">&quot;%d can&#x27;t bigger than %d&quot;</span>, *n, xkcd.MaxNum)<br>		&#125;<br>		fetch(*n)<br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		search(flag.Args())<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">fetch</span><span class="hljs-params">(n <span class="hljs-type">int</span>)</span></span> &#123;<br>	index := xkcd.New()<br>	<span class="hljs-keyword">for</span> num := xkcd.MinNum; num &lt; n; num++ &#123;<br>		c, err := xkcd.Get(num)<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			log.Fatal(err)<br>		&#125;<br>		index.Comic = <span class="hljs-built_in">append</span>(index.Comic, c)<br>	&#125;<br>	out, err := json.MarshalIndent(index, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;   &quot;</span>)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br>	fmt.Printf(<span class="hljs-string">&quot;%s\n&quot;</span>, out)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">search</span><span class="hljs-params">(keywords []<span class="hljs-type">string</span>)</span></span> &#123;<br>	in, err := io.ReadAll(os.Stdin)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br>	index := xkcd.New()<br>	<span class="hljs-keyword">if</span> err := json.Unmarshal(in, &amp;index); err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br>	resul := xkcd.Search(index, keywords)<br>	<span class="hljs-keyword">for</span> _, c := <span class="hljs-keyword">range</span> resul &#123;<br>		fmt.Println(c)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>练习 4.13：</strong> 使用开放电影数据库的JSON服务接口，允许你检索和下载 <a target="_blank" rel="noopener" href="https://omdbapi.com/">https://omdbapi.com/</a> 上电影的名字和对应的海报图像。编写一个poster工具，通过命令行输入的电影名字，下载对应的海报。<br>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;encoding/json&quot;</span><br>	<span class="hljs-string">&quot;flag&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;io&quot;</span><br>	<span class="hljs-string">&quot;net/http&quot;</span><br>	url2 <span class="hljs-string">&quot;net/url&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>)<br><br><span class="hljs-keyword">var</span> (<br>	title  = flag.String(<span class="hljs-string">&quot;t&quot;</span>, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)<br>	apikey = flag.String(<span class="hljs-string">&quot;apikey&quot;</span>, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)<br>)<br><br><span class="hljs-keyword">const</span> api = <span class="hljs-string">&quot;https://www.omdbapi.com/&quot;</span><br><br><span class="hljs-keyword">type</span> result <span class="hljs-keyword">struct</span> &#123;<br>	PosterURL <span class="hljs-type">string</span> <span class="hljs-string">`json:&quot;Poster&quot;`</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	flag.Parse()<br>	url := api + <span class="hljs-string">&quot;?t=&quot;</span> + url2.QueryEscape(*title) + <span class="hljs-string">&quot;&amp;apikey=&quot;</span> + url2.QueryEscape(*apikey)<br>	resp, err := http.Get(url)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;http get url: %v fail. err: %v&quot;</span>, url, err)<br>		os.Exit(<span class="hljs-number">1</span>)<br>	&#125;<br>	<span class="hljs-keyword">defer</span> resp.Body.Close()<br><br>	<span class="hljs-keyword">var</span> res result<br>	<span class="hljs-keyword">if</span> err := json.NewDecoder(resp.Body).Decode(&amp;res); err != <span class="hljs-literal">nil</span> &#123;<br>		fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;json decode fail. err: %v&quot;</span>, err)<br>		os.Exit(<span class="hljs-number">1</span>)<br>	&#125;<br><br>	poster, err := http.Get(res.PosterURL)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;http get poster url: %v fail. err: %v&quot;</span>, res.PosterURL, err)<br>		os.Exit(<span class="hljs-number">1</span>)<br>	&#125;<br>	<span class="hljs-keyword">defer</span> poster.Body.Close()<br><br>	f, err := os.Create(*title + <span class="hljs-string">&quot;.jpeg&quot;</span>)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;create file fail. err: %v&quot;</span>, err)<br>		os.Exit(<span class="hljs-number">1</span>)<br>	&#125;<br>	<span class="hljs-keyword">defer</span> f.Close()<br><br>	_, err = io.Copy(f, poster.Body)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;io copy fail. err：%v&quot;</span>, err)<br>		os.Exit(<span class="hljs-number">1</span>)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="print-no-link">#读书笔记</a>
+      
+        <a href="/tags/go/" class="print-no-link">#go</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>4.5. JSON</div>
+      <div>https://succeedwer.github.io/posts/b184f11121f4/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WER</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月14日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年3月18日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/4d1bb1bed6d0/" title="4.6 文本和HTML模版">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">4.6 文本和HTML模版</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/556653fe988e/" title="4.4. Struct">
+                        <span class="hidden-mobile">4.4. Struct</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

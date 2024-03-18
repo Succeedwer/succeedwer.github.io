@@ -1,0 +1,727 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="基本概念接口值由两部分组成，具体类型和类型的值，也称为动态类型和动态值。如下例子： 1234var w io.Writerw &#x3D; os.Stdoutw &#x3D; new(bytes.Buffer)w &#x3D; nil 4个语句中，变量w得到了3个不同的值。在Go语言中，变量在声明中会被初始化为其类型的零值。对于接口类型，同样会被初始化为零值，一个接口的零值指的是接口的类型和值都是nil。一个接口值基于它的动态">
+<meta property="og:type" content="article">
+<meta property="og:title" content="7.5 接口值">
+<meta property="og:url" content="https://succeedwer.github.io/posts/b8be0b651295/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:description" content="基本概念接口值由两部分组成，具体类型和类型的值，也称为动态类型和动态值。如下例子： 1234var w io.Writerw &#x3D; os.Stdoutw &#x3D; new(bytes.Buffer)w &#x3D; nil 4个语句中，变量w得到了3个不同的值。在Go语言中，变量在声明中会被初始化为其类型的零值。对于接口类型，同样会被初始化为零值，一个接口的零值指的是接口的类型和值都是nil。一个接口值基于它的动态">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://succeedwer.github.io/7.5%20%E6%8E%A5%E5%8F%A3%E5%80%BC/1688959129573.png">
+<meta property="og:image" content="https://succeedwer.github.io/7.5%20%E6%8E%A5%E5%8F%A3%E5%80%BC/1688960089162.png">
+<meta property="og:image" content="https://succeedwer.github.io/7.5%20%E6%8E%A5%E5%8F%A3%E5%80%BC/1688960372400.png">
+<meta property="og:image" content="https://succeedwer.github.io/7.5%20%E6%8E%A5%E5%8F%A3%E5%80%BC/1688961015374.png">
+<meta property="og:image" content="https://succeedwer.github.io/7.5%20%E6%8E%A5%E5%8F%A3%E5%80%BC/1688978957852.png">
+<meta property="article:published_time" content="2023-03-17T07:52:19.000Z">
+<meta property="article:modified_time" content="2024-03-18T05:20:20.000Z">
+<meta property="article:author" content="WER">
+<meta property="article:tag" content="读书笔记">
+<meta property="article:tag" content="go">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://succeedwer.github.io/7.5%20%E6%8E%A5%E5%8F%A3%E5%80%BC/1688959129573.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>7.5 接口值 - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="7.5 接口值"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-17 15:52" pubdate>
+          2023年3月17日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">7.5 接口值</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>接口值由两部分组成，具体类型和类型的值，也称为动态类型和动态值。<br>如下例子：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> w io.Writer<br>w = os.Stdout<br>w = <span class="hljs-built_in">new</span>(bytes.Buffer)<br>w = <span class="hljs-literal">nil</span><br></code></pre></td></tr></table></figure>
+<p>4个语句中，变量w得到了3个不同的值。<br>在Go语言中，变量在声明中会被初始化为其类型的零值。<br>对于接口类型，同样会被初始化为零值，一个接口的零值指的是接口的类型和值都是nil。<br>一个接口值基于它的动态类型被描述为空或非空，所以这是一个空的接口值。<br>同样的，可以使用<code>w==nil</code>和<code>w!=nil</code>判断接口值是否为空。<br>需要注意的是，调用空接口值的任何方法都会导致Panic。</p>
+<p>在上述的例子中，第二条语句<code>w = os.Stdout</code>的赋值过程，具体类型隐式转换到接口类型，和显式转换<code>w = io.Writer(os.Stdout)</code>是等价的。<br>无论隐式转换和显式转换，接口的动态类型为具体类型的指针类型<code>*os.File</code>，动态值为<code>os.Stdout</code>的拷贝。</p>
+<p><img src="/7.5%20%E6%8E%A5%E5%8F%A3%E5%80%BC/1688959129573.png" srcset="/images/loading.gif" lazyload><br>上图是<code>w = os.Stdout</code>的内存解析图，可知接口类型的变量w，具体类型为<code>os.Stdout</code>的类型<code>*os.File</code>，值为stdout的输出值。</p>
+<p>调用方法，如下面的例子，</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">w.Write([]<span class="hljs-type">byte</span>(<span class="hljs-string">&quot;hello&quot;</span>)) <span class="hljs-comment">// hello</span><br></code></pre></td></tr></table></figure>
+<p>接口类型的变量w调用<code>*os.File</code>的方法<code>Write</code>，即<code>(*os.File).Write</code>方法被调用，并输出hello。</p>
+<p>在编译过程中，编译器并不知道接口值的动态类型是什么，所以在接口的调用必然是动态分配，而不是直接调用。所以编译器必须把代码生成在类型描述符的方法Write上，然后间接调用那个地址。<br>调用的接收者是一个接口动态值的拷贝，os.Stdout。效果和下面这个直接调用一样：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">os.Stdout.Write([]<span class="hljs-type">byte</span>(<span class="hljs-string">&quot;hello&quot;</span>)) <span class="hljs-comment">// hello</span><br></code></pre></td></tr></table></figure>
+
+<p>第三个语句<code>w = new(bytes.Buffer)</code>，给接口值赋值了<code>*bytes.Buffer</code>类型的值。<br>解析图如下，<br><img src="/7.5%20%E6%8E%A5%E5%8F%A3%E5%80%BC/1688960089162.png" srcset="/images/loading.gif" lazyload></p>
+<p>接口值的动态类型为<code>*bytes.Buffer</code>，动态值为一个指向新分配的缓冲区的指针。<br><code>w.Write([]byte(&quot;hello&quot;))</code>方法调用与第二条语句一样的机制。<br>这次类型描述符是<code>*bytes.Buffer</code>，所以调用了<code>(*bytes.Buffer).Write</code>方法，并且接收者是该缓冲区的地址。这个调用把字符串“hello”添加到缓冲区中。</p>
+<p>最后，第四个语句<code>w = nil</code>是把nil赋值给了接口值。<br>它把接口值所有部分重置为nil，如下图，<br><img src="/7.5%20%E6%8E%A5%E5%8F%A3%E5%80%BC/1688960372400.png" srcset="/images/loading.gif" lazyload></p>
+<h1 id="任意大的接口值"><a href="#任意大的接口值" class="headerlink" title="任意大的接口值"></a>任意大的接口值</h1><p><code>一个接口值可以持有任意大的动态值。</code><br>如<code>time.Time</code>类型，有几个不公开的字段，如下，</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> x <span class="hljs-keyword">interface</span>&#123;&#125; = time.Now()<br></code></pre></td></tr></table></figure>
+<p>从概念上讲，不论接口值多大，动态值总是可以容下它。（这只是一个概念上的模型；具体的实现可能会非常不同）下图仅是相似：<br><img src="/7.5%20%E6%8E%A5%E5%8F%A3%E5%80%BC/1688961015374.png" srcset="/images/loading.gif" lazyload></p>
+<h1 id="接口值的比较"><a href="#接口值的比较" class="headerlink" title="接口值的比较"></a>接口值的比较</h1><p>接口值可以使用<code>==</code>和<code>!=</code>来进行比较。<br>两个接口值相同的条件：</p>
+<ul>
+<li>都为nil值。</li>
+<li>动态类型相同且动态值也能使用<code>==</code>匹配。</li>
+</ul>
+<p>如果动态类型相同，但动态类型不能进行比较，如<code>slice</code>，将它们进行比较式，会产生panic。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> x <span class="hljs-keyword">interface</span>&#123;&#125; = []<span class="hljs-type">int</span>&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>&#125;<br>fmt.Println(x == x) <span class="hljs-comment">// panic: runtime error: comparing uncomparable type []int</span><br></code></pre></td></tr></table></figure>
+
+<p>可比较类型有<code>基本类型和指针</code>，不可比较类型<code>slice</code>，<code>map</code>和<code>函数</code>。<br>但在比较接口值包含聚合类型时，必须要考虑可能会出现的异常。同样的，当接口值当做map的键或者switch的操作数时，要考虑到动态值的是否可以比较。</p>
+<h1 id="获取接口值的类型"><a href="#获取接口值的类型" class="headerlink" title="获取接口值的类型"></a>获取接口值的类型</h1><p>在fmt包内，我们可以使用<code>%T</code>的输出格式符用于输出接口值的类型，便于处理错误和调试。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> w io.Writer<br>fmt.Printf(<span class="hljs-string">&quot;%T\n&quot;</span>, w) <span class="hljs-comment">// &lt;nil&gt;</span><br>w = os.Stdout<br>fmt.Printf(<span class="hljs-string">&quot;%T\n&quot;</span>, w) <span class="hljs-comment">// *os.File</span><br>w = <span class="hljs-built_in">new</span>(bytes.Buffer)<br>fmt.Printf(<span class="hljs-string">&quot;%T\n&quot;</span>, w) <span class="hljs-comment">// *bytes.Buffer</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="7-5-1-警告：一个包含nil指针的接口不是nil接口"><a href="#7-5-1-警告：一个包含nil指针的接口不是nil接口" class="headerlink" title="7.5.1.  警告：一个包含nil指针的接口不是nil接口"></a>7.5.1.  警告：一个包含nil指针的接口不是nil接口</h1><p>一个不包含任何值的nil接口值和一个刚好包含nil指针的接口值是不同的。<br>下面例子，可以很好说明两者的区别。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;bytes&quot;</span><br>	<span class="hljs-string">&quot;io&quot;</span><br>)<br><br><span class="hljs-keyword">const</span> debug = <span class="hljs-literal">true</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> buf *bytes.Buffer<br>	<span class="hljs-keyword">if</span> debug &#123;<br>		buf = <span class="hljs-built_in">new</span>(bytes.Buffer)<br>	&#125;<br>	f(buf)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f</span><span class="hljs-params">(out io.Writer)</span></span> &#123;<br>	<span class="hljs-keyword">if</span> out != <span class="hljs-literal">nil</span> &#123;<br>		out.Write([]<span class="hljs-type">byte</span>(<span class="hljs-string">&quot;done!\n&quot;</span>)) <span class="hljs-comment">// if debug = false, panic: runtime error: invalid memory address or nil pointer dereference</span><br><br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>声明buf指针变量，即空指针，当debug为true时，<code>new(bytes.Buffer)</code>创建了空间， buf又指向了该空间。<br>随后当调用f函数，将buf变量赋予给out接口值，out的动态类型为<code>*bytes.Buffer</code>，动态值为new创建的变量，最后是调用了<code>bytes.Buffer</code>的write方法。<br>而当debug为false时，buf未被重新赋值，仍是空指针，调用f函数时，out参数被赋值为<code>*bytes.Buffer</code>的空指针，即out的动态值为nil，动态类型为<code>*bytes.Buffer</code>，也就是说out是包含空指针值的非空接口，如下图，<br><img src="/7.5%20%E6%8E%A5%E5%8F%A3%E5%80%BC/1688978957852.png" srcset="/images/loading.gif" lazyload><br>动态分配机制使得out仍然会调用<code>(*bytes.Buffer)Write</code>方法，但是接收者为nil，对于<code>*os.File</code>类型，nil依然是有效的接收者，显然<code>*bytes.Buffer</code>类型不是。方法被调用后，尝试获取缓冲区的内容导致异常。</p>
+<p>虽然nil的<code>*bytes.Buffer</code>指针可以实现<code>io.Write</code>接口的方法，但是却不满足具体方法<code>(*bytes.Buffer).Write</code>接收者不能为nil的先决条件。<br>将<code>*bytes.Buffer</code>改成<code>io.Writer</code>类型即可，避免将不完全的值赋值给<code>io.Writer</code>这个接口即可解决这个问题。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;bytes&quot;</span><br>	<span class="hljs-string">&quot;io&quot;</span><br>)<br><br><span class="hljs-keyword">const</span> debug = <span class="hljs-literal">false</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">//var buf *bytes.Buffer</span><br>	<span class="hljs-keyword">var</span> buf io.Writer<br>	<span class="hljs-keyword">if</span> debug &#123;<br>		buf = <span class="hljs-built_in">new</span>(bytes.Buffer)<br>	&#125;<br>	f(buf)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f</span><span class="hljs-params">(out io.Writer)</span></span> &#123;<br>	<span class="hljs-keyword">if</span> out != <span class="hljs-literal">nil</span> &#123;<br>		out.Write([]<span class="hljs-type">byte</span>(<span class="hljs-string">&quot;done!\n&quot;</span>)) <span class="hljs-comment">// if debug = false, panic: runtime error: invalid memory address or nil pointer dereference</span><br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="print-no-link">#读书笔记</a>
+      
+        <a href="/tags/go/" class="print-no-link">#go</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>7.5 接口值</div>
+      <div>https://succeedwer.github.io/posts/b8be0b651295/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WER</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月17日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年3月18日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/8d8e98ca9007/" title="7.6. sort.Interface接口">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">7.6. sort.Interface接口</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/146b263d555d/" title="7.4 flag.Value接口">
+                        <span class="hidden-mobile">7.4 flag.Value接口</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

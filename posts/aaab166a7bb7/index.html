@@ -1,0 +1,709 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="下面的这个程序展示了一个简单的bit数组类型，并且实现了三个函数来对这个bit数组来进行操作： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859&#x2F;&#x2F; Package intset provides a set of integer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="6.5. 示例：Bit数组">
+<meta property="og:url" content="https://succeedwer.github.io/posts/aaab166a7bb7/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:description" content="下面的这个程序展示了一个简单的bit数组类型，并且实现了三个函数来对这个bit数组来进行操作： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859&#x2F;&#x2F; Package intset provides a set of integer">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-16T07:52:19.000Z">
+<meta property="article:modified_time" content="2024-03-18T05:20:20.000Z">
+<meta property="article:author" content="WER">
+<meta property="article:tag" content="读书笔记">
+<meta property="article:tag" content="go">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>6.5. 示例：Bit数组 - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="6.5. 示例：Bit数组"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-16 15:52" pubdate>
+          2023年3月16日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          26 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">6.5. 示例：Bit数组</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>下面的这个程序展示了一个简单的bit数组类型，并且实现了三个函数来对这个bit数组来进行操作：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Package intset provides a set of integers based on a bit vector.</span><br><span class="hljs-keyword">package</span> intset<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;bytes&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-comment">// An IntSet is a set of small non-negative integers.</span><br><span class="hljs-comment">// Its zero value represents the empty set.</span><br><span class="hljs-keyword">type</span> IntSet <span class="hljs-keyword">struct</span> &#123;<br>	words []<span class="hljs-type">uint64</span><br>&#125;<br><br><span class="hljs-comment">// Has reports whether the set contains the non-negative value x.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Has(x <span class="hljs-type">int</span>) <span class="hljs-type">bool</span> &#123;<br>	word, bit := x/<span class="hljs-number">64</span>, <span class="hljs-type">uint</span>(x%<span class="hljs-number">64</span>)<br>	<span class="hljs-keyword">return</span> word &lt; <span class="hljs-built_in">len</span>(s.words) &amp;&amp; s.words[word]&amp;(<span class="hljs-number">1</span>&lt;&lt;bit) != <span class="hljs-number">0</span><br>&#125;<br><br><span class="hljs-comment">// Add adds the non-negative value x to the set.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Add(x <span class="hljs-type">int</span>) &#123;<br>	word, bit := x/<span class="hljs-number">64</span>, <span class="hljs-type">uint</span>(x%<span class="hljs-number">64</span>)<br>	<span class="hljs-keyword">for</span> word &gt;= <span class="hljs-built_in">len</span>(s.words) &#123;<br>		s.words = <span class="hljs-built_in">append</span>(s.words, <span class="hljs-number">0</span>)<br>	&#125;<br>	s.words[word] |= <span class="hljs-number">1</span> &lt;&lt; bit<br>&#125;<br><br><span class="hljs-comment">// UnionWith sets s to the union of s and t.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> UnionWith(t *IntSet) &#123;<br>	<span class="hljs-keyword">for</span> i, tword := <span class="hljs-keyword">range</span> t.words &#123;<br>		<span class="hljs-keyword">if</span> i &lt; <span class="hljs-built_in">len</span>(s.words) &#123;<br>			s.words[i] |= tword<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			s.words = <span class="hljs-built_in">append</span>(s.words, tword)<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> String() <span class="hljs-type">string</span> &#123;<br>	<span class="hljs-keyword">var</span> buf bytes.Buffer<br>	buf.WriteByte(<span class="hljs-string">&#x27;&#123;&#x27;</span>)<br>	<span class="hljs-keyword">for</span> i, word := <span class="hljs-keyword">range</span> s.words &#123;<br>		<span class="hljs-keyword">if</span> word == <span class="hljs-number">0</span> &#123;<br>			<span class="hljs-keyword">continue</span><br>		&#125;<br>		<span class="hljs-keyword">for</span> j := <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">64</span>; j++ &#123;<br>			<span class="hljs-keyword">if</span> word&amp;(<span class="hljs-number">1</span>&lt;&lt;<span class="hljs-type">uint</span>(j)) != <span class="hljs-number">0</span> &#123;<br>				<span class="hljs-keyword">if</span> buf.Len() &gt; <span class="hljs-built_in">len</span>(<span class="hljs-string">&quot;&#123;&quot;</span>) &#123;<br>					buf.WriteByte(<span class="hljs-string">&#x27; &#x27;</span>)<br>				&#125;<br>				fmt.Fprintf(&amp;buf, <span class="hljs-string">&quot;%d&quot;</span>, <span class="hljs-number">64</span>*i+j)<br>			&#125;<br>		&#125;<br>	&#125;<br>	buf.WriteByte(<span class="hljs-string">&#x27;&#125;&#x27;</span>)<br>	<span class="hljs-keyword">return</span> buf.String()<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>因为每一个字都有64个二进制位，所以为了定位x的bit位，我们用了x&#x2F;64的商作为字的下标，并且用x%64得到的值作为这个字内的bit的所在位置。UnionWith这个方法里用到了bit位的“或”逻辑操作符号|来一次完成64个元素的或计算。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> x, y IntSet<br>x.Add(<span class="hljs-number">1</span>)<br>x.Add(<span class="hljs-number">144</span>)<br>x.Add(<span class="hljs-number">9</span>)<br>fmt.Println(x.String()) <span class="hljs-comment">// &#123;1 9 144&#125;</span><br><br>y.Add(<span class="hljs-number">9</span>)<br>y.Add(<span class="hljs-number">42</span>)<br>fmt.Println(y.String()) <span class="hljs-comment">// &#123;9 42&#125;</span><br><br>x.UnionWith(&amp;y)<br>fmt.Println(x.String()) <span class="hljs-comment">// &#123;1 9 42 144&#125;</span><br><br>fmt.Println(x.Has(<span class="hljs-number">9</span>), x.Has(<span class="hljs-number">123</span>)) <span class="hljs-comment">// true false</span><br></code></pre></td></tr></table></figure>
+<p>String方法定义在IntSet指针上，所以当我们的变量是IntSet类型而不是IntSet指针时，可能会有下面这样让人意外的情况：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> x IntSet<br>x.Add(<span class="hljs-number">1</span>)<br>x.Add(<span class="hljs-number">144</span>)<br>x.Add(<span class="hljs-number">9</span>)<br>x.Add(<span class="hljs-number">42</span>)<br><br><span class="hljs-comment">//!+note</span><br>fmt.Println(&amp;x)         <span class="hljs-comment">// &#123;1 9 42 144&#125;</span><br>fmt.Println(x.String()) <span class="hljs-comment">// &#123;1 9 42 144&#125;</span><br>fmt.Println(x)          <span class="hljs-comment">// &#123;[4398046511618 0 65536]&#125;</span><br><span class="hljs-comment">//!-note</span><br></code></pre></td></tr></table></figure>
+<p>第一个Println中，打印的是<code>*IntSet</code>指针，这个指针类型有自定义的String方法。<br>第二个Println中，直接调用的变量<code>x</code>的<code>String()</code>方法，这种情况下编译器会隐式地在x前插入&amp;操作符，相当于调用的是<code>*IntSet</code>指针的<code>String()</code>。<br>第三个Println中，因为变量x的类型<code>IntSet</code>没有<code>String()</code>的方法，所以Println会直接按原始的方式打印。<br>所以在这种情况下，将<code>String()</code>绑定到<code>IntSet</code>类型上更合适，而不是绑定在<code>*IntSet</code>指针上。</p>
+<h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><p><strong>练习6.1:</strong> 为bit数组实现下面这些方法。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(*IntSet)</span></span> Len() <span class="hljs-type">int</span>      <span class="hljs-comment">// return the number of elements</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(*IntSet)</span></span> Remove(x <span class="hljs-type">int</span>)  <span class="hljs-comment">// remove x from the set</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(*IntSet)</span></span> Clear()        <span class="hljs-comment">// remove all elements from the set</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(*IntSet)</span></span> Copy() *IntSet <span class="hljs-comment">// return a copy of the set</span><br></code></pre></td></tr></table></figure>
+<p>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> intset<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;bytes&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> IntSet <span class="hljs-keyword">struct</span> &#123;<br>	words []<span class="hljs-type">uint64</span><br>&#125;<br><br><span class="hljs-comment">// Has reports whether the set contains the non-negative value x.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Has(x <span class="hljs-type">int</span>) <span class="hljs-type">bool</span> &#123;<br>	word, bit := x/<span class="hljs-number">64</span>, <span class="hljs-type">uint</span>(x%<span class="hljs-number">64</span>)<br>	<span class="hljs-keyword">return</span> word &lt; <span class="hljs-built_in">len</span>(s.words) &amp;&amp; s.words[word]&amp;(<span class="hljs-number">1</span>&lt;&lt;bit) != <span class="hljs-number">0</span><br>&#125;<br><br><span class="hljs-comment">// Add adds the non-negative value x to the set.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Add(x <span class="hljs-type">int</span>) &#123;<br>	word, bit := x/<span class="hljs-number">64</span>, <span class="hljs-type">uint</span>(x%<span class="hljs-number">64</span>)<br>	<span class="hljs-keyword">for</span> word &gt;= <span class="hljs-built_in">len</span>(s.words) &#123;<br>		<span class="hljs-keyword">for</span> i := <span class="hljs-built_in">len</span>(s.words); i &lt;= word; i++ &#123;<br>			s.words = <span class="hljs-built_in">append</span>(s.words, <span class="hljs-number">0</span>)<br>		&#125;<br>	&#125;<br>	s.words[word] |= <span class="hljs-number">1</span> &lt;&lt; bit<br>&#125;<br><br><span class="hljs-comment">// UnionWith sets s to the union of s and t.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> UnionWith(t *IntSet) &#123;<br>	<span class="hljs-keyword">for</span> i, tword := <span class="hljs-keyword">range</span> t.words &#123;<br>		<span class="hljs-keyword">if</span> i &lt; <span class="hljs-built_in">len</span>(s.words) &#123;<br>			s.words[i] |= tword<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			s.words = <span class="hljs-built_in">append</span>(s.words, tword)<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">// String returns the set as a string of the form &quot;&#123;1 2 3&#125;&quot;.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> String() <span class="hljs-type">string</span> &#123;<br>	<span class="hljs-keyword">var</span> buf bytes.Buffer<br>	buf.WriteByte(<span class="hljs-string">&#x27;&#123;&#x27;</span>)<br>	<span class="hljs-keyword">for</span> i, word := <span class="hljs-keyword">range</span> s.words &#123;<br>		<span class="hljs-keyword">if</span> word == <span class="hljs-number">0</span> &#123;<br>			<span class="hljs-keyword">continue</span><br>		&#125;<br>		<span class="hljs-keyword">for</span> j := <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">64</span>; j++ &#123;<br>			<span class="hljs-keyword">if</span> word&amp;(<span class="hljs-number">1</span>&lt;&lt;<span class="hljs-type">uint</span>(j)) != <span class="hljs-number">0</span> &#123;<br>				<span class="hljs-keyword">if</span> buf.Len() &gt; <span class="hljs-built_in">len</span>(<span class="hljs-string">&quot;&#123;&quot;</span>) &#123;<br>					buf.WriteByte(<span class="hljs-string">&#x27; &#x27;</span>)<br>				&#125;<br>				fmt.Fprintf(&amp;buf, <span class="hljs-string">&quot;%d&quot;</span>, <span class="hljs-number">64</span>*i+j)<br>			&#125;<br>		&#125;<br>	&#125;<br>	buf.WriteByte(<span class="hljs-string">&#x27;&#125;&#x27;</span>)<br>	<span class="hljs-keyword">return</span> buf.String()<br>&#125;<br><br><span class="hljs-comment">// Len return the number of elements.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Len() <span class="hljs-type">int</span> &#123;<br>	count := <span class="hljs-number">0</span><br>	<span class="hljs-keyword">for</span> _, word := <span class="hljs-keyword">range</span> s.words &#123;<br>		<span class="hljs-keyword">for</span> mask := <span class="hljs-type">uint</span>(<span class="hljs-number">0</span>); mask &lt; <span class="hljs-number">64</span>; mask++ &#123;<br>			<span class="hljs-keyword">if</span> word&amp;(<span class="hljs-number">1</span>&lt;&lt;mask) != <span class="hljs-number">0</span> &#123;<br>				count++<br>			&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> count<br>&#125;<br><br><span class="hljs-comment">// Remove x from the set.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Remove(x <span class="hljs-type">int</span>) &#123;<br>	word, bit := x/<span class="hljs-number">64</span>, <span class="hljs-type">uint</span>(x%<span class="hljs-number">64</span>)<br>	<span class="hljs-keyword">if</span> word &gt; <span class="hljs-built_in">len</span>(s.words) &#123;<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	s.words[word] &amp;^= <span class="hljs-number">1</span> &lt;&lt; bit<br>&#125;<br><br><span class="hljs-comment">// Clear remove all element of the set.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Clear() &#123;<br>	s.words = <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-comment">// Copy return a copy of the set.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Copy() *IntSet &#123;<br>	c := &amp;IntSet&#123;&#125;<br>	c.words = <span class="hljs-built_in">make</span>([]<span class="hljs-type">uint64</span>, <span class="hljs-built_in">len</span>(s.words))<br>	<span class="hljs-built_in">copy</span>(c.words, s.words)<br>	<span class="hljs-keyword">return</span> c<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p><strong>练习 6.2：</strong> 定义一个变参方法<code>(*IntSet).AddAll(...int)</code>，这个方法可以为一组IntSet值求和，比如s.AddAll(1,2,3)。<br>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> intset<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;bytes&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> IntSet <span class="hljs-keyword">struct</span> &#123;<br>	words []<span class="hljs-type">uint64</span><br>&#125;<br><br><span class="hljs-comment">// Has reports whether the set contains the non-negative value x.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Has(x <span class="hljs-type">int</span>) <span class="hljs-type">bool</span> &#123;<br>	word, bit := x/<span class="hljs-number">64</span>, <span class="hljs-type">uint</span>(x%<span class="hljs-number">64</span>)<br>	<span class="hljs-keyword">return</span> word &lt; <span class="hljs-built_in">len</span>(s.words) &amp;&amp; s.words[word]&amp;(<span class="hljs-number">1</span>&lt;&lt;bit) != <span class="hljs-number">0</span><br>&#125;<br><br><span class="hljs-comment">// Add adds the non-negative value x to the set.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Add(x <span class="hljs-type">int</span>) &#123;<br>	word, bit := x/<span class="hljs-number">64</span>, <span class="hljs-type">uint</span>(x%<span class="hljs-number">64</span>)<br>	<span class="hljs-keyword">for</span> word &gt;= <span class="hljs-built_in">len</span>(s.words) &#123;<br>		<span class="hljs-keyword">for</span> i := <span class="hljs-built_in">len</span>(s.words); i &lt;= word; i++ &#123;<br>			s.words = <span class="hljs-built_in">append</span>(s.words, <span class="hljs-number">0</span>)<br>		&#125;<br>	&#125;<br>	s.words[word] |= <span class="hljs-number">1</span> &lt;&lt; bit<br>&#125;<br><br><span class="hljs-comment">// UnionWith sets s to the union of s and t.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> UnionWith(t *IntSet) &#123;<br>	<span class="hljs-keyword">for</span> i, tword := <span class="hljs-keyword">range</span> t.words &#123;<br>		<span class="hljs-keyword">if</span> i &lt; <span class="hljs-built_in">len</span>(s.words) &#123;<br>			s.words[i] |= tword<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			s.words = <span class="hljs-built_in">append</span>(s.words, tword)<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">// String returns the set as a string of the form &quot;&#123;1 2 3&#125;&quot;.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> String() <span class="hljs-type">string</span> &#123;<br>	<span class="hljs-keyword">var</span> buf bytes.Buffer<br>	buf.WriteByte(<span class="hljs-string">&#x27;&#123;&#x27;</span>)<br>	<span class="hljs-keyword">for</span> i, word := <span class="hljs-keyword">range</span> s.words &#123;<br>		<span class="hljs-keyword">if</span> word == <span class="hljs-number">0</span> &#123;<br>			<span class="hljs-keyword">continue</span><br>		&#125;<br>		<span class="hljs-keyword">for</span> j := <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">64</span>; j++ &#123;<br>			<span class="hljs-keyword">if</span> word&amp;(<span class="hljs-number">1</span>&lt;&lt;<span class="hljs-type">uint</span>(j)) != <span class="hljs-number">0</span> &#123;<br>				<span class="hljs-keyword">if</span> buf.Len() &gt; <span class="hljs-built_in">len</span>(<span class="hljs-string">&quot;&#123;&quot;</span>) &#123;<br>					buf.WriteByte(<span class="hljs-string">&#x27; &#x27;</span>)<br>				&#125;<br>				fmt.Fprintf(&amp;buf, <span class="hljs-string">&quot;%d&quot;</span>, <span class="hljs-number">64</span>*i+j)<br>			&#125;<br>		&#125;<br>	&#125;<br>	buf.WriteByte(<span class="hljs-string">&#x27;&#125;&#x27;</span>)<br>	<span class="hljs-keyword">return</span> buf.String()<br>&#125;<br><br><span class="hljs-comment">// Len return the number of elements.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Len() <span class="hljs-type">int</span> &#123;<br>	count := <span class="hljs-number">0</span><br>	<span class="hljs-keyword">for</span> _, word := <span class="hljs-keyword">range</span> s.words &#123;<br>		<span class="hljs-keyword">for</span> mask := <span class="hljs-type">uint</span>(<span class="hljs-number">0</span>); mask &lt; <span class="hljs-number">64</span>; mask++ &#123;<br>			<span class="hljs-keyword">if</span> word&amp;(<span class="hljs-number">1</span>&lt;&lt;mask) != <span class="hljs-number">0</span> &#123;<br>				count++<br>			&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> count<br>&#125;<br><br><span class="hljs-comment">// Remove x from the set.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Remove(x <span class="hljs-type">int</span>) &#123;<br>	word, bit := x/<span class="hljs-number">64</span>, <span class="hljs-type">uint</span>(x%<span class="hljs-number">64</span>)<br>	<span class="hljs-keyword">if</span> word &gt; <span class="hljs-built_in">len</span>(s.words) &#123;<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	s.words[word] &amp;^= <span class="hljs-number">1</span> &lt;&lt; bit<br>&#125;<br><br><span class="hljs-comment">// Clear remove all element of the set.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Clear() &#123;<br>	s.words = <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-comment">// Copy return a copy of the set.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Copy() *IntSet &#123;<br>	c := &amp;IntSet&#123;&#125;<br>	c.words = <span class="hljs-built_in">make</span>([]<span class="hljs-type">uint64</span>, <span class="hljs-built_in">len</span>(s.words))<br>	<span class="hljs-built_in">copy</span>(c.words, s.words)<br>	<span class="hljs-keyword">return</span> c<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> AddAll(ints ...<span class="hljs-type">int</span>) &#123;<br>	<span class="hljs-keyword">for</span> _, x := <span class="hljs-keyword">range</span> ints &#123;<br>		s.Add(x)<br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p><strong>练习 6.3：</strong> <code>(*IntSet).UnionWith</code>会用|操作符计算两个集合的并集，我们再为IntSet实现另外的几个函数IntersectWith(交集：元素在A集合B集合均出现),<code>DifferenceWith</code>(差集：元素出现在A集合，未出现在B集合),<code>SymmetricDifference</code>(并差集：元素出现在A但没有出现在B，或者出现在B没有出现在A)。<br>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> intset<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;bytes&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> IntSet <span class="hljs-keyword">struct</span> &#123;<br>	words []<span class="hljs-type">uint64</span><br>&#125;<br><br><span class="hljs-comment">// Has reports whether the set contains the non-negative value x.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Has(x <span class="hljs-type">int</span>) <span class="hljs-type">bool</span> &#123;<br>	word, bit := x/<span class="hljs-number">64</span>, <span class="hljs-type">uint</span>(x%<span class="hljs-number">64</span>)<br>	<span class="hljs-keyword">return</span> word &lt; <span class="hljs-built_in">len</span>(s.words) &amp;&amp; s.words[word]&amp;(<span class="hljs-number">1</span>&lt;&lt;bit) != <span class="hljs-number">0</span><br>&#125;<br><br><span class="hljs-comment">// Add adds the non-negative value x to the set.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Add(x <span class="hljs-type">int</span>) &#123;<br>	word, bit := x/<span class="hljs-number">64</span>, <span class="hljs-type">uint</span>(x%<span class="hljs-number">64</span>)<br>	<span class="hljs-keyword">for</span> word &gt;= <span class="hljs-built_in">len</span>(s.words) &#123;<br>		<span class="hljs-keyword">for</span> i := <span class="hljs-built_in">len</span>(s.words); i &lt;= word; i++ &#123;<br>			s.words = <span class="hljs-built_in">append</span>(s.words, <span class="hljs-number">0</span>)<br>		&#125;<br>	&#125;<br>	s.words[word] |= <span class="hljs-number">1</span> &lt;&lt; bit<br>&#125;<br><br><span class="hljs-comment">// UnionWith sets s to the union of s and t.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> UnionWith(t *IntSet) &#123;<br>	<span class="hljs-keyword">for</span> i, tword := <span class="hljs-keyword">range</span> t.words &#123;<br>		<span class="hljs-keyword">if</span> i &lt; <span class="hljs-built_in">len</span>(s.words) &#123;<br>			s.words[i] |= tword<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			s.words = <span class="hljs-built_in">append</span>(s.words, tword)<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">// String returns the set as a string of the form &quot;&#123;1 2 3&#125;&quot;.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> String() <span class="hljs-type">string</span> &#123;<br>	<span class="hljs-keyword">var</span> buf bytes.Buffer<br>	buf.WriteByte(<span class="hljs-string">&#x27;&#123;&#x27;</span>)<br>	<span class="hljs-keyword">for</span> i, word := <span class="hljs-keyword">range</span> s.words &#123;<br>		<span class="hljs-keyword">if</span> word == <span class="hljs-number">0</span> &#123;<br>			<span class="hljs-keyword">continue</span><br>		&#125;<br>		<span class="hljs-keyword">for</span> j := <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">64</span>; j++ &#123;<br>			<span class="hljs-keyword">if</span> word&amp;(<span class="hljs-number">1</span>&lt;&lt;<span class="hljs-type">uint</span>(j)) != <span class="hljs-number">0</span> &#123;<br>				<span class="hljs-keyword">if</span> buf.Len() &gt; <span class="hljs-built_in">len</span>(<span class="hljs-string">&quot;&#123;&quot;</span>) &#123;<br>					buf.WriteByte(<span class="hljs-string">&#x27; &#x27;</span>)<br>				&#125;<br>				fmt.Fprintf(&amp;buf, <span class="hljs-string">&quot;%d&quot;</span>, <span class="hljs-number">64</span>*i+j)<br>			&#125;<br>		&#125;<br>	&#125;<br>	buf.WriteByte(<span class="hljs-string">&#x27;&#125;&#x27;</span>)<br>	<span class="hljs-keyword">return</span> buf.String()<br>&#125;<br><br><span class="hljs-comment">// Len return the number of elements.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Len() <span class="hljs-type">int</span> &#123;<br>	count := <span class="hljs-number">0</span><br>	<span class="hljs-keyword">for</span> _, word := <span class="hljs-keyword">range</span> s.words &#123;<br>		<span class="hljs-keyword">for</span> mask := <span class="hljs-type">uint</span>(<span class="hljs-number">0</span>); mask &lt; <span class="hljs-number">64</span>; mask++ &#123;<br>			<span class="hljs-keyword">if</span> word&amp;(<span class="hljs-number">1</span>&lt;&lt;mask) != <span class="hljs-number">0</span> &#123;<br>				count++<br>			&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> count<br>&#125;<br><br><span class="hljs-comment">// Remove x from the set.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Remove(x <span class="hljs-type">int</span>) &#123;<br>	word, bit := x/<span class="hljs-number">64</span>, <span class="hljs-type">uint</span>(x%<span class="hljs-number">64</span>)<br>	<span class="hljs-keyword">if</span> word &gt; <span class="hljs-built_in">len</span>(s.words) &#123;<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	s.words[word] &amp;^= <span class="hljs-number">1</span> &lt;&lt; bit<br>&#125;<br><br><span class="hljs-comment">// Clear remove all element of the set.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Clear() &#123;<br>	s.words = <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-comment">// Copy return a copy of the set.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Copy() *IntSet &#123;<br>	c := &amp;IntSet&#123;&#125;<br>	c.words = <span class="hljs-built_in">make</span>([]<span class="hljs-type">uint64</span>, <span class="hljs-built_in">len</span>(s.words))<br>	<span class="hljs-built_in">copy</span>(c.words, s.words)<br>	<span class="hljs-keyword">return</span> c<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> AddAll(ints ...<span class="hljs-type">int</span>) &#123;<br>	<span class="hljs-keyword">for</span> _, x := <span class="hljs-keyword">range</span> ints &#123;<br>		s.Add(x)<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">// 交集</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> IntersectWith(t *IntSet) &#123;<br>	minLen := <span class="hljs-built_in">len</span>(s.words)<br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(t.words) &lt; minLen &#123;<br>		minLen = <span class="hljs-built_in">len</span>(t.words)<br>	&#125;<br><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; minLen; i++ &#123;<br>		s.words[i] &amp;= t.words[i]<br>	&#125;<br><br>	<span class="hljs-comment">// 去零 -1标识默认值，如果未改变，表示没有0</span><br>	<span class="hljs-keyword">var</span> l = <span class="hljs-number">-1</span><br>	<span class="hljs-keyword">for</span> i := minLen - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i-- &#123;<br>		<span class="hljs-keyword">if</span> s.words[i] != <span class="hljs-number">0</span> &#123;<br>			<span class="hljs-keyword">break</span><br>		&#125;<br>		l = i<br>	&#125;<br>	<span class="hljs-keyword">if</span> l != <span class="hljs-number">-1</span> &#123;<br>		s.words = s.words[:l]<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">// 差集 s有t没有 按t清除</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> DifferenceWith(t *IntSet) &#123;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> s.words &#123;<br>		<span class="hljs-keyword">if</span> i &lt; <span class="hljs-built_in">len</span>(t.words) &#123;<br>			s.words[i] &amp;^= t.words[i]<br>		&#125;<br>	&#125;<br><br>	<span class="hljs-comment">// 如果存在交集的集合，即一样的数，位清空后为0，则需要清除为0的数</span><br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(s.words) &gt; <span class="hljs-number">0</span> &#123;<br>		<span class="hljs-keyword">var</span> l = <span class="hljs-number">-1</span><br>		<span class="hljs-keyword">for</span> i := <span class="hljs-built_in">len</span>(s.words) - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i-- &#123;<br>			<span class="hljs-keyword">if</span> s.words[i] != <span class="hljs-number">0</span> &#123;<br>				<span class="hljs-keyword">break</span><br>			&#125;<br>			l = i<br>		&#125;<br><br>		<span class="hljs-keyword">if</span> l != <span class="hljs-number">-1</span> &#123;<br>			s.words = s.words[:l]<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">// 并差集: s有t没有或者t有s没有</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> SymmetricDifference(t *IntSet) &#123;<br>	<span class="hljs-keyword">for</span> i, tword := <span class="hljs-keyword">range</span> t.words &#123;<br>		<span class="hljs-keyword">if</span> i &lt; <span class="hljs-built_in">len</span>(s.words) &#123;<br>			s.words[i] ^= tword<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			s.words = <span class="hljs-built_in">append</span>(s.words, tword)<br>		&#125;<br>	&#125;<br><br>	<span class="hljs-comment">// 如果存在交集的集合，即一样的数，位清空后为0，则需要清除为0的数</span><br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(s.words) &gt; <span class="hljs-number">0</span> &#123;<br>		<span class="hljs-keyword">var</span> l = <span class="hljs-number">-1</span><br>		<span class="hljs-keyword">for</span> i := <span class="hljs-built_in">len</span>(s.words) - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i-- &#123;<br>			<span class="hljs-keyword">if</span> s.words[i] != <span class="hljs-number">0</span> &#123;<br>				<span class="hljs-keyword">break</span><br>			&#125;<br>			l = i<br>		&#125;<br><br>		<span class="hljs-keyword">if</span> l != <span class="hljs-number">-1</span> &#123;<br>			s.words = s.words[:l]<br>		&#125;<br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p><strong>练习6.4：</strong> 实现一个Elems方法，返回集合中的所有元素，用于做一些range之类的遍历操作。<br>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> intset<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;bytes&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> IntSet <span class="hljs-keyword">struct</span> &#123;<br>	words []<span class="hljs-type">uint64</span><br>&#125;<br><br><span class="hljs-comment">// Has reports whether the set contains the non-negative value x.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Has(x <span class="hljs-type">int</span>) <span class="hljs-type">bool</span> &#123;<br>	word, bit := x/<span class="hljs-number">64</span>, <span class="hljs-type">uint</span>(x%<span class="hljs-number">64</span>)<br>	<span class="hljs-keyword">return</span> word &lt; <span class="hljs-built_in">len</span>(s.words) &amp;&amp; s.words[word]&amp;(<span class="hljs-number">1</span>&lt;&lt;bit) != <span class="hljs-number">0</span><br>&#125;<br><br><span class="hljs-comment">// Add adds the non-negative value x to the set.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Add(x <span class="hljs-type">int</span>) &#123;<br>	word, bit := x/<span class="hljs-number">64</span>, <span class="hljs-type">uint</span>(x%<span class="hljs-number">64</span>)<br>	<span class="hljs-keyword">for</span> word &gt;= <span class="hljs-built_in">len</span>(s.words) &#123;<br>		<span class="hljs-keyword">for</span> i := <span class="hljs-built_in">len</span>(s.words); i &lt;= word; i++ &#123;<br>			s.words = <span class="hljs-built_in">append</span>(s.words, <span class="hljs-number">0</span>)<br>		&#125;<br>	&#125;<br>	s.words[word] |= <span class="hljs-number">1</span> &lt;&lt; bit<br>&#125;<br><br><span class="hljs-comment">// UnionWith sets s to the union of s and t.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> UnionWith(t *IntSet) &#123;<br>	<span class="hljs-keyword">for</span> i, tword := <span class="hljs-keyword">range</span> t.words &#123;<br>		<span class="hljs-keyword">if</span> i &lt; <span class="hljs-built_in">len</span>(s.words) &#123;<br>			s.words[i] |= tword<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			s.words = <span class="hljs-built_in">append</span>(s.words, tword)<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">// String returns the set as a string of the form &quot;&#123;1 2 3&#125;&quot;.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> String() <span class="hljs-type">string</span> &#123;<br>	<span class="hljs-keyword">var</span> buf bytes.Buffer<br>	buf.WriteByte(<span class="hljs-string">&#x27;&#123;&#x27;</span>)<br>	<span class="hljs-keyword">for</span> i, word := <span class="hljs-keyword">range</span> s.words &#123;<br>		<span class="hljs-keyword">if</span> word == <span class="hljs-number">0</span> &#123;<br>			<span class="hljs-keyword">continue</span><br>		&#125;<br>		<span class="hljs-keyword">for</span> j := <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">64</span>; j++ &#123;<br>			<span class="hljs-keyword">if</span> word&amp;(<span class="hljs-number">1</span>&lt;&lt;<span class="hljs-type">uint</span>(j)) != <span class="hljs-number">0</span> &#123;<br>				<span class="hljs-keyword">if</span> buf.Len() &gt; <span class="hljs-built_in">len</span>(<span class="hljs-string">&quot;&#123;&quot;</span>) &#123;<br>					buf.WriteByte(<span class="hljs-string">&#x27; &#x27;</span>)<br>				&#125;<br>				fmt.Fprintf(&amp;buf, <span class="hljs-string">&quot;%d&quot;</span>, <span class="hljs-number">64</span>*i+j)<br>			&#125;<br>		&#125;<br>	&#125;<br>	buf.WriteByte(<span class="hljs-string">&#x27;&#125;&#x27;</span>)<br>	<span class="hljs-keyword">return</span> buf.String()<br>&#125;<br><br><span class="hljs-comment">// Len return the number of elements.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Len() <span class="hljs-type">int</span> &#123;<br>	count := <span class="hljs-number">0</span><br>	<span class="hljs-keyword">for</span> _, word := <span class="hljs-keyword">range</span> s.words &#123;<br>		<span class="hljs-keyword">for</span> mask := <span class="hljs-type">uint</span>(<span class="hljs-number">0</span>); mask &lt; <span class="hljs-number">64</span>; mask++ &#123;<br>			<span class="hljs-keyword">if</span> word&amp;(<span class="hljs-number">1</span>&lt;&lt;mask) != <span class="hljs-number">0</span> &#123;<br>				count++<br>			&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> count<br>&#125;<br><br><span class="hljs-comment">// Remove x from the set.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Remove(x <span class="hljs-type">int</span>) &#123;<br>	word, bit := x/<span class="hljs-number">64</span>, <span class="hljs-type">uint</span>(x%<span class="hljs-number">64</span>)<br>	<span class="hljs-keyword">if</span> word &gt;= <span class="hljs-built_in">len</span>(s.words) &#123;<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	s.words[word] &amp;^= <span class="hljs-number">1</span> &lt;&lt; bit<br>&#125;<br><br><span class="hljs-comment">// Clear remove all element of the set.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Clear() &#123;<br>	s.words = <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-comment">// Copy return a copy of the set.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Copy() *IntSet &#123;<br>	c := &amp;IntSet&#123;&#125;<br>	c.words = <span class="hljs-built_in">make</span>([]<span class="hljs-type">uint64</span>, <span class="hljs-built_in">len</span>(s.words))<br>	<span class="hljs-built_in">copy</span>(c.words, s.words)<br>	<span class="hljs-keyword">return</span> c<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> AddAll(ints ...<span class="hljs-type">int</span>) &#123;<br>	<span class="hljs-keyword">for</span> _, x := <span class="hljs-keyword">range</span> ints &#123;<br>		s.Add(x)<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">// 交集</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> IntersectWith(t *IntSet) &#123;<br>	minLen := <span class="hljs-built_in">len</span>(s.words)<br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(t.words) &lt; minLen &#123;<br>		minLen = <span class="hljs-built_in">len</span>(t.words)<br>	&#125;<br><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; minLen; i++ &#123;<br>		s.words[i] &amp;= t.words[i]<br>	&#125;<br><br>	<span class="hljs-comment">// 去零 -1标识默认值，如果未改变，表示没有0</span><br>	<span class="hljs-keyword">var</span> l = <span class="hljs-number">-1</span><br>	<span class="hljs-keyword">for</span> i := minLen - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i-- &#123;<br>		<span class="hljs-keyword">if</span> s.words[i] == <span class="hljs-number">0</span> &#123;<br>			l = i<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">if</span> l != <span class="hljs-number">-1</span> &#123;<br>		s.words = s.words[:l]<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">// 差集 s有t没有 按t清除</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> DifferenceWith(t *IntSet) &#123;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> s.words &#123;<br>		<span class="hljs-keyword">if</span> i &lt; <span class="hljs-built_in">len</span>(t.words) &#123;<br>			s.words[i] &amp;^= t.words[i]<br>		&#125;<br>	&#125;<br><br>	<span class="hljs-comment">// 如果存在交集的集合，即一样的数，位清空后为0，则需要清除为0的数</span><br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(s.words) &gt; <span class="hljs-number">0</span> &#123;<br>		<span class="hljs-keyword">var</span> l = <span class="hljs-number">-1</span><br>		<span class="hljs-keyword">for</span> i := <span class="hljs-built_in">len</span>(s.words) - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i-- &#123;<br>			<span class="hljs-keyword">if</span> s.words[i] != <span class="hljs-number">0</span> &#123;<br>				<span class="hljs-keyword">break</span><br>			&#125;<br>			l = i<br>		&#125;<br><br>		<span class="hljs-keyword">if</span> l != <span class="hljs-number">-1</span> &#123;<br>			s.words = s.words[:l]<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">// 并差集: s有t没有或者t有s没有</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> SymmetricDifference(t *IntSet) &#123;<br>	<span class="hljs-keyword">for</span> i, tword := <span class="hljs-keyword">range</span> t.words &#123;<br>		<span class="hljs-keyword">if</span> i &lt; <span class="hljs-built_in">len</span>(s.words) &#123;<br>			s.words[i] ^= tword<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			s.words = <span class="hljs-built_in">append</span>(s.words, tword)<br>		&#125;<br>	&#125;<br><br>	<span class="hljs-comment">// 如果存在交集的集合，即一样的数，位清空后为0，则需要清除为0的数</span><br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(s.words) &gt; <span class="hljs-number">0</span> &#123;<br>		<span class="hljs-keyword">var</span> l = <span class="hljs-number">-1</span><br>		<span class="hljs-keyword">for</span> i := <span class="hljs-built_in">len</span>(s.words) - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i-- &#123;<br>			<span class="hljs-keyword">if</span> s.words[i] != <span class="hljs-number">0</span> &#123;<br>				<span class="hljs-keyword">break</span><br>			&#125;<br>			l = i<br>		&#125;<br><br>		<span class="hljs-keyword">if</span> l != <span class="hljs-number">-1</span> &#123;<br>			s.words = s.words[:l]<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Elems() []<span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">var</span> elems []<span class="hljs-type">int</span><br>	x := <span class="hljs-number">0</span><br>	<span class="hljs-keyword">for</span> _, word := <span class="hljs-keyword">range</span> s.words &#123;<br>		<span class="hljs-keyword">for</span> mask := <span class="hljs-type">uint</span>(<span class="hljs-number">0</span>); mask &lt; <span class="hljs-number">64</span>; mask++ &#123;<br>			<span class="hljs-keyword">if</span> word&amp;(<span class="hljs-number">1</span>&lt;&lt;mask) != <span class="hljs-number">0</span> &#123;<br>				elems = <span class="hljs-built_in">append</span>(elems, x)<br>				x++<br>			&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> elems<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p><strong>练习 6.5：</strong> 我们这章定义的IntSet里的每个字都是用的uint64类型，但是64位的数值可能在32位的平台上不高效。修改程序，使其使用uint类型，这种类型对于32位平台来说更合适。当然了，这里我们可以不用简单粗暴地除64，可以定义一个常量来决定是用32还是64，这里你可能会用到平台的自动判断的一个智能表达式：<code>32 &lt;&lt; (^uint(0) &gt;&gt; 63)</code>。<br>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> intset<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;bytes&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-comment">// 当uint为64位时，^uint(0)为64个1，右移63位变成1，32再左移1位就变成64</span><br><span class="hljs-comment">// 当uint为32位时，^uint(0)为32个1，右移63位变成0，32再左移0位就变成32</span><br><span class="hljs-keyword">const</span> uintSize = <span class="hljs-number">32</span> &lt;&lt; (^<span class="hljs-type">uint</span>(<span class="hljs-number">0</span>) &gt;&gt; <span class="hljs-number">63</span>)<br><br><span class="hljs-keyword">type</span> IntSet <span class="hljs-keyword">struct</span> &#123;<br>	words []<span class="hljs-type">uint</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Has(x <span class="hljs-type">int</span>) <span class="hljs-type">bool</span> &#123;<br>	word, bit := x/uintSize, x%uintSize<br>	<span class="hljs-keyword">return</span> word &lt; <span class="hljs-built_in">len</span>(s.words) &amp;&amp; s.words[word]&amp;(<span class="hljs-number">1</span>&lt;&lt;bit) != <span class="hljs-number">0</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Add(x <span class="hljs-type">int</span>) &#123;<br>	word, bit := x/uintSize, x%uintSize<br>	<span class="hljs-keyword">for</span> word &gt;= <span class="hljs-built_in">len</span>(s.words) &#123;<br>		<span class="hljs-keyword">for</span> i := <span class="hljs-built_in">len</span>(s.words); i &lt;= word; i++ &#123;<br>			s.words = <span class="hljs-built_in">append</span>(s.words, <span class="hljs-number">0</span>)<br>		&#125;<br>	&#125;<br>	s.words[word] |= <span class="hljs-number">1</span> &lt;&lt; bit<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Unionwith(t *IntSet) &#123;<br>	<span class="hljs-keyword">for</span> i, tword := <span class="hljs-keyword">range</span> t.words &#123;<br>		<span class="hljs-keyword">if</span> i &lt; <span class="hljs-built_in">len</span>(s.words) &#123;<br>			s.words[i] |= tword<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			s.words = <span class="hljs-built_in">append</span>(s.words, tword)<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> String() <span class="hljs-type">string</span> &#123;<br>	<span class="hljs-keyword">var</span> buf bytes.Buffer<br>	buf.WriteByte(<span class="hljs-string">&#x27;&#123;&#x27;</span>)<br>	<span class="hljs-keyword">for</span> i, word := <span class="hljs-keyword">range</span> s.words &#123;<br>		<span class="hljs-keyword">if</span> word == <span class="hljs-number">0</span> &#123;<br>			<span class="hljs-keyword">continue</span><br>		&#125;<br>		<span class="hljs-keyword">for</span> j := <span class="hljs-number">0</span>; j &lt; uintSize; j++ &#123;<br>			<span class="hljs-keyword">if</span> word&amp;(<span class="hljs-number">1</span>&lt;&lt;j) != <span class="hljs-number">0</span> &#123;<br>				<span class="hljs-keyword">if</span> buf.Len() &gt; <span class="hljs-built_in">len</span>(<span class="hljs-string">&quot;&#123;&quot;</span>) &#123;<br>					buf.WriteByte(<span class="hljs-string">&#x27; &#x27;</span>)<br>				&#125;<br>				fmt.Fprintf(&amp;buf, <span class="hljs-string">&quot;%d&quot;</span>, uintSize*i+j)<br>			&#125;<br>		&#125;<br>	&#125;<br>	buf.WriteByte(<span class="hljs-string">&#x27;&#125;&#x27;</span>)<br>	<span class="hljs-keyword">return</span> buf.String()<br>&#125;<br><br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="print-no-link">#读书笔记</a>
+      
+        <a href="/tags/go/" class="print-no-link">#go</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>6.5. 示例：Bit数组</div>
+      <div>https://succeedwer.github.io/posts/aaab166a7bb7/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WER</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月16日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年3月18日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/387bb90cfe97/" title="6.6. 封装">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">6.6. 封装</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/4fa1929ae9d9/" title="6.4. 方法值和方法表达式">
+                        <span class="hidden-mobile">6.4. 方法值和方法表达式</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

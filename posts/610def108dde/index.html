@@ -1,0 +1,744 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="定义哈希表是一个无序的key&#x2F;value对的集合，其中所有的key都是不同的，然后通过给定的key可以在常数时间复杂度内检索、更新或删除对应的value。map是哈希表的引用，map类型写法：map[K]V，K为key，V为value。所有key都是相同类型，value也都是相同类型，但key和value之间可以是不同的数据类型。key必须是支持&#x3D;&#x3D;比较运算符的数据类型，所以map可以通过比较ke">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4.3. Map">
+<meta property="og:url" content="https://succeedwer.github.io/posts/610def108dde/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:description" content="定义哈希表是一个无序的key&#x2F;value对的集合，其中所有的key都是不同的，然后通过给定的key可以在常数时间复杂度内检索、更新或删除对应的value。map是哈希表的引用，map类型写法：map[K]V，K为key，V为value。所有key都是相同类型，value也都是相同类型，但key和value之间可以是不同的数据类型。key必须是支持&#x3D;&#x3D;比较运算符的数据类型，所以map可以通过比较ke">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-14T05:52:19.000Z">
+<meta property="article:modified_time" content="2024-03-18T05:20:20.000Z">
+<meta property="article:author" content="WER">
+<meta property="article:tag" content="读书笔记">
+<meta property="article:tag" content="go">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>4.3. Map - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="4.3. Map"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-14 13:52" pubdate>
+          2023年3月14日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          17 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">4.3. Map</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>哈希表是一个<strong>无序</strong>的<code>key/value</code>对的集合，其中所有的key都是不同的，然后通过给定的key可以在常数时间复杂度内检索、更新或删除对应的value。<br><code>map</code>是哈希表的引用，<code>map</code>类型写法：<code>map[K]V</code>，K为key，V为value。<br>所有key都是相同类型，value也都是相同类型，但key和value之间可以是不同的数据类型。<br>key必须是支持<code>==</code>比较运算符的数据类型，所以<code>map</code>可以通过比较key是否相等来判断key是否存在。<br><code>slice</code>不能当key，因为其不支持<code>==</code>比较运算符。<br>虽然浮点数类型支持<code>==</code>比较运算符，但是可能出现<code>NaN</code>和任何浮点数（包括自身）都不相等，所以浮点数最好不能为key。<br>对于value数据类型则没有任何限制。</p>
+<h1 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h1><h2 id="字面值创建"><a href="#字面值创建" class="headerlink" title="字面值创建"></a>字面值创建</h2><p>指定最初的<code>key\value</code>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go">ages := <span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-type">int</span>&#123;<br>	<span class="hljs-string">&quot;alice&quot;</span>:   <span class="hljs-number">31</span>,<br>	<span class="hljs-string">&quot;charlie&quot;</span>: <span class="hljs-number">21</span>,<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="内置make创建"><a href="#内置make创建" class="headerlink" title="内置make创建"></a>内置make创建</h2><p>内置的<code>make</code>函数可以创建<code>map</code>:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go">ages := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-type">int</span>)<br>ages[<span class="hljs-string">&quot;alice&quot;</span>] = <span class="hljs-number">31</span><br>ages[<span class="hljs-string">&quot;charlie&quot;</span>] = <span class="hljs-number">21</span><br></code></pre></td></tr></table></figure>
+
+<p>另一种创建空的<code>map</code>的方式：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">ages := <span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-type">int</span>&#123;&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="基础操作"><a href="#基础操作" class="headerlink" title="基础操作"></a>基础操作</h1><p>取值、存值、删除这些操作都是安全的，即使<code>key</code>不存在。</p>
+<h2 id="取值"><a href="#取值" class="headerlink" title="取值"></a>取值</h2><p>通过key对应的下标语法访问：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">fmt.Println(ages[<span class="hljs-string">&quot;alice&quot;</span>]) <span class="hljs-comment">// 31</span><br></code></pre></td></tr></table></figure>
+<p>当<code>key</code>不存在，返回的<code>value</code>为<code>value</code>对应类型的零值。如<code>int</code>返回0。</p>
+<p>但需要知道<code>map</code>中是否存在该键值对时或返回的值是已存在的0还是不存在而返回的零值0，可以通过以下操作：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go">age, ok := ages[<span class="hljs-string">&quot;bob&quot;</span>]<br><span class="hljs-keyword">if</span> !ok &#123;<br>	<span class="hljs-comment">/* &quot;bob&quot; is not a key in this map; age == 0.*/</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>也可以进行结合简化：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">if</span> age, ok := ages[<span class="hljs-string">&quot;bob&quot;</span>]; !ok &#123;<br>	<span class="hljs-comment">/* &quot;bob&quot; is not a key in this map; age == 0.*/</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>map</code>的下标语法将产生两个值；第二个是一个布尔值，用于报告元素是否真的存在。布尔变量一般命名为<code>ok</code>，特别适合马上用于<code>if</code>条件判断部分。</p>
+<p><code>map</code>中的<code>value</code>并不是变量，因此不能对<code>map</code>的值进行取址操作：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">_ = &amp;ages[<span class="hljs-string">&quot;bob&quot;</span>] <span class="hljs-comment">// invalid operation: cannot take address of ages[&quot;bob&quot;] (map index expression of type int)</span><br></code></pre></td></tr></table></figure>
+<p>原因：<code>map</code>可能随着键值对的数量增长而重新分配更大的内存空间，从而可能导致之前的地址无效。</p>
+<h2 id="存入键值对"><a href="#存入键值对" class="headerlink" title="存入键值对"></a>存入键值对</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go">ages[<span class="hljs-string">&quot;alice&quot;</span>] = <span class="hljs-number">31</span><br>ages[<span class="hljs-string">&quot;charlie&quot;</span>] = <span class="hljs-number">34</span><br></code></pre></td></tr></table></figure>
+<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><p>使用内置的<code>delete</code>函数删除k\v：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-built_in">delete</span>(ages, <span class="hljs-string">&quot;alice&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>当<code>key</code>不存在时，删除操作同样不会出现异常。</p>
+<h2 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">for</span> key, value := <span class="hljs-keyword">range</span> ages &#123;<br>	fmt.Printf(<span class="hljs-string">&quot;key:%s\tvalue:%d\n&quot;</span>, key, value)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>map</code>的迭代顺序是不确定的，并且不同的哈希函数实现可能导致不同的遍历顺序。所以遍历的顺序是随机的，每一次遍历的顺序都不相同。</p>
+<p>如果要求按顺序遍历<code>key/value</code>对，可以显式对应<code>key</code>进行排序：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> names []<span class="hljs-type">string</span><br><span class="hljs-keyword">for</span> name := <span class="hljs-keyword">range</span> ages &#123;<br>	names = <span class="hljs-built_in">append</span>(names, name)<br>&#125;<br>sort.Strings(names)<br><span class="hljs-keyword">for</span> _, name := <span class="hljs-keyword">range</span>  names &#123;<br>	fmt.Printf(<span class="hljs-string">&quot;%s\t%d\n&quot;</span>, name, ages[name])<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="map的零值"><a href="#map的零值" class="headerlink" title="map的零值"></a>map的零值</h1><p><code>map</code>类型的零值是<code>nil</code>，也就是没有引用任何哈希表。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> ages <span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-type">int</span><br>fmt.Println(ages == <span class="hljs-literal">nil</span>)    <span class="hljs-comment">// true</span><br>fmt.Println(<span class="hljs-built_in">len</span>(ages) == <span class="hljs-number">0</span>) <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
+<p><code>nil</code>值的<code>map</code>进行查找、删除、len和range循环等大部分操作都是安全的，与空的<code>map</code>类似。<br>但向<code>nil</code>值的<code>map</code>存入键值对将导致<code>panic</code>异常：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> ages <span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-type">int</span><br>ages[<span class="hljs-string">&quot;carol&quot;</span>] = <span class="hljs-number">21</span> <span class="hljs-comment">// panic: assignment to entry in nil map</span><br></code></pre></td></tr></table></figure>
+
+<p>所以在向<code>map</code>存储键值对前必须先创建<code>map</code>。</p>
+<h1 id="相等比较"><a href="#相等比较" class="headerlink" title="相等比较"></a>相等比较</h1><p>和<code>slice</code>一样，<code>map</code>之间也不能进行相等比较；<br>唯一的例外是可以和<code>nil</code>进行相等比较。<br>要判断两个map是否包含相同的key和value，我们必须通过一个循环实现：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">equal</span><span class="hljs-params">(x, y <span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-type">int</span>)</span></span> <span class="hljs-type">bool</span> &#123;<br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(x) != <span class="hljs-built_in">len</span>(x) &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>	&#125;<br>	<span class="hljs-keyword">for</span> k, xv := <span class="hljs-keyword">range</span> x &#123;<br>		<span class="hljs-keyword">if</span> yv, ok := y[k]; !ok || xv != yv &#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h1><h2 id="dedup去重"><a href="#dedup去重" class="headerlink" title="dedup去重"></a>dedup去重</h2><p>Go语言中并没有提供set类型，但可以通过<code>map</code>去实现类似功能。<br>下面的dedup程序读取多行输入，但是只打印第一次出现的行。（它是1.3节中出现的dup程序的变体。）dedup程序通过map来表示所有的输入行所对应的set集合，以确保已经在集合存在的行不会被重复打印。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;bufio&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	seen := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-type">bool</span>)<br>	input := bufio.NewScanner(os.Stdin)<br>	<span class="hljs-keyword">for</span> input.Scan() &#123;<br>		text := input.Text()<br>		<span class="hljs-keyword">if</span> !seen[text] &#123;<br>			seen[text] = <span class="hljs-literal">true</span><br>			fmt.Println(text)<br>		&#125;<br>	&#125;<br><br>	<span class="hljs-keyword">if</span> err := input.Err(); err != <span class="hljs-literal">nil</span> &#123;<br>		fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;dedup: %v\n&quot;</span>, err)<br>		os.Exit(<span class="hljs-number">1</span>)<br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>终端中输入文件结束符（EOF，end of file）:</p>
+<ul>
+<li>windows终端，键入<code>ctrl+Z</code></li>
+<li>Linux&#x2F;Mac终端中，键入<code>ctrl+D</code></li>
+</ul>
+<h2 id="统计相同的字符串"><a href="#统计相同的字符串" class="headerlink" title="统计相同的字符串"></a>统计相同的字符串</h2><p>下面的例子演示了如何使用map来记录提交相同的字符串列表的次数：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-keyword">var</span> m = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-type">int</span>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	s := []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>&#125;<br>	Add(s)<br>	Add(s)<br>	Add(s)<br>	fmt.Println(Count(s)) <span class="hljs-comment">// 3</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">k</span><span class="hljs-params">(list []<span class="hljs-type">string</span>)</span></span> <span class="hljs-type">string</span> &#123;<br>	<span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;%q&quot;</span>, list)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Add</span><span class="hljs-params">(list []<span class="hljs-type">string</span>)</span></span> &#123;<br>	m[k(list)]++<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Count</span><span class="hljs-params">(list []<span class="hljs-type">string</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">return</span> m[k(list)]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>不可比较的key类型，可以通过k函数，进行转换成可比较的类型。还可以在比较字符串时候忽略大小写等。</p>
+<h2 id="统计Unicode码点出现次数"><a href="#统计Unicode码点出现次数" class="headerlink" title="统计Unicode码点出现次数"></a>统计Unicode码点出现次数</h2><p>下面的程序用于统计输入中每个Unicode码点出现的次数：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Charcount computes counts of Unicode characters.</span><br><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;bufio&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;io&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;unicode&quot;</span><br>	<span class="hljs-string">&quot;unicode/utf8&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	counts := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">rune</span>]<span class="hljs-type">int</span>)    <span class="hljs-comment">// counts of Unicode characters</span><br>	<span class="hljs-keyword">var</span> utflen [utf8.UTFMax + <span class="hljs-number">1</span>]<span class="hljs-type">int</span> <span class="hljs-comment">// count of lengths of UTF-8 encodings</span><br>	invalid := <span class="hljs-number">0</span>                    <span class="hljs-comment">// count of invalid UTF-8 characters</span><br><br>	in := bufio.NewReader(os.Stdin)<br>	<span class="hljs-keyword">for</span> &#123;<br>		r, n, err := in.ReadRune() <span class="hljs-comment">// returns rune,nbytes,error</span><br>		<span class="hljs-keyword">if</span> err == io.EOF &#123;<br>			<span class="hljs-keyword">break</span><br>		&#125;<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;charcount: %v\n&quot;</span>, err)<br>			os.Exit(<span class="hljs-number">1</span>)<br>		&#125;<br>		<span class="hljs-keyword">if</span> r == unicode.ReplacementChar &amp;&amp; n == <span class="hljs-number">1</span> &#123;<br>			invalid++<br>			<span class="hljs-keyword">continue</span><br>		&#125;<br>		counts[r]++<br>		utflen[n]++<br>	&#125;<br>	fmt.Printf(<span class="hljs-string">&quot;rune\tcount\n&quot;</span>)<br>	<span class="hljs-keyword">for</span> c, n := <span class="hljs-keyword">range</span> counts &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;%q\t%d\n&quot;</span>, c, n)<br>	&#125;<br>	fmt.Print(<span class="hljs-string">&quot;\nlen\tcount\n&quot;</span>)<br>	<span class="hljs-keyword">for</span> i, n := <span class="hljs-keyword">range</span> utflen &#123;<br>		<span class="hljs-keyword">if</span> i &gt; <span class="hljs-number">0</span> &#123;<br>			fmt.Printf(<span class="hljs-string">&quot;%d\t%d\n&quot;</span>, i, n)<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">if</span> invalid &gt; <span class="hljs-number">0</span> &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;\n%d invalid UTF-8 characters\n&quot;</span>, invalid)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在终端输入后回车，就能继续运行<code>r, n, err := in.ReadRune()</code>及其后面的代码。当检测到有非法utf8字符（如文件结尾）时就会break跳出循环，并打印统计数据。</p>
+<h2 id="聚合类型的value"><a href="#聚合类型的value" class="headerlink" title="聚合类型的value"></a>聚合类型的value</h2><p>在下面的代码中，图graph的key类型是一个字符串，value类型map[string]bool代表一个字符串集合。从概念上将，graph将一个字符串类型的key映射到一组相关的字符串集合，它们指向新的graph的key。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-keyword">var</span> graph = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-type">bool</span>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	addEdge(<span class="hljs-string">&quot;A&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>)<br>	fmt.Println(graph)             <span class="hljs-comment">// map[A:map[b:true]]</span><br>	fmt.Println(hasEdge(<span class="hljs-string">&quot;A&quot;</span>, <span class="hljs-string">&quot;a&quot;</span>)) <span class="hljs-comment">// false</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">addEdge</span><span class="hljs-params">(from, to <span class="hljs-type">string</span>)</span></span> &#123;<br>	edges := graph[from]<br>	<span class="hljs-keyword">if</span> edges == <span class="hljs-literal">nil</span> &#123;<br>		edges = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-type">bool</span>)<br>		graph[from] = edges<br>	&#125;<br>	edges[to] = <span class="hljs-literal">true</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">hasEdge</span><span class="hljs-params">(from, to <span class="hljs-type">string</span>)</span></span> <span class="hljs-type">bool</span> &#123;<br>	<span class="hljs-keyword">return</span> graph[from][to]<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>其中addEdge函数惰性初始化map是一个惯用方式，也就是说在每个值首次作为key时才初始化。addEdge函数显示了如何让map的零值也能正常工作；即使from到to的边不存在，graph[from][to]依然可以返回一个有意义的结果。</p>
+<h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><p><strong>练习 4.8：</strong> 修改charcount程序，使用unicode.IsLetter等相关的函数，统计字母、数字等Unicode中不同的字符类别。<br>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;bufio&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;io&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;unicode&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> class <span class="hljs-type">string</span><br><br><span class="hljs-keyword">const</span> (<br>	letter  class = <span class="hljs-string">&quot;letter&quot;</span><br>	number  class = <span class="hljs-string">&quot;number&quot;</span><br>	graphic class = <span class="hljs-string">&quot;graphic&quot;</span><br>	space   class = <span class="hljs-string">&quot;space&quot;</span><br>	symbol  class = <span class="hljs-string">&quot;symbol&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	classCount := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[class]<span class="hljs-type">int</span>, <span class="hljs-number">5</span>)<br>	in := bufio.NewReader(os.Stdin)<br>	<span class="hljs-keyword">for</span> &#123;<br>		r, _, err := in.ReadRune()<br>		<span class="hljs-keyword">if</span> err == io.EOF &#123;<br>			<span class="hljs-keyword">break</span><br>		&#125;<br>		<span class="hljs-keyword">switch</span> &#123;<br>		<span class="hljs-keyword">case</span> unicode.IsLetter(r):<br>			classCount[letter]++<br>		<span class="hljs-keyword">case</span> unicode.IsNumber(r):<br>			classCount[number]++<br>		<span class="hljs-keyword">case</span> unicode.IsGraphic(r):<br>			classCount[graphic]++<br>		<span class="hljs-keyword">case</span> unicode.IsSpace(r):<br>			classCount[space]++<br>		<span class="hljs-keyword">case</span> unicode.IsSymbol(r):<br>			classCount[symbol]++<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">for</span> class, count := <span class="hljs-keyword">range</span> classCount &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;class: %s, count = %d\n&quot;</span>, class, count)<br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p><strong>练习 4.9：</strong> 编写一个程序wordfreq程序，报告输入文本中每个单词出现的频率。在第一次调用Scan前先调用input.Split(bufio.ScanWords)函数，这样可以按单词而不是按行输入。<br>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;bufio&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	wordCount := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-type">int</span>)<br>	input := bufio.NewScanner(os.Stdin)<br>	input.Split(bufio.ScanWords)<br>	<span class="hljs-keyword">for</span> input.Scan() &#123;<br>		wordCount[input.Text()]++<br>	&#125;<br>	<span class="hljs-keyword">for</span> word, count := <span class="hljs-keyword">range</span> wordCount &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;word: %s, count= %d\n&quot;</span>, word, count)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="print-no-link">#读书笔记</a>
+      
+        <a href="/tags/go/" class="print-no-link">#go</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>4.3. Map</div>
+      <div>https://succeedwer.github.io/posts/610def108dde/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WER</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月14日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年3月18日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/556653fe988e/" title="4.4. Struct">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">4.4. Struct</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/53445ef771d8/" title="4.2. Slice">
+                        <span class="hidden-mobile">4.2. Slice</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

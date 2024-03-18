@@ -1,0 +1,731 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="定义在普通函数前加上关键字defer时，当defer语句被执行时，其后面的函数会被延迟执行。直到包含该defer语句的函数执行完毕时，defer后的函数才会被执行，无论是包含defer的函数通过return正常结束或由于panic导致的异常结束。一个函数中可以执行多条defer语句，它们的执行顺序与声明的顺序相反。 使用技巧defer语句常用于处理成对的操作，如打开、关闭、连接、断开连接、加锁、释">
+<meta property="og:type" content="article">
+<meta property="og:title" content="5.8. Deferred函数">
+<meta property="og:url" content="https://succeedwer.github.io/posts/6f685641f7fc/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:description" content="定义在普通函数前加上关键字defer时，当defer语句被执行时，其后面的函数会被延迟执行。直到包含该defer语句的函数执行完毕时，defer后的函数才会被执行，无论是包含defer的函数通过return正常结束或由于panic导致的异常结束。一个函数中可以执行多条defer语句，它们的执行顺序与声明的顺序相反。 使用技巧defer语句常用于处理成对的操作，如打开、关闭、连接、断开连接、加锁、释">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-15T10:52:19.000Z">
+<meta property="article:modified_time" content="2024-03-18T05:20:20.000Z">
+<meta property="article:author" content="WER">
+<meta property="article:tag" content="读书笔记">
+<meta property="article:tag" content="go">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>5.8. Deferred函数 - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="5.8. Deferred函数"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-15 18:52" pubdate>
+          2023年3月15日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          17 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">5.8. Deferred函数</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>在普通函数前加上关键字<code>defer</code>时，当<code>defer</code>语句被执行时，其后面的函数会被延迟执行。<br>直到包含该<code>defer</code>语句的函数执行完毕时，<code>defer</code>后的函数才会被执行，无论是包含<code>defer</code>的函数通过<code>return</code>正常结束或由于<code>panic</code>导致的异常结束。<br>一个函数中可以执行多条<code>defer</code>语句，它们的执行顺序与声明的顺序相反。</p>
+<h1 id="使用技巧"><a href="#使用技巧" class="headerlink" title="使用技巧"></a>使用技巧</h1><p><code>defer</code>语句常用于处理成对的操作，如打开、关闭、连接、断开连接、加锁、释放锁。<br>通过<code>defer</code>机制，无论函数逻辑多复杂，都能保证在任何执行路径下，资源能被释放。<br>释放资源的<code>defer</code>语句应该直接跟着请求资源的语句后。</p>
+<h2 id="关闭网络连接"><a href="#关闭网络连接" class="headerlink" title="关闭网络连接"></a>关闭网络连接</h2><p>下面例子获取HTML页面并输出页面的标题。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;golang.org/x/net/html&quot;</span><br>	<span class="hljs-string">&quot;net/http&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;strings&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">for</span> _, arg := <span class="hljs-keyword">range</span> os.Args[<span class="hljs-number">1</span>:] &#123;<br>		<span class="hljs-keyword">if</span> err := title(arg); err != <span class="hljs-literal">nil</span> &#123;<br>			fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;title: %v\n&quot;</span>, err)<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">title</span><span class="hljs-params">(url <span class="hljs-type">string</span>)</span></span> <span class="hljs-type">error</span> &#123;<br>	resp, err := http.Get(url)<br>	<span class="hljs-keyword">defer</span> resp.Body.Close()<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> err<br>	&#125;<br><br>	ct := resp.Header.Get(<span class="hljs-string">&quot;Content-Type&quot;</span>)<br>	<span class="hljs-keyword">if</span> ct != <span class="hljs-string">&quot;text/html&quot;</span> &amp;&amp; !strings.HasPrefix(ct, <span class="hljs-string">&quot;text/html&quot;</span>) &#123;<br>		<span class="hljs-keyword">return</span> fmt.Errorf(<span class="hljs-string">&quot;%s has type %s, not text/html&quot;</span>, url, ct)<br>	&#125;<br><br>	doc, err := html.Parse(resp.Body)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> fmt.Errorf(<span class="hljs-string">&quot;parsing %s as HTML: %v&quot;</span>, url, err)<br>	&#125;<br><br>	visitNode := <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(n *html.Node)</span></span> &#123;<br>		<span class="hljs-keyword">if</span> n.Type == html.ElementNode &amp;&amp; n.Data == <span class="hljs-string">&quot;title&quot;</span> &amp;&amp; n.FirstChild != <span class="hljs-literal">nil</span> &#123;<br>			fmt.Fprintf(os.Stdout, <span class="hljs-string">&quot;title:%s&quot;</span>, n.Data)<br>		&#125;<br>	&#125;<br><br>	foreachNode(doc, visitNode, <span class="hljs-literal">nil</span>)<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">foreachNode</span><span class="hljs-params">(n *html.Node, pre, post <span class="hljs-keyword">func</span>(n *html.Node)</span></span>) &#123;<br>	<span class="hljs-keyword">if</span> pre != <span class="hljs-literal">nil</span> &#123;<br>		pre(n)<br>	&#125;<br><br>	<span class="hljs-keyword">for</span> c := n.FirstChild; c != <span class="hljs-literal">nil</span>; c = c.NextSibling &#123;<br>		foreachNode(c, pre, post)<br>	&#125;<br><br>	<span class="hljs-keyword">if</span> post != <span class="hljs-literal">nil</span> &#123;<br>		post(n)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>下面是代码的运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">./title1 http://gopl.io</span><br>The Go Programming Language<br>./title1 https://inews.gtimg.com/news_ls/OExtuAtUKTNazpSOqxmuLgKRPO6wJk6nwVNAfixgCGtOAAA_640330/0<br>title: https://inews.gtimg.com/news_ls/OExtuAtUKTNazpSOqxmuLgKRPO6wJk6nwVNAfixgCGtOAAA_640330/0 has type image/jpeg, not text/html<br></code></pre></td></tr></table></figure>
+<h2 id="关闭文件"><a href="#关闭文件" class="headerlink" title="关闭文件"></a>关闭文件</h2><p>如<code>io.util</code>包中，读取文件<code>ReadFile</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ReadFile</span><span class="hljs-params">(filename <span class="hljs-type">string</span>)</span></span> ([]<span class="hljs-type">byte</span>, <span class="hljs-type">error</span>) &#123;<br>	f, err := os.Open(filename)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err<br>	&#125;<br>	<span class="hljs-keyword">defer</span> f.Close()<br>	<span class="hljs-keyword">return</span> ReadAll(f)<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="处理互斥锁"><a href="#处理互斥锁" class="headerlink" title="处理互斥锁"></a>处理互斥锁</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> mu sync.Mutex<br><span class="hljs-keyword">var</span> m = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-type">int</span>)<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">lookup</span><span class="hljs-params">(key <span class="hljs-type">string</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>	mu.Lock()<br>	<span class="hljs-keyword">defer</span> mu.Unlock()<br>	<span class="hljs-keyword">return</span> m[key]<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="记录函数运行时间"><a href="#记录函数运行时间" class="headerlink" title="记录函数运行时间"></a>记录函数运行时间</h2><p>在调试复杂程序时，<code>defer</code>机制也可用于记录何时进入和退出函数。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	bigSlowOperation()<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">bigSlowOperation</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">defer</span> trace(<span class="hljs-string">&quot;bigSlowOperation&quot;</span>)()<br>	<span class="hljs-comment">// lots of work</span><br>	time.Sleep(<span class="hljs-number">10</span> * time.Second)<br>	<span class="hljs-comment">// operation by sleeping</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">trace</span><span class="hljs-params">(msg <span class="hljs-type">string</span>)</span></span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>	start := time.Now()<br>	log.Printf(<span class="hljs-string">&quot;enter %s&quot;</span>, msg)<br>	<span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		log.Printf(<span class="hljs-string">&quot;exit %s (%s)&quot;</span>, msg, time.Since(start))<br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>需要注意的是，不要漏掉<code>defer</code>语句后的圆括号，即调用<code>trace</code>返回的函数，否则本该在进入时执行的操作会在退出时执行，而本该在退出时执行的，永远执行不了。<br>下面是例子的运行结果：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-number">2023</span>/<span class="hljs-number">06</span>/<span class="hljs-number">11</span> <span class="hljs-number">04</span>:<span class="hljs-number">07</span>:<span class="hljs-number">48</span> enter bigSlowOperation<br><span class="hljs-number">2023</span>/<span class="hljs-number">06</span>/<span class="hljs-number">11</span> <span class="hljs-number">04</span>:<span class="hljs-number">07</span>:<span class="hljs-number">58</span> exit bigSlowOperation (<span class="hljs-number">10.001382207</span>s)<br></code></pre></td></tr></table></figure>
+
+<h2 id="使用匿名函数观察返回值"><a href="#使用匿名函数观察返回值" class="headerlink" title="使用匿名函数观察返回值"></a>使用匿名函数观察返回值</h2><p><code>defer</code>语句中的函数会在<code>return</code>语句更新返回值变量后再执行，又因为在函数中定义的匿名函数可以访问该函数包括返回值变量在内的所有变量，所以，对匿名函数采用<code>defer</code>机制，可以使其观察函数的返回值。<br>如下函数<code>double</code>:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">double</span><span class="hljs-params">(x <span class="hljs-type">int</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">return</span> x + x<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>只需要命名<code>double</code>函数的返回值，再增加<code>defer</code>语句，就可以在<code>double</code>每次被调用时，输出参数以及返回值。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">double</span><span class="hljs-params">(x <span class="hljs-type">int</span>)</span></span> (result <span class="hljs-type">int</span>) &#123;<br>	<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;double(%d) = %d\n&quot;</span>, x, result)<br>	&#125;()<br>	<span class="hljs-keyword">return</span> x + x<br>&#125;<br><br>double(<span class="hljs-number">2</span>) <span class="hljs-comment">// double(2) = 4</span><br></code></pre></td></tr></table></figure>
+
+<p>另外一个小技巧，被延迟执行的匿名函数甚至可以修改函数返回值：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">triple</span><span class="hljs-params">(x <span class="hljs-type">int</span>)</span></span> (result <span class="hljs-type">int</span>) &#123;<br>	<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		result += x<br>	&#125;()<br>	<span class="hljs-keyword">return</span> double(x)<br>&#125;<br><br>fmt.Printf(<span class="hljs-string">&quot;triple(%d) = %d\n&quot;</span>, <span class="hljs-number">2</span>, triple(<span class="hljs-number">2</span>)) <span class="hljs-comment">// triple(2) = 6</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="注意循环体中的defer机制"><a href="#注意循环体中的defer机制" class="headerlink" title="注意循环体中的defer机制"></a>注意循环体中的defer机制</h2><p>在循环体中的<code>defer</code>语句要特别注意，因为只有函数执行完毕后，被延迟的函数才会执行。<br>下面的代码导致系统的文件并没有关闭。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">closeFiles</span><span class="hljs-params">(filenames []<span class="hljs-type">string</span>)</span></span>  &#123;<br>	<span class="hljs-keyword">for</span> _, filename := <span class="hljs-keyword">range</span> filenames &#123;<br>		f, err := os.Open(filename)<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-keyword">return</span><br>		&#125;<br>		<span class="hljs-keyword">defer</span> f.Close() <span class="hljs-comment">// <span class="hljs-doctag">NOTE:</span> could run out of file</span><br>		<span class="hljs-comment">// ...process f...</span><br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>解决方法是将循环体中的<code>defer</code>语句移到另外一个函数。每次循环时，调用该函数。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">closeFiles</span><span class="hljs-params">(filenames []<span class="hljs-type">string</span>)</span></span> <span class="hljs-type">error</span> &#123;<br>	<span class="hljs-keyword">for</span> _, filename := <span class="hljs-keyword">range</span> filenames &#123;<br>		<span class="hljs-keyword">if</span> err := doFile(filename); err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-keyword">return</span> err<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">doFile</span><span class="hljs-params">(filename <span class="hljs-type">string</span>)</span></span> <span class="hljs-type">error</span> &#123;<br>	f, err := os.Open(filename)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> err<br>	&#125;<br>	<span class="hljs-keyword">defer</span> f.Close()<br>	<span class="hljs-comment">// ...process f...</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="传递函数反馈信息"><a href="#传递函数反馈信息" class="headerlink" title="传递函数反馈信息"></a>传递函数反馈信息</h2><p>下面代码是<code>fetch</code>的改进版，将http响应信息写入本地文件。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> fetch<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;io&quot;</span><br>	<span class="hljs-string">&quot;net/http&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;path&quot;</span><br>)<br><br><span class="hljs-comment">// Fetch downloads the URL and returns the name and length of the local file.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">fetch</span><span class="hljs-params">(url <span class="hljs-type">string</span>)</span></span> (filename <span class="hljs-type">string</span>, n <span class="hljs-type">int64</span>, err <span class="hljs-type">error</span>) &#123;<br>	resp, err := http.Get(url)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-number">0</span>, err<br>	&#125;<br>	<span class="hljs-keyword">defer</span> resp.Body.Close()<br><br>	local := path.Base(resp.Request.URL.Path)<br>	<span class="hljs-keyword">if</span> local == <span class="hljs-string">&quot;/&quot;</span> &#123;<br>		local = <span class="hljs-string">&quot;index.html&quot;</span><br>	&#125;<br><br>	f, err := os.Create(local)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-number">0</span>, err<br>	&#125;<br>	n, err = io.Copy(f, resp.Body)<br>	<span class="hljs-keyword">if</span> closeErr := f.Close(); err == <span class="hljs-literal">nil</span> &#123;<br>		err = closeErr<br>	&#125;<br>	<span class="hljs-keyword">return</span> local, n, err<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>上面例子使用<code>defer</code>机制对<code>resp.Body.Close</code>进行延迟调用。<br>但未对<code>f.Close()</code>进行延迟调用，原因是会产生一些微妙的错误。<br>当写入文件时发生的错误被延迟到文件关闭时反馈，如果没有检查文件关闭时的反馈信息，可能会导致数据丢失，而我们还误以为写入操作成功。<br>如果<code>io.Copy</code>和<code>f.close</code>都失败了，我们倾向于将<code>io.Copy</code>的错误信息反馈给调用者，因为它先于<code>f.close</code>发生，更有可能接近问题的本质。</p>
+<h1 id="defer、return和返回值"><a href="#defer、return和返回值" class="headerlink" title="defer、return和返回值"></a>defer、return和返回值</h1><p><code>defer</code>、<code>return</code>和返回值的执行顺序如何呢？<br>其实呢，在一般情况下，即<code>defer</code>写于<code>return</code>前（为什么要强调呢，后面再议），<code>return</code>语句非原子性，<code>return</code>先给返回值赋值；接着<code>defer</code>语句开始执行；最后执行<code>RET</code>指令携带返回值返回函数。<br>那么问题来了，<code>defer</code>可以修改返回值么？<br>下面几个例子足以说明：</p>
+<ol>
+<li><code>defer</code>不能修改匿名返回值 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">testDefer</span><span class="hljs-params">()</span></span> <span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">var</span> i <span class="hljs-type">int</span><br>	<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		i = <span class="hljs-number">10</span><br>	&#125;()<br>	i = <span class="hljs-number">1</span><br>	<span class="hljs-keyword">return</span> i<br>&#125;<br>fmt.Println(testDefer()) <span class="hljs-comment">// 1</span><br></code></pre></td></tr></table></figure>
+ <code>i</code>初始化为0，然后赋值1，<code>defer</code>语句中i&#x3D;10，结果返回值为1，显然<code>defer</code>语句无法修改匿名返回值。</li>
+<li><code>defer</code>可以修改非匿名返回值 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">testDefer</span><span class="hljs-params">()</span></span> (i <span class="hljs-type">int</span>) &#123;<br>	<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		i = <span class="hljs-number">10</span><br>	&#125;()<br>	i = <span class="hljs-number">1</span><br>	<span class="hljs-keyword">return</span> i<br>&#125;<br>fmt.Println(testDefer()) <span class="hljs-comment">// 10</span><br></code></pre></td></tr></table></figure>
+ <code>return</code>语句返回的是1，<code>defer</code>语句修改返回值i&#x3D;10，	结果返回值为10，显然<code>defer</code>语句是可以修改非匿名返回值。</li>
+</ol>
+<h1 id="defer和return的书写顺序"><a href="#defer和return的书写顺序" class="headerlink" title="defer和return的书写顺序"></a>defer和return的书写顺序</h1><p>先看个例子：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">fun2</span><span class="hljs-params">(n <span class="hljs-type">int</span>)</span></span> (i <span class="hljs-type">int</span>) &#123;<br>	<span class="hljs-keyword">if</span> n == <span class="hljs-number">0</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-number">1</span><br>	&#125;<br>	<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123; i = <span class="hljs-number">10</span> &#125;()<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">2</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>上述例子，当参数n&#x3D;0时，返回值是多少呢？<br>第一反应是应该是10吧，非也，返回值为1。<br>那就奇了怪了，根据<code>defer</code>、<code>return</code>和<code>返回值</code>的执行顺序，<code>defer</code>语句应该修改了<code>return</code>修改后的命名返回值i为10。<br>个人理解啊，虽然有<code>defer</code>语句存在，但是函数根本没运行到<code>defer</code>语句，在之前就之前返回了，所以就没被修改到。<br>并没有找到官方的有关文档，纯属个人猜测。</p>
+<p>所以在设计函数时，要注意<code>defer</code>语句和<code>return</code>语句的书写顺序，如在协程关闭另外一个协程时。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		&lt;-sema<br>	&#125;() <span class="hljs-comment">// release token</span><br><br>	<span class="hljs-keyword">select</span> &#123;<br>	<span class="hljs-keyword">case</span> sema &lt;- <span class="hljs-keyword">struct</span>&#123;&#125;&#123;&#125;: <span class="hljs-comment">// acquire token</span><br>	<span class="hljs-keyword">case</span> &lt;-done:<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>	&#125;<br><br></code></pre></td></tr></table></figure>
+<p><code>sema channel</code>在容量满时，同时也没接收到<code>done channel</code>的信息时，<code>select</code>进行堵塞，等待释放资源， 一旦此时<code>done channel</code>接收到值时，<code>return</code>语句执行了，再执行<code>defer</code>语句，导致<code>sema channel</code>一直在堵塞。</p>
+<h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><p><strong>练习5.18：</strong> 不修改fetch的行为，重写fetch函数，要求使用defer机制关闭文件。<br>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;io&quot;</span><br>	<span class="hljs-string">&quot;net/http&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;path&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">fetch</span><span class="hljs-params">(url <span class="hljs-type">string</span>)</span></span> (filename <span class="hljs-type">string</span>, n <span class="hljs-type">int64</span>, err <span class="hljs-type">error</span>) &#123;<br>	resp, err := http.Get(url)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-number">0</span>, err<br>	&#125;<br>	<span class="hljs-keyword">defer</span> resp.Body.Close()<br><br>	local := path.Base(resp.Request.URL.Path)<br>	<span class="hljs-keyword">if</span> local == <span class="hljs-string">&quot;/&quot;</span> &#123;<br>		local = <span class="hljs-string">&quot;index.html&quot;</span><br>	&#125;<br><br>	f, err := os.Create(local)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-number">0</span>, err<br>	&#125;<br>	<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		closeErr := f.Close()<br>		<span class="hljs-keyword">if</span> err == <span class="hljs-literal">nil</span> &#123;<br>			err = closeErr<br>		&#125;<br>	&#125;()<br><br>	n, err = io.Copy(f, resp.Body)<br>	<span class="hljs-keyword">return</span> local, n, err<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">for</span> _, arg := <span class="hljs-keyword">range</span> os.Args[<span class="hljs-number">1</span>:] &#123;<br>		f, n, err := fetch(arg)<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;fetch: %s		error: %v\n&quot;</span>, arg, err)<br>			<span class="hljs-keyword">continue</span><br>		&#125;<br>		fmt.Fprintf(os.Stdout, <span class="hljs-string">&quot;fetch: %s		filename: %s  	count: %d\n&quot;</span>, arg, f, n)<br>	&#125;<br>&#125;<br> <br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="print-no-link">#读书笔记</a>
+      
+        <a href="/tags/go/" class="print-no-link">#go</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>5.8. Deferred函数</div>
+      <div>https://succeedwer.github.io/posts/6f685641f7fc/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WER</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月15日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年3月18日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/b0cbde1e1f43/" title="5.9. Panic异常">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">5.9. Panic异常</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/f16f86776a10/" title="5.7. 可变参数">
+                        <span class="hidden-mobile">5.7. 可变参数</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

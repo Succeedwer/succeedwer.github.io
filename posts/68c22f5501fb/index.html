@@ -1,0 +1,751 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="常量表达式的值在编译期间计算，而非运行期。常量的潜在类型都是基础类型：boolean、string或数字。 常量的声明语句定义了常量的名字，与变量声明语法类似。常量的值不可改变 ，以防止在运行期间被意外或恶意修改。 1const pi &#x3D; 3.14159 或批量声明多个相关常量： 1234const (    e  &#x3D; 2.7182818284590452353602874713526624977">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3.6. 常量">
+<meta property="og:url" content="https://succeedwer.github.io/posts/68c22f5501fb/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:description" content="常量表达式的值在编译期间计算，而非运行期。常量的潜在类型都是基础类型：boolean、string或数字。 常量的声明语句定义了常量的名字，与变量声明语法类似。常量的值不可改变 ，以防止在运行期间被意外或恶意修改。 1const pi &#x3D; 3.14159 或批量声明多个相关常量： 1234const (    e  &#x3D; 2.7182818284590452353602874713526624977">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-13T09:52:19.000Z">
+<meta property="article:modified_time" content="2024-03-18T05:20:20.000Z">
+<meta property="article:author" content="WER">
+<meta property="article:tag" content="读书笔记">
+<meta property="article:tag" content="go">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>3.6. 常量 - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="3.6. 常量"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-13 17:52" pubdate>
+          2023年3月13日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">3.6. 常量</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>常量表达式的值在编译期间计算，而非运行期。<br>常量的潜在类型都是基础类型：boolean、string或数字。</p>
+<p>常量的声明语句定义了常量的名字，与变量声明语法类似。<br>常量的值不可改变 ，以防止在运行期间被意外或恶意修改。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">const</span> pi = <span class="hljs-number">3.14159</span><br></code></pre></td></tr></table></figure>
+<p>或批量声明多个相关常量：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">const</span> (<br>    e  = <span class="hljs-number">2.71828182845904523536028747135266249775724709369995957496696763</span><br>    pi = <span class="hljs-number">3.14159265358979323846264338327950288419716939937510582097494459</span><br>)<br></code></pre></td></tr></table></figure>
+<p>当操作数是常量时，一些运行时的错误也可以在编译时被发现，如整数除零、字符串索引越界、任何导致无效浮点数的操作等。</p>
+<p>常量的声明也可以包含类型和值，如果没有显式指定类型，那么将从右边的表达式推断类型。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">const</span> noDelay time.Duration = <span class="hljs-number">0</span><br><span class="hljs-keyword">const</span> timeout = <span class="hljs-number">5</span> * time.Minute<br>fmt.Printf(<span class="hljs-string">&quot;%T %[1]v\n&quot;</span>, noDelay)     <span class="hljs-comment">// time.Duration 0s</span><br>fmt.Printf(<span class="hljs-string">&quot;%T %[1]v\n&quot;</span>, timeout)     <span class="hljs-comment">// time.Duration 5m0s</span><br>fmt.Printf(<span class="hljs-string">&quot;%T %[1]v\n&quot;</span>, time.Minute) <span class="hljs-comment">// time.Duration 1m0s</span><br></code></pre></td></tr></table></figure>
+
+<p>如果批量声明常量且常量类型一样，除了第一个外，都可以省略常量右边的初始化表达式：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">const</span> (<br>	a = <span class="hljs-number">1</span><br>	b<br>	c = <span class="hljs-number">2</span><br>	d<br>)<br>fmt.Println(a, b, c, d)<br></code></pre></td></tr></table></figure>
+
+<h1 id="3-6-1-iota常量生成器"><a href="#3-6-1-iota常量生成器" class="headerlink" title="3.6.1. iota常量生成器"></a>3.6.1. iota常量生成器</h1><p>常量声明可以使用iota常量生成器初始化，它用于生成一组以相似规则初始化的常量，但是不用每行都写一遍初始化表达式。<br>在一个const声明语句中，在第一个声明的常量所在的行，iota将会被置为0，然后在每一个有常量声明的行加1。</p>
+<p>类似其它编程语言的枚举类型，下面来自time包的Weekday命名类型，为一周的每一天定义一个常量。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Weekday <span class="hljs-type">int</span><br><br><span class="hljs-keyword">const</span> (<br>	Sunday Weekday = <span class="hljs-literal">iota</span><br>	Monday<br>	Tuesday<br>	Wednesday<br>	Thursday<br>	Friday<br>	Saturday<br>)<br></code></pre></td></tr></table></figure>
+<p>周日为0，周一为1，以此类推。</p>
+<p>也可以在复杂的常量表达式中使用iota.<br>如下<code>net</code>包的例子：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Flags <span class="hljs-type">uint</span><br><br><span class="hljs-keyword">const</span> (<br>	FlagUp           Flags = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-literal">iota</span> <span class="hljs-comment">// interface is up</span><br>	FlagBroadcast                      <span class="hljs-comment">// interface supports broadcast access capability</span><br>	FlagLoopback                       <span class="hljs-comment">// interface is a loopback interface</span><br>	FlagPointToPoint                   <span class="hljs-comment">// interface belongs to a point-to-point link</span><br>	FlagMulticast                      <span class="hljs-comment">// interface supports multicast access capability</span><br>)<br></code></pre></td></tr></table></figure>
+<p>每个常量表达式1&lt;&lt;iota，是连续的2的幂，分别对应一个bit的位置。常应用于测试、设置或清除对应bit位的值：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;net&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">IsUp</span><span class="hljs-params">(v net.Flags)</span></span> <span class="hljs-type">bool</span> &#123;<br>	<span class="hljs-keyword">return</span> v&amp;net.FlagUp == net.FlagUp<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TurnDown</span><span class="hljs-params">(v *net.Flags)</span></span> &#123;<br>	*v &amp;^= net.FlagUp<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">SetBroadcast</span><span class="hljs-params">(v *net.Flags)</span></span> &#123;<br>	*v |= net.FlagBroadcast<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">IsCast</span><span class="hljs-params">(v net.Flags)</span></span> <span class="hljs-type">bool</span> &#123;<br>	<span class="hljs-keyword">return</span> v&amp;(net.FlagBroadcast|net.FlagMulticast) != <span class="hljs-number">0</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> v net.Flags = net.FlagMulticast | net.FlagUp<br>	fmt.Printf(<span class="hljs-string">&quot;%b %t\n&quot;</span>, v, IsUp(v)) <span class="hljs-comment">// 10001 true</span><br>	TurnDown(&amp;v)<br>	fmt.Printf(<span class="hljs-string">&quot;%b %t\n&quot;</span>, v, IsUp(v)) <span class="hljs-comment">// 10000 false</span><br>	SetBroadcast(&amp;v)<br>	fmt.Printf(<span class="hljs-string">&quot;%b %t\n&quot;</span>, v, IsUp(v))   <span class="hljs-comment">// 10010 false</span><br>	fmt.Printf(<span class="hljs-string">&quot;%b %t\n&quot;</span>, v, IsCast(v)) <span class="hljs-comment">// 10010 true</span><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>下面有一个更复杂的例子，每个常量都是1024的幂：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">const</span> (<br>	_   = <span class="hljs-number">1</span> &lt;&lt; (<span class="hljs-number">10</span> * <span class="hljs-literal">iota</span>)<br>	KiB <span class="hljs-comment">// 1024B</span><br>	MiB <span class="hljs-comment">// 1048576B</span><br>	GiB <span class="hljs-comment">// 1073741824B</span><br>	TiB <span class="hljs-comment">// 1099511627776             (exceeds 1 &lt;&lt; 32)</span><br>	PiB <span class="hljs-comment">// 1125899906842624</span><br>	EiB <span class="hljs-comment">// 1152921504606846976</span><br>	ZiB <span class="hljs-comment">// 1180591620717411303424 (exceeds 1 &lt;&lt; 64)</span><br>	YiB <span class="hljs-comment">// 1208925819614629174706176</span><br>)<br></code></pre></td></tr></table></figure>
+<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><p><strong>练习 3.13：</strong> 编写KB、MB的常量声明，然后扩展到YB。<br>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">const</span> (<br>	KB = <span class="hljs-number">1000</span><br>	MB = KB * KB<br>	GB = MB * KB<br>	TB = GB * KB<br>	PB = TB * KB<br>	EB = PB * KB<br>	ZB = EB * KB<br>	YB = ZB * KB<br>)<br></code></pre></td></tr></table></figure>
+
+<h1 id="3-6-2-无类型常量"><a href="#3-6-2-无类型常量" class="headerlink" title="3.6.2. 无类型常量"></a>3.6.2. 无类型常量</h1><p>有六种未明确类型的常量类型：</p>
+<ul>
+<li>无类型的布尔型  true false</li>
+<li>无类型的整数 如 0</li>
+<li>无类型的字符 如 ‘\u0000’</li>
+<li>无类型的浮点数 如 0.0</li>
+<li>无类型的复数 如 0i</li>
+<li>无类型的字符串 如字符串面值常量”123”</li>
+</ul>
+<p>编译器为这些常量类型的数字常量提供比基础类型更高精度的算术运算，至少有256bit的运算精度，而且不需要显式类型转换可以直接用于更多表达式。如上的ZiB和YiB的值已超过整数类型能表达的范围，但仍然是合法的常量。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go">fmt.Println(YiB / ZiB) <span class="hljs-comment">// 1024</span><br>fmt.Println(YiB) <span class="hljs-comment">// cannot use YiB (untyped int constant 1208925819614629174706176) as int value in argument to fmt.Println (overflows)</span><br></code></pre></td></tr></table></figure>
+<p>另一个例子，math.Pi无类型的浮点数常量，可以直接用于任意需要浮点数或复数的地方：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> x <span class="hljs-type">float32</span> = math.Pi<br><span class="hljs-keyword">var</span> y <span class="hljs-type">float64</span> = math.Pi<br><span class="hljs-keyword">var</span> z <span class="hljs-type">complex128</span> = math.Pi<br>	<br>fmt.Println(x) <span class="hljs-comment">// 3.1415927</span><br>fmt.Println(y) <span class="hljs-comment">// 3.141592653589793</span><br>fmt.Println(z) <span class="hljs-comment">// (3.141592653589793+0i)</span><br></code></pre></td></tr></table></figure>
+<p>将常量赋值给变量时，可能会导致精度丢失。<br>如果常量被指定类型，如<code>math.Pi</code>，精度也会产生变化。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">const</span> Pi64 <span class="hljs-type">float64</span> = math.Pi<br><span class="hljs-keyword">var</span> x <span class="hljs-type">float32</span> = <span class="hljs-type">float32</span>(Pi64)<br><span class="hljs-keyword">var</span> y <span class="hljs-type">float64</span> = Pi64<br><span class="hljs-keyword">var</span> z <span class="hljs-type">complex128</span> = <span class="hljs-type">complex128</span>(Pi64)<br>	<br>fmt.Println(x) <span class="hljs-comment">// 3.1415927</span><br>fmt.Println(y) <span class="hljs-comment">// 3.141592653589793</span><br>fmt.Println(z) <span class="hljs-comment">// (3.141592653589793+0i)</span><br></code></pre></td></tr></table></figure>
+<p>除法运算符<code>/</code>会根据操作数的类型生成对应类型的结果。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> f <span class="hljs-type">float64</span> = <span class="hljs-number">212</span><br>fmt.Println((f - <span class="hljs-number">32</span>) * <span class="hljs-number">5</span> / <span class="hljs-number">9</span>)     <span class="hljs-comment">// &quot;100&quot;; (f - 32) * 5 is a float64</span><br>fmt.Println(<span class="hljs-number">5</span> / <span class="hljs-number">9</span> * (f - <span class="hljs-number">32</span>))     <span class="hljs-comment">// &quot;0&quot;;   5/9 is an untyped integer, 0</span><br>fmt.Println(<span class="hljs-number">5.0</span> / <span class="hljs-number">9.0</span> * (f - <span class="hljs-number">32</span>)) <span class="hljs-comment">// &quot;100&quot;; 5.0/9.0 is an untyped float</span><br></code></pre></td></tr></table></figure>
+<p>只有常量可以是无类型的。<br>当无类型的常量赋值给一个变量的时候，如<code>var f float64 = 212</code>或者像输出语句中的表达式含有明确类型的值，如果转换合法，无类型的常量将会被隐式转换为对应的类型。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> f <span class="hljs-type">float64</span> = <span class="hljs-number">3</span> + <span class="hljs-number">0i</span> <span class="hljs-comment">// untyped complex -&gt; float64</span><br>f = <span class="hljs-number">2</span>                  <span class="hljs-comment">// untyped integer -&gt; float64</span><br>f = <span class="hljs-number">1e123</span>              <span class="hljs-comment">// untyped floating-point -&gt; float64</span><br>f = <span class="hljs-string">&#x27;a&#x27;</span>                <span class="hljs-comment">// untyped rune -&gt; float64</span><br></code></pre></td></tr></table></figure>
+<p>相当于:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> f <span class="hljs-type">float64</span> = <span class="hljs-type">float64</span>(<span class="hljs-number">3</span> + <span class="hljs-number">0i</span>)<br>f = <span class="hljs-type">float64</span>(<span class="hljs-number">2</span>)<br>f = <span class="hljs-type">float64</span>(<span class="hljs-number">1e123</span>)<br>f = <span class="hljs-type">float64</span>(<span class="hljs-string">&#x27;a&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>无论是隐式或显式转换，将一种类型转换为另一种类型都要求目标可以表示原始值。对于浮点数和复数，可能会有舍入处理：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">const</span> (<br>    deadbeef = <span class="hljs-number">0xdeadbeef</span> <span class="hljs-comment">// untyped int with value 3735928559</span><br>    a = <span class="hljs-type">uint32</span>(deadbeef)  <span class="hljs-comment">// uint32 with value 3735928559</span><br>    b = <span class="hljs-type">float32</span>(deadbeef) <span class="hljs-comment">// float32 with value 3735928576 (rounded up)</span><br>    c = <span class="hljs-type">float64</span>(deadbeef) <span class="hljs-comment">// float64 with value 3735928559 (exact)</span><br>    d = <span class="hljs-type">int32</span>(deadbeef)   <span class="hljs-comment">// compile error: constant overflows int32</span><br>    e = <span class="hljs-type">float64</span>(<span class="hljs-number">1e309</span>)    <span class="hljs-comment">// compile error: constant overflows float64</span><br>    f = <span class="hljs-type">uint</span>(<span class="hljs-number">-1</span>)          <span class="hljs-comment">// compile error: constant underflows uint</span><br>)<br></code></pre></td></tr></table></figure>
+
+<p>对于没有显式类型的变量声明语法，无类型的常量会被隐式转为默认的变量类型：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go">i := <span class="hljs-number">0</span>      <span class="hljs-comment">// untyped integer;        implicit int(0)</span><br>r := <span class="hljs-string">&#x27;\000&#x27;</span> <span class="hljs-comment">// untyped rune;           implicit rune(&#x27;\000&#x27;)</span><br>f := <span class="hljs-number">0.0</span>    <span class="hljs-comment">// untyped floating-point; implicit float64(0.0)</span><br>c := <span class="hljs-number">0i</span>     <span class="hljs-comment">// untyped complex;        implicit complex128(0i)</span><br></code></pre></td></tr></table></figure>
+<p>默认类型规则：</p>
+<ul>
+<li>无类型的整数常量 -&gt;<code>int</code></li>
+<li>无类型的浮点数常量-&gt;<code>float64</code></li>
+<li>无类型的复数常量-&gt;<code>complex128</code></li>
+<li>无类型的字符常量-&gt;<code>rune</code></li>
+</ul>
+<p>如果要给变量一个非默认类型，那么可以显式转换为所需类型或给声明的变量指定明确的类型。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> i = <span class="hljs-type">int8</span>(<span class="hljs-number">0</span>)<br><span class="hljs-keyword">var</span> i <span class="hljs-type">int8</span> = <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+
+<p>当无类型的常量输出接口值（类型）时，会输出默认类型。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go">fmt.Printf(<span class="hljs-string">&quot;%T\n&quot;</span>, <span class="hljs-number">0</span>)      <span class="hljs-comment">// &quot;int&quot;</span><br>fmt.Printf(<span class="hljs-string">&quot;%T\n&quot;</span>, <span class="hljs-number">0.0</span>)    <span class="hljs-comment">// &quot;float64&quot;</span><br>fmt.Printf(<span class="hljs-string">&quot;%T\n&quot;</span>, <span class="hljs-number">0i</span>)     <span class="hljs-comment">// &quot;complex128&quot;</span><br>fmt.Printf(<span class="hljs-string">&quot;%T\n&quot;</span>, <span class="hljs-string">&#x27;\000&#x27;</span>) <span class="hljs-comment">// &quot;int32&quot; (rune)</span><br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="print-no-link">#读书笔记</a>
+      
+        <a href="/tags/go/" class="print-no-link">#go</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>3.6. 常量</div>
+      <div>https://succeedwer.github.io/posts/68c22f5501fb/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WER</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月13日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年3月18日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/a27051ca627c/" title="第四章 复合数据类型">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">第四章 复合数据类型</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/a309a7c16f6a/" title="3.5. 字符串">
+                        <span class="hidden-mobile">3.5. 字符串</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

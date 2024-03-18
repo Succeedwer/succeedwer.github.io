@@ -229,15 +229,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/5b89ef7a41d0/" target="_self">
-          2.7. 作用域
+        <a href="/posts/8520b52085ef/" target="_self">
+          7.15. 一些建议
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/5b89ef7a41d0/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/8520b52085ef/" target="_self">
         <div>
-          声明语句将程序中的实体和名字关联，如函数，变量。声明语句的作用域是指源代码中可以有效使用这个名字的范围。 不能将作用域与生命周期混为一谈。声明语句的作用域对应的是源代码的文本区域；是一个编译时的属性。变量的生命周期是指程序运行的是变量存在的有效时间段，在此时间段内可以被程序的其它部分引用；是一个运行时的概念。 语法块是由花括弧所包含的一系列语句，如函数体或循环体花括弧对应的语法块一样。语法块内部声
+          当设计一个新包时，一般情况下是创建一个接口的集合开始和定义它们的具体类型。这种方式会导致有很多接口，且每一个都会仅有一个实现。这种设计方式是错误的，这种接口是不必要的抽象，且还有运行时损耗。实际上，可以使用导出机制来限制一个类型的方法或一个结构体的字段是否在包外可见。接口只有在当两个或两个以上的具体类型必须以相同的方式进行处理时才需要。 当一个接口只被一个具体类型实现时，往往是因为依赖，即依赖于另
         </div>
       </a>
 
@@ -245,8 +245,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-12 18:52" pubdate>
-              2023-03-12
+            <time datetime="2023-03-18 00:59" pubdate>
+              2023-03-18
             </time>
           </div>
         
@@ -299,15 +299,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/4bd2d633ee16/" target="_self">
-          2.6. 包和文件
+        <a href="/posts/c380e460aca4/" target="_self">
+          7.14. 示例：基于标记的XML解码
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/4bd2d633ee16/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/c380e460aca4/" target="_self">
         <div>
-          包的存在是为了支持模块化、封装、单独编译和代码重用。 每个包都对应一个独立的命名空间。如: image包中的Decode函数和在unicode/uft16包中的Decode函数是不同的。要在外部引用该函数，必须显式使用image.Decode或uft16.Decode形式来访问。 包还可以实现可见性。规则：以大写字母开头的，那么该名字是可导出的。（因为中文汉字不区分大小写，因此汉字开头的名字是不可
+          第4.5章节展示了如何使用encoding/json包中的Marshal和Unmarshal函数来将JSON文档转换成Go语言的数据结构。encoding/xml包提供了一个相似的API。encoding/xml包也提供了一个更低层的基于标记的API用于XML解码。在基于标记的样式中，解析器消费输入和产生一个标记流；四个主要的标记类型－StartElement，EndElement，CharDat
         </div>
       </a>
 
@@ -315,8 +315,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-12 17:52" pubdate>
-              2023-03-12
+            <time datetime="2023-03-18 00:52" pubdate>
+              2023-03-18
             </time>
           </div>
         
@@ -369,15 +369,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/9f13bfd0f9d8/" target="_self">
-          2.5. 类型
+        <a href="/posts/c4e3ed798cee/" target="_self">
+          7.13. 类型开关
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/9f13bfd0f9d8/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/c4e3ed798cee/" target="_self">
         <div>
-          变量或表达式的类型定义了对应存储值的属性特征，如：  值在内存的存储大小（或者是元素的bit个数）。 它们在内部是如何表达的。 是否支持一些操作符。 它们自己关联的方法集。  类型声明语句创建了一个新的类型名称，和现有类型具有相同的底层结构。新命名的类型提供了一个方法，用来分隔不同概念的类型，这样即使它们底层类型相同也是不兼容的。 1type 类型名称 底层类型 类型声明语句一般出现在包一级，且新
+          接口一般以两种方式使用。  第一个方式中，io.Reader、io.Writer、fmt.Stringer、sort.Interface、http.Handler、和error为例，一个接口的方法表达了实现这个接口的具体类型间的相思性，但是隐藏了代表的细节和这些具体类型本身的操作。重点在于方法上，而不是具体的类型上。 第二个方式利用一个接口值可以持有各种具体类型值的能力并且将这个接口认为是这些类型
         </div>
       </a>
 
@@ -385,8 +385,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-12 16:52" pubdate>
-              2023-03-12
+            <time datetime="2023-03-17 23:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -439,15 +439,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/7095472d910d/" target="_self">
-          2.3.变量
+        <a href="/posts/b10f700bc1c1/" target="_self">
+          7.12. 通过类型断言询问行为
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/7095472d910d/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/b10f700bc1c1/" target="_self">
         <div>
-          var声明语句可以创建一个特定类型的变量，然后给变量附加一个名字，并且设置变量的初始值。变量声明的一般语法如下： 1var 变量名称 类型 = 表达式 类型或”&#x3D;表达式”两个部分可以省略其中的一个。如果省略的是类型，那么将根据初始化表达式来推导变量的类型。如果初始化表达式被省略，那么将用零值初始化该变量。数值类型变量对应的零值是0，布尔类型变量对应的零值是false，字符串类型对应的零值
+          stringWriter下面程序与net/http包中web服务器负责写入HTTP头字段（如：Content-type:text/html）的部分相似。io.Writer接口类型的变量w代表HTTP响应。 123456789func writeHeader(w io.Writer, contentType string) error &#123;	if _, err := w.Write([]by
         </div>
       </a>
 
@@ -455,8 +455,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-12 15:52" pubdate>
-              2023-03-12
+            <time datetime="2023-03-17 22:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -509,15 +509,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/3bab4b966165/" target="_self">
-          2.4. 赋值
+        <a href="/posts/179a7331746a/" target="_self">
+          7.11. 基于类型断言区别错误类型
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/3bab4b966165/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/179a7331746a/" target="_self">
         <div>
-          使用赋值语句可以更新一个变量的值。 1234x = 1						// 命名变量的赋值*p = true					// 通过指针间接赋值person.name = &quot;bob&quot;			// 结构体字段赋值count[x] = count[x] * scale // 数组、slice或map的元素赋值 二元算术运算符和赋值语句的复合操作可以进行简化： 1count[x] *= sca
+          os包中文件操作返回的错误集合。I/O可以因为任何数量的原因失败，但是有三种经常的错误必须进行不同的处理：  文件已经存在（对于创建操作）  1os.IsExist(err error) bool 找不到文件（对于读取操作）  1os.IsNotExist(err error) bool 权限拒绝  1os.IsPermission(err error) bool  可能会检测错误信息中是否包含特
         </div>
       </a>
 
@@ -525,8 +525,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-12 15:52" pubdate>
-              2023-03-12
+            <time datetime="2023-03-17 21:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -579,15 +579,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/2628b27da087/" target="_self">
-          2.2. 声明
+        <a href="/posts/fcef06327bd8/" target="_self">
+          7.10. 类型断言
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/2628b27da087/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/fcef06327bd8/" target="_self">
         <div>
-          声明语句定义了程序的各种实体对象以及部分或全部的属性。Go语言主要有四种类型的声明语句：  var 变量 const 常量 type 类型 func 函数实体对象  下面的例子中声明了一个常量、一个函数和两个变量： 1234567891011121314// Boiling prints the boiling point of water.package mainimport &quot;fmt
+          语法类型断言是作用在接口值上的。断言类型语法： 1x.(T) x表示接口类型；T表示类型。一个类型断言检查它操作对象的动态类型是否和断言的类型匹配。 具体类型如果断言的类型T是一个具体类型，然后类型断言检查x的动态类型是否和T相同。如果成功了，类型断言的结果是x的动态值，当然它的类型是T。如果检查失败，接下来这个操作会抛出panic。例如： 12345var w io.Writerw = os.S
         </div>
       </a>
 
@@ -595,8 +595,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-12 14:52" pubdate>
-              2023-03-12
+            <time datetime="2023-03-17 20:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -649,15 +649,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/feafd476469a/" target="_self">
-          2.1. 命名
+        <a href="/posts/d3aed5deb5f5/" target="_self">
+          7.9. 示例：表达式求值
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/feafd476469a/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/d3aed5deb5f5/" target="_self">
         <div>
-          命名规则一个名字必须以一个字母（Unicode字母）或下划线开头，后面可以跟任意数量的字母、数字或下划线。 大写字母和小写字母是不同的：heapSort和Heapsort是两个不同的名字。 如果一个命名是在函数内部定义，那么它只在函数内部有效。如果定义在函数外部，那么将在当前包的所有文件中都可以访问。命名的开头字母的大小写决定命名在包外的可见性，大写字母开头且在函数外部定义，那么它将是导出的，可以
+          表达式求值器在本节中，我们会构建一个简单算术表达式的求值器。下面为一些表达式。 123sqrt(A / pi)pow(x, 3) + pow(y, 3)(F - 32) * 5 / 9”  使用一个接口Expr来表示Go语言中任意的表达式。  1type Expr interface&#123;&#125; Var类型表示一个变量。  1type Var string literal类型表示一个浮
         </div>
       </a>
 
@@ -665,8 +665,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-12 13:52" pubdate>
-              2023-03-12
+            <time datetime="2023-03-17 19:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -719,15 +719,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/04348d4815af/" target="_self">
-          第二章 程序结构
+        <a href="/posts/21f47e2c8c53/" target="_self">
+          7.8. error接口
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/04348d4815af/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/21f47e2c8c53/" target="_self">
         <div>
-          2.1. 命名 2.2. 声明 2.3. 变量 2.4. 赋值 2.5. 类型 2.6. 包和文件 2.7. 作用域
+          error接口error接口是interface类型，这个类型只有一个返回错误信息的方法。 123type error interface &#123;	Error() string&#125; 创建errorerrors.New创建error的最简单方法就是调用errors.New函数。 12345678910111213package errorsfunc New(text string) e
         </div>
       </a>
 
@@ -735,8 +735,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-12 12:52" pubdate>
-              2023-03-12
+            <time datetime="2023-03-17 18:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -789,15 +789,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/f529e3c31d9e/" target="_self">
-          1.8. 本章要点
+        <a href="/posts/fc3145dbfc40/" target="_self">
+          7.7. http.Handler接口
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/f529e3c31d9e/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/fc3145dbfc40/" target="_self">
         <div>
-          控制流 if for switch Go语言并不需要显式地在每一个case后写break，语言默认执行完case后的逻辑语句会自动退出。 fallthrough可以case穿透。 Go语言里的switch还可以不带操作对象，默认用true值代替，然后将每个case的表达式和true值进行比较。这种形式叫无tag switch(tagless switch)，与switch true等价。  123
+          Handlerhttp.Handler接口用于实现客户端和服务器。具体接口如下: 123type Handler interface &#123;	ServeHTTP(ResponseWriter, *Request)&#125; 而常与func ListenAndServe(address string, h Handler) error结合使用，该方法需要一个服务器地址和接口分派的Handle
         </div>
       </a>
 
@@ -805,8 +805,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-11 20:52" pubdate>
-              2023-03-11
+            <time datetime="2023-03-17 17:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -859,15 +859,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/94de4df7cd79/" target="_self">
-          1.7. Web服务
+        <a href="/posts/8d8e98ca9007/" target="_self">
+          7.6. sort.Interface接口
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/94de4df7cd79/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/8d8e98ca9007/" target="_self">
         <div>
-          Go语言的内置库使得写一个类似fetch的web服务器变得异常地简单。在本节中，我们会展示一个微型服务器，这个服务器的功能是返回当前用户正在访问的URL。比如用户访问的是 http://localhost:8000/hello ，那么响应是URL.Path &#x3D; “hello”。 1234567891011121314151617package mainimport (	&quot;fmt
+          解析sort包内包含对任何序列进行排序的接口，sort.Interface接口。该接口规定了序列的排序算法和对序列类型之间的约定。排序算法包含了以下三个要点：  序列长度 元素比较的结果 交换元素的方式  三个要点也对应着sort.Interface的三个方法： 12345type Interface interface &#123;	Len() int	Less(i, j int) bool	S
         </div>
       </a>
 
@@ -875,8 +875,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-11 17:52" pubdate>
-              2023-03-11
+            <time datetime="2023-03-17 16:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -927,7 +927,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/#board">7</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

@@ -1,0 +1,741 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="解析sort包内包含对任何序列进行排序的接口，sort.Interface接口。该接口规定了序列的排序算法和对序列类型之间的约定。排序算法包含了以下三个要点：  序列长度 元素比较的结果 交换元素的方式  三个要点也对应着sort.Interface的三个方法： 12345type Interface interface &#123;	Len() int	Less(i, j int) bool	S">
+<meta property="og:type" content="article">
+<meta property="og:title" content="7.6. sort.Interface接口">
+<meta property="og:url" content="https://succeedwer.github.io/posts/8d8e98ca9007/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:description" content="解析sort包内包含对任何序列进行排序的接口，sort.Interface接口。该接口规定了序列的排序算法和对序列类型之间的约定。排序算法包含了以下三个要点：  序列长度 元素比较的结果 交换元素的方式  三个要点也对应着sort.Interface的三个方法： 12345type Interface interface &#123;	Len() int	Less(i, j int) bool	S">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-17T08:52:19.000Z">
+<meta property="article:modified_time" content="2024-03-18T05:20:20.000Z">
+<meta property="article:author" content="WER">
+<meta property="article:tag" content="读书笔记">
+<meta property="article:tag" content="go">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>7.6. sort.Interface接口 - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="7.6. sort.Interface接口"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-17 16:52" pubdate>
+          2023年3月17日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          22 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">7.6. sort.Interface接口</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h1><p><code>sort</code>包内包含对任何序列进行排序的接口，<code>sort.Interface</code>接口。<br>该接口规定了序列的排序算法和对序列类型之间的约定。<br>排序算法包含了以下三个要点：</p>
+<ul>
+<li>序列长度</li>
+<li>元素比较的结果</li>
+<li>交换元素的方式</li>
+</ul>
+<p>三个要点也对应着<code>sort.Interface</code>的三个方法：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Interface <span class="hljs-keyword">interface</span> &#123;<br>	Len() <span class="hljs-type">int</span><br>	Less(i, j <span class="hljs-type">int</span>) <span class="hljs-type">bool</span><br>	Swap(i, j <span class="hljs-type">int</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>下面是应用该接口的简单例子：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> StringSlice<br><br><span class="hljs-keyword">type</span> StringSlice []<span class="hljs-type">string</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s StringSlice)</span></span> Len() <span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(s)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s StringSlice)</span></span> Less(i, j <span class="hljs-type">int</span>) <span class="hljs-type">bool</span> &#123;<br>	<span class="hljs-keyword">return</span> s[i] &gt; s[j]<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s StringSlice)</span></span> Swap(i, j <span class="hljs-type">int</span>) &#123;<br>	s[i], s[j] = s[j], s[i]<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>接着就是直接调用<code>sort.Sort()</code>方法：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go">s := StringSlice&#123;<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>&#125;<br>sort.Sort(s) <span class="hljs-comment">// [c b a]</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="复杂结构的排序"><a href="#复杂结构的排序" class="headerlink" title="复杂结构的排序"></a>复杂结构的排序</h1><p>下面的例子是对一个表格中的音乐播放列表进行排序。每个track都是单独的一行，每一列都是这个track的属性像艺术家，标题，和运行时间。想象一个图形用户界面来呈现这个表格，并且点击一个属性的顶部会使这个列表按照这个属性进行排序；再一次点击相同属性的顶部会进行逆向排序。<br>音乐播放列表模型如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Track <span class="hljs-keyword">struct</span> &#123;<br>	Title  <span class="hljs-type">string</span><br>	Artist <span class="hljs-type">string</span><br>	Album  <span class="hljs-type">string</span><br>	Year   <span class="hljs-type">int</span><br>	Length time.Duration<br>&#125;<br><br><span class="hljs-keyword">var</span> tracks = []*Track&#123;<br>	&#123;<span class="hljs-string">&quot;Go&quot;</span>, <span class="hljs-string">&quot;Delilah&quot;</span>, <span class="hljs-string">&quot;From the Roots Up&quot;</span>, <span class="hljs-number">2012</span>, length(<span class="hljs-string">&quot;3m38s&quot;</span>)&#125;,<br>	&#123;<span class="hljs-string">&quot;Go&quot;</span>, <span class="hljs-string">&quot;Moby&quot;</span>, <span class="hljs-string">&quot;Moby&quot;</span>, <span class="hljs-number">1992</span>, length(<span class="hljs-string">&quot;3m37s&quot;</span>)&#125;,<br>	&#123;<span class="hljs-string">&quot;Go Ahead&quot;</span>, <span class="hljs-string">&quot;Alicia Keys&quot;</span>, <span class="hljs-string">&quot;As I Am&quot;</span>, <span class="hljs-number">2007</span>, length(<span class="hljs-string">&quot;4m36s&quot;</span>)&#125;,<br>	&#123;<span class="hljs-string">&quot;Ready 2 Go&quot;</span>, <span class="hljs-string">&quot;Martin Solveig&quot;</span>, <span class="hljs-string">&quot;Smash&quot;</span>, <span class="hljs-number">2011</span>, length(<span class="hljs-string">&quot;4m24s&quot;</span>)&#125;,<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">length</span><span class="hljs-params">(s <span class="hljs-type">string</span>)</span></span> time.Duration &#123;<br>	d, err := time.ParseDuration(s)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-built_in">panic</span>(s)<br>	&#125;<br>	<span class="hljs-keyword">return</span> d<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>定义<code>printTracks</code>函数，音乐播放列表打印成表格。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">printTracks</span><span class="hljs-params">(tracks []*Track)</span></span> &#123;<br>	<span class="hljs-keyword">const</span> format = <span class="hljs-string">&quot;%v\t%v\t%v\t%v\t%v\t\n&quot;</span><br>	tw := <span class="hljs-built_in">new</span>(tabwriter.Writer).Init(os.Stdout, <span class="hljs-number">0</span>, <span class="hljs-number">8</span>, <span class="hljs-number">2</span>, <span class="hljs-string">&#x27; &#x27;</span>, <span class="hljs-number">0</span>)<br>	fmt.Fprintf(tw, format, <span class="hljs-string">&quot;Title&quot;</span>, <span class="hljs-string">&quot;Artist&quot;</span>, <span class="hljs-string">&quot;Album&quot;</span>, <span class="hljs-string">&quot;Year&quot;</span>, <span class="hljs-string">&quot;Length&quot;</span>)<br>	fmt.Fprintf(tw, format, <span class="hljs-string">&quot;-----&quot;</span>, <span class="hljs-string">&quot;-----&quot;</span>, <span class="hljs-string">&quot;-----&quot;</span>, <span class="hljs-string">&quot;-----&quot;</span>, <span class="hljs-string">&quot;-----&quot;</span>)<br>	<span class="hljs-keyword">for</span> _, t := <span class="hljs-keyword">range</span> tracks &#123;<br>		fmt.Fprintf(tw, format, t.Title, t.Artist, t.Album, t.Year, t.Length)<br>	&#125;<br>	tw.Flush()<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>text/tabwriter</code>包可以生成列是对齐且隔开的表格。<br><code>*tabwriter.Write</code>实现了<code>io.Writer</code>接口，所以能收集其数据。<br>其<code>Flush()</code>方法会格式化整个表格且使用<code>os.Stdout</code>输出。</p>
+<p>按<code>Artist</code>字段对音乐播放列表排序。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> byArtist []*Track<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(x byArtist)</span></span> Len() <span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(x)<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(x byArtist)</span></span> Less(i, j <span class="hljs-type">int</span>) <span class="hljs-type">bool</span> &#123;<br>	<span class="hljs-keyword">return</span> x[i].Artist &lt; x[j].Artist<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(x byArtist)</span></span> Swap(i, j <span class="hljs-type">int</span>) &#123;<br>	x[i], x[j] = x[j], x[i]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>将<code>track</code>类型转换成<code>byArtist</code>，并继续排序。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">sort.Sort(byArtist(tracks))<br></code></pre></td></tr></table></figure>
+
+<p>打印排序后的列表。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">printTracks(tracks)<br></code></pre></td></tr></table></figure>
+<p>输出内容如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs text">byArtist:<br>Title       Artist          Album              Year   Length  <br>-----       -----           -----              -----  -----   <br>Go Ahead    Alicia Keys     As I Am            2007   4m36s   <br>Go          Delilah         From the Roots Up  2012   3m38s   <br>Ready 2 Go  Martin Solveig  Smash              2011   4m24s   <br>Go          Moby            Moby               1992   3m37s  <br></code></pre></td></tr></table></figure>
+
+<p>对排序后的播放列表进行逆向排序，<code>printTracks</code>输出如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs go">sort.Sort(sort.Reverse(byArtist(tracks)))<br>printTracks(tracks)<br><br>----------------------------------------<br>Title       Artist          Album              Year   Length  <br>-----       -----           -----              -----  -----   <br>Go          Moby            Moby               <span class="hljs-number">1992</span>   <span class="hljs-number">3</span>m37s   <br>Ready <span class="hljs-number">2</span> Go  Martin Solveig  Smash              <span class="hljs-number">2011</span>   <span class="hljs-number">4</span>m24s   <br>Go          Delilah         From the Roots Up  <span class="hljs-number">2012</span>   <span class="hljs-number">3</span>m38s   <br>Go Ahead    Alicia Keys     As I Am            <span class="hljs-number">2007</span>   <span class="hljs-number">4</span>m36s <br></code></pre></td></tr></table></figure>
+
+<p>按<code>Year</code>进行排序，首先实现接口。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> byYear []*Track<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(x byYear)</span></span> Len() <span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(x)<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(x byYear)</span></span> Less(i, j <span class="hljs-type">int</span>) <span class="hljs-type">bool</span> &#123;<br>	<span class="hljs-keyword">return</span> x[i].Year &lt; x[j].Year<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(x byYear)</span></span> Swap(i, j <span class="hljs-type">int</span>) &#123;<br>	x[i], x[j] = x[j], x[i]<br>&#125;<br><br>......<br><br>sort.Sort(byYear(tracks))<br>printTracks(tracks)<br><br>打印内容：<br>Title       Artist          Album              Year   Length  <br>-----       -----           -----              -----  -----   <br>Go          Moby            Moby               <span class="hljs-number">1992</span>   <span class="hljs-number">3</span>m37s   <br>Go Ahead    Alicia Keys     As I Am            <span class="hljs-number">2007</span>   <span class="hljs-number">4</span>m36s   <br>Ready <span class="hljs-number">2</span> Go  Martin Solveig  Smash              <span class="hljs-number">2011</span>   <span class="hljs-number">4</span>m24s   <br>Go          Delilah         From the Roots Up  <span class="hljs-number">2012</span>   <span class="hljs-number">3</span>m38s   <br><br></code></pre></td></tr></table></figure>
+
+<p>接下来，思考一个问题。<br>如果要对列表进行多个排序，难道要实现多个<code>sort.Interface</code>接口？<br>如果要继续多重排序呢？</p>
+<p>我们可以定义一个自定义排序，只要实现比较接口就可以实现上述问题。<br>而且，非slice也可以实现<code>sort.Interface</code>接口。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> customSort <span class="hljs-keyword">struct</span> &#123;<br>	t    []*Track<br>	less <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(x, y *Track)</span></span> <span class="hljs-type">bool</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(x customSort)</span></span> Len() <span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(x.t)<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(x customSort)</span></span> Less(i, j <span class="hljs-type">int</span>) <span class="hljs-type">bool</span> &#123;<br>	<span class="hljs-keyword">return</span> x.less(x.t[i], x.t[j])<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(x customSort)</span></span> Swap(i, j <span class="hljs-type">int</span>) &#123;<br>	x.t[i], x.t[j] = x.t[j], x.t[i]<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>上述代码并未实现具体字段排序。<br>可以看出<code>customSort</code>类型有两个成员变量，slice列表<code>t []*Track</code>和比较函数<code>less func(x,y *Track) bool</code>。 <code>customSort</code>类型实现了<code>sort.Interface</code>，并在<code>Less</code>方法中调用成员变量中的<code>less</code>函数。<br>实现比较方法<code>less</code>即可进行排序，当然也可以进行多重排序。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs go">sort.Sort(customSort&#123;tracks, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(x, y *Track)</span></span> <span class="hljs-type">bool</span> &#123;<br>		<span class="hljs-keyword">if</span> x.Title != y.Title &#123;<br>			<span class="hljs-keyword">return</span> x.Title &lt; y.Title<br>		&#125;<br>		<span class="hljs-keyword">if</span> x.Year != y.Year &#123;<br>			<span class="hljs-keyword">return</span> x.Year &lt; y.Year<br>		&#125;<br>		<span class="hljs-keyword">if</span> x.Length != y.Length &#123;<br>			<span class="hljs-keyword">return</span> x.Length &lt; y.Length<br>		&#125;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>	&#125;&#125;)<br></code></pre></td></tr></table></figure>
+<p>上述代码为多重排序，以<code>Title</code>从小到大、<code>Year</code>从小到大、<code>Length</code>从小到大排序。打印如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs text">Title       Artist          Album              Year   Length  <br>-----       -----           -----              -----  -----   <br>Go          Moby            Moby               1992   3m37s   <br>Go          Delilah         From the Roots Up  2012   3m38s   <br>Go Ahead    Alicia Keys     As I Am            2007   4m36s   <br>Ready 2 Go  Martin Solveig  Smash              2011   4m24s   <br><br></code></pre></td></tr></table></figure>
+
+<h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><p><strong>练习 7.8：</strong> 很多图形界面提供了一个有状态的多重排序表格插件：主要的排序键是最近一次点击过列头的列，第二个排序键是第二最近点击过列头的列，等等。定义一个sort.Interface的实现用在这样的表格中。比较这个实现方式和重复使用sort.Stable来排序的方式。<br>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;sort&quot;</span><br>	<span class="hljs-string">&quot;text/tabwriter&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> Track <span class="hljs-keyword">struct</span> &#123;<br>	Title  <span class="hljs-type">string</span><br>	Artist <span class="hljs-type">string</span><br>	Album  <span class="hljs-type">string</span><br>	Year   <span class="hljs-type">int</span><br>	Length time.Duration<br>&#125;<br><br><span class="hljs-keyword">var</span> tracks = []*Track&#123;<br>	&#123;<span class="hljs-string">&quot;Go&quot;</span>, <span class="hljs-string">&quot;Delilah&quot;</span>, <span class="hljs-string">&quot;From the Roots Up&quot;</span>, <span class="hljs-number">2012</span>, length(<span class="hljs-string">&quot;3m38s&quot;</span>)&#125;,<br>	&#123;<span class="hljs-string">&quot;Go&quot;</span>, <span class="hljs-string">&quot;Moby&quot;</span>, <span class="hljs-string">&quot;Moby&quot;</span>, <span class="hljs-number">1992</span>, length(<span class="hljs-string">&quot;3m37s&quot;</span>)&#125;,<br>	&#123;<span class="hljs-string">&quot;Go Ahead&quot;</span>, <span class="hljs-string">&quot;Alicia Keys&quot;</span>, <span class="hljs-string">&quot;As I Am&quot;</span>, <span class="hljs-number">2007</span>, length(<span class="hljs-string">&quot;4m36s&quot;</span>)&#125;,<br>	&#123;<span class="hljs-string">&quot;Ready 2 Go&quot;</span>, <span class="hljs-string">&quot;Martin Solveig&quot;</span>, <span class="hljs-string">&quot;Smash&quot;</span>, <span class="hljs-number">2011</span>, length(<span class="hljs-string">&quot;4m24s&quot;</span>)&#125;,<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">length</span><span class="hljs-params">(s <span class="hljs-type">string</span>)</span></span> time.Duration &#123;<br>	d, err := time.ParseDuration(s)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-built_in">panic</span>(s)<br>	&#125;<br>	<span class="hljs-keyword">return</span> d<br>&#125;<br><br><span class="hljs-keyword">type</span> CustomSort <span class="hljs-keyword">struct</span> &#123;<br>	t    []*Track<br>	less <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(x, y *Track)</span></span> <span class="hljs-type">bool</span><br>	swap <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(x, y *Track)</span></span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c CustomSort)</span></span> Len() <span class="hljs-type">int</span>           &#123; <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(c.t) &#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c CustomSort)</span></span> Less(i, j <span class="hljs-type">int</span>) <span class="hljs-type">bool</span> &#123; <span class="hljs-keyword">return</span> c.less(c.t[i], c.t[j]) &#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c CustomSort)</span></span> Swap(i, j <span class="hljs-type">int</span>)      &#123; c.t[i], c.t[j] = c.t[j], c.t[i] &#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">printTracks</span><span class="hljs-params">(tracks []*Track)</span></span> &#123;<br>	<span class="hljs-keyword">const</span> format = <span class="hljs-string">&quot;%v\t%v\t%v\t%v\t%v\t\n&quot;</span><br>	tw := <span class="hljs-built_in">new</span>(tabwriter.Writer).Init(os.Stdout, <span class="hljs-number">0</span>, <span class="hljs-number">8</span>, <span class="hljs-number">2</span>, <span class="hljs-string">&#x27; &#x27;</span>, <span class="hljs-number">0</span>)<br>	fmt.Fprintf(tw, format, <span class="hljs-string">&quot;Title&quot;</span>, <span class="hljs-string">&quot;Artist&quot;</span>, <span class="hljs-string">&quot;Album&quot;</span>, <span class="hljs-string">&quot;Year&quot;</span>, <span class="hljs-string">&quot;Length&quot;</span>)<br>	fmt.Fprintf(tw, format, <span class="hljs-string">&quot;-----&quot;</span>, <span class="hljs-string">&quot;-----&quot;</span>, <span class="hljs-string">&quot;-----&quot;</span>, <span class="hljs-string">&quot;-----&quot;</span>, <span class="hljs-string">&quot;-----&quot;</span>)<br>	<span class="hljs-keyword">for</span> _, t := <span class="hljs-keyword">range</span> tracks &#123;<br>		fmt.Fprintf(tw, format, t.Title, t.Artist, t.Album, t.Year, t.Length)<br>	&#125;<br>	tw.Flush()<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">click</span><span class="hljs-params">(s <span class="hljs-type">string</span>)</span></span> &#123;<br>	<span class="hljs-keyword">switch</span> s &#123;<br>	<span class="hljs-keyword">case</span> <span class="hljs-string">&quot;Title&quot;</span>:<br>		sort.Stable(CustomSort&#123;<br>			t: tracks,<br>			less: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(x, y *Track)</span></span> <span class="hljs-type">bool</span> &#123;<br>				<span class="hljs-keyword">return</span> x.Title &lt; y.Title<br>			&#125;,<br>			swap: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(x, y *Track)</span></span> &#123;<br>				x.Title, y.Title = y.Title, x.Title<br>			&#125;,<br>		&#125;)<br>	<span class="hljs-keyword">case</span> <span class="hljs-string">&quot;Artist&quot;</span>:<br>		sort.Stable(CustomSort&#123;<br>			t: tracks,<br>			less: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(x, y *Track)</span></span> <span class="hljs-type">bool</span> &#123;<br>				<span class="hljs-keyword">return</span> x.Artist &lt; y.Artist<br>			&#125;,<br>			swap: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(x, y *Track)</span></span> &#123;<br>				x.Artist, y.Artist = y.Artist, x.Artist<br>			&#125;,<br>		&#125;)<br>	<span class="hljs-keyword">case</span> <span class="hljs-string">&quot;Album&quot;</span>:<br>		sort.Stable(CustomSort&#123;<br>			t: tracks,<br>			less: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(x, y *Track)</span></span> <span class="hljs-type">bool</span> &#123;<br>				<span class="hljs-keyword">return</span> x.Album &lt; y.Album<br>			&#125;,<br>			swap: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(x, y *Track)</span></span> &#123;<br>				x.Album, y.Album = y.Album, x.Album<br>			&#125;,<br>		&#125;)<br>	<span class="hljs-keyword">case</span> <span class="hljs-string">&quot;Year&quot;</span>:<br>		sort.Stable(CustomSort&#123;<br>			t: tracks,<br>			less: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(x, y *Track)</span></span> <span class="hljs-type">bool</span> &#123;<br>				<span class="hljs-keyword">return</span> x.Year &lt; y.Year<br>			&#125;,<br>			swap: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(x, y *Track)</span></span> &#123;<br>				x.Year, y.Year = y.Year, x.Year<br>			&#125;,<br>		&#125;)<br>	<span class="hljs-keyword">case</span> <span class="hljs-string">&quot;Length&quot;</span>:<br>		sort.Stable(CustomSort&#123;<br>			t: tracks,<br>			less: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(x, y *Track)</span></span> <span class="hljs-type">bool</span> &#123;<br>				<span class="hljs-keyword">return</span> x.Length &lt; y.Length<br>			&#125;,<br>			swap: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(x, y *Track)</span></span> &#123;<br>				x.Length, y.Length = y.Length, x.Length<br>			&#125;,<br>		&#125;)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	click(<span class="hljs-string">&quot;Title&quot;</span>)<br>	printTracks(tracks)<br><br>	click(<span class="hljs-string">&quot;Artist&quot;</span>)<br>	printTracks(tracks)<br><br>	click(<span class="hljs-string">&quot;Album&quot;</span>)<br>	printTracks(tracks)<br><br>	click(<span class="hljs-string">&quot;Year&quot;</span>)<br>	printTracks(tracks)<br><br>	click(<span class="hljs-string">&quot;Length&quot;</span>)<br>	printTracks(tracks)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>练习 7.9：</strong> 使用html&#x2F;template包 (§4.6) 替代printTracks将tracks展示成一个HTML表格。将这个解决方案用在前一个练习中，让每次点击一个列的头部产生一个HTTP请求来排序这个表格。<br>解：<br>index.html</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs go">&lt;!DOCTYPE html&gt;<br>&lt;html lang=<span class="hljs-string">&quot;en&quot;</span>&gt;<br>&lt;head&gt;<br>    &lt;meta charset=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;<br>    &lt;title&gt;Track&lt;/title&gt;<br>    &lt;link rel=<span class="hljs-string">&quot;icon&quot;</span> href=<span class="hljs-string">&quot;data:;&quot;</span>&gt;<br>&lt;/head&gt;<br>&lt;body&gt;<br>&lt;table&gt;<br>    &lt;tr style=<span class="hljs-string">&quot;text-align: left&quot;</span>&gt;<br>        &lt;th&gt;&lt;a href=<span class="hljs-string">&quot;/title&quot;</span>&gt;Title&lt;/a&gt;&lt;/th&gt;<br>        &lt;th&gt;&lt;a href=<span class="hljs-string">&quot;/artist&quot;</span>&gt;Artist&lt;/a&gt;&lt;/th&gt;<br>        &lt;th&gt;&lt;a href=<span class="hljs-string">&quot;/album&quot;</span>&gt;Album&lt;/a&gt;&lt;/th&gt;<br>        &lt;th&gt;&lt;a href=<span class="hljs-string">&quot;/year&quot;</span>&gt;Year&lt;/a&gt;&lt;/th&gt;<br>        &lt;th&gt;&lt;a href=<span class="hljs-string">&quot;/length&quot;</span>&gt;Length&lt;/a&gt;&lt;/th&gt;<br>    &lt;/tr&gt;<br>    &#123;&#123;<span class="hljs-keyword">range</span> .&#125;&#125;<br>    &lt;tr&gt;<br>        &lt;td&gt;&#123;&#123;.Title&#125;&#125;&lt;/td&gt;<br>        &lt;td&gt;&#123;&#123;.Artist&#125;&#125;&lt;/td&gt;<br>        &lt;td&gt;&#123;&#123;.Album&#125;&#125;&lt;/td&gt;<br>        &lt;td&gt;&#123;&#123;.Year&#125;&#125;&lt;/td&gt;<br>        &lt;td&gt;&#123;&#123;.Length&#125;&#125;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &#123;&#123;end&#125;&#125;<br>&lt;/table&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;html/template&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;net/http&quot;</span><br>	<span class="hljs-string">&quot;sort&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	http.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, index)<br>	log.Fatal(http.ListenAndServe(<span class="hljs-string">&quot;:8888&quot;</span>, <span class="hljs-literal">nil</span>))<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">index</span><span class="hljs-params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;<br>	<span class="hljs-keyword">switch</span> r.URL.Path &#123;<br>	<span class="hljs-keyword">case</span> <span class="hljs-string">&quot;/title&quot;</span>:<br>		click(<span class="hljs-string">&quot;Title&quot;</span>)<br>	<span class="hljs-keyword">case</span> <span class="hljs-string">&quot;/artist&quot;</span>:<br>		click(<span class="hljs-string">&quot;Artist&quot;</span>)<br>	<span class="hljs-keyword">case</span> <span class="hljs-string">&quot;/album&quot;</span>:<br>		click(<span class="hljs-string">&quot;Album&quot;</span>)<br>	<span class="hljs-keyword">case</span> <span class="hljs-string">&quot;/year&quot;</span>:<br>		click(<span class="hljs-string">&quot;Year&quot;</span>)<br>	<span class="hljs-keyword">case</span> <span class="hljs-string">&quot;/length&quot;</span>:<br>		click(<span class="hljs-string">&quot;Length&quot;</span>)<br>	&#125;<br><br>	tmpl := template.Must(template.ParseFiles(<span class="hljs-string">&quot;./ex/ex7/ex7.9/index.html&quot;</span>))<br>	<span class="hljs-keyword">if</span> err := tmpl.Execute(w, &amp;tracks); err != <span class="hljs-literal">nil</span> &#123;<br>		log.Println(err)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">click</span><span class="hljs-params">(s <span class="hljs-type">string</span>)</span></span> &#123;<br>	<span class="hljs-keyword">switch</span> s &#123;<br>	<span class="hljs-keyword">case</span> <span class="hljs-string">&quot;Title&quot;</span>:<br>		sort.Stable(CustomSort&#123;<br>			t: tracks,<br>			less: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(x, y *Track)</span></span> <span class="hljs-type">bool</span> &#123;<br>				<span class="hljs-keyword">return</span> x.Title &lt; y.Title<br>			&#125;,<br>			swap: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(x, y *Track)</span></span> &#123;<br>				x.Title, y.Title = y.Title, x.Title<br>			&#125;,<br>		&#125;)<br>	<span class="hljs-keyword">case</span> <span class="hljs-string">&quot;Artist&quot;</span>:<br>		sort.Stable(CustomSort&#123;<br>			t: tracks,<br>			less: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(x, y *Track)</span></span> <span class="hljs-type">bool</span> &#123;<br>				<span class="hljs-keyword">return</span> x.Artist &lt; y.Artist<br>			&#125;,<br>			swap: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(x, y *Track)</span></span> &#123;<br>				x.Artist, y.Artist = y.Artist, x.Artist<br>			&#125;,<br>		&#125;)<br>	<span class="hljs-keyword">case</span> <span class="hljs-string">&quot;Album&quot;</span>:<br>		sort.Stable(CustomSort&#123;<br>			t: tracks,<br>			less: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(x, y *Track)</span></span> <span class="hljs-type">bool</span> &#123;<br>				<span class="hljs-keyword">return</span> x.Album &lt; y.Album<br>			&#125;,<br>			swap: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(x, y *Track)</span></span> &#123;<br>				x.Album, y.Album = y.Album, x.Album<br>			&#125;,<br>		&#125;)<br>	<span class="hljs-keyword">case</span> <span class="hljs-string">&quot;Year&quot;</span>:<br>		sort.Stable(CustomSort&#123;<br>			t: tracks,<br>			less: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(x, y *Track)</span></span> <span class="hljs-type">bool</span> &#123;<br>				<span class="hljs-keyword">return</span> x.Year &lt; y.Year<br>			&#125;,<br>			swap: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(x, y *Track)</span></span> &#123;<br>				x.Year, y.Year = y.Year, x.Year<br>			&#125;,<br>		&#125;)<br>	<span class="hljs-keyword">case</span> <span class="hljs-string">&quot;Length&quot;</span>:<br>		sort.Stable(CustomSort&#123;<br>			t: tracks,<br>			less: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(x, y *Track)</span></span> <span class="hljs-type">bool</span> &#123;<br>				<span class="hljs-keyword">return</span> x.Length &lt; y.Length<br>			&#125;,<br>			swap: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(x, y *Track)</span></span> &#123;<br>				x.Length, y.Length = y.Length, x.Length<br>			&#125;,<br>		&#125;)<br>	&#125;<br>&#125;<br><br><span class="hljs-keyword">type</span> Track <span class="hljs-keyword">struct</span> &#123;<br>	Title  <span class="hljs-type">string</span><br>	Artist <span class="hljs-type">string</span><br>	Album  <span class="hljs-type">string</span><br>	Year   <span class="hljs-type">int</span><br>	Length time.Duration<br>&#125;<br><br><span class="hljs-keyword">var</span> tracks = []*Track&#123;<br>	&#123;<span class="hljs-string">&quot;Go&quot;</span>, <span class="hljs-string">&quot;Delilah&quot;</span>, <span class="hljs-string">&quot;From the Roots Up&quot;</span>, <span class="hljs-number">2012</span>, length(<span class="hljs-string">&quot;3m38s&quot;</span>)&#125;,<br>	&#123;<span class="hljs-string">&quot;Go&quot;</span>, <span class="hljs-string">&quot;Moby&quot;</span>, <span class="hljs-string">&quot;Moby&quot;</span>, <span class="hljs-number">1992</span>, length(<span class="hljs-string">&quot;3m37s&quot;</span>)&#125;,<br>	&#123;<span class="hljs-string">&quot;Go Ahead&quot;</span>, <span class="hljs-string">&quot;Alicia Keys&quot;</span>, <span class="hljs-string">&quot;As I Am&quot;</span>, <span class="hljs-number">2007</span>, length(<span class="hljs-string">&quot;4m36s&quot;</span>)&#125;,<br>	&#123;<span class="hljs-string">&quot;Ready 2 Go&quot;</span>, <span class="hljs-string">&quot;Martin Solveig&quot;</span>, <span class="hljs-string">&quot;Smash&quot;</span>, <span class="hljs-number">2011</span>, length(<span class="hljs-string">&quot;4m24s&quot;</span>)&#125;,<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">length</span><span class="hljs-params">(s <span class="hljs-type">string</span>)</span></span> time.Duration &#123;<br>	duration, err := time.ParseDuration(s)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-built_in">panic</span>(s)<br>	&#125;<br>	<span class="hljs-keyword">return</span> duration<br>&#125;<br><br><span class="hljs-keyword">type</span> CustomSort <span class="hljs-keyword">struct</span> &#123;<br>	t    []*Track<br>	less <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(x, y *Track)</span></span> <span class="hljs-type">bool</span><br>	swap <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(x, y *Track)</span></span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c CustomSort)</span></span> Len() <span class="hljs-type">int</span>           &#123; <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(c.t) &#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c CustomSort)</span></span> Less(i, j <span class="hljs-type">int</span>) <span class="hljs-type">bool</span> &#123; <span class="hljs-keyword">return</span> c.less(c.t[i], c.t[j]) &#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c CustomSort)</span></span> Swap(i, j <span class="hljs-type">int</span>)      &#123; c.swap(c.t[i], c.t[j]) &#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>练习 7.10：</strong> sort.Interface类型也可以适用在其它地方。编写一个IsPalindrome(s sort.Interface) bool函数表明序列s是否是回文序列，换句话说反向排序不会改变这个序列。假设如果!s.Less(i, j) &amp;&amp; !s.Less(j, i)则索引i和j上的元素相等。<br>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;sort&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> str []<span class="hljs-type">byte</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s str)</span></span> Len() <span class="hljs-type">int</span>           &#123; <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(s) &#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s str)</span></span> Less(i, j <span class="hljs-type">int</span>) <span class="hljs-type">bool</span> &#123; <span class="hljs-keyword">return</span> s[i] &lt; s[j] &#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s str)</span></span> Swap(i, j <span class="hljs-type">int</span>)      &#123; s[i], s[j] = s[j], s[i] &#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">IsPalindrome</span><span class="hljs-params">(s sort.Interface)</span></span> <span class="hljs-type">bool</span> &#123;<br>	<span class="hljs-keyword">for</span> i, j := <span class="hljs-number">0</span>, s.Len()<span class="hljs-number">-1</span>; i &lt;= j; i, j = i+<span class="hljs-number">1</span>, j<span class="hljs-number">-1</span> &#123;<br>		<span class="hljs-keyword">if</span> s.Less(i, j) || s.Less(j, i) &#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	s := <span class="hljs-string">&quot;abccba&quot;</span><br>	fmt.Println(IsPalindrome(str(s)))<br>	s1 := <span class="hljs-string">&quot;abccbad&quot;</span><br>	fmt.Println(IsPalindrome(str(s1)))<br>&#125;<br><br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="print-no-link">#读书笔记</a>
+      
+        <a href="/tags/go/" class="print-no-link">#go</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>7.6. sort.Interface接口</div>
+      <div>https://succeedwer.github.io/posts/8d8e98ca9007/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WER</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月17日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年3月18日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/fc3145dbfc40/" title="7.7. http.Handler接口">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">7.7. http.Handler接口</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/b8be0b651295/" title="7.5 接口值">
+                        <span class="hidden-mobile">7.5 接口值</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

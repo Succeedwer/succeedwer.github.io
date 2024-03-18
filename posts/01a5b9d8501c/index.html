@@ -1,0 +1,730 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="3.3.1. 复数的构建复数构建：complex()返回复数的实部：real()返回复数的虚部：imag() 123456var x complex128 &#x3D; complex(1, 2)var y complex128 &#x3D; complex(3, 4)fmt.Println(x)           &#x2F;&#x2F; (1 + 2i)fmt.Println(x * y)       &#x2F;&#x2F; (1 + 2i) *">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3.3. 复数">
+<meta property="og:url" content="https://succeedwer.github.io/posts/01a5b9d8501c/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:description" content="3.3.1. 复数的构建复数构建：complex()返回复数的实部：real()返回复数的虚部：imag() 123456var x complex128 &#x3D; complex(1, 2)var y complex128 &#x3D; complex(3, 4)fmt.Println(x)           &#x2F;&#x2F; (1 + 2i)fmt.Println(x * y)       &#x2F;&#x2F; (1 + 2i) *">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://succeedwer.github.io/3.3.%20%E5%A4%8D%E6%95%B0/1679562639256-1710774522762.png">
+<meta property="og:image" content="https://succeedwer.github.io/3.3.%20%E5%A4%8D%E6%95%B0/1679568526352.png">
+<meta property="og:image" content="https://succeedwer.github.io/3.3.%20%E5%A4%8D%E6%95%B0/out.png">
+<meta property="og:image" content="https://succeedwer.github.io/3.3.%20%E5%A4%8D%E6%95%B0/1679590373910.png">
+<meta property="og:image" content="https://succeedwer.github.io/3.3.%20%E5%A4%8D%E6%95%B0/1679590413010.png">
+<meta property="og:image" content="https://succeedwer.github.io/images/1679590471597.png">
+<meta property="og:image" content="https://succeedwer.github.io/3.3.%20%E5%A4%8D%E6%95%B0/1679590518203.png">
+<meta property="og:image" content="https://succeedwer.github.io/3.3.%20%E5%A4%8D%E6%95%B0/1679591754515.png">
+<meta property="article:published_time" content="2023-03-13T06:52:19.000Z">
+<meta property="article:modified_time" content="2024-03-18T05:20:20.000Z">
+<meta property="article:author" content="WER">
+<meta property="article:tag" content="读书笔记">
+<meta property="article:tag" content="go">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://succeedwer.github.io/3.3.%20%E5%A4%8D%E6%95%B0/1679562639256-1710774522762.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>3.3. 复数 - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="3.3. 复数"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-13 14:52" pubdate>
+          2023年3月13日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">3.3. 复数</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p><img src="/3.3.%20%E5%A4%8D%E6%95%B0/1679562639256-1710774522762.png" srcset="/images/loading.gif" lazyload alt="复数"></p>
+<h1 id="3-3-1-复数的构建"><a href="#3-3-1-复数的构建" class="headerlink" title="3.3.1. 复数的构建"></a>3.3.1. 复数的构建</h1><p>复数构建：<code>complex()</code><br>返回复数的实部：<code>real()</code><br>返回复数的虚部：<code>imag()</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> x <span class="hljs-type">complex128</span> = <span class="hljs-built_in">complex</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)<br><span class="hljs-keyword">var</span> y <span class="hljs-type">complex128</span> = <span class="hljs-built_in">complex</span>(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>)<br>fmt.Println(x)           <span class="hljs-comment">// (1 + 2i)</span><br>fmt.Println(x * y)       <span class="hljs-comment">// (1 + 2i) * (3 + 4i) = (1*3 - 2*4) + (2*3 + 1*4)i = -5 + 10i</span><br>fmt.Println(<span class="hljs-built_in">real</span>(x * y)) <span class="hljs-comment">// -5</span><br>fmt.Println(<span class="hljs-built_in">imag</span>(x * y)) <span class="hljs-comment">// 10</span><br></code></pre></td></tr></table></figure>
+<p>复数的声明语句简化：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go">x := <span class="hljs-number">1</span> + <span class="hljs-number">2i</span><br>y := <span class="hljs-number">3</span> + <span class="hljs-number">4i</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="3-3-2-纯虚数"><a href="#3-3-2-纯虚数" class="headerlink" title="3.3.2. 纯虚数"></a>3.3.2. 纯虚数</h1><p>纯虚数，实部为0，如3.141592i。<br><code>i^2 = -1</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">fmt.Println(<span class="hljs-number">1i</span> * <span class="hljs-number">1i</span>) <span class="hljs-comment">// (-1+0i), i^2 = -1</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="3-3-3-复数的比较"><a href="#3-3-3-复数的比较" class="headerlink" title="3.3.3. 复数的比较"></a>3.3.3. 复数的比较</h1><p>复数也可以使用&#x3D;&#x3D;和!&#x3D;进行相等比较，只有实部和虚部都相等时，复数才相等。<br>（注意浮点数比较的精度问题。）<br>复数无大小顺序之分。</p>
+<h1 id="3-3-4-复数的运用"><a href="#3-3-4-复数的运用" class="headerlink" title="3.3.4. 复数的运用"></a>3.3.4. 复数的运用</h1><p>math&#x2F;cmplx包提供了复数处理的许多函数，例如求复数的平方根函数和求幂函数。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go">fmt.Println(cmplx.Sqrt(<span class="hljs-number">-1</span>)) <span class="hljs-comment">// (0+1i)</span><br>fmt.Println(cmplx.Exp(<span class="hljs-number">0</span>))   <span class="hljs-comment">// (1+0i)</span><br></code></pre></td></tr></table></figure>
+
+<p>下面的程序使用complex128复数算法来生成一个Mandelbrot图像。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Mandelbrot emits a PNG image of the Mandelbrot fractal.</span><br><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;image&quot;</span><br>	<span class="hljs-string">&quot;image/color&quot;</span><br>	<span class="hljs-string">&quot;image/png&quot;</span><br>	<span class="hljs-string">&quot;math/cmplx&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">const</span> (<br>		xmin, ymin, xmax, ymax = <span class="hljs-number">-2</span>, <span class="hljs-number">-2</span>, +<span class="hljs-number">2</span>, +<span class="hljs-number">2</span><br>		width, height          = <span class="hljs-number">1024</span>, <span class="hljs-number">1024</span><br>	)<br><br>	img := image.NewRGBA(image.Rect(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, width, height))<br>	<span class="hljs-keyword">for</span> py := <span class="hljs-number">0</span>; py &lt; height; py++ &#123;<br>		y := <span class="hljs-type">float64</span>(py)/height*(ymax-ymin) + ymin<br>		<span class="hljs-keyword">for</span> px := <span class="hljs-number">0</span>; px &lt; width; px++ &#123;<br>			x := <span class="hljs-type">float64</span>(px)/width*(xmax-xmin) + xmin<br>			z := <span class="hljs-built_in">complex</span>(x, y)<br>			<span class="hljs-comment">// Image point(px,py) represents complex value z.</span><br>			img.Set(px, py, mandlebrot(z))<br>		&#125;<br>	&#125;<br>	png.Encode(os.Stdout, img) <span class="hljs-comment">// <span class="hljs-doctag">NOTE:</span> ignoring errors</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mandlebrot</span><span class="hljs-params">(z <span class="hljs-type">complex128</span>)</span></span> color.Color &#123;<br>	<span class="hljs-keyword">const</span> iterations = <span class="hljs-number">200</span><br>	<span class="hljs-keyword">const</span> contrast = <span class="hljs-number">15</span><br><br>	<span class="hljs-keyword">var</span> v <span class="hljs-type">complex128</span><br>	<span class="hljs-keyword">for</span> n := <span class="hljs-type">uint8</span>(<span class="hljs-number">0</span>); n &lt; iterations; n++ &#123;<br>		v = v*v + z<br>		<span class="hljs-keyword">if</span> cmplx.Abs(v) &gt; <span class="hljs-number">2</span> &#123;<br>			<span class="hljs-keyword">return</span> color.Gray&#123;<span class="hljs-number">255</span> - contrast*n&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> color.Black<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p><img src="/3.3.%20%E5%A4%8D%E6%95%B0/1679568526352.png" srcset="/images/loading.gif" lazyload alt="The Mandelbrot set"></p>
+<h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><p><strong>练习 3.5</strong>： 实现一个彩色的Mandelbrot图像，使用image.NewRGBA创建图像，使用color.RGBA或color.YCbCr生成颜色。<br>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Mandelbrot emits a PNG image of the Mandelbrot fractal.</span><br><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;image&quot;</span><br>	<span class="hljs-string">&quot;image/color&quot;</span><br>	<span class="hljs-string">&quot;image/png&quot;</span><br>	<span class="hljs-string">&quot;math/cmplx&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">const</span> (<br>		xmin, ymin, xmax, ymax = <span class="hljs-number">-2</span>, <span class="hljs-number">-2</span>, +<span class="hljs-number">2</span>, +<span class="hljs-number">2</span><br>		width, height          = <span class="hljs-number">1024</span>, <span class="hljs-number">1024</span><br>	)<br><br>	img := image.NewRGBA(image.Rect(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, width, height))<br>	<span class="hljs-keyword">for</span> py := <span class="hljs-number">0</span>; py &lt; height; py++ &#123;<br>		y := <span class="hljs-type">float64</span>(py)/height*(ymax-ymin) + ymin<br>		<span class="hljs-keyword">for</span> px := <span class="hljs-number">0</span>; px &lt; width; px++ &#123;<br>			x := <span class="hljs-type">float64</span>(px)/width*(xmax-xmin) + xmin<br>			z := <span class="hljs-built_in">complex</span>(x, y)<br>			<span class="hljs-comment">// Image point(px,py) represents complex value z.</span><br>			img.Set(px, py, acos(z))<br>		&#125;<br>	&#125;<br>	png.Encode(os.Stdout, img) <span class="hljs-comment">// <span class="hljs-doctag">NOTE:</span> ignoring errors</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">acos</span><span class="hljs-params">(z <span class="hljs-type">complex128</span>)</span></span> color.Color &#123;<br>	v := cmplx.Acos(z)<br>	blue := <span class="hljs-type">uint8</span>(<span class="hljs-built_in">real</span>(v)*<span class="hljs-number">128</span>) + <span class="hljs-number">127</span><br>	red := <span class="hljs-type">uint8</span>(<span class="hljs-built_in">imag</span>(v)*<span class="hljs-number">128</span>) + <span class="hljs-number">127</span><br>	<span class="hljs-keyword">return</span> color.YCbCr&#123;Y: <span class="hljs-number">192</span>, Cb: blue, Cr: red&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出图像：<br><img src="/3.3.%20%E5%A4%8D%E6%95%B0/out.png" srcset="/images/loading.gif" lazyload alt="out"></p>
+<p><strong>练习 3.6</strong>： 升采样技术可以降低每个像素对计算颜色值和平均值的影响。简单的方法是将每个像素分层四个子像素，实现它。<br>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Mandelbrot emits a PNG image of the Mandelbrot fractal.</span><br><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;image&quot;</span><br>	<span class="hljs-string">&quot;image/color&quot;</span><br>	<span class="hljs-string">&quot;image/png&quot;</span><br>	<span class="hljs-string">&quot;math/cmplx&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">const</span> (<br>		xmin, ymin, xmax, ymax = <span class="hljs-number">-2</span>, <span class="hljs-number">-2</span>, +<span class="hljs-number">2</span>, +<span class="hljs-number">2</span><br>		width, height          = <span class="hljs-number">2048</span>, <span class="hljs-number">2048</span><br>	)<br><br>	img := image.NewRGBA(image.Rect(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, width, height))<br>	<span class="hljs-keyword">for</span> py := <span class="hljs-number">0</span>; py &lt; height; py += <span class="hljs-number">2</span> &#123;<br>		y1 := <span class="hljs-type">float64</span>(py)/height*(ymax-ymin) + ymin<br>		y2 := <span class="hljs-type">float64</span>(py+<span class="hljs-number">1</span>)/height*(ymax-ymin) + ymin<br>		<span class="hljs-keyword">for</span> px := <span class="hljs-number">0</span>; px &lt; width; px += <span class="hljs-number">2</span> &#123;<br>			x1 := <span class="hljs-type">float64</span>(px)/width*(xmax-xmin) + xmin<br>			x2 := <span class="hljs-type">float64</span>(px+<span class="hljs-number">1</span>)/width*(xmax-xmin) + xmin<br>			z1 := <span class="hljs-built_in">complex</span>(x1, y1)<br>			z2 := <span class="hljs-built_in">complex</span>(x1, y2)<br>			z3 := <span class="hljs-built_in">complex</span>(x2, y1)<br>			z4 := <span class="hljs-built_in">complex</span>(x2, y2)<br>			<span class="hljs-comment">// Image point (px, py) represents complex value z.</span><br>			img.Set(px/<span class="hljs-number">2</span>, py/<span class="hljs-number">2</span>,<br>				color.Gray&#123;Y: (mandelbrot(z1).Y +<br>					mandelbrot(z2).Y +<br>					mandelbrot(z3).Y +<br>					mandelbrot(z4).Y) / <span class="hljs-number">4.0</span>&#125;)<br><br>			<span class="hljs-comment">// acos</span><br>			<span class="hljs-comment">//img.Set(px/2, py/2,</span><br>			<span class="hljs-comment">//	color.YCbCr&#123;</span><br>			<span class="hljs-comment">//		Y:  (acos(z1).Y + acos(z2).Y + acos(z3).Y + acos(z4).Y) / 4,</span><br>			<span class="hljs-comment">//		Cb: (acos(z1).Cb + acos(z2).Cb + acos(z3).Cb + acos(z4).Cb) / 4,</span><br>			<span class="hljs-comment">//		Cr: (acos(z1).Cr + acos(z2).Cr + acos(z3).Cr + acos(z4).Cr) / 4,</span><br>			<span class="hljs-comment">//	&#125;)</span><br><br>			<span class="hljs-comment">// sqrt</span><br>			<span class="hljs-comment">//img.Set(px/2, py/2,</span><br>			<span class="hljs-comment">//	color.YCbCr&#123;</span><br>			<span class="hljs-comment">//		Y:  (sqrt(z1).Y + sqrt(z2).Y + sqrt(z3).Y + sqrt(z4).Y) / 4,</span><br>			<span class="hljs-comment">//		Cb: (sqrt(z1).Cb + sqrt(z2).Cb + sqrt(z3).Cb + sqrt(z4).Cb) / 4,</span><br>			<span class="hljs-comment">//		Cr: (sqrt(z1).Cr + sqrt(z2).Cr + sqrt(z3).Cr + sqrt(z4).Cr) / 4,</span><br>			<span class="hljs-comment">//	&#125;)</span><br><br>			<span class="hljs-comment">// newton</span><br>			<span class="hljs-comment">//img.Set(px/2, py/2,</span><br>			<span class="hljs-comment">//	color.Gray&#123;Y: (newton(z1).Y +</span><br>			<span class="hljs-comment">//		newton(z2).Y +</span><br>			<span class="hljs-comment">//		newton(z3).Y +</span><br>			<span class="hljs-comment">//		newton(z4).Y) / 4.0&#125;)</span><br>		&#125;<br>	&#125;<br>	png.Encode(os.Stdout, img)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mandelbrot</span><span class="hljs-params">(z <span class="hljs-type">complex128</span>)</span></span> color.Gray &#123;<br>	<span class="hljs-keyword">const</span> iterations = <span class="hljs-number">200</span><br>	<span class="hljs-keyword">const</span> contrast = <span class="hljs-number">15</span><br><br>	<span class="hljs-keyword">var</span> v <span class="hljs-type">complex128</span><br>	<span class="hljs-keyword">for</span> n := <span class="hljs-type">uint8</span>(<span class="hljs-number">0</span>); n &lt; iterations; n++ &#123;<br>		v = v*v + z<br>		<span class="hljs-keyword">if</span> cmplx.Abs(v) &gt; <span class="hljs-number">2</span> &#123;<br>			<span class="hljs-keyword">return</span> color.Gray&#123;Y: <span class="hljs-number">255</span> - contrast*n&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> color.Gray&#123;Y: <span class="hljs-number">0</span>&#125;<br>&#125;<br><br><span class="hljs-comment">// Some other interesting functions.</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">acos</span><span class="hljs-params">(z <span class="hljs-type">complex128</span>)</span></span> color.YCbCr &#123;<br>	v := cmplx.Acos(z)<br>	blue := <span class="hljs-type">uint8</span>(<span class="hljs-built_in">real</span>(v)*<span class="hljs-number">128</span>) + <span class="hljs-number">127</span><br>	red := <span class="hljs-type">uint8</span>(<span class="hljs-built_in">imag</span>(v)*<span class="hljs-number">128</span>) + <span class="hljs-number">127</span><br>	<span class="hljs-keyword">return</span> color.YCbCr&#123;<br>		Y:  <span class="hljs-number">128</span>,<br>		Cb: blue,<br>		Cr: red,<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">sqrt</span><span class="hljs-params">(z <span class="hljs-type">complex128</span>)</span></span> color.YCbCr &#123;<br>	v := cmplx.Sqrt(z)<br>	blue := <span class="hljs-type">uint8</span>(<span class="hljs-built_in">real</span>(v)*<span class="hljs-number">128</span>) + <span class="hljs-number">127</span><br>	red := <span class="hljs-type">uint8</span>(<span class="hljs-built_in">imag</span>(v)*<span class="hljs-number">128</span>) + <span class="hljs-number">127</span><br>	<span class="hljs-keyword">return</span> color.YCbCr&#123;<br>		Y:  <span class="hljs-number">128</span>,<br>		Cb: blue,<br>		Cr: red,<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">newton</span><span class="hljs-params">(z <span class="hljs-type">complex128</span>)</span></span> color.Gray &#123;<br>	<span class="hljs-keyword">const</span> iterations = <span class="hljs-number">37</span><br>	<span class="hljs-keyword">const</span> contrast = <span class="hljs-number">7</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-type">uint8</span>(<span class="hljs-number">0</span>); i &lt; iterations; i++ &#123;<br>		z -= (z - <span class="hljs-number">1</span>/(z*z*z)) / <span class="hljs-number">4</span><br>		<span class="hljs-keyword">if</span> cmplx.Abs(z*z*z*z<span class="hljs-number">-1</span>) &lt; <span class="hljs-number">1e-6</span> &#123;<br>			<span class="hljs-keyword">return</span> color.Gray&#123;Y: <span class="hljs-number">255</span> - contrast*i&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> color.Gray&#123;Y: <span class="hljs-number">0</span>&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="/3.3.%20%E5%A4%8D%E6%95%B0/1679590373910.png" srcset="/images/loading.gif" lazyload alt="mandelbrot"></p>
+<p><img src="/3.3.%20%E5%A4%8D%E6%95%B0/1679590413010.png" srcset="/images/loading.gif" lazyload alt="acos"></p>
+<p><img src="/./images/1679590471597.png" srcset="/images/loading.gif" lazyload alt="sqrt"></p>
+<p><img src="/3.3.%20%E5%A4%8D%E6%95%B0/1679590518203.png" srcset="/images/loading.gif" lazyload alt="newton"></p>
+<p><strong>练习 3.7</strong>： 另一个生成分形图像的方式是使用牛顿法来求解一个复数方程，例如<code>!$ z^&#123;4&#125;-1=0 $</code>。每个起点到四个根的迭代次数对应阴影的灰度。方程根对应的点用颜色表示。<br>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Mandelbrot emits a PNG image of the Mandelbrot fractal.</span><br><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;image&quot;</span><br>	<span class="hljs-string">&quot;image/color&quot;</span><br>	<span class="hljs-string">&quot;image/png&quot;</span><br>	<span class="hljs-string">&quot;math/cmplx&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">const</span> (<br>		xmin, ymin, xmax, ymax = <span class="hljs-number">-2</span>, <span class="hljs-number">-2</span>, +<span class="hljs-number">2</span>, +<span class="hljs-number">2</span><br>		width, height          = <span class="hljs-number">1024</span>, <span class="hljs-number">1024</span><br>	)<br><br>	img := image.NewRGBA(image.Rect(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, width, height))<br>	<span class="hljs-keyword">for</span> py := <span class="hljs-number">0</span>; py &lt; height; py++ &#123;<br>		y := <span class="hljs-type">float64</span>(py)/width*(xmax-xmin) + xmin<br>		<span class="hljs-keyword">for</span> px := <span class="hljs-number">0</span>; px &lt; width; px++ &#123;<br>			x := <span class="hljs-type">float64</span>(px)/width*(xmax-xmin) + xmin<br>			z := <span class="hljs-built_in">complex</span>(x, y)<br>			<span class="hljs-comment">// Image point (px, py) represents complex value z.</span><br>			img.Set(px, py, newton(z))<br>		&#125;<br>	&#125;<br>	png.Encode(os.Stdout, img)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">newton</span><span class="hljs-params">(z <span class="hljs-type">complex128</span>)</span></span> color.Color &#123;<br>	<span class="hljs-keyword">const</span> iterations = <span class="hljs-number">37</span><br>	<span class="hljs-keyword">const</span> contrast = <span class="hljs-number">7</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-type">uint8</span>(<span class="hljs-number">0</span>); i &lt; iterations; i++ &#123;<br>		z -= (z - <span class="hljs-number">1</span>/(z*z*z)) / <span class="hljs-number">4</span><br>		<span class="hljs-keyword">if</span> cmplx.Abs(z*z*z*z<span class="hljs-number">-1</span>) &lt; <span class="hljs-number">1e-6</span> &#123;<br>			<span class="hljs-keyword">return</span> color.Gray&#123;Y: <span class="hljs-number">255</span> - contrast*i&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> color.Black<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出图像：<br><img src="/3.3.%20%E5%A4%8D%E6%95%B0/1679591754515.png" srcset="/images/loading.gif" lazyload alt="newton"></p>
+<p><strong>练习 3.8</strong>： 通过提高精度来生成更多级别的分形。使用四种不同精度类型的数字实现相同的分形：complex64、complex128、big.Float和big.Rat。（后面两种类型在math&#x2F;big包声明。Float是有指定限精度的浮点数；Rat是无效精度的有理数。）它们间的性能和内存使用对比如何？当渲染图可见时缩放的级别是多少？<br>解：<br>mandelbrot.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> mandelbrot<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;image/color&quot;</span><br>	<span class="hljs-string">&quot;math&quot;</span><br>	<span class="hljs-string">&quot;math/big&quot;</span><br>	<span class="hljs-string">&quot;math/cmplx&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mandelbrot64</span><span class="hljs-params">(z <span class="hljs-type">complex128</span>)</span></span> color.Color &#123;<br>	<span class="hljs-keyword">const</span> iterations = <span class="hljs-number">200</span><br>	<span class="hljs-keyword">const</span> contrast = <span class="hljs-number">15</span><br>	<span class="hljs-keyword">var</span> v <span class="hljs-type">complex64</span><br>	<span class="hljs-keyword">for</span> n := <span class="hljs-type">uint8</span>(<span class="hljs-number">0</span>); n &lt; iterations; n++ &#123;<br>		v = v*v + <span class="hljs-type">complex64</span>(z)<br>		<span class="hljs-keyword">if</span> cmplx.Abs(<span class="hljs-type">complex128</span>(v)) &gt; <span class="hljs-number">2</span> &#123;<br>			<span class="hljs-keyword">if</span> n &gt; <span class="hljs-number">50</span> &#123;<br>				<span class="hljs-keyword">return</span> color.RGBA&#123;R: <span class="hljs-number">100</span>, A: <span class="hljs-number">255</span>&#125;<br>			&#125;<br>			scale := math.Log(<span class="hljs-type">float64</span>(n)) / math.Log(<span class="hljs-type">float64</span>(iterations))<br>			<span class="hljs-keyword">return</span> color.RGBA&#123;B: <span class="hljs-number">255</span> - <span class="hljs-type">uint8</span>(scale*<span class="hljs-number">255</span>), A: <span class="hljs-number">255</span>&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> color.Black<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mandelbrot128</span><span class="hljs-params">(z <span class="hljs-type">complex128</span>)</span></span> color.Color &#123;<br>	<span class="hljs-keyword">const</span> iterations = <span class="hljs-number">200</span><br>	<span class="hljs-keyword">const</span> contrast = <span class="hljs-number">15</span><br>	<span class="hljs-keyword">var</span> v <span class="hljs-type">complex128</span><br>	<span class="hljs-keyword">for</span> n := <span class="hljs-type">uint8</span>(<span class="hljs-number">0</span>); n &lt; iterations; n++ &#123;<br>		v = v*v + z<br>		<span class="hljs-keyword">if</span> cmplx.Abs(v) &gt; <span class="hljs-number">2</span> &#123;<br>			<span class="hljs-keyword">if</span> n &gt; <span class="hljs-number">50</span> &#123;<br>				<span class="hljs-keyword">return</span> color.RGBA&#123;R: <span class="hljs-number">100</span>, A: <span class="hljs-number">255</span>&#125;<br>			&#125;<br>			scale := math.Log(<span class="hljs-type">float64</span>(n)) / math.Log(<span class="hljs-type">float64</span>(iterations))<br>			<span class="hljs-keyword">return</span> color.RGBA&#123;B: <span class="hljs-number">255</span> - <span class="hljs-type">uint8</span>(scale*<span class="hljs-number">255</span>), A: <span class="hljs-number">255</span>&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> color.Black<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mandelbrotBigFloat</span><span class="hljs-params">(z <span class="hljs-type">complex128</span>)</span></span> color.Color &#123;<br>	<span class="hljs-keyword">const</span> iterations = <span class="hljs-number">200</span><br>	<span class="hljs-keyword">const</span> contrast = <span class="hljs-number">15</span><br>	zR := (&amp;big.Float&#123;&#125;).SetFloat64(<span class="hljs-built_in">real</span>(z))<br>	zI := (&amp;big.Float&#123;&#125;).SetFloat64(<span class="hljs-built_in">imag</span>(z))<br>	<span class="hljs-keyword">var</span> vR, vI = &amp;big.Float&#123;&#125;, &amp;big.Float&#123;&#125;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-type">uint8</span>(<span class="hljs-number">0</span>); i &lt; iterations; i++ &#123;<br>		vR2, vI2 := &amp;big.Float&#123;&#125;, &amp;big.Float&#123;&#125;<br>		vR2.Mul(vR, vR).Sub(vR2, (&amp;big.Float&#123;&#125;).Mul(vI, vI)).Add(vR2, zR)<br>		vI2.Mul(vR, vI).Mul(vI2, big.NewFloat(<span class="hljs-number">2</span>)).Add(vI2, zI)<br>		vR, vI = vR2, vI2<br>		squareSum := &amp;big.Float&#123;&#125;<br>		squareSum.Mul(vR, vR).Add(squareSum, (&amp;big.Float&#123;&#125;).Mul(vI, vI))<br>		<span class="hljs-keyword">if</span> squareSum.Cmp(big.NewFloat(<span class="hljs-number">4</span>)) == <span class="hljs-number">1</span> &#123;<br>			<span class="hljs-keyword">if</span> i &gt; <span class="hljs-number">50</span> &#123;<br>				<span class="hljs-keyword">return</span> color.RGBA&#123;R: <span class="hljs-number">100</span>, A: <span class="hljs-number">255</span>&#125;<br>			&#125;<br>			scale := math.Log(<span class="hljs-type">float64</span>(i)) / math.Log(<span class="hljs-type">float64</span>(iterations))<br>			<span class="hljs-keyword">return</span> color.RGBA&#123;B: <span class="hljs-number">255</span> - <span class="hljs-type">uint8</span>(scale*<span class="hljs-number">255</span>), A: <span class="hljs-number">255</span>&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> color.Black<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mandelbrotBigRat</span><span class="hljs-params">(z <span class="hljs-type">complex128</span>)</span></span> color.Color &#123;<br>	<span class="hljs-keyword">const</span> iterations = <span class="hljs-number">200</span><br>	<span class="hljs-keyword">const</span> contrast = <span class="hljs-number">15</span><br>	zR := (&amp;big.Rat&#123;&#125;).SetFloat64(<span class="hljs-built_in">real</span>(z))<br>	zI := (&amp;big.Rat&#123;&#125;).SetFloat64(<span class="hljs-built_in">imag</span>(z))<br>	<span class="hljs-keyword">var</span> vR, vI = &amp;big.Rat&#123;&#125;, &amp;big.Rat&#123;&#125;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-type">uint8</span>(<span class="hljs-number">0</span>); i &lt; iterations; i++ &#123;<br>		vR2, vI2 := &amp;big.Rat&#123;&#125;, &amp;big.Rat&#123;&#125;<br>		vR2.Mul(vR, vR).Sub(vR2, (&amp;big.Rat&#123;&#125;).Mul(vI, vI)).Add(vR2, zR)<br>		vI2.Mul(vR, vI).Mul(vI2, big.NewRat(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>)).Add(vI2, zI)<br>		vR, vI = vR2, vI2<br>		squareSum := &amp;big.Rat&#123;&#125;<br>		squareSum.Mul(vR, vR).Add(squareSum, (&amp;big.Rat&#123;&#125;).Mul(vI, vI))<br>		<span class="hljs-keyword">if</span> squareSum.Cmp(big.NewRat(<span class="hljs-number">4</span>, <span class="hljs-number">1</span>)) == <span class="hljs-number">1</span> &#123;<br>			<span class="hljs-keyword">if</span> i &gt; <span class="hljs-number">50</span> &#123;<br>				<span class="hljs-keyword">return</span> color.RGBA&#123;R: <span class="hljs-number">100</span>, A: <span class="hljs-number">255</span>&#125;<br>			&#125;<br>			scale := math.Log(<span class="hljs-type">float64</span>(i)) / math.Log(<span class="hljs-type">float64</span>(iterations))<br>			<span class="hljs-keyword">return</span> color.RGBA&#123;B: <span class="hljs-number">255</span> - <span class="hljs-type">uint8</span>(scale*<span class="hljs-number">255</span>), A: <span class="hljs-number">255</span>&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> color.Black<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>mandelbrot_test.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> mandelbrot<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;image/color&quot;</span><br>	<span class="hljs-string">&quot;testing&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">bench</span><span class="hljs-params">(b *testing.B, f <span class="hljs-keyword">func</span>(complex1282 <span class="hljs-type">complex128</span>)</span></span> color.Color) &#123;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; b.N; i++ &#123;<br>		f(<span class="hljs-built_in">complex</span>(<span class="hljs-type">float64</span>(i), <span class="hljs-type">float64</span>(i)))<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">BenchmarkMandelbrotComplex64</span><span class="hljs-params">(b *testing.B)</span></span> &#123;<br>	bench(b, mandelbrot64)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">BenchmarkMandelbrotComplex128</span><span class="hljs-params">(b *testing.B)</span></span> &#123;<br>	bench(b, mandelbrot128)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">BenchmarkMandelbrotBigFloat</span><span class="hljs-params">(b *testing.B)</span></span> &#123;<br>	bench(b, mandelbrotBigFloat)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">BenchmarkMandelbrotBigRat</span><span class="hljs-params">(b *testing.B)</span></span> &#123;<br>	bench(b, mandelbrotBigRat)<br>&#125;<br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">goos: darwin</span><br><span class="hljs-comment">goarch: amd64</span><br><span class="hljs-comment">pkg: go-learn-gopl/ex/ex3/ex3.8</span><br><span class="hljs-comment">cpu: Intel(R) Core(TM) i7-7820HQ CPU @ 2.90GHz</span><br><span class="hljs-comment">BenchmarkMandelbrotComplex128</span><br><span class="hljs-comment">BenchmarkMandelbrotComplex64-8   	20120569	        57.30 ns/op</span><br><span class="hljs-comment">BenchmarkMandelbrotComplex128-8   	19792554	        55.43 ns/op</span><br><span class="hljs-comment">BenchmarkMandelbrotBigFloat-8   	 1730440	       656.2 ns/op</span><br><span class="hljs-comment">BenchmarkMandelbrotBigRat-8   	  501489	      2257 ns/op</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>练习 3.9</strong>： 编写一个web服务器，用于给客户端生成分形的图像。运行客户端用过HTTP参数参数指定x,y和zoom参数。<br>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;image&quot;</span><br>	<span class="hljs-string">&quot;image/color&quot;</span><br>	<span class="hljs-string">&quot;image/png&quot;</span><br>	<span class="hljs-string">&quot;io&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;math&quot;</span><br>	<span class="hljs-string">&quot;math/cmplx&quot;</span><br>	<span class="hljs-string">&quot;net/http&quot;</span><br>	<span class="hljs-string">&quot;strconv&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	http.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, handler)<br>	log.Fatal(http.ListenAndServe(<span class="hljs-string">&quot;localhost:8000&quot;</span>, <span class="hljs-literal">nil</span>))<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">handler</span><span class="hljs-params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;<br>	<span class="hljs-keyword">if</span> err := r.ParseForm(); err != <span class="hljs-literal">nil</span> &#123;<br>		fmt.Fprintf(w, <span class="hljs-string">&quot;parse form err: %v&quot;</span>, err)<br>	&#125;<br>	x := firstOrDef(r.Form[<span class="hljs-string">&quot;x&quot;</span>], <span class="hljs-number">0</span>)<br>	y := firstOrDef(r.Form[<span class="hljs-string">&quot;y&quot;</span>], <span class="hljs-number">0</span>)<br>	zoom := firstOrDef(r.Form[<span class="hljs-string">&quot;zoom&quot;</span>], <span class="hljs-number">0</span>)<br>	render(w, x, y, zoom)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">firstOrDef</span><span class="hljs-params">(forms []<span class="hljs-type">string</span>, def <span class="hljs-type">float64</span>)</span></span> <span class="hljs-type">float64</span> &#123;<br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(forms) == <span class="hljs-number">0</span> &#123;<br>		<span class="hljs-keyword">return</span> def<br>	&#125;<br><br>	v, err := strconv.ParseFloat(forms[<span class="hljs-number">0</span>], <span class="hljs-number">64</span>)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> def<br>	&#125;<br>	<span class="hljs-keyword">return</span> v<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">render</span><span class="hljs-params">(out io.Writer, x, y, zoom <span class="hljs-type">float64</span>)</span></span> &#123;<br>	<span class="hljs-keyword">const</span> (<br>		width, height = <span class="hljs-number">1024</span>, <span class="hljs-number">1024</span><br>	)<br>	exp2 := math.Exp2(<span class="hljs-number">1</span> - zoom)<br>	xmin, xmax := x-exp2, x+exp2<br>	ymin, ymax := y-exp2, y+exp2<br><br>	img := image.NewRGBA(image.Rect(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, width, height))<br>	<span class="hljs-keyword">for</span> py := <span class="hljs-number">0</span>; py &lt; height; py++ &#123;<br>		y := <span class="hljs-type">float64</span>(py)/height*(ymax-ymin) + ymin<br>		<span class="hljs-keyword">for</span> px := <span class="hljs-number">0</span>; px &lt; width; px++ &#123;<br>			x := <span class="hljs-type">float64</span>(px)/width*(xmax-xmin) + xmin<br>			z := <span class="hljs-built_in">complex</span>(x, y)<br>			<span class="hljs-comment">// Image point (px, py) represent complex value z.</span><br>			img.Set(px, py, mandelbrot(z))<br>		&#125;<br>	&#125;<br>	png.Encode(out, img)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mandelbrot</span><span class="hljs-params">(z <span class="hljs-type">complex128</span>)</span></span> color.Color &#123;<br>	<span class="hljs-keyword">const</span> iterations = <span class="hljs-number">200</span><br>	<span class="hljs-keyword">const</span> contrast = <span class="hljs-number">15</span><br><br>	<span class="hljs-keyword">var</span> v <span class="hljs-type">complex128</span><br>	<span class="hljs-keyword">for</span> n := <span class="hljs-type">uint8</span>(<span class="hljs-number">0</span>); n &lt; iterations; n++ &#123;<br>		v = v*v + z<br>		<span class="hljs-keyword">if</span> cmplx.Abs(v) &gt; <span class="hljs-number">2</span> &#123;<br>			<span class="hljs-keyword">return</span> color.Gray&#123;Y: <span class="hljs-number">255</span> - contrast*n&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> color.Black<br>&#125;<br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="print-no-link">#读书笔记</a>
+      
+        <a href="/tags/go/" class="print-no-link">#go</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>3.3. 复数</div>
+      <div>https://succeedwer.github.io/posts/01a5b9d8501c/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WER</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月13日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年3月18日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/d98a81de6430/" title="3.4. 布尔型">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">3.4. 布尔型</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/2a4f4f65e7ca/" title="3.1. 整型">
+                        <span class="hidden-mobile">3.1. 整型</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
