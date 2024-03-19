@@ -26,14 +26,14 @@
 <meta property="og:site_name" content="Bug Terminator">
 <meta property="og:description" content="由测试驱动触发运行到的被测试函数的代码数目称为测试的覆盖率。测试覆盖率并不能量化——甚至连最简单的动态程序也难以精确测量——但是可以启发并帮助我们编写的有效的测试代码。 语句的覆盖率是指在测试中至少被运行一次的代码占总代码数的比例。在本节中，我们使用go test命令中集成的测试覆盖率工具，来度量下面代码的测试覆盖率，帮助我们识别测试和我们期望间的差距。 下面的代码是一个表格驱动的测试，用于测试第">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://succeedwer.github.io/11.3.%20%E6%B5%8B%E8%AF%95%E8%A6%86%E7%9B%96%E7%8E%87/1707221584554.png">
+<meta property="og:image" content="https://succeedwer.github.io/posts/79be1aaa69b3/1707221584554.png">
 <meta property="article:published_time" content="2023-03-21T05:52:19.000Z">
 <meta property="article:modified_time" content="2024-03-18T11:14:20.000Z">
 <meta property="article:author" content="WER">
 <meta property="article:tag" content="读书笔记">
 <meta property="article:tag" content="go">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://succeedwer.github.io/11.3.%20%E6%B5%8B%E8%AF%95%E8%A6%86%E7%9B%96%E7%8E%87/1707221584554.png">
+<meta name="twitter:image" content="https://succeedwer.github.io/posts/79be1aaa69b3/1707221584554.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -1254,7 +1254,7 @@
 <p>该命令还会生成一个c.out的文件，存储代码块的是否调用的布尔值。<br>这个标志参数通过在测试代码中插入生成钩子来统计覆盖率数据。也就是说，在运行每个测试前，它会修改要测试代码的副本，在每个词法块都会设置一个布尔标志变量。当被修改后的被测试代码运行退出时，将统计日志数据写入c.out文件，并打印一部分执行的语句的一个总结。（如果你需要的是摘要，使用<code>go test -cover</code>。）<br>如果使用了<code>-covermode=count</code>标志参数，那么将在每个代码块插入一个计数器而不是布尔标志量。在统计结果中记录了每个块的执行次数，这可以用于衡量哪些是被频繁执行的热点代码。</p>
 <p>还可以生成html统计数据的网页：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go tool cover -html=c.out</span><br></code></pre></td></tr></table></figure>
-<p>网页中绿色代码块指的是已被覆盖，红色指的是未覆盖的代码块。<br><img src="/11.3.%20%E6%B5%8B%E8%AF%95%E8%A6%86%E7%9B%96%E7%8E%87/1707221584554.png" srcset="/images/loading.gif" lazyload alt="1707221584554"><br>所以，尽可能增加测试用例以覆盖代码块。</p>
+<p>网页中绿色代码块指的是已被覆盖，红色指的是未覆盖的代码块。<br><img src="/posts/79be1aaa69b3/1707221584554.png" srcset="/images/loading.gif" lazyload alt="1707221584554"><br>所以，尽可能增加测试用例以覆盖代码块。</p>
 <p>实现100%的测试覆盖率听起来很美，但是在具体实践中通常是不可行的，也不是值得推荐的做法。因为那只能说明代码被执行过而已，并不意味着代码就是没有BUG的；</p>
 <p>测试覆盖率工具可以帮助我们快速识别测试薄弱的地方，但是设计好的测试用例和编写应用代码一样需要严密的思考。</p>
 

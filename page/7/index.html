@@ -229,15 +229,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/f16f86776a10/" target="_self">
-          5.7. 可变参数
+        <a href="/posts/e24baaf2eab7/" target="_self">
+          8.4. Channels
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/f16f86776a10/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/e24baaf2eab7/" target="_self">
         <div>
-          定义参数数量可变的函数称为可变参数函数。如fmt.Printf和类似参数。  在声明可变参数函数时，需要在参数列表的最后一个参数类型之前加上省略符号...，表示该函数会接受任何数量的该类型参数。  1234567 func sum(vals ...int) int  &#123;	total := 0	for _, val := range vals &#123;		total += val	&#
+          基本信息定义如果说goroutine是go语言的并发体，那么Channels是它们之间的通信机制。一个goroutine可以通过Channels发送信息给另一个goroutine。每个Channels都有其可发送的数据的数据类型，如一个可以发送int类型数据的channel一般写为chan int。 创建channel使用内置的make函数，我们可以创建一个channel： 1ch := make
         </div>
       </a>
 
@@ -245,8 +245,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 17:52" pubdate>
-              2023-03-15
+            <time datetime="2023-03-18 14:52" pubdate>
+              2023-03-18
             </time>
           </div>
         
@@ -299,15 +299,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/f29c530bb54f/" target="_self">
-          5.6. 匿名函数
+        <a href="/posts/10cf7d1432ab/" target="_self">
+          8.3. 示例：并发的Echo服务器
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/f29c530bb54f/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/10cf7d1432ab/" target="_self">
         <div>
-          匿名函数的定义拥有函数名的函数只能在包级语法块中被声明。可以通过函数字面量（function literal），可以绕过限制，在任何表达式内表示函数值。没有名字的函数，即函数值字面量，被称为匿名函数（anonymous function）。 函数字面量可以在使用函数时，再定义。如下： 123strings.Map(func(r rune) rune &#123;	return r + 1&#125
+          Echo服务器一般情况下会返回它接收到的内容。类似回音，一开始返回全大写的内容，如HELLO，表示声音很大； 间隔一定时间后，返回有所缓和的Hello；最后返回一个表示声音很小的全小写hello直至消失。 123456789101112131415161718192021222324252627282930313233343536373839404142// Reverb1 is a TCP se
         </div>
       </a>
 
@@ -315,8 +315,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 16:52" pubdate>
-              2023-03-15
+            <time datetime="2023-03-18 13:52" pubdate>
+              2023-03-18
             </time>
           </div>
         
@@ -369,15 +369,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/e0d18dccf0bc/" target="_self">
-          5.5. 函数值
+        <a href="/posts/fca3f5579354/" target="_self">
+          8.2. 示例：并发的Clock服务
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/e0d18dccf0bc/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/fca3f5579354/" target="_self">
         <div>
-          在Go中，函数被看作第一类值（first-class values）：函数像其他值一样，拥有类型，可以被赋值给其他变量，传递给函数，从函数返回。对函数值（function value）的调用类似函数调用。例子如下： 1234567891011121314151617181920212223242526package mainimport &quot;fmt&quot;func square(n i
+          网络编程是并发大显身手的一个领域，由于服务器是最典型的需要同时处理很多连接的程序，这些连接一般来自远彼此独立的客户端。 第一个例子第一个例子是一个顺序执行的时钟服务器，它会每隔一秒钟将当前时间写到客户端： 123456789101112131415161718192021222324252627282930313233343536// Clock1 is a TCP server that per
         </div>
       </a>
 
@@ -385,8 +385,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 15:52" pubdate>
-              2023-03-15
+            <time datetime="2023-03-18 12:52" pubdate>
+              2023-03-18
             </time>
           </div>
         
@@ -439,15 +439,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/b269706cb426/" target="_self">
-          5.4. 错误
+        <a href="/posts/dbf6e956aad2/" target="_self">
+          8.1. Goroutines
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/b269706cb426/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/dbf6e956aad2/" target="_self">
         <div>
-          函数对于运行失败预期结果，都会返回一个额外的返回值，通常是最后一个，用于传递错误信息。额外的返回值可以是一个布尔值，通常被命名为ok。 1234value, ok := cache.Lookup(key)if !ok &#123;	...&#125; 也可以返回error类型的返回值。当error为nil，则代表运行成功，error为non-nil时表示失败。对于non-nil的error类型，可
+          在Go语言中，每一个并发的执行单元叫作一个goroutine。新的goroutine会用go语句来创建。在语法上，go语句是一个普通的函数或方法调用前加上关键字go。 12f()go f() 下面的例子，main goroutine将计算菲波那契数列的第45个元素值。 1234567891011121314151617181920212223242526272829package mainimpo
         </div>
       </a>
 
@@ -455,8 +455,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 14:52" pubdate>
-              2023-03-15
+            <time datetime="2023-03-18 11:52" pubdate>
+              2023-03-18
             </time>
           </div>
         
@@ -509,15 +509,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/3b104e15a027/" target="_self">
-          5.3. 多返回值
+        <a href="/posts/160e8baeca27/" target="_self">
+          第八章 Goroutines和Channels
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/3b104e15a027/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/160e8baeca27/" target="_self">
         <div>
-          在Go中，一个函数可以返回多个值。 下面的程序是findlinks的改进版本。修改后的findlinks可以自己发起HTTP请求，这样我们就不必再运行fetch。因为HTTP请求和解析操作可能会失败，因此findlinks声明了2个返回值：链接列表和错误信息。一般而言，HTML的解析器可以处理HTML页面的错误结点，构造出HTML页面结构，所以解析HTML很少失败。这意味着如果findlinks函
+          并发程序指同时进行多个任务的程序。Go语言中的并发程序可以用两种手段来实现。  goroutine channel  还支持顺序通信进程（communicating sequential processes），简称CSP。CSP是一种现代的并发编程模型，在这种编程模型中值会在不同的运行实例goroutine中传递，尽管会别被限制在单一实例中。第9章则是更为传统的并发模型：多线程共享内存。 8.1.
         </div>
       </a>
 
@@ -525,8 +525,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 13:52" pubdate>
-              2023-03-15
+            <time datetime="2023-03-18 10:52" pubdate>
+              2023-03-18
             </time>
           </div>
         
@@ -579,15 +579,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/3e816bbb7aaa/" target="_self">
-          5.2. 递归
+        <a href="/posts/8520b52085ef/" target="_self">
+          7.15. 一些建议
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/3e816bbb7aaa/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/8520b52085ef/" target="_self">
         <div>
-          函数递归：函数直接或间接地调用自身。例子中调用golang.org/x/net/html的部分api如下所示。html.Parse函数读入一组bytes.解析后，返回html.node类型的HTML页面树状结构根节点。HTML拥有很多类型的结点如text（文本）,commnets（注释）类型，在下面的例子中，我们 只关注&lt; name key&#x3D;’value’ &gt;形式的结点。 1
+          当设计一个新包时，一般情况下是创建一个接口的集合开始和定义它们的具体类型。这种方式会导致有很多接口，且每一个都会仅有一个实现。这种设计方式是错误的，这种接口是不必要的抽象，且还有运行时损耗。实际上，可以使用导出机制来限制一个类型的方法或一个结构体的字段是否在包外可见。接口只有在当两个或两个以上的具体类型必须以相同的方式进行处理时才需要。 当一个接口只被一个具体类型实现时，往往是因为依赖，即依赖于另
         </div>
       </a>
 
@@ -595,8 +595,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 12:52" pubdate>
-              2023-03-15
+            <time datetime="2023-03-18 00:59" pubdate>
+              2023-03-18
             </time>
           </div>
         
@@ -649,15 +649,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/9ebdd846b6d6/" target="_self">
-          5.1. 函数声明
+        <a href="/posts/c380e460aca4/" target="_self">
+          7.14. 示例：基于标记的XML解码
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/9ebdd846b6d6/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/c380e460aca4/" target="_self">
         <div>
-          函数声明的写法： 123func name(parameter-list) (result-list) &#123;	body&#125; 函数声包括函数名、形式参数列表、返回值列表（可省略）以及函数体。形式参数列表描述了函数的参数名以及参数类型。返回值列表描述了函数返回值的变量名以及类型。如果函数返回一个无名变量或者没有返回值，返回值列表的括号是可以省略的。函数声明没有返回值列表时，那么函数体执
+          第4.5章节展示了如何使用encoding/json包中的Marshal和Unmarshal函数来将JSON文档转换成Go语言的数据结构。encoding/xml包提供了一个相似的API。encoding/xml包也提供了一个更低层的基于标记的API用于XML解码。在基于标记的样式中，解析器消费输入和产生一个标记流；四个主要的标记类型－StartElement，EndElement，CharDat
         </div>
       </a>
 
@@ -665,8 +665,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 11:52" pubdate>
-              2023-03-15
+            <time datetime="2023-03-18 00:52" pubdate>
+              2023-03-18
             </time>
           </div>
         
@@ -719,15 +719,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/4d1bb1bed6d0/" target="_self">
-          4.6 文本和HTML模版
+        <a href="/posts/c4e3ed798cee/" target="_self">
+          7.13. 类型开关
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/4d1bb1bed6d0/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/c4e3ed798cee/" target="_self">
         <div>
-          复杂的打印格式可以使用text/template和html\template等模板包实现。模版包含一个字符串或一个文件，里面包含一个或多个由双花括号包含的&#123;&#123;action&#125;&#125;对象。action对象包含一个用模板语言书写的表达式，如选择结构体的成员、调用函数或方法、表达式控制流if-else语句和range循环语句等等特性。 text&#x2F;templat
+          接口一般以两种方式使用。  第一个方式中，io.Reader、io.Writer、fmt.Stringer、sort.Interface、http.Handler、和error为例，一个接口的方法表达了实现这个接口的具体类型间的相思性，但是隐藏了代表的细节和这些具体类型本身的操作。重点在于方法上，而不是具体的类型上。 第二个方式利用一个接口值可以持有各种具体类型值的能力并且将这个接口认为是这些类型
         </div>
       </a>
 
@@ -735,8 +735,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-14 16:52" pubdate>
-              2023-03-14
+            <time datetime="2023-03-17 23:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -789,15 +789,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/b184f11121f4/" target="_self">
-          4.5. JSON
+        <a href="/posts/b10f700bc1c1/" target="_self">
+          7.12. 通过类型断言询问行为
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/b184f11121f4/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/b10f700bc1c1/" target="_self">
         <div>
-          定义JSON（JavaScript Object Notation）是基于JavaScript语言的轻量级的数据交换格式，也常用于发送和接收结构化信息的标准协议。还有类似的协议，如XML、ASN.1和Google的Protocol Buffers。 Go语言对于这些标准格式的编码和解码都有良好的支持，标准库中对应的包有encoding/json、encoding/xml、encoding/asn1
+          stringWriter下面程序与net/http包中web服务器负责写入HTTP头字段（如：Content-type:text/html）的部分相似。io.Writer接口类型的变量w代表HTTP响应。 123456789func writeHeader(w io.Writer, contentType string) error &#123;	if _, err := w.Write([]by
         </div>
       </a>
 
@@ -805,8 +805,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-14 15:52" pubdate>
-              2023-03-14
+            <time datetime="2023-03-17 22:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -859,15 +859,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/556653fe988e/" target="_self">
-          4.4. Struct
+        <a href="/posts/179a7331746a/" target="_self">
+          7.11. 基于类型断言区别错误类型
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/556653fe988e/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/179a7331746a/" target="_self">
         <div>
-          定义结构体是一种聚合的数据类型，是由零个或多个任意类型的值聚合成的实体。 声明下面例子声明了经典的员工信息Employee的结构类型： 1234567891011type Employee struct &#123;	ID        int	Name      string	Address   string	DoB       time.Time	Position  string	Salary
+          os包中文件操作返回的错误集合。I/O可以因为任何数量的原因失败，但是有三种经常的错误必须进行不同的处理：  文件已经存在（对于创建操作）  1os.IsExist(err error) bool 找不到文件（对于读取操作）  1os.IsNotExist(err error) bool 权限拒绝  1os.IsPermission(err error) bool  可能会检测错误信息中是否包含特
         </div>
       </a>
 
@@ -875,8 +875,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-14 14:52" pubdate>
-              2023-03-14
+            <time datetime="2023-03-17 21:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -927,7 +927,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/6/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/#board">5</a><a class="page-number" href="/page/6/#board">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/#board">8</a><a class="page-number" href="/page/9/#board">9</a><a class="page-number" href="/page/10/#board">10</a><a class="extend next" rel="next" href="/page/8/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/6/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/#board">5</a><a class="page-number" href="/page/6/#board">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/#board">8</a><a class="page-number" href="/page/9/#board">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/#board">13</a><a class="extend next" rel="next" href="/page/8/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

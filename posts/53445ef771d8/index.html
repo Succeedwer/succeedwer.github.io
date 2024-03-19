@@ -26,14 +26,14 @@
 <meta property="og:site_name" content="Bug Terminator">
 <meta property="og:description" content="定义Slice（切片）代表变长的序列，序列中每个元素都是相同的类型。slice类型一般写法[]T，其中T代表slice中元素的类型。 初始化字面值初始化1s :&#x3D; []int&#123;0,1,2,3,4,5&#125; 与数组字面值初始化很相似，但slice字面值初始化没有指明序列长度。slice会隐式创建合适大小的数组，然后slice的指针指向底层的数组。 使用make创建内置的make函数创">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://succeedwer.github.io/4.2.%20Slice/1680282900447.png">
+<meta property="og:image" content="https://succeedwer.github.io/posts/53445ef771d8/1680282900447.png">
 <meta property="article:published_time" content="2023-03-14T04:52:19.000Z">
 <meta property="article:modified_time" content="2024-03-18T05:20:20.000Z">
 <meta property="article:author" content="WER">
 <meta property="article:tag" content="读书笔记">
 <meta property="article:tag" content="go">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://succeedwer.github.io/4.2.%20Slice/1680282900447.png">
+<meta name="twitter:image" content="https://succeedwer.github.io/posts/53445ef771d8/1680282900447.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -1251,7 +1251,7 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">a := months[<span class="hljs-number">4</span>:<span class="hljs-number">7</span>]<br></code></pre></td></tr></table></figure>
 <p><code>slice</code>类型的切片操作都是返回原序列的子序列，底层都是共享之前的底层数组。</p>
 <h1 id="与数组的关系"><a href="#与数组的关系" class="headerlink" title="与数组的关系"></a>与数组的关系</h1><p><code>slice</code>的语法和数组类型，只是没有固定长度而已。<br><code>slice</code>是轻量级的数据结构，提供了访问数组子序列（或者全部）元素的功能，而且<code>slice</code>的底层确实引用一个数组对象。<br><code>slice</code>由三个部分构成：<code>指针</code>、<code>长度</code>和<code>容量</code>。<br><code>指针</code>指向<code>slice</code>第一个元素对应的底层数组元素的地址，但<code>slice</code>的第一个元素并不一定就是数组的第一个元素。<br><code>长度</code>对应<code>slice</code>中元素的数量。内置的<code>len</code>函数返回<code>slice</code>的长度。<br><code>容量</code>一般是从<code>slice</code>的开始位置到底层数据的结尾位置。内置的<code>cap</code>函数返回<code>slice</code>的容量。</p>
-<p>多个<code>slice</code>之间可以共享底层的数据，并且引用的数组部分区间可能重叠。<br><img src="/4.2.%20Slice/1680282900447.png" srcset="/images/loading.gif" lazyload alt="enter description here"></p>
+<p>多个<code>slice</code>之间可以共享底层的数据，并且引用的数组部分区间可能重叠。<br><img src="/posts/53445ef771d8/1680282900447.png" srcset="/images/loading.gif" lazyload alt="enter description here"></p>
 <p>与数组不同的是，<code>slice</code>之间不能比较，即不能使用<code>==</code>操作符去判断两个<code>slice</code>是否含有全部相等元素。<br>但<code>[]byte</code>的可以使用<code>bytes.Equal</code>函数来判断两个字节型<code>slice</code>是否相等。<br>其他类型，必须展开每个元素进行比较：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">equal</span><span class="hljs-params">(x, y []<span class="hljs-type">string</span>)</span></span> <span class="hljs-type">bool</span> &#123;<br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(x) != <span class="hljs-built_in">len</span>(y) &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>	&#125;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> x &#123;<br>		<span class="hljs-keyword">if</span> x[i] != y[i] &#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>&#125;<br></code></pre></td></tr></table></figure>
 <p>两个<code>slice</code>相等的测试，运行时间并不比数组或字符串的比较长，但为什么<code>slice</code>不直接支持比较运算符呢？</p>

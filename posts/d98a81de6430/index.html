@@ -26,14 +26,14 @@
 <meta property="og:site_name" content="Bug Terminator">
 <meta property="og:description" content="布尔值的运算一元运算符!对应逻辑非操作，!true&#x3D;false，!false&#x3D;true。 二元运算符&amp;&amp;(AND)对应逻辑与||(OR)对应逻辑或如果运算符左边已经可以确定整个布尔表达式的值，那么运算符右边的值将不被求值，因此下面的表达式并非异常： 123s :&#x3D; &quot;&quot;fmt.Println(s !&#x3D; &quot;&quot; &amp;&amp; s[0]">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://succeedwer.github.io/3.4.%20%E5%B8%83%E5%B0%94%E5%9E%8B/1679595785109.png">
+<meta property="og:image" content="https://succeedwer.github.io/posts/d98a81de6430/1679595785109.png">
 <meta property="article:published_time" content="2023-03-13T07:52:19.000Z">
 <meta property="article:modified_time" content="2024-03-18T05:20:20.000Z">
 <meta property="article:author" content="WER">
 <meta property="article:tag" content="读书笔记">
 <meta property="article:tag" content="go">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://succeedwer.github.io/3.4.%20%E5%B8%83%E5%B0%94%E5%9E%8B/1679595785109.png">
+<meta name="twitter:image" content="https://succeedwer.github.io/posts/d98a81de6430/1679595785109.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -1241,7 +1241,7 @@
             
               <div class="markdown-body">
                 
-                <p><img src="/3.4.%20%E5%B8%83%E5%B0%94%E5%9E%8B/1679595785109.png" srcset="/images/loading.gif" lazyload alt="bool"></p>
+                <p><img src="/posts/d98a81de6430/1679595785109.png" srcset="/images/loading.gif" lazyload alt="bool"></p>
 <h1 id="布尔值的运算"><a href="#布尔值的运算" class="headerlink" title="布尔值的运算"></a>布尔值的运算</h1><h2 id="一元运算符"><a href="#一元运算符" class="headerlink" title="一元运算符"></a>一元运算符</h2><p><code>!</code>对应逻辑非操作，<code>!true=false</code>，<code>!false=true</code>。</p>
 <h2 id="二元运算符"><a href="#二元运算符" class="headerlink" title="二元运算符"></a>二元运算符</h2><p><code>&amp;&amp;</code>(AND)对应逻辑与<br><code>||</code>(OR)对应逻辑或<br>如果运算符左边已经可以确定整个布尔表达式的值，那么运算符右边的值将不被求值，因此下面的表达式并非异常：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go">s := <span class="hljs-string">&quot;&quot;</span><br>fmt.Println(s != <span class="hljs-string">&quot;&quot;</span> &amp;&amp; s[<span class="hljs-number">0</span>] == <span class="hljs-string">&#x27;x&#x27;</span>) <span class="hljs-comment">// false</span><br>fmt.Println(s == <span class="hljs-string">&quot;&quot;</span> || s[<span class="hljs-number">0</span>] == <span class="hljs-string">&#x27;x&#x27;</span>) <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>

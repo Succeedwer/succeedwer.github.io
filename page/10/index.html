@@ -229,15 +229,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/c84dc5dd7597/" target="_self">
-          1.6. 并发获取多个URL
+        <a href="/posts/6f685641f7fc/" target="_self">
+          5.8. Deferred函数
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/c84dc5dd7597/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/6f685641f7fc/" target="_self">
         <div>
-          下面的例子fetchall，和前面小节的fetch程序所要做的工作基本一致，fetchall的特别之处在于它会同时去获取所有的URL，所以这个程序的总执行时间不会超过执行时间最长的那一个任务，前面的fetch程序执行时间则是所有任务执行时间之和。fetchall程序只会打印获取的内容大小和经过的时间，不会像之前那样打印获取的内容。 123456789101112131415161718192021
+          定义在普通函数前加上关键字defer时，当defer语句被执行时，其后面的函数会被延迟执行。直到包含该defer语句的函数执行完毕时，defer后的函数才会被执行，无论是包含defer的函数通过return正常结束或由于panic导致的异常结束。一个函数中可以执行多条defer语句，它们的执行顺序与声明的顺序相反。 使用技巧defer语句常用于处理成对的操作，如打开、关闭、连接、断开连接、加锁、释
         </div>
       </a>
 
@@ -245,8 +245,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-11 16:52" pubdate>
-              2023-03-11
+            <time datetime="2023-03-15 18:52" pubdate>
+              2023-03-15
             </time>
           </div>
         
@@ -299,15 +299,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/8855378318a6/" target="_self">
-          1.5. 获取URL
+        <a href="/posts/f16f86776a10/" target="_self">
+          5.7. 可变参数
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/8855378318a6/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/f16f86776a10/" target="_self">
         <div>
-          为了最简单地展示基于HTTP获取信息的方式，下面给出一个示例程序fetch，这个程序将获取对应的url，并将其源文本打印出来；这个例子的灵感来源于curl工具（译注：unix下的一个用来发http请求的工具，具体可以man curl）。当然，curl提供的功能更为复杂丰富，这里只编写最简单的样例。这个样例之后还会多次被用到。 123456789101112131415161718192021222
+          定义参数数量可变的函数称为可变参数函数。如fmt.Printf和类似参数。  在声明可变参数函数时，需要在参数列表的最后一个参数类型之前加上省略符号...，表示该函数会接受任何数量的该类型参数。  1234567 func sum(vals ...int) int  &#123;	total := 0	for _, val := range vals &#123;		total += val	&#
         </div>
       </a>
 
@@ -315,8 +315,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-11 12:52" pubdate>
-              2023-03-11
+            <time datetime="2023-03-15 17:52" pubdate>
+              2023-03-15
             </time>
           </div>
         
@@ -369,15 +369,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/d37e56e6ca24/" target="_self">
-          1.4. GIF动画
+        <a href="/posts/f29c530bb54f/" target="_self">
+          5.6. 匿名函数
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/d37e56e6ca24/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/f29c530bb54f/" target="_self">
         <div>
-          下面的程序会演示Go语言标准库里的image这个package的用法，我们会用这个包来生成一系列的bit-mapped图，然后将这些图片编码为一个GIF动画。我们生成的图形名字叫利萨如图形(Lissajous figures)，这种效果是在1960年代的老电影里出现的一种视觉特效。它们是协振子在两个纬度上振动所产生的曲线，比如两个sin正弦波分别在x轴和y轴输入会产生的曲线。 1234567891
+          匿名函数的定义拥有函数名的函数只能在包级语法块中被声明。可以通过函数字面量（function literal），可以绕过限制，在任何表达式内表示函数值。没有名字的函数，即函数值字面量，被称为匿名函数（anonymous function）。 函数字面量可以在使用函数时，再定义。如下： 123strings.Map(func(r rune) rune &#123;	return r + 1&#125
         </div>
       </a>
 
@@ -385,8 +385,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-11 11:52" pubdate>
-              2023-03-11
+            <time datetime="2023-03-15 16:52" pubdate>
+              2023-03-15
             </time>
           </div>
         
@@ -439,15 +439,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/c749b9e4bafd/" target="_self">
-          1.3. 查找重复的行
+        <a href="/posts/e0d18dccf0bc/" target="_self">
+          5.5. 函数值
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/c749b9e4bafd/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/e0d18dccf0bc/" target="_self">
         <div>
-          对文件做拷贝、打印、搜索、排序、统计或类似事情的程序都有一个差不多的程序结构：一个处理输入的循环，在每个元素上执行计算处理，在处理的同时或最后产生输出。我们会展示一个名为dup的程序的三个版本；灵感来自于Unix的uniq命令，其寻找相邻的重复行。该程序使用的结构和包是个参考范例，可以方便地修改。 dup的第一个版本打印标准输入中多次出现的行，以重复次数开头。该程序将引入if语句，map数据类型以
+          在Go中，函数被看作第一类值（first-class values）：函数像其他值一样，拥有类型，可以被赋值给其他变量，传递给函数，从函数返回。对函数值（function value）的调用类似函数调用。例子如下： 1234567891011121314151617181920212223242526package mainimport &quot;fmt&quot;func square(n i
         </div>
       </a>
 
@@ -455,8 +455,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-10 14:52" pubdate>
-              2023-03-10
+            <time datetime="2023-03-15 15:52" pubdate>
+              2023-03-15
             </time>
           </div>
         
@@ -509,15 +509,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/b7c6dc0a75aa/" target="_self">
-          1.2. 命令行参数
+        <a href="/posts/b269706cb426/" target="_self">
+          5.4. 错误
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/b7c6dc0a75aa/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/b269706cb426/" target="_self">
         <div>
-          大多数程序都是处理输入，产生输出，这也正是“计算”的定义。但是，程序如何获取要处理的输入数据呢？有以下几种获取输入数据：  一些程序生成自己的数据 文件 网络连接 其它程序的输入 键盘，鼠标等 命令行参数 其它类似输入源  os包以跨平台的方式，提供了一些与操作系统交互的函数和变量。程序的命令行参数可从os包的Args变量获取。os包外部使用os.Args访问该变量。 os.Args变量是一个字符
+          函数对于运行失败预期结果，都会返回一个额外的返回值，通常是最后一个，用于传递错误信息。额外的返回值可以是一个布尔值，通常被命名为ok。 1234value, ok := cache.Lookup(key)if !ok &#123;	...&#125; 也可以返回error类型的返回值。当error为nil，则代表运行成功，error为non-nil时表示失败。对于non-nil的error类型，可
         </div>
       </a>
 
@@ -525,8 +525,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-10 13:52" pubdate>
-              2023-03-10
+            <time datetime="2023-03-15 14:52" pubdate>
+              2023-03-15
             </time>
           </div>
         
@@ -579,15 +579,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/02fc6779c7cd/" target="_self">
-          1.1. Hello, World
+        <a href="/posts/3b104e15a027/" target="_self">
+          5.3. 多返回值
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/02fc6779c7cd/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/3b104e15a027/" target="_self">
         <div>
-          传统案例“hello world” 12345678package mainimport &quot;fmt&quot;func main() &#123;	fmt.Println(&quot;hello, world&quot;)&#125; 运行指令 1$ go run helloworld.go 毫无疑问，这个命令会输出： 1hello, world Go语言原生支持Unicode, 可以处
+          在Go中，一个函数可以返回多个值。 下面的程序是findlinks的改进版本。修改后的findlinks可以自己发起HTTP请求，这样我们就不必再运行fetch。因为HTTP请求和解析操作可能会失败，因此findlinks声明了2个返回值：链接列表和错误信息。一般而言，HTML的解析器可以处理HTML页面的错误结点，构造出HTML页面结构，所以解析HTML很少失败。这意味着如果findlinks函
         </div>
       </a>
 
@@ -595,8 +595,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-10 12:52" pubdate>
-              2023-03-10
+            <time datetime="2023-03-15 13:52" pubdate>
+              2023-03-15
             </time>
           </div>
         
@@ -649,15 +649,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/b721eb61c1a0/" target="_self">
-          第一章 入门
+        <a href="/posts/3e816bbb7aaa/" target="_self">
+          5.2. 递归
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/b721eb61c1a0/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/3e816bbb7aaa/" target="_self">
         <div>
-          本章主要为Go语言的基础组件，及其示例程序等。 1.1. Hello, World 1.2. 命令行参数 1.3. 查找重复的行 1.4. GIF动画 1.5. 获取URL 1.6. 并发获取多个URL 1.7. Web服务 1.8. 本章要点
+          函数递归：函数直接或间接地调用自身。例子中调用golang.org/x/net/html的部分api如下所示。html.Parse函数读入一组bytes.解析后，返回html.node类型的HTML页面树状结构根节点。HTML拥有很多类型的结点如text（文本）,commnets（注释）类型，在下面的例子中，我们 只关注&lt; name key&#x3D;’value’ &gt;形式的结点。 1
         </div>
       </a>
 
@@ -665,8 +665,218 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-10 11:52" pubdate>
-              2023-03-10
+            <time datetime="2023-03-15 12:52" pubdate>
+              2023-03-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+            
+              <a href="/tags/go/">#go</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/posts/9ebdd846b6d6/" target="_self">
+          5.1. 函数声明
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/9ebdd846b6d6/" target="_self">
+        <div>
+          函数声明的写法： 123func name(parameter-list) (result-list) &#123;	body&#125; 函数声包括函数名、形式参数列表、返回值列表（可省略）以及函数体。形式参数列表描述了函数的参数名以及参数类型。返回值列表描述了函数返回值的变量名以及类型。如果函数返回一个无名变量或者没有返回值，返回值列表的括号是可以省略的。函数声明没有返回值列表时，那么函数体执
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-15 11:52" pubdate>
+              2023-03-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+            
+              <a href="/tags/go/">#go</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/posts/4d1bb1bed6d0/" target="_self">
+          4.6 文本和HTML模版
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/4d1bb1bed6d0/" target="_self">
+        <div>
+          复杂的打印格式可以使用text/template和html\template等模板包实现。模版包含一个字符串或一个文件，里面包含一个或多个由双花括号包含的&#123;&#123;action&#125;&#125;对象。action对象包含一个用模板语言书写的表达式，如选择结构体的成员、调用函数或方法、表达式控制流if-else语句和range循环语句等等特性。 text&#x2F;templat
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-14 16:52" pubdate>
+              2023-03-14
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+            
+              <a href="/tags/go/">#go</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/posts/b184f11121f4/" target="_self">
+          4.5. JSON
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/b184f11121f4/" target="_self">
+        <div>
+          定义JSON（JavaScript Object Notation）是基于JavaScript语言的轻量级的数据交换格式，也常用于发送和接收结构化信息的标准协议。还有类似的协议，如XML、ASN.1和Google的Protocol Buffers。 Go语言对于这些标准格式的编码和解码都有良好的支持，标准库中对应的包有encoding/json、encoding/xml、encoding/asn1
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-14 15:52" pubdate>
+              2023-03-14
             </time>
           </div>
         
@@ -717,7 +927,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/9/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/#board">8</a><a class="page-number" href="/page/9/#board">9</a><span class="page-number current">10</span>
+      <a class="extend prev" rel="prev" href="/page/9/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/#board">8</a><a class="page-number" href="/page/9/#board">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/#board">11</a><a class="page-number" href="/page/12/#board">12</a><a class="page-number" href="/page/13/#board">13</a><a class="extend next" rel="next" href="/page/11/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

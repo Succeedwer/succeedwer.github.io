@@ -1,0 +1,1134 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="方法重写的注意事项 父类中私有方法不能被重写  因为父类私有方法子类根本就无法继承   子类重写父类方法时，访问权限不能更低  最好就一致   父类静态方法，子类也必须通过静态方法进行重写  其实这个算不上方法重写，但是现象确实如此(静态只能覆盖静态)   子类重写父类方法的时候，最好声明一模一样。  方法重写的面试题 Override和Overload的区别?Overload能改变返回值类型吗?">
+<meta property="og:type" content="article">
+<meta property="og:title" content="方法重写">
+<meta property="og:url" content="https://succeedwer.github.io/posts/2ebd4a4ed2e1/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:description" content="方法重写的注意事项 父类中私有方法不能被重写  因为父类私有方法子类根本就无法继承   子类重写父类方法时，访问权限不能更低  最好就一致   父类静态方法，子类也必须通过静态方法进行重写  其实这个算不上方法重写，但是现象确实如此(静态只能覆盖静态)   子类重写父类方法的时候，最好声明一模一样。  方法重写的面试题 Override和Overload的区别?Overload能改变返回值类型吗?">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-03-19T16:53:25.295Z">
+<meta property="article:modified_time" content="2024-03-19T13:34:52.480Z">
+<meta property="article:author" content="WER">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>方法重写 - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="方法重写"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        WER
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-03-20 00:53" pubdate>
+          2024年3月20日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          267 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          3 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java"
+        id="heading-93f725a07423fe1c889f448b33d21f46" role="tab" data-toggle="collapse" href="#collapse-93f725a07423fe1c889f448b33d21f46"
+        aria-expanded="true"
+      >
+        java
+        <span class="list-group-count">(28)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-93f725a07423fe1c889f448b33d21f46"
+           role="tabpanel" aria-labelledby="heading-93f725a07423fe1c889f448b33d21f46">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java基础"
+        id="heading-df7759872e49dfa342518015262abb95" role="tab" data-toggle="collapse" href="#collapse-df7759872e49dfa342518015262abb95"
+        aria-expanded="true"
+      >
+        java基础
+        <span class="list-group-count">(24)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-df7759872e49dfa342518015262abb95"
+           role="tabpanel" aria-labelledby="heading-df7759872e49dfa342518015262abb95">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/1eb35d7bfac2/" title="Collection"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Collection</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a3877e6dee6a/" title="Java中的内存分配以及栈和堆的区别"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Java中的内存分配以及栈和堆的区别</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/80fbcf1638a0/" title="Java中的引用"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Java中的引用</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/4a134decd13c/" title="Static关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Static关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/363c2a4d6378/" title="final关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">final关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/11bc8f7a12e0/" title="main方法的格式详细解释"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">main方法的格式详细解释</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e6296ff902d6/" title="private关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">private关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/abaea507d696/" title="this关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">this关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f94f9e222a45/" title="代码块"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">代码块</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/10f274fc7d28/" title="创建对象的内存操作"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">创建对象的内存操作</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f903edc75cdb/" title="字符串参与运算"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">字符串参与运算</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/26ee67aacb14/" title="工具类中使用静态"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">工具类中使用静态</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/60fb1df43fd1/" title="成员变量&amp;局部变量"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">成员变量&amp;局部变量</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/7f7406e9ea2e/" title="控制跳转语句标号"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">控制跳转语句标号</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b2621adfa657/" title="数组"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数组</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/2ebd4a4ed2e1/" title="方法重写"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">方法重写</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e7f6fde6dcb3/" title="构造方法（Constructor）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">构造方法（Constructor）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/73b295026a80/" title="继承"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">继承</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/9dfa515b605e/" title="说明书的制作过程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">说明书的制作过程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/950ee1ce8d7d/" title="转义字符"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">转义字符</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/af28a21b51ac/" title="选择结构switch语句"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">选择结构switch语句</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f153e27e6b55/" title="逻辑运算符"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">逻辑运算符</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/bf6812cb0599/" title="键盘录入的基本格式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">键盘录入的基本格式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/9377728017d7/" title="隐式转换and强制转换"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">隐式转换and强制转换</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java进阶"
+        id="heading-f37659ce2630cc205815e63e97ca680d" role="tab" data-toggle="collapse" href="#collapse-f37659ce2630cc205815e63e97ca680d"
+        aria-expanded="false"
+      >
+        java进阶
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-f37659ce2630cc205815e63e97ca680d"
+           role="tabpanel" aria-labelledby="heading-f37659ce2630cc205815e63e97ca680d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/d4451dfd7d61/" title="Spring Cloud"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Spring Cloud</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java错误集"
+        id="heading-15f313469c4c1a0934d8aadb7bf7e364" role="tab" data-toggle="collapse" href="#collapse-15f313469c4c1a0934d8aadb7bf7e364"
+        aria-expanded="false"
+      >
+        java错误集
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-15f313469c4c1a0934d8aadb7bf7e364"
+           role="tabpanel" aria-labelledby="heading-15f313469c4c1a0934d8aadb7bf7e364">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/daa0b1ee1e98/" title="Jedis连接Redis Cluster的java.net.SocketTimeoutException: connect timed out"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Jedis连接Redis Cluster的java.net.SocketTimeoutException: connect timed out</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java面试题"
+        id="heading-ad2aaee8db2e74079d35223ebbf1338c" role="tab" data-toggle="collapse" href="#collapse-ad2aaee8db2e74079d35223ebbf1338c"
+        aria-expanded="false"
+      >
+        java面试题
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-ad2aaee8db2e74079d35223ebbf1338c"
+           role="tabpanel" aria-labelledby="heading-ad2aaee8db2e74079d35223ebbf1338c">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/de17ee858ab5/" title="面试题之Java基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">面试题之Java基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/500ff229e943/" title="面试题之Java多线程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">面试题之Java多线程</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">方法重写</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="方法重写的注意事项"><a href="#方法重写的注意事项" class="headerlink" title="方法重写的注意事项"></a>方法重写的注意事项</h1><ul>
+<li>父类中私有方法不能被重写 <ul>
+<li>因为父类私有方法子类根本就无法继承</li>
+</ul>
+</li>
+<li>子类重写父类方法时，访问权限不能更低 <ul>
+<li>最好就一致</li>
+</ul>
+</li>
+<li>父类静态方法，子类也必须通过静态方法进行重写 <ul>
+<li>其实这个算不上方法重写，但是现象确实如此(静态只能覆盖静态)</li>
+</ul>
+</li>
+<li>子类重写父类方法的时候，最好声明一模一样。</li>
+</ul>
+<h1 id="方法重写的面试题"><a href="#方法重写的面试题" class="headerlink" title="方法重写的面试题"></a>方法重写的面试题</h1><ul>
+<li>Override和Overload的区别?Overload能改变返回值类型吗? <ul>
+<li>overload可以改变返回值类型,只看参数列表。</li>
+<li>方法重写（Override）：子类中出现了和父类中方法声明一模一样的方法。与返回值类型有关,返回值是一致(或者是子父类)的。</li>
+<li>方法重载（Overload）：本类中出现的方法名一样，参数列表不同的方法。与返回值类型无关。</li>
+<li>子类对象调用方法的时候： <ul>
+<li>先找子类本身，再找父类。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/java/" class="category-chain-item">java</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/java/" class="print-no-link">#java</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>方法重写</div>
+      <div>https://succeedwer.github.io/posts/2ebd4a4ed2e1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WER</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年3月20日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年3月19日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/b2621adfa657/" title="数组">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">数组</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/e7f6fde6dcb3/" title="构造方法（Constructor）">
+                        <span class="hidden-mobile">构造方法（Constructor）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

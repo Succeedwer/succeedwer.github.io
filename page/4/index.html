@@ -229,15 +229,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/10cf7d1432ab/" target="_self">
-          8.3. 示例：并发的Echo服务器
+        <a href="/posts/f5ef20b1bc0c/" target="_self">
+          Redis集群
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/10cf7d1432ab/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/f5ef20b1bc0c/" target="_self">
         <div>
-          Echo服务器一般情况下会返回它接收到的内容。类似回音，一开始返回全大写的内容，如HELLO，表示声音很大； 间隔一定时间后，返回有所缓和的Hello；最后返回一个表示声音很小的全小写hello直至消失。 123456789101112131415161718192021222324252627282930313233343536373839404142// Reverb1 is a TCP se
+          Redis集群常用的有三种模式：  主从复制 哨兵模式 Redis Cluster  1. 主从复制Replication1.1 概念 这种模式下的Redis节点，有两种节点，主节点(master) 和从节点(slave)。 这种模式集群由一个主节点和多个从节点构成。  master会同步数据到slave节点，slave不会同步到master, 也就是master节点处理写操作，slave节点处理
         </div>
       </a>
 
@@ -245,8 +245,76 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 13:52" pubdate>
-              2023-03-18
+            <time datetime="2024-03-20 00:53" pubdate>
+              2024-03-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/database/" class="category-chain-item">database</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/database/redis/" class="category-chain-item">redis</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/redis/">#redis</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/posts/f5ef3e713f2a/" target="_self">
+          11.5. 剖析
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/f5ef3e713f2a/" target="_self">
+        <div>
+          性能分析过早的优化是万恶之源！自动化的剖析技术是基于程序执行期间一些抽样数据，然后推断后面的执行状态；最终产生一个运行时间的统计数据文件。 Go语言支持多种类型的剖析性能分析，内建的go test工具对几种分析方式都提供了支持：  CPU分析,CPU分析文件标识了函数执行时所需要的CPU时间。  当前运行的系统线程在每隔几毫秒都会遇到操作系统的中断事件，每次中断时都会记录一个分析文件然后恢复正常的
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-21 15:52" pubdate>
+              2023-03-21
             </time>
           </div>
         
@@ -299,15 +367,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/fca3f5579354/" target="_self">
-          8.2. 示例：并发的Clock服务
+        <a href="/posts/a1b71dd23f51/" target="_self">
+          11.4. 基准测试
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/fca3f5579354/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/a1b71dd23f51/" target="_self">
         <div>
-          网络编程是并发大显身手的一个领域，由于服务器是最典型的需要同时处理很多连接的程序，这些连接一般来自远彼此独立的客户端。 第一个例子第一个例子是一个顺序执行的时钟服务器，它会每隔一秒钟将当前时间写到客户端： 123456789101112131415161718192021222324252627282930313233343536// Clock1 is a TCP server that per
+          基准测试是测量一个程序在固定工作负载下的性能。以Benchmark为前缀名，并且带有一个*testing.B类型的参数；*testing.B参数除了提供和*testing.T类似的方法，还有额外一些和性能测量相关的方法。它还提供了一个整数N，用于指定操作执行的循环次数。 下面是IsPalindrome的基准测试函数，将循环调用多次： 12345func BenchmarkIsPalindrome(
         </div>
       </a>
 
@@ -315,8 +383,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 12:52" pubdate>
-              2023-03-18
+            <time datetime="2023-03-21 14:52" pubdate>
+              2023-03-21
             </time>
           </div>
         
@@ -369,15 +437,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/dbf6e956aad2/" target="_self">
-          8.1. Goroutines
+        <a href="/posts/79be1aaa69b3/" target="_self">
+          11.3. 测试覆盖率
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/dbf6e956aad2/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/79be1aaa69b3/" target="_self">
         <div>
-          在Go语言中，每一个并发的执行单元叫作一个goroutine。新的goroutine会用go语句来创建。在语法上，go语句是一个普通的函数或方法调用前加上关键字go。 12f()go f() 下面的例子，main goroutine将计算菲波那契数列的第45个元素值。 1234567891011121314151617181920212223242526272829package mainimpo
+          由测试驱动触发运行到的被测试函数的代码数目称为测试的覆盖率。测试覆盖率并不能量化——甚至连最简单的动态程序也难以精确测量——但是可以启发并帮助我们编写的有效的测试代码。 语句的覆盖率是指在测试中至少被运行一次的代码占总代码数的比例。在本节中，我们使用go test命令中集成的测试覆盖率工具，来度量下面代码的测试覆盖率，帮助我们识别测试和我们期望间的差距。 下面的代码是一个表格驱动的测试，用于测试第
         </div>
       </a>
 
@@ -385,8 +453,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 11:52" pubdate>
-              2023-03-18
+            <time datetime="2023-03-21 13:52" pubdate>
+              2023-03-21
             </time>
           </div>
         
@@ -439,15 +507,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/160e8baeca27/" target="_self">
-          第八章 Goroutines和Channels
+        <a href="/posts/0bc5b76177c6/" target="_self">
+          11.2. 测试函数
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/160e8baeca27/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/0bc5b76177c6/" target="_self">
         <div>
-          并发程序指同时进行多个任务的程序。Go语言中的并发程序可以用两种手段来实现。  goroutine channel  还支持顺序通信进程（communicating sequential processes），简称CSP。CSP是一种现代的并发编程模型，在这种编程模型中值会在不同的运行实例goroutine中传递，尽管会别被限制在单一实例中。第9章则是更为传统的并发模型：多线程共享内存。 8.1.
+          每个测试函数必须导入test包。测试函数格式如下： 123func TestName(t *testing.T) &#123;	//...&#125;  测试函数必须以Test为前缀，可选的后缀名必须以大写开头。 123func Test(t *testing.T)&#123;...&#125;func TestSin(t *testing.T)&#123;...&#125;func TestCo
         </div>
       </a>
 
@@ -455,8 +523,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 10:52" pubdate>
-              2023-03-18
+            <time datetime="2023-03-21 12:52" pubdate>
+              2023-03-21
             </time>
           </div>
         
@@ -509,15 +577,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/8520b52085ef/" target="_self">
-          7.15. 一些建议
+        <a href="/posts/84a75b89cf5a/" target="_self">
+          11.1 go test
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/8520b52085ef/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/84a75b89cf5a/" target="_self">
         <div>
-          当设计一个新包时，一般情况下是创建一个接口的集合开始和定义它们的具体类型。这种方式会导致有很多接口，且每一个都会仅有一个实现。这种设计方式是错误的，这种接口是不必要的抽象，且还有运行时损耗。实际上，可以使用导出机制来限制一个类型的方法或一个结构体的字段是否在包外可见。接口只有在当两个或两个以上的具体类型必须以相同的方式进行处理时才需要。 当一个接口只被一个具体类型实现时，往往是因为依赖，即依赖于另
+          Go语言关于测试的命令为go test。在包目录范围内，所有以_test.go结尾的源代码文件，并非属于go build框架，而是属于go test测试的一部分。 在*_test.go文件中，一共有三种函数：  测试函数 测试函数以Test为前缀，用于测试函数的逻辑是否正确。   基准测试函数 基准测试函数以Benchmark为前缀，用于衡量函数的性能。   示例函数 示例函数以Example为前
         </div>
       </a>
 
@@ -525,8 +593,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 00:59" pubdate>
-              2023-03-18
+            <time datetime="2023-03-21 11:52" pubdate>
+              2023-03-21
             </time>
           </div>
         
@@ -579,15 +647,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/c380e460aca4/" target="_self">
-          7.14. 示例：基于标记的XML解码
+        <a href="/posts/2b3895c22904/" target="_self">
+          第十一章 测试
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/c380e460aca4/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/2b3895c22904/" target="_self">
         <div>
-          第4.5章节展示了如何使用encoding/json包中的Marshal和Unmarshal函数来将JSON文档转换成Go语言的数据结构。encoding/xml包提供了一个相似的API。encoding/xml包也提供了一个更低层的基于标记的API用于XML解码。在基于标记的样式中，解析器消费输入和产生一个标记流；四个主要的标记类型－StartElement，EndElement，CharDat
+          Go语言的测试技术是相对低级的。它依赖一个go test测试命令和一组按照约定方式编写的测试函数，测试命令可以运行这些测试函数。 11.1. go test 11.2. 测试函数 11.3. 测试覆盖率 11.4. 基准测试 11.5. 剖析 11.6. 示例函数
         </div>
       </a>
 
@@ -595,8 +663,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 00:52" pubdate>
-              2023-03-18
+            <time datetime="2023-03-21 10:52" pubdate>
+              2023-03-21
             </time>
           </div>
         
@@ -649,15 +717,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/c4e3ed798cee/" target="_self">
-          7.13. 类型开关
+        <a href="/posts/c1eef8565635/" target="_self">
+          10.7. 工具
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/c4e3ed798cee/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/c1eef8565635/" target="_self">
         <div>
-          接口一般以两种方式使用。  第一个方式中，io.Reader、io.Writer、fmt.Stringer、sort.Interface、http.Handler、和error为例，一个接口的方法表达了实现这个接口的具体类型间的相思性，但是隐藏了代表的细节和这些具体类型本身的操作。重点在于方法上，而不是具体的类型上。 第二个方式利用一个接口值可以持有各种具体类型值的能力并且将这个接口认为是这些类型
+          可以使用go或go help获取内置的帮助文档。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253$ goGo is a tool for managing Go source code.Usage:	go &lt;command&gt; [argume
         </div>
       </a>
 
@@ -665,8 +733,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 23:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-20 17:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -719,15 +787,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/b10f700bc1c1/" target="_self">
-          7.12. 通过类型断言询问行为
+        <a href="/posts/26ffbeb103e4/" target="_self">
+          10.6. 包的命名
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/b10f700bc1c1/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/26ffbeb103e4/" target="_self">
         <div>
-          stringWriter下面程序与net/http包中web服务器负责写入HTTP头字段（如：Content-type:text/html）的部分相似。io.Writer接口类型的变量w代表HTTP响应。 123456789func writeHeader(w io.Writer, contentType string) error &#123;	if _, err := w.Write([]by
+          包的命名规则：  命名尽量短小 要尽量避免与常用的局部变量重复 尽量使用单数形式 避免与预定义类型冲突，可以复数形式 避免与关键字冲突，可以复数形式 避免包名歧义  当设计一个包时，要考虑包名与方法&#x2F;函数&#x2F;成员变量名配合。 1flag.Int	bytes.Equal		http.Get  也有可能包名与方法、函数和成员名重复。 1rand.Rand 所以，包名要尽量简洁短小。
         </div>
       </a>
 
@@ -735,8 +803,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 22:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-20 16:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -789,15 +857,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/179a7331746a/" target="_self">
-          7.11. 基于类型断言区别错误类型
+        <a href="/posts/85c6d629ce42/" target="_self">
+          10.5. 包的匿名导入
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/179a7331746a/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/85c6d629ce42/" target="_self">
         <div>
-          os包中文件操作返回的错误集合。I/O可以因为任何数量的原因失败，但是有三种经常的错误必须进行不同的处理：  文件已经存在（对于创建操作）  1os.IsExist(err error) bool 找不到文件（对于读取操作）  1os.IsNotExist(err error) bool 权限拒绝  1os.IsPermission(err error) bool  可能会检测错误信息中是否包含特
+          如果导入一个包而不去使用这个包，那么就会导致编译错误。但是只想使用导入包的而产生的副作用，如“计算包级变量的初始化表达式和执行导入包的init初始化函数”。这时候，需要抑制该编译错误，可以 使用—下划线空白标识符，重命名导入的包。空白标识符表示，不能被访问。 1improt _ &quot;image/png&quot; 这种行为被称为包的匿名导入。它通常是用来实现一个编译时机制，然后通过在mai
         </div>
       </a>
 
@@ -805,78 +873,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 21:52" pubdate>
-              2023-03-17
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/go/" class="category-chain-item">go</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
-              <a href="/tags/go/">#go</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/posts/fcef06327bd8/" target="_self">
-          7.10. 类型断言
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/fcef06327bd8/" target="_self">
-        <div>
-          语法类型断言是作用在接口值上的。断言类型语法： 1x.(T) x表示接口类型；T表示类型。一个类型断言检查它操作对象的动态类型是否和断言的类型匹配。 具体类型如果断言的类型T是一个具体类型，然后类型断言检查x的动态类型是否和T相同。如果成功了，类型断言的结果是x的动态值，当然它的类型是T。如果检查失败，接下来这个操作会抛出panic。例如： 12345var w io.Writerw = os.S
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 20:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-20 15:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -927,7 +925,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/3/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/#board">5</a><a class="page-number" href="/page/6/#board">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/#board">10</a><a class="extend next" rel="next" href="/page/5/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/3/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/#board">5</a><a class="page-number" href="/page/6/#board">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/#board">13</a><a class="extend next" rel="next" href="/page/5/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
