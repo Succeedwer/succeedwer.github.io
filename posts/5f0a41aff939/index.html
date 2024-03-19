@@ -1,0 +1,719 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="在并发的情况下，循环迭代的程序往往要注意一些问题。下面引用对图片批量压缩的例子进行解析。thumbnail.go是关于拉伸图片的方法。 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707">
+<meta property="og:type" content="article">
+<meta property="og:title" content="8.5. 并发的循环">
+<meta property="og:url" content="https://succeedwer.github.io/posts/5f0a41aff939/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:description" content="在并发的情况下，循环迭代的程序往往要注意一些问题。下面引用对图片批量压缩的例子进行解析。thumbnail.go是关于拉伸图片的方法。 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-18T07:52:19.000Z">
+<meta property="article:modified_time" content="2024-03-18T05:20:20.000Z">
+<meta property="article:author" content="WER">
+<meta property="article:tag" content="读书笔记">
+<meta property="article:tag" content="go">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>8.5. 并发的循环 - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="8.5. 并发的循环"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-18 15:52" pubdate>
+          2023年3月18日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          20 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">8.5. 并发的循环</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>在并发的情况下，循环迭代的程序往往要注意一些问题。<br>下面引用对图片批量压缩的例子进行解析。<br><code>thumbnail.go</code>是关于拉伸图片的方法。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Package thumbnail produces thumbnail-size images from</span><br><span class="hljs-comment">// larger images.  Only JPEG images are currently supported.</span><br><span class="hljs-keyword">package</span> thumbnail<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;image&quot;</span><br>	<span class="hljs-string">&quot;image/jpeg&quot;</span><br>	_ <span class="hljs-string">&quot;image/png&quot;</span> <span class="hljs-comment">// register png</span><br>	<span class="hljs-string">&quot;io&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;path/filepath&quot;</span><br>	<span class="hljs-string">&quot;strings&quot;</span><br>)<br><br><span class="hljs-comment">// Image returns a thumbnail-size version of src.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Image</span><span class="hljs-params">(src image.Image)</span></span> image.Image &#123;<br>	<span class="hljs-comment">// Compute thumbnail size, preserving aspect ratio.</span><br>	xs := src.Bounds().Size().X<br>	ys := src.Bounds().Size().Y<br>	width, height := <span class="hljs-number">128</span>, <span class="hljs-number">128</span><br>	<span class="hljs-keyword">if</span> aspect := <span class="hljs-type">float64</span>(xs) / <span class="hljs-type">float64</span>(ys); aspect &lt; <span class="hljs-number">1.0</span> &#123;<br>		width = <span class="hljs-type">int</span>(<span class="hljs-number">128</span> * aspect) <span class="hljs-comment">// portrait</span><br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		height = <span class="hljs-type">int</span>(<span class="hljs-number">128</span> / aspect)<br>	&#125;<br>	xscale := <span class="hljs-type">float64</span>(xs) / <span class="hljs-type">float64</span>(width)<br>	yscale := <span class="hljs-type">float64</span>(ys) / <span class="hljs-type">float64</span>(height)<br><br>	dst := image.NewRGBA(image.Rect(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, width, height))<br><br>	<span class="hljs-comment">// a very crude scaling algorithm</span><br>	<span class="hljs-keyword">for</span> x := <span class="hljs-number">0</span>; x &lt; width; x++ &#123;<br>		<span class="hljs-keyword">for</span> y := <span class="hljs-number">0</span>; y &lt; height; y++ &#123;<br>			srcx := <span class="hljs-type">int</span>(<span class="hljs-type">float64</span>(x) * xscale)<br>			srcy := <span class="hljs-type">int</span>(<span class="hljs-type">float64</span>(y) * yscale)<br>			dst.Set(x, y, src.At(srcx, srcy))<br>		&#125;<br>	&#125;<br><br>	<span class="hljs-keyword">return</span> dst<br>&#125;<br><br><span class="hljs-comment">// ImageStream reads an image from r and</span><br><span class="hljs-comment">// writes a thumbnail-size version of it to w.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ImageStream</span><span class="hljs-params">(w io.Writer, r io.Reader)</span></span> <span class="hljs-type">error</span> &#123;<br>	src, _, err := image.Decode(r)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> err<br>	&#125;<br>	dst := Image(src)<br>	<span class="hljs-keyword">return</span> jpeg.Encode(w, dst, <span class="hljs-literal">nil</span>)<br>&#125;<br><br><span class="hljs-comment">// ImageFile2 reads an image from infile and writes</span><br><span class="hljs-comment">// a thumbnail-size version of it to outfile.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ImageFile2</span><span class="hljs-params">(outfile, infile <span class="hljs-type">string</span>)</span></span> (err <span class="hljs-type">error</span>) &#123;<br>	in, err := os.Open(infile)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> err<br>	&#125;<br>	<span class="hljs-keyword">defer</span> in.Close()<br><br>	out, err := os.Create(outfile)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> err<br>	&#125;<br><br>	<span class="hljs-keyword">if</span> err := ImageStream(out, in); err != <span class="hljs-literal">nil</span> &#123;<br>		out.Close()<br>		<span class="hljs-keyword">return</span> fmt.Errorf(<span class="hljs-string">&quot;scaling %s to %s: %s&quot;</span>, infile, outfile, err)<br>	&#125;<br>	<span class="hljs-keyword">return</span> out.Close()<br>&#125;<br><br><span class="hljs-comment">// ImageFile reads an image from infile and writes</span><br><span class="hljs-comment">// a thumbnail-size version of it in the same directory.</span><br><span class="hljs-comment">// It returns the generated file name, e.g. &quot;foo.thumb.jpeg&quot;.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ImageFile</span><span class="hljs-params">(infile <span class="hljs-type">string</span>)</span></span> (<span class="hljs-type">string</span>, <span class="hljs-type">error</span>) &#123;<br>	ext := filepath.Ext(infile)<br>	outfile := strings.TrimSuffix(infile, ext) + <span class="hljs-string">&quot;.thumb&quot;</span> + ext<br>	<span class="hljs-keyword">return</span> outfile, ImageFile2(outfile, infile)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="非并发循环压缩"><a href="#非并发循环压缩" class="headerlink" title="非并发循环压缩"></a>非并发循环压缩</h1><p>下面的程序会循环迭代一些图片文件名，并为每一张图片生成一个缩略图：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// makeThumbnails makes thumbnails of the specified files.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">makeThumbnails</span><span class="hljs-params">(filenames []<span class="hljs-type">string</span>)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> _, f := <span class="hljs-keyword">range</span> filenames &#123;<br>		<span class="hljs-keyword">if</span> _, err := thumbnail.ImageFile(f); err != <span class="hljs-literal">nil</span> &#123;<br>			log.Println(err)<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="易并行"><a href="#易并行" class="headerlink" title="易并行"></a>易并行</h1><p>由于处理图片的顺序无关紧要，那么每个图片的操作都是相互独立的，这种情况称为<code>易并行问题（embarrassingly parallel）</code>。<br>这种易并行问题往往最容易转换成并行处理。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// <span class="hljs-doctag">NOTE:</span> incorrect!</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">makeThumbnails2</span><span class="hljs-params">(filenames []<span class="hljs-type">string</span>)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> _, f := <span class="hljs-keyword">range</span> filenames &#123;<br>		<span class="hljs-keyword">go</span> thumbnail.ImageFile(f) <span class="hljs-comment">// <span class="hljs-doctag">NOTE:</span> ignoring errors</span><br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>上述例子是<code>错误</code>的，当进行循环时，所有<code>goroutine</code>都已经启动，接着<code>makeThumbnails2</code>函数返回了，并没有等待<code>goroutine</code>执行完毕。</p>
+<h1 id="channel获取goroutine的结果"><a href="#channel获取goroutine的结果" class="headerlink" title="channel获取goroutine的结果"></a>channel获取goroutine的结果</h1><p>虽然没有什么方法可以直接等待<code>goroutine</code>完成，但是可以通过<code>channel</code>将<code>goroutine</code>内部的完成情况告诉外部函数。<br>下面例子中是外部的goroutine只需要在返回之前对这些事件计数。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// makeThumbnails3 make thumbnails of the specified files in parallel.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">makeThumbnail3</span><span class="hljs-params">(filenames []<span class="hljs-type">string</span>)</span></span> &#123;<br>	ch := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>&#123;&#125;)<br>	<span class="hljs-keyword">for</span> _, f := <span class="hljs-keyword">range</span> filenames &#123;<br>		<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(f <span class="hljs-type">string</span>)</span></span> &#123;<br>			thumbnail.ImageFile(f)<br>			ch &lt;- <span class="hljs-keyword">struct</span>&#123;&#125;&#123;&#125;<br>		&#125;(f)<br>	&#125;<br><br>	<span class="hljs-comment">// wait for goroutine to complete.</span><br>	<span class="hljs-keyword">for</span> <span class="hljs-keyword">range</span> filenames &#123;<br>		&lt;-ch<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在该例子中，在<code>goroutine</code>中的匿名函数内，将空值<code>struct&#123;&#125;&#123;&#125;</code>发送给<code>channel ch</code>，在主<code>goroutine</code>中，循环接收<code>ch</code>的值，等待<code>goroutine</code>完成。<br>注意得是filenames数组中元素f传递给匿名函数的参数f，而不是在循环闭包中声明。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">for</span> _, f := <span class="hljs-keyword">range</span> filenames &#123;<br>    <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>        thumbnail.ImageFile(f) <span class="hljs-comment">// <span class="hljs-doctag">NOTE:</span> incorrect!</span><br>        <span class="hljs-comment">// ...</span><br>    &#125;()<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>上述代码导致出现匿名函数中的循环变量快照问题，上面这个单独的变量f是被所有的匿名函数值所共享，且会被连续的循环迭代所更新的。当新的<code>goroutine</code>开始执行字面函数时，<code>for</code>循环可能已经更新了<code>f</code>并且开始了另一轮的迭代或者(更有可能的)已经结束了整个循环，“所以当这些<code>goroutine</code>开始读取f的值时，它们所看到的值已经是<code>slice</code>的最后一个元素了。显式添加参数，能够确保当前使用的<code>f</code>是当go语句执行时的<code>当前</code>那个<code>f</code>。</p>
+<h1 id="获取working-goroutine的返回值"><a href="#获取working-goroutine的返回值" class="headerlink" title="获取working goroutine的返回值"></a>获取working goroutine的返回值</h1><p>如果我们想要从每一个worker goroutine往主goroutine中返回值时该怎么办呢？当我们调用thumbnail.ImageFile创建文件失败的时候，它会返回一个错误。下面的makeThumbnails会返回其在做拉伸操作时接收到的第一个错误：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// makeThumbnails4 makes thumbnails for the specified files in parallel.</span><br><span class="hljs-comment">// It returns an error if any step failed.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">makeThumbnails4</span><span class="hljs-params">(filenames []<span class="hljs-type">string</span>)</span></span> <span class="hljs-type">error</span> &#123;<br>	errors := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">error</span>)<br><br>	<span class="hljs-keyword">for</span> _, f := <span class="hljs-keyword">range</span> filenames &#123;<br>		<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(f <span class="hljs-type">string</span>)</span></span> &#123;<br>			_, err := thumbnail.ImageFile(f)<br>			errors &lt;- err<br>		&#125;(f)<br>	&#125;<br><br>	<span class="hljs-keyword">for</span> <span class="hljs-keyword">range</span> filenames &#123;<br>		<span class="hljs-keyword">if</span> err := &lt;-errors; err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-keyword">return</span> err <span class="hljs-comment">// <span class="hljs-doctag">NOTE:</span> incorrect: goroutine leak!</span><br>		&#125;<br>	&#125;<br><br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>使用<code>channel</code>进行传输error信息，即可以把错误信息从<code>goroutine</code>传输到<code>main goroutine</code>。上述代码有一个错误，当一个非nil的error返回到<code>main goroutine</code>时，程序<code>return</code>了，导致<code>working channel</code>继续发送值时，却没有接收值，一直进行阻塞，永远不退出。这种情况叫<code>goroutine泄露</code>，可能导致程序卡住直至<code>out of memory</code>。<br>最简单地解决办法就是使用具有容量合适大小的<code>带缓存channel</code>，这样<code>working channel</code>向<code>channel</code>发送值时不会导致堵塞。还有一个解决办法就是，创建另外一个<code>goroutine</code>，但<code>main goroutine</code>获取第一个error时，清空<code>channel</code>。</p>
+<h1 id="使用buffered-channel携带对象信息"><a href="#使用buffered-channel携带对象信息" class="headerlink" title="使用buffered channel携带对象信息"></a>使用buffered channel携带对象信息</h1><p>下一个版本的<code>makeThumbnails</code>使用了一个<code>buffered channel</code>来返回生成的图片文件的名字，附带生成时的错误。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// makeThumbnails5 makes thumbnails for the specified files in parallel.</span><br><span class="hljs-comment">// It returns the generated file names in an arbitrary order,</span><br><span class="hljs-comment">// or an error if any step failed.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">makeThumbnails5</span><span class="hljs-params">(filenames []<span class="hljs-type">string</span>)</span></span> (thumbfiles []<span class="hljs-type">string</span>, err <span class="hljs-type">error</span>) &#123;<br>	<span class="hljs-keyword">type</span> item <span class="hljs-keyword">struct</span> &#123;<br>		thumbfile <span class="hljs-type">string</span><br>		err       <span class="hljs-type">error</span><br>	&#125;<br><br>	ch := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> item, <span class="hljs-built_in">len</span>(filenames))<br>	<span class="hljs-keyword">for</span> _, f := <span class="hljs-keyword">range</span> filenames &#123;<br>		<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(f <span class="hljs-type">string</span>)</span></span> &#123;<br>			<span class="hljs-keyword">var</span> it item<br>			it.thumbfile, it.err = thumbnail.ImageFile(f)<br>			ch &lt;- it<br>		&#125;(f)<br>	&#125;<br><br>	<span class="hljs-keyword">for</span> <span class="hljs-keyword">range</span> filenames &#123;<br>		it := &lt;-ch<br>		<span class="hljs-keyword">if</span> it.err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, it.err<br>		&#125;<br>		thumbfiles = <span class="hljs-built_in">append</span>(thumbfiles, it.thumbfile)<br>	&#125;<br><br>	<span class="hljs-keyword">return</span> thumbfiles, <span class="hljs-literal">nil</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="统计文件大小"><a href="#统计文件大小" class="headerlink" title="统计文件大小"></a>统计文件大小</h1><p>最后一个版本的<code>makeThumbnails</code>返回了新文件们的大小总计数(bytes)。<br>与上面的例子不同的是，文件名不再是slice，而是单向接收的<code>channel</code>。<br>那么这样就获取不到文件数量，即确定不了<code>bufferd channel</code>的容量。</p>
+<p>所以可以加入一个计数器，用于计算最后一个goroutine（不一定是最后开始的）什么时候结束，在每一个goroutine开始时加1，在goroutine结束时减1。这个计数器还要在多个goroutine中安全执行，在go中有这么一个计数器<code>sync.WaitGroup</code>。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// makeThumbnails6 makes thumbnails for each file received from the channel.</span><br><span class="hljs-comment">// It returns the number of bytes occupied by the files it creates.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">makeThumbnails6</span><span class="hljs-params">(filename &lt;-<span class="hljs-keyword">chan</span> <span class="hljs-type">string</span>)</span></span> <span class="hljs-type">int64</span> &#123;<br>	sizes := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int64</span>)<br>	<span class="hljs-keyword">var</span> wg sync.WaitGroup <span class="hljs-comment">// number of working goroutine</span><br>	<span class="hljs-keyword">for</span> f := <span class="hljs-keyword">range</span> filename &#123;<br>		wg.Add(<span class="hljs-number">1</span>)<br>		<span class="hljs-comment">// worker</span><br>		<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(f <span class="hljs-type">string</span>)</span></span> &#123;<br>			<span class="hljs-keyword">defer</span> wg.Done()<br>			thumb, err := thumbnail.ImageFile(f)<br>			<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>				log.Println(err)<br>				<span class="hljs-keyword">return</span><br>			&#125;<br>			info, _ := os.Stat(thumb) <span class="hljs-comment">// OK to ignore error</span><br>			sizes &lt;- info.Size()<br>		&#125;(f)<br>	&#125;<br><br>	<span class="hljs-comment">// closer</span><br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		wg.Wait()<br>		<span class="hljs-built_in">close</span>(sizes)<br>	&#125;()<br><br>	<span class="hljs-keyword">var</span> total <span class="hljs-type">int64</span><br>	<span class="hljs-keyword">for</span> size := <span class="hljs-keyword">range</span> sizes &#123;<br>		total += size<br>	&#125;<br>	<span class="hljs-keyword">return</span> total<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	ch := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">string</span>)<br>	<span class="hljs-keyword">go</span> makeThumbnails6(ch)<br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		ch &lt;- <span class="hljs-string">&quot;img.png&quot;</span><br>		ch &lt;- <span class="hljs-string">&quot;img.png&quot;</span><br>		ch &lt;- <span class="hljs-string">&quot;img.png&quot;</span><br>		<span class="hljs-built_in">close</span>(ch) <span class="hljs-comment">// 手动关闭for range 的channel</span><br>	&#125;()<br>	<span class="hljs-keyword">for</span> &#123; <span class="hljs-comment">// 用于等待makeThumnails6函数的完成</span><br><br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p><code>wg.Add(1)</code> 将goroutine加1，在匿名函数完成时<code>wg.Done()</code>（等价于<code>wg.Add(-1)</code>）进行减1。而<code>defer</code>机制可以保证，即使下面的代码出错也能减1。<br><code>wg.Wait()</code>等待并阻塞该<code>goroutine</code>，直至wg计数器值为0。这时继续执行关闭<code>sizes channel</code>操作。<br>那么在<code>main goroutine</code>中，通过<code>for range</code>获取到文件大小总和。<br>这里要注意的是<code>for...range</code>获取<code>文件名</code>时，要关闭<code>filename channel</code>，否则会一直等待，相当于<code>f:=&lt;-filename</code>阻塞。</p>
+<p>还有一点，<code>close(sizes)</code>不能在<code>main goroutine</code>或者说不能与<code>for ...range sizes</code>同一个<code>goroutine</code>中执行，否则会一直阻塞，相互等待成为<code>dead lock</code>。</p>
+<h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><p><strong>练习 8.4：</strong> 修改reverb2服务器，在每一个连接中使用sync.WaitGroup来计数活跃的echo goroutine。当计数减为零时，关闭TCP连接的写入，像练习8.3中一样。验证一下你的修改版netcat3客户端会一直等待所有的并发“喊叫”完成，即使是在标准输入流已经关闭的情况下。<br>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;bufio&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;net&quot;</span><br>	<span class="hljs-string">&quot;strings&quot;</span><br>	<span class="hljs-string">&quot;sync&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	listener, err := net.Listen(<span class="hljs-string">&quot;tcp&quot;</span>, <span class="hljs-string">&quot;localhost:8000&quot;</span>)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br>	<span class="hljs-keyword">for</span> &#123;<br>		conn, err := listener.Accept()<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			log.Println(err)<br>			<span class="hljs-keyword">continue</span><br>		&#125;<br>		<span class="hljs-keyword">go</span> handleConn(conn)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">handleConn</span><span class="hljs-params">(conn net.Conn)</span></span> &#123;<br>	<span class="hljs-keyword">var</span> wg sync.WaitGroup<br><br>	input := bufio.NewScanner(conn)<br>	<span class="hljs-keyword">for</span> input.Scan() &#123;<br>		wg.Add(<span class="hljs-number">1</span>)<br>		<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>			wg.Done()<br>			echo(conn, input.Text(), <span class="hljs-number">1</span>*time.Second)<br>		&#125;()<br>	&#125;<br><br>	wg.Wait()<br>	conn.Close()<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">echo</span><span class="hljs-params">(conn net.Conn, shout <span class="hljs-type">string</span>, delay time.Duration)</span></span> &#123;<br>	fmt.Fprintln(conn, <span class="hljs-string">&quot;\t&quot;</span>, strings.ToUpper(shout))<br>	time.Sleep(delay)<br>	fmt.Fprintln(conn, <span class="hljs-string">&quot;\t&quot;</span>, shout)<br>	time.Sleep(delay)<br>	fmt.Fprintln(conn, <span class="hljs-string">&quot;\t&quot;</span>, strings.ToLower(shout))<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>练习 8.5：</strong> 使用一个已有的CPU绑定的顺序程序，比如在3.3节中我们写的Mandelbrot程序或者3.2节中的3-D surface计算程序，并将他们的主循环改为并发形式，使用channel来进行通信。在多核计算机上这个程序得到了多少速度上的改进？使用多少个goroutine是最合适的呢？<br>解：<br>concurrent.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> mandelbrot<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;image&quot;</span><br>	<span class="hljs-string">&quot;image/color&quot;</span><br>	<span class="hljs-string">&quot;math/cmplx&quot;</span><br>	<span class="hljs-string">&quot;sync&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ConcurrentRender</span><span class="hljs-params">(workers <span class="hljs-type">int</span>)</span></span> *image.RGBA &#123;<br>	<span class="hljs-keyword">const</span> (<br>		xmin, ymin, xmax, ymax = <span class="hljs-number">-2</span>, <span class="hljs-number">-2</span>, +<span class="hljs-number">2</span>, +<span class="hljs-number">2</span><br>		width, height          = <span class="hljs-number">1024</span>, <span class="hljs-number">1024</span><br>	)<br>	img := image.NewRGBA(image.Rect(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, width, height))<br><br>	rows := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>, height)<br>	<span class="hljs-keyword">for</span> row := <span class="hljs-number">0</span>; row &lt; height; row++ &#123;<br>		rows &lt;- row<br>	&#125;<br>	<span class="hljs-built_in">close</span>(rows)<br><br>	<span class="hljs-keyword">var</span> wg sync.WaitGroup<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; workers; i++ &#123;<br>		wg.Add(<span class="hljs-number">1</span>)<br>		<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>			<span class="hljs-keyword">for</span> py := <span class="hljs-keyword">range</span> rows &#123;<br>				y := <span class="hljs-type">float64</span>(py)/height*(ymax-ymin) + ymin<br>				<span class="hljs-keyword">for</span> px := <span class="hljs-number">0</span>; px &lt; width; px++ &#123;<br>					x := <span class="hljs-type">float64</span>(px)/width*(xmax-xmin) + xmin<br>					z := <span class="hljs-built_in">complex</span>(x, y)<br>					img.Set(<br>						px,<br>						py,<br>						mandelbrot(z),<br>					)<br>				&#125;<br>			&#125;<br>			wg.Done()<br>		&#125;()<br>	&#125;<br>	wg.Wait()<br><br>	<span class="hljs-keyword">return</span> img<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mandelbrot</span><span class="hljs-params">(z <span class="hljs-type">complex128</span>)</span></span> color.Color &#123;<br>	<span class="hljs-keyword">const</span> iterations = <span class="hljs-number">200</span><br>	<span class="hljs-keyword">const</span> contrast = <span class="hljs-number">15</span><br><br>	<span class="hljs-keyword">var</span> v <span class="hljs-type">complex128</span><br>	<span class="hljs-keyword">for</span> n := <span class="hljs-type">uint8</span>(<span class="hljs-number">0</span>); n &lt; iterations; n++ &#123;<br>		v = v*v + z<br>		<span class="hljs-keyword">if</span> cmplx.Abs(v) &gt; <span class="hljs-number">2</span> &#123;<br>			<span class="hljs-keyword">return</span> color.Gray&#123;<span class="hljs-number">255</span> - contrast*n&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> color.Black<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>serial.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Package mandelbrot emits a PNG image of the Mandelbrot fractal.</span><br><span class="hljs-keyword">package</span> mandelbrot<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;image&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">SerialRender</span><span class="hljs-params">()</span></span> *image.RGBA &#123;<br>	<span class="hljs-keyword">const</span> (<br>		xmin, ymin, xmax, ymax = <span class="hljs-number">-2</span>, <span class="hljs-number">-2</span>, +<span class="hljs-number">2</span>, +<span class="hljs-number">2</span><br>		width, height          = <span class="hljs-number">1024</span>, <span class="hljs-number">1024</span><br>	)<br><br>	img := image.NewRGBA(image.Rect(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, width, height))<br>	<span class="hljs-keyword">for</span> py := <span class="hljs-number">0</span>; py &lt; height; py++ &#123;<br>		y := <span class="hljs-type">float64</span>(py)/height*(ymax-ymin) + ymin<br>		<span class="hljs-keyword">for</span> px := <span class="hljs-number">0</span>; px &lt; width; px++ &#123;<br>			x := <span class="hljs-type">float64</span>(px)/width*(xmax-xmin) + ymin<br>			z := <span class="hljs-built_in">complex</span>(x, y)<br>			img.Set(px, py, mandelbrot(z))<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> img<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>mandelbrot_test.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> mandelbrot<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;runtime&quot;</span><br>	<span class="hljs-string">&quot;testing&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">BenchmarkSerialRender</span><span class="hljs-params">(b *testing.B)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; b.N; i++ &#123;<br>		SerialRender()<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">benchmarkConcurrentRender</span><span class="hljs-params">(b *testing.B, workers <span class="hljs-type">int</span>)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; b.N; i++ &#123;<br>		ConcurrentRender(workers)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Benchmark1</span><span class="hljs-params">(b *testing.B)</span></span> &#123;<br>	benchmarkConcurrentRender(b, <span class="hljs-number">1</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">BenchmarkMaxProces</span><span class="hljs-params">(b *testing.B)</span></span> &#123;<br>	benchmarkConcurrentRender(b, runtime.GOMAXPROCS(<span class="hljs-number">-1</span>))<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Benchmark8</span><span class="hljs-params">(b *testing.B)</span></span> &#123;<br>	benchmarkConcurrentRender(b, <span class="hljs-number">8</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Benchmark16</span><span class="hljs-params">(b *testing.B)</span></span> &#123;<br>	benchmarkConcurrentRender(b, <span class="hljs-number">16</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Benchmark32</span><span class="hljs-params">(b *testing.B)</span></span> &#123;<br>	benchmarkConcurrentRender(b, <span class="hljs-number">32</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Benchmark64</span><span class="hljs-params">(b *testing.B)</span></span> &#123;<br>	benchmarkConcurrentRender(b, <span class="hljs-number">64</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Benchmark128</span><span class="hljs-params">(b *testing.B)</span></span> &#123;<br>	benchmarkConcurrentRender(b, <span class="hljs-number">128</span>)<br>&#125;<br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">使用cpu支持最大线程数时最优</span><br><span class="hljs-comment">goos: darwin</span><br><span class="hljs-comment">goarch: amd64</span><br><span class="hljs-comment">pkg: go-learn-gopl/ex/ex8/ex8.5/mandelbrot</span><br><span class="hljs-comment">cpu: Intel(R) Core(TM) i7-7820HQ CPU @ 2.90GHz</span><br><span class="hljs-comment">BenchmarkSerialRender</span><br><span class="hljs-comment">BenchmarkSerialRender-8   	       4	 269136007 ns/op</span><br><span class="hljs-comment">Benchmark1</span><br><span class="hljs-comment">Benchmark1-8              	       4	 252338560 ns/op</span><br><span class="hljs-comment">BenchmarkMaxProces</span><br><span class="hljs-comment">BenchmarkMaxProces-8      	      12	  88347559 ns/op</span><br><span class="hljs-comment">Benchmark8</span><br><span class="hljs-comment">Benchmark8-8              	      13	  85825956 ns/op</span><br><span class="hljs-comment">Benchmark16</span><br><span class="hljs-comment">Benchmark16-8             	      18	  90070427 ns/op</span><br><span class="hljs-comment">Benchmark32</span><br><span class="hljs-comment">Benchmark32-8             	      15	  99837822 ns/op</span><br><span class="hljs-comment">Benchmark64</span><br><span class="hljs-comment">Benchmark64-8             	      12	  93368396 ns/op</span><br><span class="hljs-comment">Benchmark128</span><br><span class="hljs-comment">Benchmark128-8            	      12	  93611058 ns/op</span><br><span class="hljs-comment">PASS</span><br><span class="hljs-comment">*/</span><br><br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="print-no-link">#读书笔记</a>
+      
+        <a href="/tags/go/" class="print-no-link">#go</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>8.5. 并发的循环</div>
+      <div>https://succeedwer.github.io/posts/5f0a41aff939/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WER</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月18日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年3月18日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/1258766bd2ef/" title="8.6. 示例：并发的Web爬虫">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">8.6. 示例：并发的Web爬虫</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/e24baaf2eab7/" title="8.4. Channels">
+                        <span class="hidden-mobile">8.4. Channels</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -229,15 +229,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/b8be0b651295/" target="_self">
-          7.5 接口值
+        <a href="/posts/7c1cbb35e653/" target="_self">
+          10.4. 导入声明
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/b8be0b651295/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/7c1cbb35e653/" target="_self">
         <div>
-          基本概念接口值由两部分组成，具体类型和类型的值，也称为动态类型和动态值。如下例子： 1234var w io.Writerw = os.Stdoutw = new(bytes.Buffer)w = nil 4个语句中，变量w得到了3个不同的值。在Go语言中，变量在声明中会被初始化为其类型的零值。对于接口类型，同样会被初始化为零值，一个接口的零值指的是接口的类型和值都是nil。一个接口值基于它的动态
+          每个导入声明可以单独指定导入路径，也可以通过圆括号同时导入多个导入路径。 1234567import &quot;fmt&quot;import &quot;os&quot;improt (	&quot;fmt&quot;	&quot;os&quot;)  导入的包之间可以通过添加空行来分组。通常将来自不同组织的包进行独立分组。 包的导入顺序无关紧要，但是每个分组中一般会根据字符串顺序排序。（go
         </div>
       </a>
 
@@ -245,8 +245,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 15:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-20 14:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -299,15 +299,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/146b263d555d/" target="_self">
-          7.4 flag.Value接口
+        <a href="/posts/376c63460620/" target="_self">
+          10.3. 包声明
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/146b263d555d/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/376c63460620/" target="_self">
         <div>
-          使用flag.Value接口，可以定义新的命令行符号。下面是休眠特定时间的例子： 12345678910111213141516package mainimport (	&quot;flag&quot;	&quot;fmt&quot;	&quot;time&quot;)var period = flag.Duration(&quot;period&quot;, 1*time.Second, &qu
+          每个go语言源码文件开头必须是包声明语句。包声明语句的主要目的是确定当前包被其它包导入时默认的标识符（也称为包名）。 如 math&#x2F;rand包的每个源码文件开头都是package rand。 通常来说，默认的包名就是包导入路径名的最后一段，因此即使两个包的导入路径不同，它们依然可能有一个相同的包名。 关于默认包名一般采用导入路径名的最后一段的约定也有三种例外情况。  第一个例外，包对应一
         </div>
       </a>
 
@@ -315,8 +315,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 14:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-20 13:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -369,15 +369,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/001ff23c523b/" target="_self">
-          7.3 实现接口的条件
+        <a href="/posts/ce5416f3abff/" target="_self">
+          10.2. 导入路径
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/001ff23c523b/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/ce5416f3abff/" target="_self">
         <div>
-          实现接口的规则一个类型如果拥有一个接口需要的所有方法，那么这个类型就实现了这个接口。如果一个类型属于某个接口，只要这个类型实现这个接口。如果某类型能够赋值或new对象赋值给接口类型，那么说明该类型实现了接口的所有方法。 12345678910var w io.Writerw = os.Stdout         // *File 实现了Write方法w = new(bytes.Buffer) /
+          每个包是由一个全局唯一的字符串所标识的导入路径定位。 import语句中的字符串就是导入路径。 123456789import (    &quot;fmt&quot;    &quot;math/rand&quot;    &quot;encoding/json&quot;    &quot;golang.org/x/net/html&quot;    &quot;github.com/go-s
         </div>
       </a>
 
@@ -385,8 +385,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 13:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-20 12:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -439,15 +439,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/55bc49f4b7cc/" target="_self">
-          7.2. 接口类型
+        <a href="/posts/a912c21440d0/" target="_self">
+          10.1. 包简介
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/55bc49f4b7cc/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/a912c21440d0/" target="_self">
         <div>
-          接口类型具体描述了一系列方法的集合，一个实现了这些方法的具体类型是这个接口类型的实例。 单方法接口命名在Go语言中，单方法接口的命名习惯是很常见的。 1234567package iotype Reader interface &#123;    Read(p []byte) (n int, err error)&#125;type Closer interface &#123;    Close
+          任何包系统的设计目的离不开，抽象，封装和复用。为了简化大型程序的设计和维护工作，通过将一系列相关的特性放入一个独立的单元以理解和更新。在每个单元更新时也同时保持和程序中其它单元的相对独立性。这种模块化的特性允许每个包可以被其它不同的项目共享和重用，在项目范围内，甚至全世界范围内统一分发和复用。 包还通过控制包内名字的可见性和是否导出来实现封装特性。 Go语言的闪电般的编译速度主要得益于三个语言特性
         </div>
       </a>
 
@@ -455,8 +455,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 12:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-20 11:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -509,15 +509,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/8e657f0750ec/" target="_self">
-          7.1. 接口约定
+        <a href="/posts/94532dfae374/" target="_self">
+          第十章 包和工具
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/8e657f0750ec/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/94532dfae374/" target="_self">
         <div>
-          接口类型是一种抽象的类型。它不会暴露出它所代表的对象的内部值的结构和这个对象支持的基础操作的集合；它们只会展示出它们自己的方法。 下面*ByteCounter类型里的Write方法，仅仅在丢失写向它的字节前统计它们的长度。(在这个+&#x3D;赋值语句中，让len(p)的类型和*c的类型匹配的转换是必须的。) 1234567891011121314151617181920212223// Byte
+          本章主要讲go语言的包及其工具。查询Go语言下的包数量： 12$ go list std | wc -l			240  10.1. 包简介10.2. 导入路径10.3. 包声明10.4. 导入声明10.5. 包的匿名导入10.6. 包和命名10.7. 工具
         </div>
       </a>
 
@@ -525,8 +525,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 11:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-20 10:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -579,15 +579,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/f2552a5080b3/" target="_self">
-          第七章 接口
+        <a href="/posts/85a231e79892/" target="_self">
+          9.8. Goroutine和线程
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/f2552a5080b3/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/85a231e79892/" target="_self">
         <div>
-          接口类型是对其它类型行为的抽象和概括。Go语言中接口类型的独特之处在于它是满足隐式实现的。也就是说，我们没有必要对于给定的具体类型定义所有满足的接口类型；简单地拥有一些必需的方法就足够了。 7.1. 接口约定7.2. 接口类型7.3. 实现接口的条件7.4. flag.Value接口7.5. 接口值7.6. sort.Interface接口7.7. http.Handler接口7.8. error
+          本章主要内容：Goroutine和线程的区别。 9.8.1 动态栈每个OS线程都拥有一个固定大小的内存块（一般为2MB）作为栈，该栈用于存储函数调用或挂起（调用其它函数时）的函数内部变量。Goroutine的栈大小并不是固定的，可以根据需要动态伸缩的。 Goroutine会以很小的栈开始生命周期，一般为2KB。 与OS线程一样，Goroutine的栈同样存储其活跃或挂起的函数内部变量。 练习练习
         </div>
       </a>
 
@@ -595,8 +595,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 10:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-19 18:52" pubdate>
+              2023-03-19
             </time>
           </div>
         
@@ -649,15 +649,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/387bb90cfe97/" target="_self">
-          6.6. 封装
+        <a href="/posts/582daaba3cd4/" target="_self">
+          9.7. 示例：并发的非阻塞缓存
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/387bb90cfe97/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/582daaba3cd4/" target="_self">
         <div>
-          一个对象的方法和字段对调用方不可见，定义为封装。封装也叫信息隐藏。 Go语言只有一种方法来控制可见性：大写首字母的标识符会从定义它们的包中被导出，小写字母的则不会。一般情况下，Go语言内，封装一个对象，只有定义为struct类型。如IntSet: 123type IntSet struct &#123;	words []uint&#125; words只能在包内访问，所以能很好地隐藏。 封装的三个
+          题目本章节的例子为非阻塞缓存。即缓存函数的返回结果，调用该函数时，只要返回已缓存的函数结果即可。 下面以httpGetBody函数做为缓存函数的样例。 12345678func httpGetBody(url string) (interface&#123;&#125;, error) &#123;	resp, err := http.Get(url)	if err != nil &#123;
         </div>
       </a>
 
@@ -665,8 +665,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-16 16:52" pubdate>
-              2023-03-16
+            <time datetime="2023-03-19 17:52" pubdate>
+              2023-03-19
             </time>
           </div>
         
@@ -719,15 +719,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/aaab166a7bb7/" target="_self">
-          6.5. 示例：Bit数组
+        <a href="/posts/d92837fb26ef/" target="_self">
+          9.6. 竞争条件检测
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/aaab166a7bb7/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/d92837fb26ef/" target="_self">
         <div>
-          下面的这个程序展示了一个简单的bit数组类型，并且实现了三个函数来对这个bit数组来进行操作： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859// Package intset provides a set of integer
+          程序并发发生问题实在无可避免，但是Go的runtime和工具链提供了一个复杂但好用的动态分析工具，竞争检查器（the race detector）。 用法：只要在go build、go run 或 go test 后面加上-race 的flag即可。编译器创建一个你的应用的“修改”版或者一个附带了能够记录所有运行期对共享变量访问工具的test，并且会记录下每一个读或者写共享变量的goroutine
         </div>
       </a>
 
@@ -735,8 +735,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-16 15:52" pubdate>
-              2023-03-16
+            <time datetime="2023-03-19 16:52" pubdate>
+              2023-03-19
             </time>
           </div>
         
@@ -789,15 +789,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/4fa1929ae9d9/" target="_self">
-          6.4. 方法值和方法表达式
+        <a href="/posts/76eb94f5fa7d/" target="_self">
+          9.5. sync.Once初始化
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/4fa1929ae9d9/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/76eb94f5fa7d/" target="_self">
         <div>
-          方法值定义通常情况下，调用一个方法，如p.Distance()，实际上可以分为两步来执行。p.Distance是方法选择器，返回一个方法值-&gt;一个将方法（Point.Distance）绑定到特定接收器变量的函数。调用时，不再需要指定接收器，只要传入函数参数即可： 123456789101112p := Point&#123;1, 2&#125;q := Point&#123;4, 6&#12
+          下面是一个懒加载的例子。 12345678910111213141516func loadIcons() &#123;    icons = map[string]image.Image&#123;        &quot;spades.png&quot;:   loadIcon(&quot;spades.png&quot;),        &quot;hearts.png&quot;:
         </div>
       </a>
 
@@ -805,8 +805,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-16 14:52" pubdate>
-              2023-03-16
+            <time datetime="2023-03-19 15:52" pubdate>
+              2023-03-19
             </time>
           </div>
         
@@ -859,15 +859,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/3d2bce45dc58/" target="_self">
-          6.3. 通过嵌入结构体来扩展类型
+        <a href="/posts/e115a072f817/" target="_self">
+          9.4. 内存同步
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/3d2bce45dc58/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/e115a072f817/" target="_self">
         <div>
-          内嵌结构体下面是一个ColoredPoint的嵌入结构体， 1234567type Point struct &#123;	X, Y float64&#125;type ColoredPoint struct &#123;	Point	color color.RGBA&#125; 由结构体特性可知，内嵌可使得ColoredPoint包含Point的所有字段，并附加自身的一些字段。即可以直接访问Po
+          在9.2，9.3章节中，我们对Balance方法使用了互斥锁mutex，在此有两方面的考虑。  Balance方法不会在其他操作（如Withdraw）中执行。 更重要的是不单是一堆goroutine的执行顺序问题，而是内存同步问题。  何为内存同步？在现代计算机中可能会有一堆处理器，每一个都会有其本地缓存(local cache)。为了效率，对内存的写入一般会在每一个处理器中缓冲，并在必要时一起f
         </div>
       </a>
 
@@ -875,8 +875,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-16 13:52" pubdate>
-              2023-03-16
+            <time datetime="2023-03-19 14:52" pubdate>
+              2023-03-19
             </time>
           </div>
         
@@ -927,7 +927,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/#board">7</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/#board">10</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

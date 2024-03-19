@@ -229,15 +229,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/3bab4b966165/" target="_self">
-          2.4. 赋值
+        <a href="/posts/387bb90cfe97/" target="_self">
+          6.6. 封装
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/3bab4b966165/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/387bb90cfe97/" target="_self">
         <div>
-          使用赋值语句可以更新一个变量的值。 1234x = 1						// 命名变量的赋值*p = true					// 通过指针间接赋值person.name = &quot;bob&quot;			// 结构体字段赋值count[x] = count[x] * scale // 数组、slice或map的元素赋值 二元算术运算符和赋值语句的复合操作可以进行简化： 1count[x] *= sca
+          一个对象的方法和字段对调用方不可见，定义为封装。封装也叫信息隐藏。 Go语言只有一种方法来控制可见性：大写首字母的标识符会从定义它们的包中被导出，小写字母的则不会。一般情况下，Go语言内，封装一个对象，只有定义为struct类型。如IntSet: 123type IntSet struct &#123;	words []uint&#125; words只能在包内访问，所以能很好地隐藏。 封装的三个
         </div>
       </a>
 
@@ -245,8 +245,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-12 15:52" pubdate>
-              2023-03-12
+            <time datetime="2023-03-16 16:52" pubdate>
+              2023-03-16
             </time>
           </div>
         
@@ -299,15 +299,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/2628b27da087/" target="_self">
-          2.2. 声明
+        <a href="/posts/aaab166a7bb7/" target="_self">
+          6.5. 示例：Bit数组
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/2628b27da087/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/aaab166a7bb7/" target="_self">
         <div>
-          声明语句定义了程序的各种实体对象以及部分或全部的属性。Go语言主要有四种类型的声明语句：  var 变量 const 常量 type 类型 func 函数实体对象  下面的例子中声明了一个常量、一个函数和两个变量： 1234567891011121314// Boiling prints the boiling point of water.package mainimport &quot;fmt
+          下面的这个程序展示了一个简单的bit数组类型，并且实现了三个函数来对这个bit数组来进行操作： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859// Package intset provides a set of integer
         </div>
       </a>
 
@@ -315,8 +315,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-12 14:52" pubdate>
-              2023-03-12
+            <time datetime="2023-03-16 15:52" pubdate>
+              2023-03-16
             </time>
           </div>
         
@@ -369,15 +369,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/feafd476469a/" target="_self">
-          2.1. 命名
+        <a href="/posts/4fa1929ae9d9/" target="_self">
+          6.4. 方法值和方法表达式
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/feafd476469a/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/4fa1929ae9d9/" target="_self">
         <div>
-          命名规则一个名字必须以一个字母（Unicode字母）或下划线开头，后面可以跟任意数量的字母、数字或下划线。 大写字母和小写字母是不同的：heapSort和Heapsort是两个不同的名字。 如果一个命名是在函数内部定义，那么它只在函数内部有效。如果定义在函数外部，那么将在当前包的所有文件中都可以访问。命名的开头字母的大小写决定命名在包外的可见性，大写字母开头且在函数外部定义，那么它将是导出的，可以
+          方法值定义通常情况下，调用一个方法，如p.Distance()，实际上可以分为两步来执行。p.Distance是方法选择器，返回一个方法值-&gt;一个将方法（Point.Distance）绑定到特定接收器变量的函数。调用时，不再需要指定接收器，只要传入函数参数即可： 123456789101112p := Point&#123;1, 2&#125;q := Point&#123;4, 6&#12
         </div>
       </a>
 
@@ -385,8 +385,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-12 13:52" pubdate>
-              2023-03-12
+            <time datetime="2023-03-16 14:52" pubdate>
+              2023-03-16
             </time>
           </div>
         
@@ -439,15 +439,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/04348d4815af/" target="_self">
-          第二章 程序结构
+        <a href="/posts/3d2bce45dc58/" target="_self">
+          6.3. 通过嵌入结构体来扩展类型
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/04348d4815af/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/3d2bce45dc58/" target="_self">
         <div>
-          2.1. 命名 2.2. 声明 2.3. 变量 2.4. 赋值 2.5. 类型 2.6. 包和文件 2.7. 作用域
+          内嵌结构体下面是一个ColoredPoint的嵌入结构体， 1234567type Point struct &#123;	X, Y float64&#125;type ColoredPoint struct &#123;	Point	color color.RGBA&#125; 由结构体特性可知，内嵌可使得ColoredPoint包含Point的所有字段，并附加自身的一些字段。即可以直接访问Po
         </div>
       </a>
 
@@ -455,8 +455,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-12 12:52" pubdate>
-              2023-03-12
+            <time datetime="2023-03-16 13:52" pubdate>
+              2023-03-16
             </time>
           </div>
         
@@ -509,15 +509,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/f529e3c31d9e/" target="_self">
-          1.8. 本章要点
+        <a href="/posts/8633284a6bad/" target="_self">
+          6.2. 基于指针对象的方法
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/f529e3c31d9e/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/8633284a6bad/" target="_self">
         <div>
-          控制流 if for switch Go语言并不需要显式地在每一个case后写break，语言默认执行完case后的逻辑语句会自动退出。 fallthrough可以case穿透。 Go语言里的switch还可以不带操作对象，默认用true值代替，然后将每个case的表达式和true值进行比较。这种形式叫无tag switch(tagless switch)，与switch true等价。  123
+          声明当调用一个函数时，会对每一个参数值进行拷贝。如果函数的需要更新一个变量，或函数中的某个参数过于大，则希望避免进行默认的拷贝，这种情况可以用到指针。相对应到方法接受器，当接受者过于大，也可以使用指针而非接受者对象本身来声明方法。 1234func (p *Point) ScaleBy(factor float64) &#123;    p.X *= factor    p.Y *= factor
         </div>
       </a>
 
@@ -525,8 +525,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-11 20:52" pubdate>
-              2023-03-11
+            <time datetime="2023-03-16 12:52" pubdate>
+              2023-03-16
             </time>
           </div>
         
@@ -579,15 +579,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/94de4df7cd79/" target="_self">
-          1.7. Web服务
+        <a href="/posts/627a83e633ba/" target="_self">
+          6.1. 方法声明
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/94de4df7cd79/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/627a83e633ba/" target="_self">
         <div>
-          Go语言的内置库使得写一个类似fetch的web服务器变得异常地简单。在本节中，我们会展示一个微型服务器，这个服务器的功能是返回当前用户正在访问的URL。比如用户访问的是 http://localhost:8000/hello ，那么响应是URL.Path &#x3D; “hello”。 1234567891011121314151617package mainimport (	&quot;fmt
+          在函数声明前加上一个变量，就是方法。第一个例子： 1234567891011121314151617package geometryimport &quot;math&quot;type Point struct &#123;	X, Y float64&#125;// traditional functionfunc Distance(p, q Point) float64 &#123;	retu
         </div>
       </a>
 
@@ -595,8 +595,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-11 17:52" pubdate>
-              2023-03-11
+            <time datetime="2023-03-16 11:52" pubdate>
+              2023-03-16
             </time>
           </div>
         
@@ -649,15 +649,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/c84dc5dd7597/" target="_self">
-          1.6. 并发获取多个URL
+        <a href="/posts/b376389fd346/" target="_self">
+          第六章 方法
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/c84dc5dd7597/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/b376389fd346/" target="_self">
         <div>
-          下面的例子fetchall，和前面小节的fetch程序所要做的工作基本一致，fetchall的特别之处在于它会同时去获取所有的URL，所以这个程序的总执行时间不会超过执行时间最长的那一个任务，前面的fetch程序执行时间则是所有任务执行时间之和。fetchall程序只会打印获取的内容大小和经过的时间，不会像之前那样打印获取的内容。 123456789101112131415161718192021
+          6.1. 方法声明 6.2. 基于指针对象的方法 6.3. 通过嵌入式结构体来扩展类型 6.4. 方法值和方法表达式 6.5. 示例：Bit数组 6.6. 封装
         </div>
       </a>
 
@@ -665,8 +665,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-11 16:52" pubdate>
-              2023-03-11
+            <time datetime="2023-03-16 10:52" pubdate>
+              2023-03-16
             </time>
           </div>
         
@@ -719,15 +719,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/8855378318a6/" target="_self">
-          1.5. 获取URL
+        <a href="/posts/b0cbde1e1f43/" target="_self">
+          5.9. Panic异常
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/8855378318a6/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/b0cbde1e1f43/" target="_self">
         <div>
-          为了最简单地展示基于HTTP获取信息的方式，下面给出一个示例程序fetch，这个程序将获取对应的url，并将其源文本打印出来；这个例子的灵感来源于curl工具（译注：unix下的一个用来发http请求的工具，具体可以man curl）。当然，curl提供的功能更为复杂丰富，这里只编写最简单的样例。这个样例之后还会多次被用到。 123456789101112131415161718192021222
+          一般而言，当panic异常发生时，程序会中断运行，并立即执行在该goroutine中被延迟的函数(defer机制)，随后，程序崩溃并输出日志信息。日志信息包括panic value和函数调用的堆栈跟踪信息。不是所有的panic异常都来自运行时，直接调用内置的panic函数也会引起panic异常。panic函数可接受任何值作为参数。 123456789101112switch s := suit(d
         </div>
       </a>
 
@@ -735,8 +735,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-11 12:52" pubdate>
-              2023-03-11
+            <time datetime="2023-03-15 19:52" pubdate>
+              2023-03-15
             </time>
           </div>
         
@@ -789,15 +789,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/d37e56e6ca24/" target="_self">
-          1.4. GIF动画
+        <a href="/posts/6f685641f7fc/" target="_self">
+          5.8. Deferred函数
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/d37e56e6ca24/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/6f685641f7fc/" target="_self">
         <div>
-          下面的程序会演示Go语言标准库里的image这个package的用法，我们会用这个包来生成一系列的bit-mapped图，然后将这些图片编码为一个GIF动画。我们生成的图形名字叫利萨如图形(Lissajous figures)，这种效果是在1960年代的老电影里出现的一种视觉特效。它们是协振子在两个纬度上振动所产生的曲线，比如两个sin正弦波分别在x轴和y轴输入会产生的曲线。 1234567891
+          定义在普通函数前加上关键字defer时，当defer语句被执行时，其后面的函数会被延迟执行。直到包含该defer语句的函数执行完毕时，defer后的函数才会被执行，无论是包含defer的函数通过return正常结束或由于panic导致的异常结束。一个函数中可以执行多条defer语句，它们的执行顺序与声明的顺序相反。 使用技巧defer语句常用于处理成对的操作，如打开、关闭、连接、断开连接、加锁、释
         </div>
       </a>
 
@@ -805,8 +805,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-11 11:52" pubdate>
-              2023-03-11
+            <time datetime="2023-03-15 18:52" pubdate>
+              2023-03-15
             </time>
           </div>
         
@@ -859,15 +859,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/c749b9e4bafd/" target="_self">
-          1.3. 查找重复的行
+        <a href="/posts/f16f86776a10/" target="_self">
+          5.7. 可变参数
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/c749b9e4bafd/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/f16f86776a10/" target="_self">
         <div>
-          对文件做拷贝、打印、搜索、排序、统计或类似事情的程序都有一个差不多的程序结构：一个处理输入的循环，在每个元素上执行计算处理，在处理的同时或最后产生输出。我们会展示一个名为dup的程序的三个版本；灵感来自于Unix的uniq命令，其寻找相邻的重复行。该程序使用的结构和包是个参考范例，可以方便地修改。 dup的第一个版本打印标准输入中多次出现的行，以重复次数开头。该程序将引入if语句，map数据类型以
+          定义参数数量可变的函数称为可变参数函数。如fmt.Printf和类似参数。  在声明可变参数函数时，需要在参数列表的最后一个参数类型之前加上省略符号...，表示该函数会接受任何数量的该类型参数。  1234567 func sum(vals ...int) int  &#123;	total := 0	for _, val := range vals &#123;		total += val	&#
         </div>
       </a>
 
@@ -875,8 +875,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-10 14:52" pubdate>
-              2023-03-10
+            <time datetime="2023-03-15 17:52" pubdate>
+              2023-03-15
             </time>
           </div>
         
@@ -927,7 +927,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/5/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/#board">4</a><a class="page-number" href="/page/5/#board">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/#board">7</a><a class="extend next" rel="next" href="/page/7/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/5/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/#board">4</a><a class="page-number" href="/page/5/#board">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/#board">7</a><a class="page-number" href="/page/8/#board">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/#board">10</a><a class="extend next" rel="next" href="/page/7/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

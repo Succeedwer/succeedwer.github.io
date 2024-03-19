@@ -1,0 +1,757 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="基本信息定义如果说goroutine是go语言的并发体，那么Channels是它们之间的通信机制。一个goroutine可以通过Channels发送信息给另一个goroutine。每个Channels都有其可发送的数据的数据类型，如一个可以发送int类型数据的channel一般写为chan int。 创建channel使用内置的make函数，我们可以创建一个channel： 1ch :&#x3D; make">
+<meta property="og:type" content="article">
+<meta property="og:title" content="8.4. Channels">
+<meta property="og:url" content="https://succeedwer.github.io/posts/e24baaf2eab7/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:description" content="基本信息定义如果说goroutine是go语言的并发体，那么Channels是它们之间的通信机制。一个goroutine可以通过Channels发送信息给另一个goroutine。每个Channels都有其可发送的数据的数据类型，如一个可以发送int类型数据的channel一般写为chan int。 创建channel使用内置的make函数，我们可以创建一个channel： 1ch :&#x3D; make">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://succeedwer.github.io/images/1695570577915.png">
+<meta property="article:published_time" content="2023-03-18T06:52:19.000Z">
+<meta property="article:modified_time" content="2024-03-18T05:20:20.000Z">
+<meta property="article:author" content="WER">
+<meta property="article:tag" content="读书笔记">
+<meta property="article:tag" content="go">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://succeedwer.github.io/images/1695570577915.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>8.4. Channels - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="8.4. Channels"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-18 14:52" pubdate>
+          2023年3月18日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          28 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">8.4. Channels</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>如果说<code>goroutine</code>是go语言的并发体，那么<code>Channels</code>是它们之间的通信机制。<br>一个<code>goroutine</code>可以通过<code>Channels</code>发送信息给另一个<code>goroutine</code>。<br>每个<code>Channels</code>都有其可发送的数据的数据类型，如一个可以发送<code>int</code>类型数据的<code>channel</code>一般写为<code>chan int</code>。</p>
+<h2 id="创建channel"><a href="#创建channel" class="headerlink" title="创建channel"></a>创建channel</h2><p>使用内置的<code>make</code>函数，我们可以创建一个<code>channel</code>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">ch := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>) <span class="hljs-comment">// ch has type &#x27;chan int&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>和<code>map</code>类型，<code>channel</code>也有一个对应<code>make</code>创建的底层数据结构的引用。<br>当复制或用于函数传递时，也只是拷贝了一个<code>channel</code>的引用。</p>
+<p><code>channel</code>的零值是<code>nil</code>。</p>
+<h2 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h2><p>两个相同类型的<code>channel</code>可以使用<code>==</code>运算符比较。<br>如果两个<code>channel</code>引用的是相同的对象，那么比较的结果为<code>true</code>。<br>一个<code>channel</code>也可以和<code>nil</code>进行比较。</p>
+<h2 id="发送和接收"><a href="#发送和接收" class="headerlink" title="发送和接收"></a>发送和接收</h2><p><code>channel</code>有两个通信操作，<code>发送</code>和<code>接收</code>。<br>发送操作将一个值从一个<code>goroutine</code>中通过<code>channel</code>发送到另一个执行接收操作的<code>goroutine</code>。<br><code>发送</code>和<code>接收</code>的运算符号都是<code>&lt;-</code>。<br>发送操作是运算符分割<code>channel</code>和<code>值</code>。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">ch &lt;- x <span class="hljs-comment">// a send statement </span><br></code></pre></td></tr></table></figure>
+<p>接收语句中，<code>&lt;-</code>写在<code>channel</code>对象前。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">x = &lt;-ch  <span class="hljs-comment">// a receive expression in an assignment statement.</span><br></code></pre></td></tr></table></figure>
+<p>接收语句还可以忽略接收对象。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">&lt;-ch  <span class="hljs-comment">// a receive statement.result is discarded.</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="close操作"><a href="#close操作" class="headerlink" title="close操作"></a>close操作</h2><p><code>channel</code>还支持<code>close</code>操作，用于关闭<code>channel</code>，随后对基于该<code>goroutine</code>的任何发送操作都导致<code>panic</code>异常。<br>对一个已经被<code>close</code>过的<code>channel</code>关闭之前接收操作依然可以接受到之前已经成功发送的数据。<br>如果<code>channel</code>中已经没有数据的话会产生一个零值的数据。<br>使用内置的<code>close</code>函数就可以关闭一个<code>channel</code>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-built_in">close</span>(ch)<br></code></pre></td></tr></table></figure>
+
+<h2 id="无缓存和带缓存"><a href="#无缓存和带缓存" class="headerlink" title="无缓存和带缓存"></a>无缓存和带缓存</h2><p>使用<code>make</code>函数创建的最简单的是无缓存<code>channel</code>。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">ch := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>)  <span class="hljs-comment">// unbuffered channel</span><br></code></pre></td></tr></table></figure>
+<p>可以指定<code>make</code>函数的第二个参数，对应<code>channel</code>的容量。<br>如果容量等于0，仍然是无缓存<code>channel</code>。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">ch := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>, <span class="hljs-number">0</span>) <span class="hljs-comment">// unbuffered channel</span><br></code></pre></td></tr></table></figure>
+<p>如果容量大于0，则是带缓存<code>channel</code>。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">ch := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>, <span class="hljs-number">3</span>) <span class="hljs-comment">// buffered channel with capacity 3</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="8-4-1-不带缓存的Channels"><a href="#8-4-1-不带缓存的Channels" class="headerlink" title="8.4.1. 不带缓存的Channels"></a>8.4.1. 不带缓存的Channels</h1><p>无缓存<code>channel</code>的发送操作会导致发送者<code>goroutine</code>阻塞，直到另一个<code>goroutine</code>在相同的<code>channel</code>上执行接收操作，并且发送的值通过<code>channel</code>成功传输之后，两个<code>goroutine</code>可以继续执行后面的语句。<br>反之，如果接收操作先发生，那么接收者<code>goroutine</code>也将阻塞，直到另一个<code>goroutine</code>在相同的<code>channel</code>上执行发送操作。</p>
+<p>无缓存<code>channel</code>的发送和接收操作会导致两个<code>goroutine</code>做一次同步操作，因此无缓存<code>channel</code>也被称为<code>同步channel</code></p>
+<p>当通过一个无缓存<code>channel</code>发送数据时，接收者收到数据发生在唤醒发送者<code>goroutine</code>之前，被称为<code>happens before</code>。</p>
+<p>在8.3节的客户端程序，它在主goroutine中（译注：就是执行main函数的goroutine）将标准输入复制到server，因此当客户端程序关闭标准输入时，后台goroutine可能依然在工作。我们需要让主goroutine等待后台goroutine完成工作后再退出，我们使用了一个channel来同步两个goroutine：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;io&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;net&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>)<br><br><span class="hljs-comment">// control+D 结束输入</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	conn, err := net.Dial(<span class="hljs-string">&quot;tcp&quot;</span>, <span class="hljs-string">&quot;localhost:8000&quot;</span>)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br>	done := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>&#123;&#125;)<br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		io.Copy(os.Stdout, conn) <span class="hljs-comment">// ignore error // 2023/09/19 00:24:20 read tcp 127.0.0.1:55690-&gt;127.0.0.1:8000: use of closed network connection</span><br>		log.Println(<span class="hljs-string">&quot;done&quot;</span>)<br>		done &lt;- <span class="hljs-keyword">struct</span>&#123;&#125;&#123;&#125; <span class="hljs-comment">// sign main goroutine</span><br>	&#125;()<br>	mustCopy(conn, os.Stdin)<br>	conn.Close()<br>	&lt;-done <span class="hljs-comment">// waiting</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mustCopy</span><span class="hljs-params">(dst io.Writer, src io.Reader)</span></span> &#123;<br>	_, err := io.Copy(dst, src)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>当用户关闭了标准输入(mac系统ctrl+D)，主<code>goroutine</code>中的<code>mustCopy</code>函数调用返回，然后调用<code>conn.Close()</code>关闭读写方向的网络链接。<br>关闭网络链接中的写方向的链接将导致<code>server</code>程序收到一个文件结束的信号（EOF，end-of-file）。<br>关闭网络链接中读方向的链接将导致后台<code>goroutine</code>的<code>io.Copy</code>函数调用返回一个<code>read from closed connection</code>（从关闭的链接读）类似的错误。该例子忽略了错误日志语句。<br>在后台<code>goroutine</code>返回之前，它先打印一个日志信息，然后向<code>done</code>对应的<code>channel</code>发送一个值。主<code>goroutine</code>在退出前先等待从<code>done</code>对应的<code>channel</code>接收一个值。所以，总能在程序退出前正确输出<code>done</code>信息。</p>
+<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><p><strong>练习 8.3：</strong> 在netcat3例子中，conn虽然是一个interface类型的值，但是其底层真实类型是<code>*net.TCPConn</code>，代表一个TCP链接。一个TCP链接有读和写两个部分，可以使用CloseRead和CloseWrite方法分别关闭它们。修改netcat3的主goroutine代码，只关闭网络链接中写的部分，这样的话后台goroutine可以在标准输入被关闭后继续打印从reverb1服务器传回的数据。（要在reverb2服务器也完成同样的功能是比较困难的；参考练习 8.4。）<br>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;io&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;net&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	conn, err := net.Dial(<span class="hljs-string">&quot;tcp&quot;</span>, <span class="hljs-string">&quot;localhost:8000&quot;</span>)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br><br>	tcpConn := conn.(*net.TCPConn)<br>	done := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>&#123;&#125;)<br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		io.Copy(os.Stdout, conn)<br>		log.Println(<span class="hljs-string">&quot;done&quot;</span>)<br>		done &lt;- <span class="hljs-keyword">struct</span>&#123;&#125;&#123;&#125;<br>	&#125;()<br><br>	mustCopy(conn, os.Stdin)<br><br>	tcpConn.CloseWrite()<br>	&lt;-done<br>	tcpConn.CloseRead()<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mustCopy</span><span class="hljs-params">(dst io.Writer, src io.Reader)</span></span> &#123;<br>	<span class="hljs-keyword">if</span> _, err := io.Copy(dst, src); err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="8-4-2-串联的Channels-Pipeline"><a href="#8-4-2-串联的Channels-Pipeline" class="headerlink" title="8.4.2. 串联的Channels(Pipeline)"></a>8.4.2. 串联的Channels(Pipeline)</h1><p><code>Channels</code>也可以用于将多个<code>goroutine</code>链接在一起，一个<code>Channels</code>的输出作为下一个<code>Channels</code>的输入。这种串联的<code>Channels</code>就是所谓的管道（<code>pipeline</code>）。<br>下面的程序用两个channels将三个goroutine串联起来:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	natruals := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>)<br>	squares := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>)<br><br>	<span class="hljs-comment">// Counter</span><br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">for</span> x := <span class="hljs-number">0</span>; ; x++ &#123;<br>			natruals &lt;- x<br>		&#125;<br>	&#125;()<br><br>	<span class="hljs-comment">// Squarer</span><br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">for</span> &#123;<br>			x := &lt;-natruals<br>			squares &lt;- x * x<br>		&#125;<br>	&#125;()<br><br>	<span class="hljs-comment">// Printer (in main goroutine)</span><br>	<span class="hljs-keyword">for</span> &#123;<br>		fmt.Println(&lt;-squares)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>像这样的串联Channels的管道（<code>Pipelines</code>）可以用在需要长时间运行的服务中，每个长时间运行的goroutine可能会包含一个死循环，在不同goroutine的死循环内部使用串联的Channels来通信。<br>但是，如果我们希望通过Channels只发送有限的数列该如何处理呢？<br><strong>通过内置的close函数来关闭channel实现。</strong><br><strong>当<code>channel</code>被关闭了，再向该<code>channel</code>发送数据则导致<code>paince</code>异常。</strong><br><strong>当一个被关闭的<code>channel</code>中已经发送的数据都被成功接收后，后续的接收操作将不再阻塞，它们会立即返回一个零值。</strong><br>所以上述例子中关闭<code>naturals channel</code>并不能终止循环，它依然收到一个永无休止的零值序列，然后将它们发送给打印这<code>goroutine</code>。</p>
+<p><strong>没有办法直接测试一个channel是否被关闭。</strong><br>但接收操作有一个变体形式：它多接收一个结果，多接收的第二个结果是一个布尔值ok，ture表示成功从channels接收到值，false表示channels已经被关闭并且里面没有值可接收。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">x, ok := &lt;-naturals<br></code></pre></td></tr></table></figure>
+
+<p>利用该特性，可以修改上述例子中的squarer函数中的循环代码，当naturals对应的channel被关闭并没有值可接收时跳出循环，并且也关闭squares对应的channel。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Squarer</span><br><span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>    <span class="hljs-keyword">for</span> &#123;<br>        x, ok := &lt;-naturals<br>        <span class="hljs-keyword">if</span> !ok &#123;<br>            <span class="hljs-keyword">break</span> <span class="hljs-comment">// channel was closed and drained</span><br>        &#125;<br>        squares &lt;- x * x<br>    &#125;<br>    <span class="hljs-built_in">close</span>(squares)<br>&#125;()<br></code></pre></td></tr></table></figure>
+<p>上面的写法很笨拙，可以使用<code>for...range</code>循环的简洁特性直接迭代。</p>
+<p>在下面的改进中，我们的计数器goroutine只生成100个含数字的序列，然后关闭naturals对应的channel，这将导致计算平方数的squarer对应的goroutine可以正常终止循环并关闭squares对应的channel。（在一个更复杂的程序中，可以通过defer语句关闭对应的channel。）最后，主goroutine也可以正常终止循环并退出程序。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	naturals := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>)<br>	squares := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>)<br><br>	<span class="hljs-comment">// Counter</span><br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">for</span> x := <span class="hljs-number">0</span>; x &lt;= <span class="hljs-number">100</span>; x++ &#123;<br>			naturals &lt;- x<br>		&#125;<br>		<span class="hljs-built_in">close</span>(naturals)<br>	&#125;()<br><br>	<span class="hljs-comment">// Squarer</span><br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">for</span> x := <span class="hljs-keyword">range</span> naturals &#123;<br>			squares &lt;- x * x<br>		&#125;<br>		<span class="hljs-built_in">close</span>(squares)<br>	&#125;()<br><br>	<span class="hljs-comment">// Printer</span><br>	<span class="hljs-keyword">for</span> x := <span class="hljs-keyword">range</span> squares &#123;<br>		fmt.Println(x)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>其实并不需要关闭每一个<code>channel</code>。只要当需要告诉接收者<code>goroutine</code>，所有的数据已经全部发送时才需要关闭<code>channel</code>。<br><strong>不管一个<code>channel</code>是否被关闭，当它没有被引用时将会被Go语言的垃圾自动回收器回收。</strong><br>与关闭已打开文件的操作不同，文件在不使用时都要调用其close方法进行关闭。</p>
+<p><strong>重复关闭同一个channel都会导致panic异常。</strong><br><strong>关闭nil值的channel都会导致panic异常。</strong></p>
+<h1 id="8-4-3-单方向的Channel"><a href="#8-4-3-单方向的Channel" class="headerlink" title="8.4.3. 单方向的Channel"></a>8.4.3. 单方向的Channel</h1><p>将上述例子中的三个<code>goroutine</code>拆分成三个小函数，使用两个<code>channel</code>连接。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">counter</span><span class="hljs-params">(out <span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>)</span></span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">squarer</span><span class="hljs-params">(out, in <span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>)</span></span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">printer</span><span class="hljs-params">(in <span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>)</span></span>”<br></code></pre></td></tr></table></figure>
+<p>每个函数都有相同类型的参数<code>chan int</code>，但是为了函数的健壮性，<code>out</code>只输出，<code>in</code>只输入。<br>Go语言的类型系统提供了单方向的<code>channel</code>类型，分别用于只发送或只接收的<code>channel</code>。<br>类型<code>chan&lt;-int</code>表示只发送int类型的<code>channel</code>；<br>类型<code>&lt;-chan int</code>表示只接收int类型的<code>channel</code>；<br>需要注意的是：<br>因为<code>close</code>操作只作用于不再往<code>channel</code>发送数据，所以在发送者的<code>goroutine</code>中进行<code>close</code>操作。<br><strong>如果只接收的<code>channel</code>进行<code>close</code>操作会导致编译期错误。</strong><br>下面是改进后的版本：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">counter</span><span class="hljs-params">(out <span class="hljs-keyword">chan</span>&lt;- <span class="hljs-type">int</span>)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> x := <span class="hljs-number">0</span>; x &lt; <span class="hljs-number">100</span>; x++ &#123;<br>		out &lt;- x<br>	&#125;<br>	<span class="hljs-built_in">close</span>(out)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">squarer</span><span class="hljs-params">(out <span class="hljs-keyword">chan</span>&lt;- <span class="hljs-type">int</span>, in &lt;-<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> x := <span class="hljs-keyword">range</span> in &#123;<br>		out &lt;- x * x<br>	&#125;<br>	<span class="hljs-built_in">close</span>(out)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">printer</span><span class="hljs-params">(in &lt;-<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> x := <span class="hljs-keyword">range</span> in &#123;<br>		fmt.Println(x)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	naturals := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>)<br>	squares := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>)<br>	<span class="hljs-keyword">go</span> counter(naturals)<br>	<span class="hljs-keyword">go</span> squarer(squares, naturals)<br>	printer(squares)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>调用<code>counter(naturals)</code>将<code>chan int</code>类型的<code>naturals</code>隐式地转换为<code>chan&lt;- int</code>类型只发送型的<code>channel</code>。<br>调用<code>printer(squares)</code>也会进行相似的隐式转换，这一次是转换为<code>&lt;-chan int</code>类型只接收型的<code>channel</code>。<br><strong>任何双向<code>channel</code>向单向<code>channel</code>变量的赋值操作都将导致该隐式转换。</strong><br><strong>注意得是，并没有单向<code>channel</code>(如 chan&lt;-int)转换成双向类型的<code>channel</code>(chan int).</strong></p>
+<h1 id="8-4-4-带缓存的Channels"><a href="#8-4-4-带缓存的Channels" class="headerlink" title="8.4.4. 带缓存的Channels"></a>8.4.4. 带缓存的Channels</h1><p>带缓存的<code>channel</code>内部持有一个队列。<br>队列的最大容量是定义<code>channel</code>时的第二个参数：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">ch = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">string</span>, <span class="hljs-number">3</span>)<br></code></pre></td></tr></table></figure>
+<p>缓存Channel的<code>发送操作</code>就是向内部缓存队列的尾部插入元素。<br><code>接收操作</code>则是从队列的头部删除元素。<br>如果内部缓存队列是满的，那么发送操作将阻塞，直到另一个<code>goroutine</code>执行接收操作而释放新空间。<br>相反，如果内部缓存队列是空的，那么接收操作将阻塞，直到另一个<code>goroutine</code>执行发生操作而向缓存队列插入元素。<br>无阻塞的状态下，<code>channel</code>进行连续发送操作：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go">ch &lt;- <span class="hljs-string">&quot;A&quot;</span><br>ch &lt;- <span class="hljs-string">&quot;B&quot;</span><br>ch &lt;- <span class="hljs-string">&quot;C&quot;</span><br></code></pre></td></tr></table></figure>
+<p>当前<code>channel</code>的缓存队列已满，已阻塞，那么进行接收操作：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-built_in">println</span>(&lt;-ch)<br></code></pre></td></tr></table></figure>
+<p>此时，缓存队列不是满的，也不是空的，<code>channel</code>也不阻塞，可以进行发送或接收操作。<br>也就是说，有缓存<code>channel</code>实际上是解耦了<code>发送</code>和<code>接收</code>操作。<br>示意图如下：<br><img src="/./images/1695570577915.png" srcset="/images/loading.gif" lazyload alt="有缓存channel的发送和接收操作"></p>
+<p>channel内部缓存容量：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">fmt.Println(<span class="hljs-built_in">cap</span>(ch)) <span class="hljs-comment">// &quot;3”</span><br></code></pre></td></tr></table></figure>
+<p>channel内部缓存队列中有效元素的个数:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">fmt.Println(<span class="hljs-built_in">len</span>(ch)) <span class="hljs-comment">// &quot;2”</span><br></code></pre></td></tr></table></figure>
+<p>因为在并发程序中该信息会随着接收操作而失效，但是它对某些故障诊断和性能优化会有帮助。</p>
+<p>下面的例子展示了一个使用了带缓存<code>channel</code>的应用。<br>程序并发地向三个镜像站点发出请求，三个镜像站点分散在不同的地理位置。它们分别将收到的响应发送到带缓存<code>channel</code>，最后接收者只接收第一个收到的响应，也就是最快的那个响应。因此<code>mirroredQuery</code>函数可能在另外两个响应慢的镜像站点响应之前就返回了结果。（顺便说一下，多个<code>goroutines</code>并发地向同一个<code>channel</code>发送数据，或从同一个<code>channel</code>接收数据都是常见的用法。）</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mirroredQuery</span><span class="hljs-params">()</span></span> <span class="hljs-type">string</span> &#123;<br>    responses := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">string</span>, <span class="hljs-number">3</span>)<br>    <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123; responses &lt;- request(<span class="hljs-string">&quot;asia.gopl.io&quot;</span>) &#125;()<br>    <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123; responses &lt;- request(<span class="hljs-string">&quot;europe.gopl.io&quot;</span>) &#125;()<br>    <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123; responses &lt;- request(<span class="hljs-string">&quot;americas.gopl.io&quot;</span>) &#125;()<br>    <span class="hljs-keyword">return</span> &lt;-responses <span class="hljs-comment">// return the quickest response</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">request</span><span class="hljs-params">(hostname <span class="hljs-type">string</span>)</span></span> (response <span class="hljs-type">string</span>) &#123; <span class="hljs-comment">/* ... */</span> &#125;<br></code></pre></td></tr></table></figure>
+<p>如果使用了无缓存的<code>channel</code>，那么两个慢的<code>goroutine</code>将会因没有接收者而永远阻塞，这种情况称为<code>goroutine泄露</code>。<br>与垃圾回收机制不同，泄露的<code>goroutine</code>并不会被自动回收，因此确保每个不再需要的<code>gotoutinr</code>能正常退出是很重要的。</p>
+<h1 id="无缓存和带缓存的channel的选择"><a href="#无缓存和带缓存的channel的选择" class="headerlink" title="无缓存和带缓存的channel的选择"></a>无缓存和带缓存的channel的选择</h1><p>无缓存和带缓存的channel选择其实也是带缓存<code>channel</code>容量大小的选择。</p>
+<p>无缓存channel能保证每个发送操作与相应的接收操作同步。<br>带缓存channel中，发送和接收操作是解耦的。</p>
+<p>即使知道发送到<code>channel</code>上的信息的数量上限，创建一个对应容量大小带缓存<code>channel</code>也是不现实的。因为如果在执行接收操作前缓存了所有已经发送的值，在未能分配足够的缓冲将导致死锁。 </p>
+<p><code>channel</code>的缓存也可能影响程序的性能。<br>发送操作和接收操作的速率不一致，将会导致整个流程的进度。<br>所以如何合理分配<code>channel</code>的缓存容量，要依实际需求而决定。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="print-no-link">#读书笔记</a>
+      
+        <a href="/tags/go/" class="print-no-link">#go</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>8.4. Channels</div>
+      <div>https://succeedwer.github.io/posts/e24baaf2eab7/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WER</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月18日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年3月18日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/5f0a41aff939/" title="8.5. 并发的循环">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">8.5. 并发的循环</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/10cf7d1432ab/" title="8.3. 示例：并发的Echo服务器">
+                        <span class="hidden-mobile">8.3. 示例：并发的Echo服务器</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

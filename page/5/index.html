@@ -229,15 +229,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/68c22f5501fb/" target="_self">
-          3.6. 常量
+        <a href="/posts/d3aed5deb5f5/" target="_self">
+          7.9. 示例：表达式求值
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/68c22f5501fb/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/d3aed5deb5f5/" target="_self">
         <div>
-          常量表达式的值在编译期间计算，而非运行期。常量的潜在类型都是基础类型：boolean、string或数字。 常量的声明语句定义了常量的名字，与变量声明语法类似。常量的值不可改变 ，以防止在运行期间被意外或恶意修改。 1const pi = 3.14159 或批量声明多个相关常量： 1234const (    e  = 2.7182818284590452353602874713526624977
+          表达式求值器在本节中，我们会构建一个简单算术表达式的求值器。下面为一些表达式。 123sqrt(A / pi)pow(x, 3) + pow(y, 3)(F - 32) * 5 / 9”  使用一个接口Expr来表示Go语言中任意的表达式。  1type Expr interface&#123;&#125; Var类型表示一个变量。  1type Var string literal类型表示一个浮
         </div>
       </a>
 
@@ -245,8 +245,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-13 17:52" pubdate>
-              2023-03-13
+            <time datetime="2023-03-17 19:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -299,15 +299,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/a309a7c16f6a/" target="_self">
-          3.5. 字符串
+        <a href="/posts/21f47e2c8c53/" target="_self">
+          7.8. error接口
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/a309a7c16f6a/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/21f47e2c8c53/" target="_self">
         <div>
-          字符串是不可变的字节序列。字符串包含任意数据，包括byte值0。文本字符串通常被解释为采用UTF8编码的Unicode码（rune）序列。 内置的len函数返回字符串的字节数量，不是rune字符数量。索引操作s[i]返回第i个字节的值，i必须满足0 ≤ i&lt; len(s)。 123s := &quot;hello, world&quot;fmt.Println(len(s))     //
+          error接口error接口是interface类型，这个类型只有一个返回错误信息的方法。 123type error interface &#123;	Error() string&#125; 创建errorerrors.New创建error的最简单方法就是调用errors.New函数。 12345678910111213package errorsfunc New(text string) e
         </div>
       </a>
 
@@ -315,8 +315,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-13 16:52" pubdate>
-              2023-03-13
+            <time datetime="2023-03-17 18:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -369,15 +369,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/d98a81de6430/" target="_self">
-          3.4. 布尔型
+        <a href="/posts/fc3145dbfc40/" target="_self">
+          7.7. http.Handler接口
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/d98a81de6430/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/fc3145dbfc40/" target="_self">
         <div>
-          布尔值的运算一元运算符!对应逻辑非操作，!true=false，!false=true。 二元运算符&amp;&amp;(AND)对应逻辑与||(OR)对应逻辑或如果运算符左边已经可以确定整个布尔表达式的值，那么运算符右边的值将不被求值，因此下面的表达式并非异常： 123s := &quot;&quot;fmt.Println(s != &quot;&quot; &amp;&amp; s[0]
+          Handlerhttp.Handler接口用于实现客户端和服务器。具体接口如下: 123type Handler interface &#123;	ServeHTTP(ResponseWriter, *Request)&#125; 而常与func ListenAndServe(address string, h Handler) error结合使用，该方法需要一个服务器地址和接口分派的Handle
         </div>
       </a>
 
@@ -385,8 +385,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-13 15:52" pubdate>
-              2023-03-13
+            <time datetime="2023-03-17 17:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -439,15 +439,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/01a5b9d8501c/" target="_self">
-          3.3. 复数
+        <a href="/posts/8d8e98ca9007/" target="_self">
+          7.6. sort.Interface接口
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/01a5b9d8501c/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/8d8e98ca9007/" target="_self">
         <div>
-          3.3.1. 复数的构建复数构建：complex()返回复数的实部：real()返回复数的虚部：imag() 123456var x complex128 = complex(1, 2)var y complex128 = complex(3, 4)fmt.Println(x)           // (1 + 2i)fmt.Println(x * y)       // (1 + 2i) *
+          解析sort包内包含对任何序列进行排序的接口，sort.Interface接口。该接口规定了序列的排序算法和对序列类型之间的约定。排序算法包含了以下三个要点：  序列长度 元素比较的结果 交换元素的方式  三个要点也对应着sort.Interface的三个方法： 12345type Interface interface &#123;	Len() int	Less(i, j int) bool	S
         </div>
       </a>
 
@@ -455,8 +455,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-13 14:52" pubdate>
-              2023-03-13
+            <time datetime="2023-03-17 16:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -509,15 +509,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/2a4f4f65e7ca/" target="_self">
-          3.1. 整型
+        <a href="/posts/b8be0b651295/" target="_self">
+          7.5 接口值
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/2a4f4f65e7ca/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/b8be0b651295/" target="_self">
         <div>
-          对应不同的CPU平台机器字大小的分为有符合和无符号整数int和uint。这两种类型都有对应32或64bit。 Unicode字符rune类型是和int32等价的类型，通常用于表示一个人Unicode码。这两个名称可以互换使用，同样byte也是unit8类型的等价类型，byte类型一般用于强调数值是一个原始的数据而不是一个小的整数。 无符号的整数类型uintptr，没有指定具体的bit大小但是足以
+          基本概念接口值由两部分组成，具体类型和类型的值，也称为动态类型和动态值。如下例子： 1234var w io.Writerw = os.Stdoutw = new(bytes.Buffer)w = nil 4个语句中，变量w得到了3个不同的值。在Go语言中，变量在声明中会被初始化为其类型的零值。对于接口类型，同样会被初始化为零值，一个接口的零值指的是接口的类型和值都是nil。一个接口值基于它的动态
         </div>
       </a>
 
@@ -525,8 +525,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-13 13:52" pubdate>
-              2023-03-13
+            <time datetime="2023-03-17 15:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -579,15 +579,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/0a1ced1a832c/" target="_self">
-          第三章 基础数据类型
+        <a href="/posts/146b263d555d/" target="_self">
+          7.4 flag.Value接口
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/0a1ced1a832c/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/146b263d555d/" target="_self">
         <div>
-          从底层来说，所有数据都是由bit组成，但计算机一般操作的是固定大小的数，如整数、浮点数、bit数组、内存地址等。进一步组合这些数据，就可以表达出更多对象。内置的数据类型保证了硬件的特性和表达复杂数据结构的便捷性。  3.1. 整型 3.2. 浮点数 3.3. 复数 3.4. 布尔型 3.5. 字符串 3.6. 常量
+          使用flag.Value接口，可以定义新的命令行符号。下面是休眠特定时间的例子： 12345678910111213141516package mainimport (	&quot;flag&quot;	&quot;fmt&quot;	&quot;time&quot;)var period = flag.Duration(&quot;period&quot;, 1*time.Second, &qu
         </div>
       </a>
 
@@ -595,8 +595,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-13 12:52" pubdate>
-              2023-03-13
+            <time datetime="2023-03-17 14:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -649,15 +649,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/5b89ef7a41d0/" target="_self">
-          2.7. 作用域
+        <a href="/posts/001ff23c523b/" target="_self">
+          7.3 实现接口的条件
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/5b89ef7a41d0/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/001ff23c523b/" target="_self">
         <div>
-          声明语句将程序中的实体和名字关联，如函数，变量。声明语句的作用域是指源代码中可以有效使用这个名字的范围。 不能将作用域与生命周期混为一谈。声明语句的作用域对应的是源代码的文本区域；是一个编译时的属性。变量的生命周期是指程序运行的是变量存在的有效时间段，在此时间段内可以被程序的其它部分引用；是一个运行时的概念。 语法块是由花括弧所包含的一系列语句，如函数体或循环体花括弧对应的语法块一样。语法块内部声
+          实现接口的规则一个类型如果拥有一个接口需要的所有方法，那么这个类型就实现了这个接口。如果一个类型属于某个接口，只要这个类型实现这个接口。如果某类型能够赋值或new对象赋值给接口类型，那么说明该类型实现了接口的所有方法。 12345678910var w io.Writerw = os.Stdout         // *File 实现了Write方法w = new(bytes.Buffer) /
         </div>
       </a>
 
@@ -665,8 +665,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-12 18:52" pubdate>
-              2023-03-12
+            <time datetime="2023-03-17 13:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -719,15 +719,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/4bd2d633ee16/" target="_self">
-          2.6. 包和文件
+        <a href="/posts/55bc49f4b7cc/" target="_self">
+          7.2. 接口类型
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/4bd2d633ee16/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/55bc49f4b7cc/" target="_self">
         <div>
-          包的存在是为了支持模块化、封装、单独编译和代码重用。 每个包都对应一个独立的命名空间。如: image包中的Decode函数和在unicode/uft16包中的Decode函数是不同的。要在外部引用该函数，必须显式使用image.Decode或uft16.Decode形式来访问。 包还可以实现可见性。规则：以大写字母开头的，那么该名字是可导出的。（因为中文汉字不区分大小写，因此汉字开头的名字是不可
+          接口类型具体描述了一系列方法的集合，一个实现了这些方法的具体类型是这个接口类型的实例。 单方法接口命名在Go语言中，单方法接口的命名习惯是很常见的。 1234567package iotype Reader interface &#123;    Read(p []byte) (n int, err error)&#125;type Closer interface &#123;    Close
         </div>
       </a>
 
@@ -735,8 +735,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-12 17:52" pubdate>
-              2023-03-12
+            <time datetime="2023-03-17 12:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -789,15 +789,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/9f13bfd0f9d8/" target="_self">
-          2.5. 类型
+        <a href="/posts/8e657f0750ec/" target="_self">
+          7.1. 接口约定
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/9f13bfd0f9d8/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/8e657f0750ec/" target="_self">
         <div>
-          变量或表达式的类型定义了对应存储值的属性特征，如：  值在内存的存储大小（或者是元素的bit个数）。 它们在内部是如何表达的。 是否支持一些操作符。 它们自己关联的方法集。  类型声明语句创建了一个新的类型名称，和现有类型具有相同的底层结构。新命名的类型提供了一个方法，用来分隔不同概念的类型，这样即使它们底层类型相同也是不兼容的。 1type 类型名称 底层类型 类型声明语句一般出现在包一级，且新
+          接口类型是一种抽象的类型。它不会暴露出它所代表的对象的内部值的结构和这个对象支持的基础操作的集合；它们只会展示出它们自己的方法。 下面*ByteCounter类型里的Write方法，仅仅在丢失写向它的字节前统计它们的长度。(在这个+&#x3D;赋值语句中，让len(p)的类型和*c的类型匹配的转换是必须的。) 1234567891011121314151617181920212223// Byte
         </div>
       </a>
 
@@ -805,8 +805,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-12 16:52" pubdate>
-              2023-03-12
+            <time datetime="2023-03-17 11:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -859,15 +859,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/7095472d910d/" target="_self">
-          2.3.变量
+        <a href="/posts/f2552a5080b3/" target="_self">
+          第七章 接口
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/7095472d910d/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/f2552a5080b3/" target="_self">
         <div>
-          var声明语句可以创建一个特定类型的变量，然后给变量附加一个名字，并且设置变量的初始值。变量声明的一般语法如下： 1var 变量名称 类型 = 表达式 类型或”&#x3D;表达式”两个部分可以省略其中的一个。如果省略的是类型，那么将根据初始化表达式来推导变量的类型。如果初始化表达式被省略，那么将用零值初始化该变量。数值类型变量对应的零值是0，布尔类型变量对应的零值是false，字符串类型对应的零值
+          接口类型是对其它类型行为的抽象和概括。Go语言中接口类型的独特之处在于它是满足隐式实现的。也就是说，我们没有必要对于给定的具体类型定义所有满足的接口类型；简单地拥有一些必需的方法就足够了。 7.1. 接口约定7.2. 接口类型7.3. 实现接口的条件7.4. flag.Value接口7.5. 接口值7.6. sort.Interface接口7.7. http.Handler接口7.8. error
         </div>
       </a>
 
@@ -875,8 +875,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-12 15:52" pubdate>
-              2023-03-12
+            <time datetime="2023-03-17 10:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -927,7 +927,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/4/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/#board">6</a><a class="page-number" href="/page/7/#board">7</a><a class="extend next" rel="next" href="/page/6/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/4/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/#board">6</a><a class="page-number" href="/page/7/#board">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/#board">10</a><a class="extend next" rel="next" href="/page/6/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

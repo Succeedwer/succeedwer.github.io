@@ -229,15 +229,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/8633284a6bad/" target="_self">
-          6.2. 基于指针对象的方法
+        <a href="/posts/1294ae8bb0f7/" target="_self">
+          9.3. sync.RWMutex读写锁
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/8633284a6bad/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/1294ae8bb0f7/" target="_self">
         <div>
-          声明当调用一个函数时，会对每一个参数值进行拷贝。如果函数的需要更新一个变量，或函数中的某个参数过于大，则希望避免进行默认的拷贝，这种情况可以用到指针。相对应到方法接受器，当接受者过于大，也可以使用指针而非接受者对象本身来声明方法。 1234func (p *Point) ScaleBy(factor float64) &#123;    p.X *= factor    p.Y *= factor
+          允许多个只读操作并发执行，但写操作完全互斥，这样的锁叫多读单写锁（multipe readers, single writer lock）， 在go语言中，sync.RWMutex是这样的锁。 调用了RLock和RUnlock方法来获取和释放一个读取或者共享锁。 RLock只能在临界区共享变量没有任何写入操作可用。不应该在只读函数&#x2F;方法内更新共享变量。 RWMutex只有当获得锁的大部分
         </div>
       </a>
 
@@ -245,8 +245,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-16 12:52" pubdate>
-              2023-03-16
+            <time datetime="2023-03-19 13:52" pubdate>
+              2023-03-19
             </time>
           </div>
         
@@ -299,15 +299,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/627a83e633ba/" target="_self">
-          6.1. 方法声明
+        <a href="/posts/da8e0d3d1c07/" target="_self">
+          9.2. sync.Mutex互斥锁
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/627a83e633ba/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/da8e0d3d1c07/" target="_self">
         <div>
-          在函数声明前加上一个变量，就是方法。第一个例子： 1234567891011121314151617package geometryimport &quot;math&quot;type Point struct &#123;	X, Y float64&#125;// traditional functionfunc Distance(p, q Point) float64 &#123;	retu
+          channel互斥在前面例子中，我们用buffered channel来设计sema信号量，来保证至多20个goroutine同时执行http请求。如果使用容量只有1的channel来保证至多1个goroutine同一时刻来访问一个共享变量，这样也能达成互斥。 123456789101112131415161718package bankvar (	sema    = make(chan stru
         </div>
       </a>
 
@@ -315,8 +315,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-16 11:52" pubdate>
-              2023-03-16
+            <time datetime="2023-03-19 12:52" pubdate>
+              2023-03-19
             </time>
           </div>
         
@@ -369,15 +369,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/b376389fd346/" target="_self">
-          第六章 方法
+        <a href="/posts/df4edc666b3d/" target="_self">
+          9.1. 竞争条件
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/b376389fd346/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/df4edc666b3d/" target="_self">
         <div>
-          6.1. 方法声明 6.2. 基于指针对象的方法 6.3. 通过嵌入式结构体来扩展类型 6.4. 方法值和方法表达式 6.5. 示例：Bit数组 6.6. 封装
+          在线性的程序中，即只有一个goroutine，程序的执行顺序由程序逻辑决定。当我们无法确认两个事件之间执行的先后顺序时，说明这两个事件是并发的。 在并发的情况下，函数能够正确并正常运行，那么可以说这个函数是并发安全的。并发安全的函数不需要额外进行同步。同样的，不但适用于函数，还可以适用于类型的函数和方法，如果这个类型是并发安全的，那么类型的方法和函数同样是并发安全的。 导出包级别的函数一般情况下是
         </div>
       </a>
 
@@ -385,8 +385,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-16 10:52" pubdate>
-              2023-03-16
+            <time datetime="2023-03-19 11:52" pubdate>
+              2023-03-19
             </time>
           </div>
         
@@ -439,15 +439,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/b0cbde1e1f43/" target="_self">
-          5.9. Panic异常
+        <a href="/posts/261f973145a5/" target="_self">
+          第九章 基于共享变量的并发
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/b0cbde1e1f43/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/261f973145a5/" target="_self">
         <div>
-          一般而言，当panic异常发生时，程序会中断运行，并立即执行在该goroutine中被延迟的函数(defer机制)，随后，程序崩溃并输出日志信息。日志信息包括panic value和函数调用的堆栈跟踪信息。不是所有的panic异常都来自运行时，直接调用内置的panic函数也会引起panic异常。panic函数可接受任何值作为参数。 123456789101112switch s := suit(d
+          在未引入锁机制前，我们可以使用不要用共享数据来通信，使用通信来共享数据，即单独goroutine访问局部变量。本章主要为Go语言的锁机制。 9.1. 竞争条件9.2. sync.Mutex互斥锁9.3. sync.RWMutex读写锁9.4. 内存同步9.5. sync.Once初始化9.6. 竞争条件检测9.7. 并发的非阻塞缓存9.8. Goroutines和线程
         </div>
       </a>
 
@@ -455,8 +455,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 19:52" pubdate>
-              2023-03-15
+            <time datetime="2023-03-19 10:52" pubdate>
+              2023-03-19
             </time>
           </div>
         
@@ -509,15 +509,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/6f685641f7fc/" target="_self">
-          5.8. Deferred函数
+        <a href="/posts/92d779dbee59/" target="_self">
+          8.9. 并发的退出
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/6f685641f7fc/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/92d779dbee59/" target="_self">
         <div>
-          定义在普通函数前加上关键字defer时，当defer语句被执行时，其后面的函数会被延迟执行。直到包含该defer语句的函数执行完毕时，defer后的函数才会被执行，无论是包含defer的函数通过return正常结束或由于panic导致的异常结束。一个函数中可以执行多条defer语句，它们的执行顺序与声明的顺序相反。 使用技巧defer语句常用于处理成对的操作，如打开、关闭、连接、断开连接、加锁、释
+          书接上回，话说上章节实现du工具，并做了进一步扩展，在本章节进行进一步的扩展。如果du的文件目录下有很多很大的文件，那么时间就会增加，这时，用户等待到不耐烦了，就想退出但又不想通过kill程序。 思路众所周知，如果我们需要通知正在运行的goroutine停止它手头上的事时，如web服务器端要中断已经和服务器断开连接的客户端，go语言并没有提供这样的方法。换个思路，在先前的章节中，我们有通过往cha
         </div>
       </a>
 
@@ -525,8 +525,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 18:52" pubdate>
-              2023-03-15
+            <time datetime="2023-03-18 19:52" pubdate>
+              2023-03-18
             </time>
           </div>
         
@@ -579,15 +579,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/f16f86776a10/" target="_self">
-          5.7. 可变参数
+        <a href="/posts/dbf617f2750e/" target="_self">
+          8.8. 示例：并发的字典遍历
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/f16f86776a10/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/dbf617f2750e/" target="_self">
         <div>
-          定义参数数量可变的函数称为可变参数函数。如fmt.Printf和类似参数。  在声明可变参数函数时，需要在参数列表的最后一个参数类型之前加上省略符号...，表示该函数会接受任何数量的该类型参数。  1234567 func sum(vals ...int) int  &#123;	total := 0	for _, val := range vals &#123;		total += val	&#
+          题目创建一个程序来统计指定目录下的硬盘使用报告，即文件大小，与linux中的du命令类似。 思路毫无疑问，这道题要使用递归去解决。  创建walkDir递归函数，用于获取下层目录，并统计文件大小。 创建dirents函数用于读取目录下的文件目录。 使用fileSize channel去接受发送文件大小。 接收fileSize channel去累加文件大小。  第一个版本该版本比较直白，下面是它的步
         </div>
       </a>
 
@@ -595,8 +595,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 17:52" pubdate>
-              2023-03-15
+            <time datetime="2023-03-18 18:52" pubdate>
+              2023-03-18
             </time>
           </div>
         
@@ -649,15 +649,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/f29c530bb54f/" target="_self">
-          5.6. 匿名函数
+        <a href="/posts/866000668cee/" target="_self">
+          8.7. 基于select的多路复用
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/f29c530bb54f/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/866000668cee/" target="_self">
         <div>
-          匿名函数的定义拥有函数名的函数只能在包级语法块中被声明。可以通过函数字面量（function literal），可以绕过限制，在任何表达式内表示函数值。没有名字的函数，即函数值字面量，被称为匿名函数（anonymous function）。 函数字面量可以在使用函数时，再定义。如下： 123strings.Map(func(r rune) rune &#123;	return r + 1&#125
+          select下面以火箭发射倒计时为例，说明select的多路复用。 123456789101112131415161718192021// Countdown implement the countdown for a rocket launch.package mainimport (	&quot;fmt&quot;	&quot;time&quot;)func main() &#123;	fmt
         </div>
       </a>
 
@@ -665,8 +665,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 16:52" pubdate>
-              2023-03-15
+            <time datetime="2023-03-18 17:52" pubdate>
+              2023-03-18
             </time>
           </div>
         
@@ -719,15 +719,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/e0d18dccf0bc/" target="_self">
-          5.5. 函数值
+        <a href="/posts/1258766bd2ef/" target="_self">
+          8.6. 示例：并发的Web爬虫
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/e0d18dccf0bc/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/1258766bd2ef/" target="_self">
         <div>
-          在Go中，函数被看作第一类值（first-class values）：函数像其他值一样，拥有类型，可以被赋值给其他变量，传递给函数，从函数返回。对函数值（function value）的调用类似函数调用。例子如下： 1234567891011121314151617181920212223242526package mainimport &quot;fmt&quot;func square(n i
+          在先前的学习中，学习过简单爬虫算法，用bfs(广度优先)算法来抓取整个网站。下面对其进行优化： 12345678910111213141516171819202122232425262728293031323334353637// Crawl1 crawls web links starting with the command-line arguments.package mainimport
         </div>
       </a>
 
@@ -735,8 +735,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 15:52" pubdate>
-              2023-03-15
+            <time datetime="2023-03-18 16:52" pubdate>
+              2023-03-18
             </time>
           </div>
         
@@ -789,15 +789,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/b269706cb426/" target="_self">
-          5.4. 错误
+        <a href="/posts/5f0a41aff939/" target="_self">
+          8.5. 并发的循环
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/b269706cb426/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/5f0a41aff939/" target="_self">
         <div>
-          函数对于运行失败预期结果，都会返回一个额外的返回值，通常是最后一个，用于传递错误信息。额外的返回值可以是一个布尔值，通常被命名为ok。 1234value, ok := cache.Lookup(key)if !ok &#123;	...&#125; 也可以返回error类型的返回值。当error为nil，则代表运行成功，error为non-nil时表示失败。对于non-nil的error类型，可
+          在并发的情况下，循环迭代的程序往往要注意一些问题。下面引用对图片批量压缩的例子进行解析。thumbnail.go是关于拉伸图片的方法。 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707
         </div>
       </a>
 
@@ -805,8 +805,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 14:52" pubdate>
-              2023-03-15
+            <time datetime="2023-03-18 15:52" pubdate>
+              2023-03-18
             </time>
           </div>
         
@@ -859,15 +859,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/3b104e15a027/" target="_self">
-          5.3. 多返回值
+        <a href="/posts/e24baaf2eab7/" target="_self">
+          8.4. Channels
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/3b104e15a027/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/e24baaf2eab7/" target="_self">
         <div>
-          在Go中，一个函数可以返回多个值。 下面的程序是findlinks的改进版本。修改后的findlinks可以自己发起HTTP请求，这样我们就不必再运行fetch。因为HTTP请求和解析操作可能会失败，因此findlinks声明了2个返回值：链接列表和错误信息。一般而言，HTML的解析器可以处理HTML页面的错误结点，构造出HTML页面结构，所以解析HTML很少失败。这意味着如果findlinks函
+          基本信息定义如果说goroutine是go语言的并发体，那么Channels是它们之间的通信机制。一个goroutine可以通过Channels发送信息给另一个goroutine。每个Channels都有其可发送的数据的数据类型，如一个可以发送int类型数据的channel一般写为chan int。 创建channel使用内置的make函数，我们可以创建一个channel： 1ch := make
         </div>
       </a>
 
@@ -875,8 +875,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 13:52" pubdate>
-              2023-03-15
+            <time datetime="2023-03-18 14:52" pubdate>
+              2023-03-18
             </time>
           </div>
         
@@ -927,7 +927,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/2/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#board">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/#board">4</a><a class="page-number" href="/page/5/#board">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/#board">7</a><a class="extend next" rel="next" href="/page/4/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/2/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#board">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/#board">4</a><a class="page-number" href="/page/5/#board">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/#board">10</a><a class="extend next" rel="next" href="/page/4/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

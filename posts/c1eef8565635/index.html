@@ -1,0 +1,785 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="可以使用go或go help获取内置的帮助文档。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253$ goGo is a tool for managing Go source code.Usage:	go &lt;command&gt; [argume">
+<meta property="og:type" content="article">
+<meta property="og:title" content="10.7. 工具">
+<meta property="og:url" content="https://succeedwer.github.io/posts/c1eef8565635/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:description" content="可以使用go或go help获取内置的帮助文档。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253$ goGo is a tool for managing Go source code.Usage:	go &lt;command&gt; [argume">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-20T09:52:19.000Z">
+<meta property="article:modified_time" content="2024-03-18T11:14:20.000Z">
+<meta property="article:author" content="WER">
+<meta property="article:tag" content="读书笔记">
+<meta property="article:tag" content="go">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>10.7. 工具 - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="10.7. 工具"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-20 17:52" pubdate>
+          2023年3月20日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          31 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">10.7. 工具</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>可以使用<code>go</code>或<code>go help</code>获取内置的帮助文档。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go</span><br>Go is a tool for managing Go source code.<br><br>Usage:<br><br>	go &lt;command&gt; [arguments]<br><br>The commands are:<br><br>	bug         start a bug report<br>	build       compile packages and dependencies<br>	clean       remove object files and cached files<br>	doc         show documentation for package or symbol<br>	env         print Go environment information<br>	fix         update packages to use new APIs<br>	fmt         gofmt (reformat) package sources<br>	generate    generate Go files by processing source<br>	get         download and install packages and dependencies<br>	install     compile and install packages and dependencies<br>	list        list packages or modules<br>	mod         module maintenance<br>	work        workspace maintenance<br>	run         compile and run Go program<br>	test        test packages<br>	tool        run specified go tool<br>	version     print Go version<br>	vet         report likely mistakes in packages<br><br>Use &quot;go help &lt;command&gt;&quot; for more information about a command.<br><br>Additional help topics:<br><br>	buildconstraint build constraints<br>	buildmode       build modes<br>	c               calling between Go and C<br>	cache           build and test caching<br>	environment     environment variables<br>	filetype        file types<br>	go.mod          the go.mod file<br>	gopath          GOPATH environment variable<br>	gopath-get      legacy GOPATH go get<br>	goproxy         module proxy protocol<br>	importpath      import path syntax<br>	modules         modules, module versions, and more<br>	module-get      module-aware go get<br>	module-auth     module authentication using go.sum<br>	packages        package lists and patterns<br>	private         configuration for downloading non-public code<br>	testflag        testing flags<br>	testfunc        testing functions<br>	vcs             controlling version control with GOVCS<br><br>Use &quot;go help &lt;topic&gt;&quot; for more information about that topic.<br></code></pre></td></tr></table></figure>
+<h1 id="GOPATH"><a href="#GOPATH" class="headerlink" title="GOPATH"></a>GOPATH</h1><p><code>GOPATH</code>: 指定工作区目录的环境变量。<br>设置命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">export</span> GOPATH=<span class="hljs-variable">$HOME</span>/gobook</span><br></code></pre></td></tr></table></figure>
+<p>工作区目录结构：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs shell">GOPATH/<br>    src/<br>        gopl.io/<br>            .git/<br>            ch1/<br>                helloworld/<br>                    main.go<br>                dup/<br>                    main.go<br>                ...<br>        golang.org/x/net/<br>            .git/<br>            html/<br>                parse.go<br>                node.go<br>                ...<br>    bin/<br>        helloworld<br>        dup<br>    pkg/<br>        darwin_amd64/<br>        ...<br></code></pre></td></tr></table></figure>
+
+<p><code>GOPATH</code>下有三个指定的目录：<br><code>src</code>目录用于存储源码。<br><code>pkg</code>目录用于保存编译后的包的目标文件。<br><code>bin</code>目录是保存编译后的可执行文件。</p>
+<h1 id="GOROOT"><a href="#GOROOT" class="headerlink" title="GOROOT"></a>GOROOT</h1><p>环境变量<code>GOROOT</code>:用来指定Go的安装目录，还有它自带的标准库包的位置。<br>GOROOT的目录结构和GOPATH类似，因此存放fmt包的源代码对应目录应该为$GOROOT&#x2F;src&#x2F;fmt。<br>用户一般不需要设置GOROOT，默认情况下Go语言安装工具会将其设置为安装的目录路径。</p>
+<h1 id="GOOS"><a href="#GOOS" class="headerlink" title="GOOS"></a>GOOS</h1><p>环境变量<code>GOOS</code>: 指定目标的操作系统。<br>android、linux、darwin和windows。</p>
+<h1 id="GOARCH"><a href="#GOARCH" class="headerlink" title="GOARCH"></a>GOARCH</h1><p>环境变量<code>GOARCH</code>：用于指定处理器类型。<br>amd64、386或arm。</p>
+<h1 id="go-env-命令"><a href="#go-env-命令" class="headerlink" title="go env 命令"></a>go env 命令</h1><p><code>go env</code>:  用于查看Go语言工具索涉及的所有环境变量，包括未设置环境变量的默认值。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go <span class="hljs-built_in">env</span></span><br>GO111MODULE=&quot;off&quot;<br>GOARCH=&quot;amd64&quot;<br>GOBIN=&quot;&quot;<br>GOCACHE=&quot;/Users/***/Library/Caches/go-build&quot;<br>GOENV=&quot;/Users/***/Library/Application Support/go/env&quot;<br>GOEXE=&quot;&quot;<br>GOEXPERIMENT=&quot;&quot;<br>GOFLAGS=&quot;-buildvcs=true&quot;<br>GOHOSTARCH=&quot;amd64&quot;<br>GOHOSTOS=&quot;darwin&quot;<br>GOINSECURE=&quot;**.com&quot;<br>GOMODCACHE=&quot;/Users/***/go/pkg/mod&quot;<br>GONOPROXY=&quot;&quot;<br>GONOSUMDB=&quot;&quot;<br>GOOS=&quot;darwin&quot;<br>GOPATH=&quot;/Users/***/go&quot;<br>GOPRIVATE=&quot;&quot;<br>GOPROXY=&quot;https://goproxy.cn,direct&quot;<br>GOROOT=&quot;/usr/local/go&quot;<br>GOSUMDB=&quot;sum.golang.org&quot;<br>GOTMPDIR=&quot;&quot;<br>GOTOOLDIR=&quot;/usr/local/go/pkg/tool/darwin_amd64&quot;<br>GOVCS=&quot;&quot;<br>GOVERSION=&quot;go1.19.2&quot;<br>GCCGO=&quot;gccgo&quot;<br>GOAMD64=&quot;v1&quot;<br>AR=&quot;ar&quot;<br>CC=&quot;clang&quot;<br>CXX=&quot;clang++&quot;<br>CGO_ENABLED=&quot;1&quot;<br>GOMOD=&quot;&quot;<br>GOWORK=&quot;&quot;<br>CGO_CFLAGS=&quot;-g -O2&quot;<br>CGO_CPPFLAGS=&quot;&quot;<br>CGO_CXXFLAGS=&quot;-g -O2&quot;<br>CGO_FFLAGS=&quot;-g -O2&quot;<br>CGO_LDFLAGS=&quot;-g -O2&quot;<br>PKG_CONFIG=&quot;pkg-config&quot;<br>GOGCCFLAGS=&quot;-fPIC -arch x86_64 -m64 -pthread -fno-caret-diagnostics -Qunused-arguments -fmessage-length=0 -fdebug-prefix-map=/var/folders/mp/zjw7t9hn7zg7ntbghwqk7f1r0000gn/T/go-build1417725864=/tmp/go-build -gno-record-gcc-switches -fno-common&quot;<br></code></pre></td></tr></table></figure>
+
+<h1 id="go-get"><a href="#go-get" class="headerlink" title="go get"></a>go get</h1><p><code>go get</code>：下载一个单一的包或者用…下载整个子目录里面的每个包。<br>使用<code>go get</code>命令下载<code>golint</code>包。<br><code>golint</code>包是用于检测Go语言源码编程风格是否有问题。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go get github.com/golang/lint/golint</span><br></code></pre></td></tr></table></figure>
+<p>包下载目录为GOPATH。</p>
+<p><code>go get</code>命令支持当前流行的托管网站GitHub、Bitbucket和Launchpad，可以直接向它们的版本控制系统请求代码。<br>对于其它的网站，你可能需要指定版本控制系统的具体路径和协议，例如 Git或Mercurial。运行go help importpath获取相关的信息。</p>
+<p><code>go get</code>命令获取的代码是真实的本地存储仓库，而不仅仅只是复制源文件，因此你依然可以使用版本管理工具比较本地代码的变更或者切换到其它的版本。<br>例如<code>golang.org/x/net</code>包目录对应一个Git仓库:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">cd</span> <span class="hljs-variable">$GOPATH</span>/src/golang.org/x/net</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">git remote -v</span><br>origin  https://go.googlesource.com/net (fetch)<br>origin  https://go.googlesource.com/net (push)<br></code></pre></td></tr></table></figure>
+
+<p>需要注意的是导入路径含有的网站域名和本地Git仓库对应远程服务地址并不相同，真实的Git地址是go.googlesource.com。这其实是Go语言工具的一个特性，可以让包用一个自定义的导入路径，但是真实的代码却是由更通用的服务提供。<br>其git仓库真实托管路径是由html网页中的meta元素提供，如“ <a target="_blank" rel="noopener" href="https://golang.org/x/net/html%22%E3%80%82">https://golang.org/x/net/html&quot;。</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go build gopl.io/ch1/fetch</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">./fetch https://golang.org/x/net/html | grep go-import</span><br>&lt;meta name=&quot;go-import&quot;<br>      content=&quot;golang.org/x/net git https://go.googlesource.com/net&quot;&gt;<br></code></pre></td></tr></table></figure>
+
+<p><code>-u</code> 命令行标志参数，表示<code>go get</code>获取所有的包和依赖包都是最新的。<br>如果不包含该参数，且本地存在该包，那么包将不会被更新。</p>
+<p><code>go get -u</code>命令只是简单地保证每个包是最新版本，如果是第一次下载包则是比较很方便的；但是对于发布程序则可能是不合适的，因为本地程序可能需要对依赖的包做精确的版本依赖管理。</p>
+<p>GO1.5版本后，可以使用Vendor可以做包的依赖管理。</p>
+<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><p><strong>练习 10.3:</strong> 从 <a target="_blank" rel="noopener" href="http://gopl.io/ch1/helloworld?go-get=1">http://gopl.io/ch1/helloworld?go-get=1</a> 获取内容，查看本书的代码的真实托管的网址（go get请求HTML页面时包含了go-get参数，以区别普通的浏览器请求）。<br>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">/*</span><br><span class="hljs-comment">./fetch http://gopl.io/ch1/helloworld?go-get=1 | grep go-import</span><br><span class="hljs-comment">&lt;meta name=&quot;go-import&quot; content=&quot;gopl.io git https://github.com/adonovan/gopl.io&quot;&gt;</span><br><span class="hljs-comment">*/</span><br><br><span class="hljs-comment">// real git address: https://github.com/adonovan/gopl.io</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="go-build"><a href="#go-build" class="headerlink" title="go build"></a>go build</h1><p><code>go build</code>命令编译命令行参数指定的每个包。<br>如果包是一个库，则忽略输出结果；这可以用于检测包的可以正确编译的。<br>如果包的名字是main，go build将调用连接器在当前目录创建一个可执行程序；<br>以导入路径的最后一段作为可执行程序的名字。</p>
+<p>当包编译创建可执行程序后，如果是类似Unix命令，可以把可以执行程序放在<code>cmd</code>子目录下。<br>例如用于提供Go文档服务的<code>golang.org/x/tools/cmd/godoc</code>命令就是放在cmd子目录。</p>
+<p>默认情况下，<code>go build</code>命令构建指定的包和它依赖的包，然后丢弃除了最后的可执行文件之外所有的中间编译结果。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">cat</span> quoteargs.go</span><br>package main<br><br>import (<br>    &quot;fmt&quot;<br>    &quot;os&quot;<br>)<br><br>func main() &#123;<br>    fmt.Printf(&quot;%q\n&quot;, os.Args[1:])<br>&#125;<br><span class="hljs-meta prompt_">$ </span><span class="language-bash">go build quoteargs.go</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">./quoteargs one <span class="hljs-string">&quot;two three&quot;</span> four\ five</span><br>[&quot;one&quot; &quot;two three&quot; &quot;four five&quot;]<br></code></pre></td></tr></table></figure>
+<h1 id="go-run"><a href="#go-run" class="headerlink" title="go run"></a>go run</h1><p><code>go run</code>命令实际上是结合了构建和运行的两个步骤。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">cat</span> quoteargs.go</span><br>package main<br><br>import (<br>    &quot;fmt&quot;<br>    &quot;os&quot;<br>)<br><br>func main() &#123;<br>    fmt.Printf(&quot;%q\n&quot;, os.Args[1:])<br>&#125;<br><span class="hljs-meta prompt_">$ </span><span class="language-bash">go run quoteargs.go one <span class="hljs-string">&quot;two three&quot;</span> four\ five</span><br>[&quot;one&quot; &quot;two three&quot; &quot;four five&quot;]<br></code></pre></td></tr></table></figure>
+
+<h1 id="go-install"><a href="#go-install" class="headerlink" title="go install"></a>go install</h1><p><code>go install</code>和<code>go build</code>命令类似，但是<code>go install</code>会保存所有包的编译结果，而不是丢弃。<br>被编译的包会被保存到<code>$GOPATH/pkg</code>目录下，目录路径和<code>src</code>目录路径对应，可执行程序被保存到<code>$GOPATH/bin</code>目录。</p>
+<p><code>go install</code>命令和<code>go build</code>命令都不会重新编译没有发生变化的包，这可以使后续构建更快捷。为了方便编译依赖的包，<code>go build -i</code>命令将安装每个目标所依赖的包。</p>
+<p>因为编译对应不同的操作系统平台和CPU架构，<code>go install</code>命令会将编译结果安装到GOOS和GOARCH对应的目录。例如，在Mac系统，<code>golang.org/x/net/html</code>包将“被安装到<code>$GOPATH/pkg/darwin_amd64</code>目录下的<code>golang.org/x/net/html.a</code>文件。</p>
+<p>如果需要不同操作系统和CPU的交叉编译，改变<code>GOOS</code>和<code>GOARCH</code>即可达成。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    fmt.Println(runtime.GOOS, runtime.GOARCH)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>下面以64位和32位环境分别执行程序：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go build gopl.io/ch10/cross</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">./cross</span><br>darwin amd64<br><span class="hljs-meta prompt_">$ </span><span class="language-bash">GOARCH=386 go build gopl.io/ch10/cross</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">./cross</span><br>darwin 386<br></code></pre></td></tr></table></figure>
+<p>有些包可能需要针对不同平台和处理器类型使用不同版本的代码文件，以便于处理底层的可移植性问题或提供为一些特定代码提供优化。如果一个文件名包含了一个操作系统或处理器类型名字，例如net_linux.go或asm_amd64.s，Go语言的构建工具将只在对应的平台编译这些文件。还有一个特别的构建注释注释可以提供更多的构建过程控制。例如，文件中可能包含下面的注释：”</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// +build linux darwin</span><br></code></pre></td></tr></table></figure>
+<p>在包声明和包注释的前面，该构建注释参数告诉go build只在编译程序对应的目标操作系统是Linux或Mac OS X时才编译这个文件。<br>下面的构建注释则表示不编译这个文件：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// +build ignore</span><br></code></pre></td></tr></table></figure>
+
+<p>详细细节参考go&#x2F;build包的构建约束部分的文档。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go doc go/build</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="包文档"><a href="#包文档" class="headerlink" title="包文档"></a>包文档</h1><p>包的第一行，应该是包的摘要说明，紧接着应该是包的声明。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Copyright 2018 The Go Authors. All rights reserved.</span><br><span class="hljs-comment">// Use of this source code is governed by a BSD-style</span><br><span class="hljs-comment">// license that can be found in the LICENSE file.</span><br><br><span class="hljs-keyword">package</span> fmt<br></code></pre></td></tr></table></figure>
+<p>这里是fmt包的其中一个注释，第一个是版权说明，接下来是包注释。</p>
+<p>如果包注释过于长，可以另起一个doc文件，专门写包注释，如fmt包中的doc.go。<br>通常保存包注释的文件，命名为doc.go。</p>
+<h2 id="go-doc"><a href="#go-doc" class="headerlink" title="go doc"></a>go doc</h2><p><code>go doc</code>命令是打印包注释以及每个成员的注释。<br>下面是time包的注释：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go doc time</span><br>package time // import &quot;time&quot;<br><br>Package time provides functionality for measuring and displaying time.<br><br>The calendrical calculations always assume a Gregorian calendar, with no leap<br>seconds.<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">Monotonic Clocks</span><br><br>Operating systems provide both a “wall clock,” which is subject to changes<br>for clock synchronization, and a “monotonic clock,” which is not. The general<br>rule is that the wall clock is for telling time and the monotonic clock is for<br>measuring time. Rather than split the API, in this package the Time returned by<br>time.Now contains both a wall clock reading and a monotonic clock reading; later<br>time-telling operations use the wall clock reading, but later time-measuring<br>operations, specifically comparisons and subtractions, use the monotonic clock<br>reading.<br><br>For example, this code always computes a positive elapsed time of approximately<br>20 milliseconds, even if the wall clock is changed during the operation being<br>timed:<br><br>    start := time.Now()<br>    ... operation that takes 20 milliseconds ...<br>    t := time.Now()<br>    elapsed := t.Sub(start)<br><br>Other idioms, such as time.Since(start), time.Until(deadline), and<br>time.Now().Before(deadline), are similarly robust against wall clock resets.<br><br>The rest of this section gives the precise details of how operations use<br>monotonic clocks, but understanding those details is not required to use this<br>package.<br><br>The Time returned by time.Now contains a monotonic clock reading. If Time t<br>has a monotonic clock reading, t.Add adds the same duration to both the wall<br>clock and monotonic clock readings to compute the result. Because t.AddDate(y,<br>m, d), t.Round(d), and t.Truncate(d) are wall time computations, they always<br>strip any monotonic clock reading from their results. Because t.In, t.Local,<br>and t.UTC are used for their effect on the interpretation of the wall time,<br>they also strip any monotonic clock reading from their results. The canonical<br>way to strip a monotonic clock reading is to use t = t.Round(0).<br><br>If Times t and u both contain monotonic clock readings, the operations<br>t.After(u), t.Before(u), t.Equal(u), and t.Sub(u) are carried out using the<br>monotonic clock readings alone, ignoring the wall clock readings. If either t or<br>u contains no monotonic clock reading, these operations fall back to using the<br>wall clock readings.<br><br>On some systems the monotonic clock will stop if the computer goes to sleep.<br>On such a system, t.Sub(u) may not accurately reflect the actual time that<br>passed between t and u.<br><br>Because the monotonic clock reading has no meaning outside the current process,<br>the serialized forms generated by t.GobEncode, t.MarshalBinary, t.MarshalJSON,<br>and t.MarshalText omit the monotonic clock reading, and t.Format provides<br>no format for it. Similarly, the constructors time.Date, time.Parse,<br>time.ParseInLocation, and time.Unix, as well as the unmarshalers t.GobDecode,<br>t.UnmarshalBinary. t.UnmarshalJSON, and t.UnmarshalText always create times with<br>no monotonic clock reading.<br><br>The monotonic clock reading exists only in Time values. It is not a part of<br>Duration values or the Unix times returned by t.Unix and friends.<br><br>Note that the Go == operator compares not just the time instant but also the<br>Location and the monotonic clock reading. See the documentation for the Time<br>type for a discussion of equality testing for Time values.<br><br>For debugging, the result of t.String does include the monotonic clock<br>reading if present. If t != u because of different monotonic clock readings,<br>that difference will be visible when printing t.String() and u.String().<br><br>const Layout = &quot;01/02 03:04:05PM &#x27;06 -0700&quot; ...<br>const Nanosecond Duration = 1 ...<br>func After(d Duration) &lt;-chan Time<br>func Sleep(d Duration)<br>func Tick(d Duration) &lt;-chan Time<br>type Duration int64<br>    func ParseDuration(s string) (Duration, error)<br>    func Since(t Time) Duration<br>    func Until(t Time) Duration<br>type Location struct&#123; ... &#125;<br>    var Local *Location = &amp;localLoc<br>    var UTC *Location = &amp;utcLoc<br>    func FixedZone(name string, offset int) *Location<br>    func LoadLocation(name string) (*Location, error)<br>    func LoadLocationFromTZData(name string, data []byte) (*Location, error)<br>type Month int<br>    const January Month = 1 + iota ...<br>type ParseError struct&#123; ... &#125;<br>type Ticker struct&#123; ... &#125;<br>    func NewTicker(d Duration) *Ticker<br>type Time struct&#123; ... &#125;<br>    func Date(year int, month Month, day, hour, min, sec, nsec int, loc *Location) Time<br>    func Now() Time<br>    func Parse(layout, value string) (Time, error)<br>    func ParseInLocation(layout, value string, loc *Location) (Time, error)<br>    func Unix(sec int64, nsec int64) Time<br>    func UnixMicro(usec int64) Time<br>    func UnixMilli(msec int64) Time<br>type Timer struct&#123; ... &#125;<br>    func AfterFunc(d Duration, f func()) *Timer<br>    func NewTimer(d Duration) *Timer<br>type Weekday int<br>    const Sunday Weekday = iota ...<br></code></pre></td></tr></table></figure>
+<p>以及单独查看某个成员的注释文档：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go doc time.since</span><br>package time // import &quot;time&quot;<br><br>func Since(t Time) Duration<br>    Since returns the time elapsed since t. It is shorthand for<br>    time.Now().Sub(t).<br></code></pre></td></tr></table></figure>
+
+<p>还可以查看成员的方法的注释文档：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go doc time.Duration.Seconds</span><br>package time // import &quot;time&quot;<br><br>func (d Duration) Seconds() float64<br>    Seconds returns the duration as a floating point number of seconds.<br></code></pre></td></tr></table></figure>
+<p>该命令不需要输入完整的包导入路径和正确的大小写。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go doc time.since</span><br>package time // import &quot;time&quot;<br><br>func Since(t Time) Duration<br>    Since returns the time elapsed since t. It is shorthand for<br>    time.Now().Sub(t).<br><br>wer:~ huangfuwang$ go doc json.decode<br>package json // import &quot;encoding/json&quot;<br><br>func (dec *Decoder) Decode(v any) error<br>    Decode reads the next JSON-encoded value from its input and stores it in the<br>    value pointed to by v.<br><br>    See the documentation for Unmarshal for details about the conversion of JSON<br>    into a Go value.<br></code></pre></td></tr></table></figure>
+
+<h2 id="godoc"><a href="#godoc" class="headerlink" title="godoc"></a>godoc</h2><p><code>godoc</code>命令提供可以相互交叉引用的HTML页面，但是包含和go doc命令相同以及更多的信息。<br><code>godoc</code>的在线服务 <a target="_blank" rel="noopener" href="https://godoc.org/">https://godoc.org</a> ，包含了成千上万开源包的检索工具。<br><code>godoc</code>支持<code>-play</code>命令行选项，可以启动playground功能，极大方便了对接口的调试。<br>从go1.13开始，<code>godoc</code>将不再内置。<br>下面是安装命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go install golang.org/x/tools/cmd/godoc@latest</span><br></code></pre></td></tr></table></figure>
+<p>2021年末，godoc工具也被标记为deprecated了。<br>可以在自己的工作区目录运行godoc服务。运行下面的命令，然后在浏览器查看 <a target="_blank" rel="noopener" href="http://localhost:8000/pkg">http://localhost:8000/pkg</a> 页面：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">godoc -http :8000</span><br></code></pre></td></tr></table></figure>
+<p><code>-analysis=type</code>和<code>-analysis=pointer</code>命令行标志参数用于打开文档和代码中关于静态分析的结果。</p>
+<h1 id="内部包"><a href="#内部包" class="headerlink" title="内部包"></a>内部包</h1><p>我们已知，没有导出标志符的只能在包内访问，有导出标志符的对任意可见。<br>但是，中间状态也是很有用的，即可见又不可见，对信任的包可见，对其它不可见。<br>例如，将包拆分成大小不一更容易维护的子包，不想暴露所有的子包，又想子包内共享通用的处理包。<br>或者新写的包某个不太成熟的接口，只想暴露给某些特定的用户。</p>
+<p>为了满足这种需求，Go语言的构建工具对包含<code>internal</code>的包导入路径进行了特殊处理，这种包叫<code>internal</code>包。<br><code>internal</code>包只能被和<code>internal</code>包共同父目录的包所导入。<br>例如，net&#x2F;http&#x2F;internal&#x2F;chunked内部包只能被net&#x2F;http&#x2F;httputil或net&#x2F;http包导入，但是不能被net&#x2F;url包导入。不过net&#x2F;url包却可以导入net&#x2F;http&#x2F;httputil包。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go">net/http<br>net/http/internal/chunked<br>net/http/httputil<br>net/url<br></code></pre></td></tr></table></figure>
+
+<h1 id="go-list"><a href="#go-list" class="headerlink" title="go list"></a>go list</h1><p><code>go list</code>命令可以查询可用包的信息。<br>最简单的用法是验证包是否在工作区：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go list github.com/go-sql-driver/mysql</span><br>github.com/go-sql-driver/mysql<br></code></pre></td></tr></table></figure>
+<p>存在，则打印出导入路径。<br>打印出工作区所有包：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go list ...</span><br>archive/tar<br>archive/zip<br>bufio<br>bytes<br>cmd/addr2line<br>cmd/api<br>cmd/asm<br>...<br></code></pre></td></tr></table></figure>
+<p>打印出工作区特定目录下的所有包：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go list cmd/...</span><br>cmd/addr2line<br>cmd/api<br>cmd/asm<br></code></pre></td></tr></table></figure>
+<p>与某一字符串相关的包：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go list ...xml...</span><br>encoding/xml<br></code></pre></td></tr></table></figure>
+
+<p><code>go list -json</code>可以以json格式打印出包的元信息。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go list -json <span class="hljs-built_in">hash</span></span><br>&#123;<br>	&quot;Dir&quot;: &quot;/usr/local/go/src/hash&quot;,<br>	&quot;ImportPath&quot;: &quot;hash&quot;,<br>	&quot;Name&quot;: &quot;hash&quot;,<br>	&quot;Doc&quot;: &quot;Package hash provides interfaces for hash functions.&quot;,<br>	&quot;Target&quot;: &quot;/usr/local/go/pkg/darwin_amd64/hash.a&quot;,<br>	&quot;Root&quot;: &quot;/usr/local/go&quot;,<br>	&quot;Match&quot;: [<br>		&quot;hash&quot;<br>	],<br>	&quot;Goroot&quot;: true,<br>	&quot;Standard&quot;: true,<br>	&quot;GoFiles&quot;: [<br>		&quot;hash.go&quot;<br>	],<br>	&quot;Imports&quot;: [<br>		&quot;io&quot;<br>	],<br>	&quot;Deps&quot;: [<br>		&quot;errors&quot;,<br>		&quot;internal/abi&quot;,<br>		&quot;internal/bytealg&quot;,<br>		&quot;internal/cpu&quot;,<br>		&quot;internal/goarch&quot;,<br>		&quot;internal/goexperiment&quot;,<br>		&quot;internal/goos&quot;,<br>		&quot;internal/race&quot;,<br>		&quot;internal/reflectlite&quot;,<br>		&quot;internal/unsafeheader&quot;,<br>		&quot;io&quot;,<br>		&quot;runtime&quot;,<br>		&quot;runtime/internal/atomic&quot;,<br>		&quot;runtime/internal/math&quot;,<br>		&quot;runtime/internal/sys&quot;,<br>		&quot;sync&quot;,<br>		&quot;sync/atomic&quot;,<br>		&quot;unsafe&quot;<br>	],<br>	&quot;XTestGoFiles&quot;: [<br>		&quot;example_test.go&quot;,<br>		&quot;marshal_test.go&quot;<br>	],<br>	&quot;XTestImports&quot;: [<br>		&quot;bytes&quot;,<br>		&quot;crypto/md5&quot;,<br>		&quot;crypto/sha1&quot;,<br>		&quot;crypto/sha256&quot;,<br>		&quot;crypto/sha512&quot;,<br>		&quot;encoding&quot;,<br>		&quot;encoding/hex&quot;,<br>		&quot;fmt&quot;,<br>		&quot;hash&quot;,<br>		&quot;hash/adler32&quot;,<br>		&quot;hash/crc32&quot;,<br>		&quot;hash/crc64&quot;,<br>		&quot;hash/fnv&quot;,<br>		&quot;log&quot;,<br>		&quot;testing&quot;<br>	]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>go list  -f </code> 可以按模版打印出包：<br>下面的命令将打印strconv包的依赖的包，然后用join模板函数将结果链接为一行，连接时每个结果之间用一个空格分隔：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go list -f <span class="hljs-string">&#x27;&#123;&#123;join .Deps &quot; &quot;&#125;&#125;&#x27;</span> strconv</span><br>errors internal/abi internal/bytealg internal/cpu internal/goarch internal/goexperiment internal/goos internal/reflectlite internal/unsafeheader math math/bits runtime runtime/internal/atomic runtime/internal/math runtime/internal/sys unicode/utf8 unsafe<br></code></pre></td></tr></table></figure>
+<p>如果是在windows，注意增加转义字符。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go list -f <span class="hljs-string">&quot;&#123;&#123;join .Deps \&quot; \&quot;&#125;&#125;&quot;</span> strconv</span><br></code></pre></td></tr></table></figure>
+<p>打印compress子目录下所有包的依赖包列表：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go list -f <span class="hljs-string">&#x27;&#123;&#123;.ImportPath&#125;&#125; -&gt; &#123;&#123;join .Imports &quot; &quot;&#125;&#125;&#x27;</span> compress/...</span><br>compress/bzip2 -&gt; bufio io sort<br>compress/flate -&gt; bufio errors fmt io math math/bits sort strconv sync<br>compress/gzip -&gt; bufio compress/flate encoding/binary errors fmt hash/crc32 io time<br>compress/lzw -&gt; bufio errors fmt io<br>compress/zlib -&gt; bufio compress/flate encoding/binary errors fmt hash hash/adler32 io<br></code></pre></td></tr></table></figure>
+<p>同样的，在windows下，增加转义字符：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go list -f <span class="hljs-string">&quot;&#123;&#123;.ImportPath&#125;&#125; -&gt; &#123;&#123;join .Imports \&quot; \&quot;&#125;&#125;&quot;</span> compress/...</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="练习-1"><a href="#练习-1" class="headerlink" title="练习"></a>练习</h1><p><strong>练习 10.4：</strong> 创建一个工具，根据命令行指定的参数，报告工作区所有依赖指定包的其它包集合。提示：你需要运行go list命令两次，一次用于初始化包，一次用于所有包。你可能需要用encoding&#x2F;json（§4.5）包来分析输出的JSON格式的信息。<br>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;bytes&quot;</span><br>	<span class="hljs-string">&quot;encoding/json&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;io&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;os/exec&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> pkg <span class="hljs-keyword">struct</span> &#123;<br>	ImportPath <span class="hljs-type">string</span><br>	Deps       []<span class="hljs-type">string</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">pkgs</span><span class="hljs-params">(args []<span class="hljs-type">string</span>)</span></span> ([]pkg, <span class="hljs-type">error</span>) &#123;<br>	output, err := exec.Command(<span class="hljs-string">&quot;go&quot;</span>, <span class="hljs-built_in">append</span>([]<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;list&quot;</span>, <span class="hljs-string">&quot;-json&quot;</span>&#125;, args...)...).Output()<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err<br>	&#125;<br>	<span class="hljs-keyword">var</span> pkgs []pkg<br>	dec := json.NewDecoder(bytes.NewReader(output))<br>	<span class="hljs-keyword">for</span> &#123;<br>		<span class="hljs-keyword">var</span> pkg pkg<br>		<span class="hljs-keyword">if</span> err := dec.Decode(&amp;pkg); err == io.EOF &#123;<br>			<span class="hljs-keyword">break</span><br>		&#125;<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err<br>		&#125;<br>		pkgs = <span class="hljs-built_in">append</span>(pkgs, pkg)<br>	&#125;<br>	<span class="hljs-keyword">return</span> pkgs, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	ips, err := pkgs(os.Args[<span class="hljs-number">1</span>:])<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br>	deps, err := pkgs([]<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;all&quot;</span>&#125;)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br>	<span class="hljs-keyword">for</span> _, dep := <span class="hljs-keyword">range</span> deps &#123;<br>		<span class="hljs-keyword">for</span> _, depip := <span class="hljs-keyword">range</span> dep.Deps &#123;<br>			<span class="hljs-keyword">for</span> _, ip := <span class="hljs-keyword">range</span> ips &#123;<br>				<span class="hljs-keyword">if</span> ip.ImportPath == depip &#123;<br>					fmt.Println(dep.ImportPath)<br>				&#125;<br>			&#125;<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="print-no-link">#读书笔记</a>
+      
+        <a href="/tags/go/" class="print-no-link">#go</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>10.7. 工具</div>
+      <div>https://succeedwer.github.io/posts/c1eef8565635/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WER</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月20日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年3月18日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/2b3895c22904/" title="第十一章 测试">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">第十一章 测试</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/26ffbeb103e4/" title="10.6. 包的命名">
+                        <span class="hidden-mobile">10.6. 包的命名</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

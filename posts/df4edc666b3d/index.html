@@ -1,0 +1,778 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="在线性的程序中，即只有一个goroutine，程序的执行顺序由程序逻辑决定。当我们无法确认两个事件之间执行的先后顺序时，说明这两个事件是并发的。 在并发的情况下，函数能够正确并正常运行，那么可以说这个函数是并发安全的。并发安全的函数不需要额外进行同步。同样的，不但适用于函数，还可以适用于类型的函数和方法，如果这个类型是并发安全的，那么类型的方法和函数同样是并发安全的。 导出包级别的函数一般情况下是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="9.1. 竞争条件">
+<meta property="og:url" content="https://succeedwer.github.io/posts/df4edc666b3d/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:description" content="在线性的程序中，即只有一个goroutine，程序的执行顺序由程序逻辑决定。当我们无法确认两个事件之间执行的先后顺序时，说明这两个事件是并发的。 在并发的情况下，函数能够正确并正常运行，那么可以说这个函数是并发安全的。并发安全的函数不需要额外进行同步。同样的，不但适用于函数，还可以适用于类型的函数和方法，如果这个类型是并发安全的，那么类型的方法和函数同样是并发安全的。 导出包级别的函数一般情况下是">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-19T03:52:19.000Z">
+<meta property="article:modified_time" content="2024-03-18T05:20:20.000Z">
+<meta property="article:author" content="WER">
+<meta property="article:tag" content="读书笔记">
+<meta property="article:tag" content="go">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>9.1. 竞争条件 - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="9.1. 竞争条件"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-19 11:52" pubdate>
+          2023年3月19日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">9.1. 竞争条件</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>在线性的程序中，即只有一个goroutine，程序的执行顺序由程序逻辑决定。<br>当我们无法确认两个事件之间执行的先后顺序时，说明这两个事件是并发的。</p>
+<p>在并发的情况下，函数能够正确并正常运行，那么可以说这个函数是并发安全的。<br>并发安全的函数不需要额外进行同步。<br>同样的，不但适用于函数，还可以适用于类型的函数和方法，如果这个类型是并发安全的，那么类型的方法和函数同样是并发安全的。</p>
+<p>导出包级别的函数一般情况下是并发安全的。<br>由于包级别的变量没法限制在单一个goroutine内，所以修改这些变量必须要使用互斥条件。</p>
+<p>一个函数在并发调用可能达不到预期的结果，原因有<code>死锁（deadlock）</code>、<code>活锁（livelock）</code>和 <code>资源匮乏（resourse starvation）</code>等等。<br>本章主要讨论竞争条件，何为竞争条件？<br><code>竞争条件</code>指的是程序在多个goroutine交叉执行操作时，没有得到正确的结果。这种情况往往难以察觉，可能只会在某特定条件下才会触发，如负载大、或在某编译器、某平台下或某架构下。这种问题往往难以复现和难以分析判断。</p>
+<p>下面是一段简单的银行账户程序。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// <span class="hljs-doctag">NOTE:</span> 错误示范</span><br><span class="hljs-keyword">package</span> bank<br><br><span class="hljs-keyword">var</span> balance <span class="hljs-type">int</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Deposit</span><span class="hljs-params">(amount <span class="hljs-type">int</span>)</span></span> &#123;<br>	balance = balance + amount<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Balance</span><span class="hljs-params">()</span></span> <span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">return</span> balance<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>Deposit</code>函数是存钱，<code>Balance</code>函数是获取余额。<br>如果顺序执行存钱，获取余额操作没有问题。<br>但在并发条件下，<code>Balance</code>获取余额可能就达不到预期了。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// zhansan</span><br><span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span>&#123;<br>	bank.Desposit(<span class="hljs-number">200</span>)         <span class="hljs-comment">// A1</span><br>	fmt.Println(<span class="hljs-string">&quot;-&quot;</span>, Balance())<span class="hljs-comment">// A2</span><br>&#125;<br><br><span class="hljs-comment">// lisi</span><br><span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>	bank.Desposit(<span class="hljs-number">100</span>) 			<span class="hljs-comment">// B</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>zhansan存了200（A1），然后查询余额（A2）。<br>lisi存了100（B）。</p>
+<p>这些操作时并发执行的，我们无法确定先后顺序。<br>以下是先后顺序的可能性：<br>zhansan先<br>lisi先<br>zhansan&#x2F;lisi&#x2F;zhansan交替执行</p>
+<p>下面是三个可能性的结果：</p>
+<table>
+<thead>
+<tr>
+<th align="center">zhansan 先</th>
+<th align="center">lisi 先</th>
+<th align="center">zhansan&#x2F;lisi&#x2F;zhansan</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">A1 200</td>
+<td align="center">B 100</td>
+<td align="center">A1 200</td>
+</tr>
+<tr>
+<td align="center">A2 “&#x3D;200”</td>
+<td align="center">A1 300</td>
+<td align="center">B 300</td>
+</tr>
+<tr>
+<td align="center">B 300</td>
+<td align="center">A2 “&#x3D;300”</td>
+<td align="center">A2 “&#x3D;300”</td>
+</tr>
+</tbody></table>
+<p>所有的最终结果都是300，感觉没有问题呢。<br>但是往往这种直觉是致命的，第四种情况是存在的。<br>当lisi的存款在zhansan存款操作中间，即在A1操作中的读取余额后（balance+amount），在余额更新前(balance&#x3D;…)，这样子将导致lisi的存款丢失。可以将上述的操作，改成A1r, A1w。</p>
+<table>
+<thead>
+<tr>
+<th>Data race</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>A1r</td>
+<td>0</td>
+<td>…&#x3D;balance+amount</td>
+</tr>
+<tr>
+<td>B</td>
+<td>100</td>
+<td></td>
+</tr>
+<tr>
+<td>A1w</td>
+<td>200</td>
+<td>balance&#x3D;…</td>
+</tr>
+<tr>
+<td>A2</td>
+<td>200</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>这种情况下，存款只有200，即lisi的存款丢失了。</p>
+<p><code>无论什么时候，只要有两个或两个以上的goroutine并发访问同一变量，且至少一个goroutine对变量进行写操作，都会发生数据竞争。</code></p>
+<p>下面还有一个例子：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> x []<span class="hljs-type">int</span><br><span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123; x = <span class="hljs-built_in">make</span>([]<span class="hljs-type">int</span>, <span class="hljs-number">10</span>)&#125;<br><span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123; x = <span class="hljs-built_in">make</span>([]<span class="hljs-type">int</span>, <span class="hljs-number">1000000</span>)&#125;<br>x[<span class="hljs-number">999999</span>] = <span class="hljs-number">1</span> <span class="hljs-comment">// <span class="hljs-doctag">NOTE:</span> panic: runtime error: index out of range [999999] with length 10</span><br></code></pre></td></tr></table></figure>
+<p>最后一个语句x的值是未定义的，可能是nil，也可能是长度为10的slice，还有可能是长度为1000000的slice。</p>
+<p><code>数据竞争会在两个以上的goroutine并发访问相同的变量且至少其中一个为写操作时发生。</code><br>有三种方法可以避免数据竞争。</p>
+<ul>
+<li>不要写变量。  <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> icons = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]image.Image)<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">loadIcon</span><span class="hljs-params">(name <span class="hljs-type">string</span>)</span></span> image.Image<br><br><span class="hljs-comment">// <span class="hljs-doctag">NOTE:</span> not concurrency-safe!</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Icon</span><span class="hljs-params">(name <span class="hljs-type">string</span>)</span></span> image.Image &#123;<br>	icon, ok := icons[name]<br>	<span class="hljs-keyword">if</span> !ok &#123;<br>		icon = loadIcon(name)<br>		icons[name] = icon<br>	&#125;<br>	<span class="hljs-keyword">return</span> icon<br>&#125;<br></code></pre></td></tr></table></figure>
+  上面例子中，使用懒加载Icon，并发情况下，这不是并发安全的，如果初始化并赋值icons且不在修改，就能够并发安全了。  <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> icons = <span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]image.Image&#123;<br>	<span class="hljs-string">&quot;spades.png&quot;</span>:   loadIcon(<span class="hljs-string">&quot;spades.png&quot;</span>),<br>	<span class="hljs-string">&quot;hearts.png&quot;</span>:   loadIcon(<span class="hljs-string">&quot;hearts.png&quot;</span>),<br>	<span class="hljs-string">&quot;diamonds.png&quot;</span>: loadIcon(<span class="hljs-string">&quot;diamonds.png&quot;</span>),<br>	<span class="hljs-string">&quot;clubs.png&quot;</span>:    loadIcon(<span class="hljs-string">&quot;clubs.png&quot;</span>),<br>&#125;<br><span class="hljs-comment">// Concurrency-safe.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Icon</span><span class="hljs-params">(name <span class="hljs-type">string</span>)</span></span> image.Image &#123; <span class="hljs-keyword">return</span> icons[name] &#125;<br></code></pre></td></tr></table></figure></li>
+<li>避免多个goroutine访问变量。<br>  <code>不要使用共享数据来通信；使用通信来共享数据。</code><br>  <code>一个提供对一个指定的变量通过cahnnel来请求的goroutine叫做这个变量的监控(monitor)goroutine。</code><br>   如在8.10的聊天服务器中，broadcaster goroutine会监控(monitor)clients map的全部访问。<br>   下面是对bank的修改。   <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs go"> <span class="hljs-keyword">package</span> bank<br><br><span class="hljs-keyword">var</span> deposits = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>)<br><span class="hljs-keyword">var</span> balances = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Deposits</span><span class="hljs-params">(amount <span class="hljs-type">int</span>)</span></span> &#123;<br>	deposits &lt;- amount<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Balance</span><span class="hljs-params">()</span></span> <span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">return</span> &lt;-balances<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">teller</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> balance <span class="hljs-type">int</span><br>	<span class="hljs-keyword">for</span> &#123;<br>		<span class="hljs-keyword">select</span> &#123;<br>		<span class="hljs-keyword">case</span> amount := &lt;-deposits:<br>			balance += amount<br>		<span class="hljs-keyword">case</span> balances &lt;- balance:<br>		&#125;<br>	&#125;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">init</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">go</span> teller()<br>&#125;<br></code></pre></td></tr></table></figure>
+   即使当一个变量无法在其整个生命周期内被绑定到一个独立的goroutine，绑定依然是并发问题的一个解决方案。例如在一条流水线上的goroutine之间共享变量是很普遍的行为，在这两者间会通过channel来传输地址信息。如果流水线的每一个阶段都能够避免在将变量传送到下一阶段时再去访问它，那么对这个变量的所有访问就是线性的。其效果是变量会被绑定到流水线的一个阶段，传送完之后被绑定到下一个，以此类推。这种规则有时被称为串行绑定。<br>   下面是串行绑定的例子，Cakes会被严格地顺序访问，先是baker gorouine，然后是icer gorouine。   <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"> <span class="hljs-keyword">type</span> Cake <span class="hljs-keyword">struct</span>&#123; state <span class="hljs-type">string</span> &#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">baker</span><span class="hljs-params">(cooked <span class="hljs-keyword">chan</span>&lt;- *Cake)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> &#123;<br>		cake := <span class="hljs-built_in">new</span>(Cake)<br>		cake.state = <span class="hljs-string">&quot;cooked&quot;</span><br>		cooked &lt;- cake <span class="hljs-comment">// baker never touches this cake again</span><br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">icer</span><span class="hljs-params">(iced <span class="hljs-keyword">chan</span>&lt;- *Cake, cooked &lt;-<span class="hljs-keyword">chan</span> *Cake)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> cake := <span class="hljs-keyword">range</span> cooked &#123;<br>		cake.state = <span class="hljs-string">&quot;iced&quot;</span><br>		iced &lt;- cake <span class="hljs-comment">// icer never touches this cake again</span><br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li>允许多个goroutine访问变量，但同一时间最多只有一个goroutine访问，即“互斥”。</li>
+</ul>
+<h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><p><strong>练习 9.1：</strong> 给gopl.io&#x2F;ch9&#x2F;bank1程序添加一个Withdraw(amount int)取款函数。其返回结果应该要表明事务是成功了还是因为没有足够资金失败了。这条消息会被发送给monitor的goroutine，且消息需要包含取款的额度和一个新的channel，这个新channel会被monitor goroutine来把boolean结果发回给Withdraw。<br>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> bank<br><br><span class="hljs-keyword">type</span> draw <span class="hljs-keyword">struct</span> &#123;<br>	amount  <span class="hljs-type">int</span><br>	succeed <span class="hljs-keyword">chan</span> <span class="hljs-type">bool</span><br>&#125;<br><br><span class="hljs-keyword">var</span> deposits = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>)<br><span class="hljs-keyword">var</span> withdraws = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> draw)<br><span class="hljs-keyword">var</span> balances = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Deposit</span><span class="hljs-params">(amount <span class="hljs-type">int</span>)</span></span> &#123;<br>	deposits &lt;- amount<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Withdraw</span><span class="hljs-params">(amount <span class="hljs-type">int</span>)</span></span> <span class="hljs-type">bool</span> &#123;<br>	succeed := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">bool</span>)<br>	withdraws &lt;- draw&#123;amount, succeed&#125;<br>	<span class="hljs-keyword">return</span> &lt;-succeed<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Balance</span><span class="hljs-params">()</span></span> <span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">return</span> &lt;-balances<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">teller</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> balance <span class="hljs-type">int</span><br>	<span class="hljs-keyword">for</span> &#123;<br>		<span class="hljs-keyword">select</span> &#123;<br>		<span class="hljs-keyword">case</span> balances &lt;- balance:<br>		<span class="hljs-keyword">case</span> amount := &lt;-deposits:<br>			balance += amount<br>		<span class="hljs-keyword">case</span> draw := &lt;-withdraws:<br>			<span class="hljs-keyword">if</span> balance &lt; draw.amount &#123;<br>				draw.succeed &lt;- <span class="hljs-literal">false</span><br>			&#125; <span class="hljs-keyword">else</span> &#123;<br>				balance -= draw.amount<br>				draw.succeed &lt;- <span class="hljs-literal">true</span><br>			&#125;<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">init</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">go</span> teller()<br>&#125;<br><br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="print-no-link">#读书笔记</a>
+      
+        <a href="/tags/go/" class="print-no-link">#go</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>9.1. 竞争条件</div>
+      <div>https://succeedwer.github.io/posts/df4edc666b3d/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WER</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月19日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年3月18日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/da8e0d3d1c07/" title="9.2. sync.Mutex互斥锁">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">9.2. sync.Mutex互斥锁</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/261f973145a5/" title="第九章 基于共享变量的并发">
+                        <span class="hidden-mobile">第九章 基于共享变量的并发</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

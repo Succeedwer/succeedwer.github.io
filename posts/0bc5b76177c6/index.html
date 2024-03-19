@@ -1,0 +1,787 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="每个测试函数必须导入test包。测试函数格式如下： 123func TestName(t *testing.T) &#123;	&#x2F;&#x2F;...&#125;  测试函数必须以Test为前缀，可选的后缀名必须以大写开头。 123func Test(t *testing.T)&#123;...&#125;func TestSin(t *testing.T)&#123;...&#125;func TestCo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="11.2. 测试函数">
+<meta property="og:url" content="https://succeedwer.github.io/posts/0bc5b76177c6/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:description" content="每个测试函数必须导入test包。测试函数格式如下： 123func TestName(t *testing.T) &#123;	&#x2F;&#x2F;...&#125;  测试函数必须以Test为前缀，可选的后缀名必须以大写开头。 123func Test(t *testing.T)&#123;...&#125;func TestSin(t *testing.T)&#123;...&#125;func TestCo">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-21T04:52:19.000Z">
+<meta property="article:modified_time" content="2024-03-18T11:14:20.000Z">
+<meta property="article:author" content="WER">
+<meta property="article:tag" content="读书笔记">
+<meta property="article:tag" content="go">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>11.2. 测试函数 - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="11.2. 测试函数"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-21 12:52" pubdate>
+          2023年3月21日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          47 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">11.2. 测试函数</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>每个测试函数必须导入test包。<br>测试函数格式如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestName</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	<span class="hljs-comment">//...</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>测试函数必须以Test为前缀，可选的后缀名必须以大写开头。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Test</span><span class="hljs-params">(t *testing.T)</span></span>&#123;...&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestSin</span><span class="hljs-params">(t *testing.T)</span></span>&#123;...&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestCos</span><span class="hljs-params">(t *testing.T)</span></span>&#123;...&#125;<br></code></pre></td></tr></table></figure>
+<p>其中t参数用于报告错误或附加的测试信息。</p>
+<p>下面定义了一个函数IsPalindrome，用于检测字符串从前往后和从后往前是否一样，即是否回文。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Package word provides utilities for word games.</span><br><span class="hljs-keyword">package</span> word<br><br><span class="hljs-comment">// IsPalindrome reports whether s reads the same forward and backward.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">IsPalindrome</span><span class="hljs-params">(s <span class="hljs-type">string</span>)</span></span> <span class="hljs-type">bool</span> &#123;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> s &#123;<br>		<span class="hljs-keyword">if</span> s[i] != s[<span class="hljs-built_in">len</span>(s)<span class="hljs-number">-1</span>-i] &#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>接着就是word的测试文件，word_test.go。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> word<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;testing&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestPalindrome</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	<span class="hljs-keyword">if</span> !IsPalindrome(<span class="hljs-string">&quot;detartrated&quot;</span>) &#123;<br>		t.Error(<span class="hljs-string">`IsPalindrome(&quot;detartrated&quot;&quot;)=false`</span>)<br>	&#125;<br>	<span class="hljs-keyword">if</span> !IsPalindrome(<span class="hljs-string">&quot;kayak&quot;</span>) &#123;<br>		t.Error(<span class="hljs-string">`IsPalindrome(&quot;kayak&quot;&quot;)=false`</span>)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestNonPalindrome</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	<span class="hljs-keyword">if</span> IsPalindrome(<span class="hljs-string">&quot;Palindrome&quot;</span>) &#123;<br>		t.Error(<span class="hljs-string">`IsPalindrome(&quot;Palindrome&quot;&quot;)=true`</span>)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>TestPalindrome</code>是测试字符串是回文，所以不是回文时报错。<br><code>TestNonPalindrome</code>是测试字符串不是回文，所以是回文时报错。<br>使用<code>go test</code>命令进行测试。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">cd</span> <span class="hljs-variable">$GOPATH</span>/src/go-learn-gopl/ch/ch11/word1</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">go <span class="hljs-built_in">test</span></span><br>PASS<br>ok      go-learn-gopl/ch/ch11/word1     0.551s<br></code></pre></td></tr></table></figure>
+<p>通过测试！</p>
+<p>但当遇上这样的字符串呢？“été”、“A man, a plan, a canal: Panama.”<br>添加多2个测试函数：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestFrenchPalindrome</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	<span class="hljs-keyword">if</span> !IsPalindrome(<span class="hljs-string">&quot;été&quot;</span>) &#123;<br>		t.Error(<span class="hljs-string">`IsFrenchPalindrome(&quot;été&quot;)=false`</span>)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestCanalPalindrome</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	input := <span class="hljs-string">&quot;A man, a plan, a canal: Panama.&quot;</span><br>	<span class="hljs-keyword">if</span> !IsPalindrome(input) &#123;<br>		t.Errorf(<span class="hljs-string">&quot;IsCanalPalindrome(%q)=false&quot;</span>, input)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>测试用例返回了错误信息：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go <span class="hljs-built_in">test</span></span><br>--- FAIL: TestFrenchPalindrome (0.00s)<br>    word_test.go:22: IsFrenchPalindrome(&quot;été&quot;)=false<br>--- FAIL: TestCanalPalindrome (0.00s)<br>    word_test.go:29: IsCanalPalindrome(&quot;A man, a plan, a canal: Panama.&quot;)=false<br>FAIL<br>exit status 1<br>FAIL    go-learn-gopl/ch/ch11/word1     0.699s<br></code></pre></td></tr></table></figure>
+
+<p>参数<code>-v</code>可以用于打印每个测试函数的名字和运行时间。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go <span class="hljs-built_in">test</span> -v</span><br>=== RUN   TestPalindrome<br>--- PASS: TestPalindrome (0.00s)<br>=== RUN   TestNonPalindrome<br>--- PASS: TestNonPalindrome (0.00s)<br>=== RUN   TestFrenchPalindrome<br>    word_test.go:22: IsFrenchPalindrome(&quot;été&quot;)=false<br>--- FAIL: TestFrenchPalindrome (0.00s)<br>=== RUN   TestCanalPalindrome<br>    word_test.go:29: IsCanalPalindrome(&quot;A man, a plan, a canal: Panama.&quot;)=false<br>--- FAIL: TestCanalPalindrome (0.00s)<br>FAIL<br>exit status 1<br>FAIL    go-learn-gopl/ch/ch11/word1     3.047s<br></code></pre></td></tr></table></figure>
+
+<p>参数<code>-run</code>对应一个正则表达式，只有测试函数名和正则表达式匹配的测试函数可以被运行。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go <span class="hljs-built_in">test</span> -run=<span class="hljs-string">&quot;French|Canal&quot;</span></span><br>--- FAIL: TestFrenchPalindrome (0.00s)<br>    word_test.go:22: IsFrenchPalindrome(&quot;été&quot;)=false<br>--- FAIL: TestCanalPalindrome (0.00s)<br>    word_test.go:29: IsCanalPalindrome(&quot;A man, a plan, a canal: Panama.&quot;)=false<br>FAIL<br>exit status 1<br>FAIL    go-learn-gopl/ch/ch11/word1     0.251s<br></code></pre></td></tr></table></figure>
+
+<p>一旦我们修复所有bug，应该以不带任何参数的go test命令进行测试。</p>
+<p>显然，第一个bug的原因为使用的byte而不是rune，导致非ASCII编码的字符无法比较。<br>第二个bug是因为没有忽略空格和大小写。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Package word provides utilities for word games.</span><br><span class="hljs-keyword">package</span> word<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;unicode&quot;</span><br><br><span class="hljs-comment">// IsPalindrome reports whether s reads same forward and backward.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">IsPalindrome</span><span class="hljs-params">(s <span class="hljs-type">string</span>)</span></span> <span class="hljs-type">bool</span> &#123;<br>	<span class="hljs-keyword">var</span> letters []<span class="hljs-type">rune</span><br>	<span class="hljs-keyword">for</span> _, r := <span class="hljs-keyword">range</span> s &#123;<br>		<span class="hljs-keyword">if</span> unicode.IsLetter(r) &#123;<br>			letters = <span class="hljs-built_in">append</span>(letters, unicode.ToLower(r))<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> letters &#123;<br>		<span class="hljs-keyword">if</span> letters[i] != letters[<span class="hljs-built_in">len</span>(letters)<span class="hljs-number">-1</span>-i] &#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>&#125;<br><br><br></code></pre></td></tr></table></figure>
+<h1 id="举例测试"><a href="#举例测试" class="headerlink" title="举例测试"></a>举例测试</h1><p>word_test.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> word<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;testing&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestIsPalindrome</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	<span class="hljs-keyword">var</span> tests = []<span class="hljs-keyword">struct</span> &#123;<br>		input <span class="hljs-type">string</span><br>		want  <span class="hljs-type">bool</span><br>	&#125;&#123;<br>		&#123;<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-literal">true</span>&#125;,<br>		&#123;<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-literal">true</span>&#125;,<br>		&#123;<span class="hljs-string">&quot;aa&quot;</span>, <span class="hljs-literal">true</span>&#125;,<br>		&#123;<span class="hljs-string">&quot;ab&quot;</span>, <span class="hljs-literal">false</span>&#125;,<br>		&#123;<span class="hljs-string">&quot;kayak&quot;</span>, <span class="hljs-literal">true</span>&#125;,<br>		&#123;<span class="hljs-string">&quot;detartrated&quot;</span>, <span class="hljs-literal">true</span>&#125;,<br>		&#123;<span class="hljs-string">&quot;A man, a plan, a canal: Panama.&quot;</span>, <span class="hljs-literal">true</span>&#125;,<br>		&#123;<span class="hljs-string">&quot;Evil I did dwell; lewd did I live.&quot;</span>, <span class="hljs-literal">true</span>&#125;,<br>		&#123;<span class="hljs-string">&quot;Able was I ere I saw Elba&quot;</span>, <span class="hljs-literal">true</span>&#125;,<br>		&#123;<span class="hljs-string">&quot;été&quot;</span>, <span class="hljs-literal">true</span>&#125;,<br>		&#123;<span class="hljs-string">&quot;Et se resservir, ivresse reste.&quot;</span>, <span class="hljs-literal">true</span>&#125;,<br>		&#123;<span class="hljs-string">&quot;palindrome&quot;</span>, <span class="hljs-literal">false</span>&#125;, <span class="hljs-comment">// non-palindrome</span><br>		&#123;<span class="hljs-string">&quot;desserts&quot;</span>, <span class="hljs-literal">false</span>&#125;,<br>	&#125;<br><br>	<span class="hljs-keyword">for</span> _, test := <span class="hljs-keyword">range</span> tests &#123;<br>		<span class="hljs-keyword">if</span> got := IsPalindrome(test.input); got != test.want &#123;<br>			t.Errorf(<span class="hljs-string">&quot;IsPalindrome(%q)=%v&quot;</span>, test.input, got)<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>测试全部通过：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go <span class="hljs-built_in">test</span></span><br>PASS<br>ok      go-learn-gopl/ch/ch11/word2     0.123s<br></code></pre></td></tr></table></figure>
+
+<p>和其他编程语言或测试框架的assert断言不同，t.Errorf调用也没有引起panic异常或停止测试的执行。<br>如果是发送错误，需要终止测试，可以使用t.Fatal或t.Fatalf停止当前测试函数。</p>
+<p>测试失败的信息一般的形式是“f(x) &#x3D; y, want z”，其中f(x)解释了失败的操作和对应的输出，y是实际的运行结果，z是期望的正确的结果。</p>
+<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><p><strong>练习 11.1:</strong> 为4.3节中的charcount程序编写测试。<br>解：<br>count.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> count<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;bufio&quot;</span><br>	<span class="hljs-string">&quot;io&quot;</span><br>	<span class="hljs-string">&quot;unicode&quot;</span><br>	<span class="hljs-string">&quot;unicode/utf8&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> count <span class="hljs-keyword">struct</span> &#123;<br>	counts  <span class="hljs-keyword">map</span>[<span class="hljs-type">rune</span>]<span class="hljs-type">int</span>         <span class="hljs-comment">// counts of Unicode characters</span><br>	utflen  [utf8.UTFMax + <span class="hljs-number">1</span>]<span class="hljs-type">int</span> <span class="hljs-comment">// count of lengths of UTF-8 encodings</span><br>	invalid <span class="hljs-type">int</span>                  <span class="hljs-comment">//	count of invalid Unicode characters.</span><br>	err     <span class="hljs-type">error</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">charCount</span><span class="hljs-params">(r io.Reader)</span></span> count &#123;<br>	<span class="hljs-keyword">var</span> c count<br>	c.counts = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">rune</span>]<span class="hljs-type">int</span>)<br>	input := bufio.NewReader(r)<br>	<span class="hljs-keyword">for</span> &#123;<br>		r, n, err := input.ReadRune()<br>		<span class="hljs-keyword">if</span> err == io.EOF &#123;<br>			<span class="hljs-keyword">break</span><br>		&#125;<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			c.err = err<br>		&#125;<br>		<span class="hljs-keyword">if</span> r == unicode.ReplacementChar &amp;&amp; n == <span class="hljs-number">1</span> &#123;<br>			c.invalid++<br>			<span class="hljs-keyword">continue</span><br>		&#125;<br>		c.counts[r]++<br>		c.utflen[n]++<br>	&#125;<br>	<span class="hljs-keyword">return</span> c<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>count_test.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> count<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;io&quot;</span><br>	<span class="hljs-string">&quot;strings&quot;</span><br>	<span class="hljs-string">&quot;testing&quot;</span><br>	<span class="hljs-string">&quot;unicode/utf8&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestCharCount</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	tests := []<span class="hljs-keyword">struct</span> &#123;<br>		r    io.Reader<br>		want count<br>	&#125;&#123;<br>		&#123;strings.NewReader(<span class="hljs-string">&quot;abcd&quot;</span>),<br>			count&#123;<br>				counts:  <span class="hljs-keyword">map</span>[<span class="hljs-type">rune</span>]<span class="hljs-type">int</span>&#123;<span class="hljs-string">&#x27;a&#x27;</span>: <span class="hljs-number">1</span>, <span class="hljs-string">&#x27;b&#x27;</span>: <span class="hljs-number">1</span>, <span class="hljs-string">&#x27;c&#x27;</span>: <span class="hljs-number">1</span>, <span class="hljs-string">&#x27;d&#x27;</span>: <span class="hljs-number">1</span>&#125;,<br>				utflen:  [utf8.UTFMax + <span class="hljs-number">1</span>]<span class="hljs-type">int</span>&#123;<span class="hljs-number">0</span>, <span class="hljs-number">4</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>&#125;,<br>				invalid: <span class="hljs-number">0</span>,<br>				err:     <span class="hljs-literal">nil</span>,<br>			&#125;&#125;,<br>	&#125;<br>	<span class="hljs-keyword">for</span> i, test := <span class="hljs-keyword">range</span> tests &#123;<br>		got := charCount(test.r)<br>		<span class="hljs-keyword">if</span> !equal(test.want, got) &#123;<br>			t.Errorf(<span class="hljs-string">&quot;%d. got %v, want %v&quot;</span>, i, got, test.want)<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">equal</span><span class="hljs-params">(c1, c2 count)</span></span> <span class="hljs-type">bool</span> &#123;<br>	<span class="hljs-keyword">if</span> !(c1.counts == <span class="hljs-literal">nil</span> &amp;&amp; c2.counts == <span class="hljs-literal">nil</span> ||<br>		c1.counts != <span class="hljs-literal">nil</span> &amp;&amp; c2.counts != <span class="hljs-literal">nil</span>) &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>	&#125;<br>	<span class="hljs-keyword">for</span> c, n := <span class="hljs-keyword">range</span> c1.counts &#123;<br>		<span class="hljs-keyword">if</span> n != c2.counts[c] &#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(c1.counts) != <span class="hljs-built_in">len</span>(c2.counts) &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>	&#125;<br>	<span class="hljs-keyword">if</span> c1.utflen != c2.utflen &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>	&#125;<br>	<span class="hljs-keyword">if</span> c1.invalid != c2.invalid &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>	&#125;<br>	<span class="hljs-keyword">if</span> c1.err != c2.err &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>练习 11.2:</strong> 为（§6.5）的IntSet编写一组测试，用于检查每个操作后的行为和基于内置map的集合等价，后面练习11.7将会用到。<br>解：<br>intset.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> intset<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;bytes&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> IntSet <span class="hljs-keyword">struct</span> &#123;<br>	words []<span class="hljs-type">uint64</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Has(x <span class="hljs-type">int</span>) <span class="hljs-type">bool</span> &#123;<br>	word, bit := x/<span class="hljs-number">64</span>, x%<span class="hljs-number">64</span><br>	<span class="hljs-keyword">return</span> word &lt; <span class="hljs-built_in">len</span>(s.words) &amp;&amp; s.words[word]&amp;(<span class="hljs-number">1</span>&lt;&lt;bit) != <span class="hljs-number">0</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> Add(x <span class="hljs-type">int</span>) &#123;<br>	word, bit := x/<span class="hljs-number">64</span>, <span class="hljs-type">uint</span>(x%<span class="hljs-number">64</span>)<br>	<span class="hljs-keyword">for</span> word &gt;= <span class="hljs-built_in">len</span>(s.words) &#123;<br>		s.words = <span class="hljs-built_in">append</span>(s.words, <span class="hljs-number">0</span>)<br>	&#125;<br>	s.words[word] |= <span class="hljs-number">1</span> &lt;&lt; bit<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> UnionWith(t *IntSet) &#123;<br>	<span class="hljs-keyword">for</span> i, word := <span class="hljs-keyword">range</span> t.words &#123;<br>		<span class="hljs-keyword">if</span> i &lt; <span class="hljs-built_in">len</span>(s.words) &#123;<br>			s.words[i] |= word<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			s.words = <span class="hljs-built_in">append</span>(s.words, word)<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *IntSet)</span></span> String() <span class="hljs-type">string</span> &#123;<br>	<span class="hljs-keyword">var</span> buf bytes.Buffer<br>	buf.WriteByte(<span class="hljs-string">&#x27;&#123;&#x27;</span>)<br>	<span class="hljs-keyword">for</span> i, word := <span class="hljs-keyword">range</span> s.words &#123;<br>		<span class="hljs-keyword">if</span> word == <span class="hljs-number">0</span> &#123;<br>			<span class="hljs-keyword">continue</span><br>		&#125;<br>		<span class="hljs-keyword">for</span> j := <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">64</span>; j++ &#123;<br>			<span class="hljs-keyword">if</span> word&amp;(<span class="hljs-number">1</span>&lt;&lt;<span class="hljs-type">uint</span>(j)) != <span class="hljs-number">0</span> &#123;<br>				<span class="hljs-keyword">if</span> buf.Len() &gt; <span class="hljs-built_in">len</span>(<span class="hljs-string">&quot;&#123;&quot;</span>) &#123;<br>					buf.WriteByte(<span class="hljs-string">&#x27;&#123;&#x27;</span>)<br>				&#125;<br>			&#125;<br>			fmt.Fprintf(&amp;buf, <span class="hljs-string">&quot;%d&quot;</span>, <span class="hljs-number">64</span>*i+j)<br>		&#125;<br>	&#125;<br>	buf.WriteByte(<span class="hljs-string">&#x27;&#125;&#x27;</span>)<br>	<span class="hljs-keyword">return</span> buf.String()<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>intset_test.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> intset<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;testing&quot;</span><br><br><span class="hljs-keyword">type</span> interval <span class="hljs-keyword">struct</span> &#123;<br>	begin, end <span class="hljs-type">int</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">initIntSet</span><span class="hljs-params">(i *interval)</span></span> *IntSet &#123;<br>	s := &amp;IntSet&#123;&#125;<br>	<span class="hljs-keyword">for</span> x := i.begin; x &lt;= i.end; x++ &#123;<br>		s.Add(x)<br>	&#125;<br>	<span class="hljs-keyword">return</span> s<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">initMapIntSet</span><span class="hljs-params">(i *interval)</span></span> <span class="hljs-keyword">map</span>[<span class="hljs-type">int</span>]<span class="hljs-type">bool</span> &#123;<br>	s := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">int</span>]<span class="hljs-type">bool</span>)<br>	<span class="hljs-keyword">for</span> x := i.begin; x &lt;= i.end; x++ &#123;<br>		s[x] = <span class="hljs-literal">true</span><br>	&#125;<br>	<span class="hljs-keyword">return</span> s<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">equal</span><span class="hljs-params">(s1 *IntSet, s2 <span class="hljs-keyword">map</span>[<span class="hljs-type">int</span>]<span class="hljs-type">bool</span>)</span></span> <span class="hljs-type">bool</span> &#123;<br>	<span class="hljs-keyword">for</span> k := <span class="hljs-keyword">range</span> s2 &#123;<br>		<span class="hljs-keyword">if</span> !s1.Has(k) &#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestIntSet</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	tests := []<span class="hljs-keyword">struct</span> &#123;<br>		i    interval<br>		mi   interval<br>		want <span class="hljs-type">bool</span><br>	&#125;&#123;<br>		&#123;interval&#123;<span class="hljs-number">0</span>, <span class="hljs-number">50</span>&#125;, interval&#123;<span class="hljs-number">0</span>, <span class="hljs-number">50</span>&#125;, <span class="hljs-literal">true</span>&#125;,<br>		&#123;interval&#123;<span class="hljs-number">0</span>, <span class="hljs-number">100</span>&#125;, interval&#123;<span class="hljs-number">0</span>, <span class="hljs-number">100</span>&#125;, <span class="hljs-literal">true</span>&#125;,<br>		&#123;interval&#123;<span class="hljs-number">0</span>, <span class="hljs-number">50</span>&#125;, interval&#123;<span class="hljs-number">0</span>, <span class="hljs-number">49</span>&#125;, <span class="hljs-literal">true</span>&#125;,<br>	&#125;<br><br>	<span class="hljs-keyword">for</span> i, test := <span class="hljs-keyword">range</span> tests &#123;<br>		s1 := initIntSet(&amp;test.i)<br>		s2 := initMapIntSet(&amp;test.mi)<br>		<span class="hljs-keyword">if</span> got := equal(s1, s2); got != test.want &#123;<br>			t.Errorf(<span class="hljs-string">&quot;%d. got %v, want %v&quot;</span>, i, got, test.want)<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestUnionWith</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	tests := []<span class="hljs-keyword">struct</span> &#123;<br>		ai, bi interval<br>		ci     interval<br>		want   <span class="hljs-type">bool</span><br>	&#125;&#123;<br>		&#123;interval&#123;<span class="hljs-number">0</span>, <span class="hljs-number">10</span>&#125;, interval&#123;<span class="hljs-number">10</span>, <span class="hljs-number">20</span>&#125;, interval&#123;<span class="hljs-number">0</span>, <span class="hljs-number">20</span>&#125;, <span class="hljs-literal">true</span>&#125;,<br>		&#123;interval&#123;<span class="hljs-number">0</span>, <span class="hljs-number">20</span>&#125;, interval&#123;<span class="hljs-number">10</span>, <span class="hljs-number">20</span>&#125;, interval&#123;<span class="hljs-number">0</span>, <span class="hljs-number">20</span>&#125;, <span class="hljs-literal">true</span>&#125;,<br>		&#123;interval&#123;<span class="hljs-number">0</span>, <span class="hljs-number">20</span>&#125;, interval&#123;<span class="hljs-number">10</span>, <span class="hljs-number">30</span>&#125;, interval&#123;<span class="hljs-number">0</span>, <span class="hljs-number">30</span>&#125;, <span class="hljs-literal">true</span>&#125;,<br>		&#123;interval&#123;<span class="hljs-number">5</span>, <span class="hljs-number">15</span>&#125;, interval&#123;<span class="hljs-number">10</span>, <span class="hljs-number">20</span>&#125;, interval&#123;<span class="hljs-number">5</span>, <span class="hljs-number">20</span>&#125;, <span class="hljs-literal">true</span>&#125;,<br>	&#125;<br>	<span class="hljs-keyword">for</span> i, test := <span class="hljs-keyword">range</span> tests &#123;<br>		s1, s2 := initIntSet(&amp;test.ai), initIntSet(&amp;test.bi)<br>		s1.UnionWith(s2)<br>		m := initMapIntSet(&amp;test.ci)<br>		<span class="hljs-keyword">if</span> got := equal(s1, m); got != test.want &#123;<br>			t.Errorf(<span class="hljs-string">&quot;%d. got %v, want %v&quot;</span>, i, got, test.want)<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="随机测试"><a href="#随机测试" class="headerlink" title="随机测试"></a>随机测试</h1><p>举例测试有一定的局限性，也就是构建更泛的随机输入来测试函数。<br>对于一个随机输入，如何得知希望的输出结果呢？<br>两种方法：</p>
+<ul>
+<li>编写一个对照函数，使用简单且有效的方法，虽然效率可以低，但是函数行为要一致，然后比较两者相同随机输入下的输出结果。<br>-遵循特定的模式，生成随机输入的数据。<br>下面是使用第二种方法，丰富我们的测试函数。<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// randomPalindrome returns a palindrome whose length and contents</span><br><span class="hljs-comment">// are derived from the pseudo-random number generator rng.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">randomPalindrome</span><span class="hljs-params">(rng *rand.Rand)</span></span> <span class="hljs-type">string</span> &#123;<br>	n := rng.Intn(<span class="hljs-number">25</span>) <span class="hljs-comment">// random length up to 24</span><br>	runes := <span class="hljs-built_in">make</span>([]<span class="hljs-type">rune</span>, n)<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; (n+<span class="hljs-number">1</span>)/<span class="hljs-number">2</span>; i++ &#123;<br>		r := <span class="hljs-type">rune</span>(rng.Intn(<span class="hljs-number">0x1000</span>)) <span class="hljs-comment">// random rune up to &#x27;\u0999&#x27;</span><br>		runes[i] = r<br>		runes[n<span class="hljs-number">-1</span>-i] = r<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-type">string</span>(runes)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestRandomPalindrome</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	<span class="hljs-comment">// Initialize a pseudo-random number generator.</span><br>	seed := time.Now().UTC().UnixNano()<br>	t.Logf(<span class="hljs-string">&quot;Random seed: %d&quot;</span>, seed)<br>	rng := rand.New(rand.NewSource(seed))<br><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1000</span>; i++ &#123;<br>		p := randomPalindrome(rng)<br>		<span class="hljs-keyword">if</span> !IsPalindrome(p) &#123;<br>			t.Errorf(<span class="hljs-string">&quot;IsPalindrome(%q)=false&quot;</span>, p)<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+虽然使用随机测试有很多不确定因素，但是它是十分重要的，我们可以从错误信息中分析出程序的问题所在。<br>在定期运行的自动化测试集成系统中，随机测试非常重要。</li>
+</ul>
+<h2 id="练习-1"><a href="#练习-1" class="headerlink" title="练习"></a>练习</h2><p><strong>练习 11.3:</strong> TestRandomPalindromes测试函数只测试了回文字符串。编写新的随机测试生成器，用于测试随机生成的非回文字符串。<br>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> word<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;math/rand&quot;</span><br>	<span class="hljs-string">&quot;testing&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">randomNonPalindrome</span><span class="hljs-params">(rng *rand.Rand)</span></span> <span class="hljs-type">string</span> &#123;<br>	n := rand.Intn(<span class="hljs-number">25</span>) + <span class="hljs-number">2</span> <span class="hljs-comment">// 至少2位起</span><br>	runes := <span class="hljs-built_in">make</span>([]<span class="hljs-type">rune</span>, n)<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; i++ &#123;<br>		r := <span class="hljs-type">rune</span>(rand.Intn(<span class="hljs-number">0x1000</span>)) <span class="hljs-comment">// 0~/u0999</span><br>		runes[i] = r<br>	&#125;<br>	<span class="hljs-comment">// 如果首尾相同，可以替换首位，直到不相同</span><br>	<span class="hljs-keyword">for</span> runes[<span class="hljs-number">0</span>] == runes[n<span class="hljs-number">-1</span>] &#123;<br>		runes[<span class="hljs-number">0</span>] = <span class="hljs-type">rune</span>(rand.Intn(<span class="hljs-number">0x1000</span>))<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-type">string</span>(runes)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestRandomNonPalindrome</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	seed := time.Now().UTC().UnixNano()<br>	rng := rand.New(rand.NewSource(seed))<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1000</span>; i++ &#123;<br>		p := randomNonPalindrome(rng)<br>		<span class="hljs-keyword">if</span> IsPalindrome(p) &#123;<br>			t.Errorf(<span class="hljs-string">&quot;IsPalindrome(%v)=true&quot;</span>, p)<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>练习 11.4:</strong> 修改randomPalindrome函数，以探索IsPalindrome是否对标点和空格做了正确处理。<br>解：<br>randomPalindrome函数实则对空格和标点符号做了正确的处理。<br>rune(0x0<del>0x999) 其实上包含了空格（0x0020） 和 标点符号（0x0020</del>0x0040）。</p>
+<h1 id="测试命令程序"><a href="#测试命令程序" class="headerlink" title="测试命令程序"></a>测试命令程序</h1><p><code>go test</code>还可以测试main包的程序。<br>下面以输出命令程序做例子：<br>main.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;flag&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;io&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;strings&quot;</span><br>)<br><br><span class="hljs-keyword">var</span> (<br>	n = flag.Bool(<span class="hljs-string">&quot;n&quot;</span>, <span class="hljs-literal">false</span>, <span class="hljs-string">&quot;omit trailing newline&quot;</span>)<br>	s = flag.String(<span class="hljs-string">&quot;s&quot;</span>, <span class="hljs-string">&quot;,&quot;</span>, <span class="hljs-string">&quot;separator&quot;</span>)<br>)<br><br><span class="hljs-keyword">var</span> out io.Writer = os.Stdout<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	flag.Parse()<br>	<span class="hljs-keyword">if</span> err := echo(*n, *s, os.Args[<span class="hljs-number">1</span>:]); err != <span class="hljs-literal">nil</span> &#123;<br>		fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;echo:%v\n&quot;</span>, err)<br>		os.Exit(<span class="hljs-number">1</span>)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">echo</span><span class="hljs-params">(newline <span class="hljs-type">bool</span>, sep <span class="hljs-type">string</span>, args []<span class="hljs-type">string</span>)</span></span> <span class="hljs-type">error</span> &#123;<br>	fmt.Fprintf(out, strings.Join(args, sep))<br>	<span class="hljs-keyword">if</span> newline &#123;<br>		fmt.Fprintln(out)<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>echo_test.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;bytes&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;testing&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestEcho</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	tests := []<span class="hljs-keyword">struct</span> &#123;<br>		newline <span class="hljs-type">bool</span><br>		sep     <span class="hljs-type">string</span><br>		args    []<span class="hljs-type">string</span><br>		want    <span class="hljs-type">string</span><br>	&#125;&#123;<br>		&#123;<span class="hljs-literal">true</span>, <span class="hljs-string">&quot;&quot;</span>, []<span class="hljs-type">string</span>&#123;&#125;, <span class="hljs-string">&quot;\n&quot;</span>&#125;,<br>		&#123;<span class="hljs-literal">false</span>, <span class="hljs-string">&quot;&quot;</span>, []<span class="hljs-type">string</span>&#123;&#125;, <span class="hljs-string">&quot;&quot;</span>&#125;,<br>		&#123;<span class="hljs-literal">true</span>, <span class="hljs-string">&quot;\t&quot;</span>, []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;one&quot;</span>, <span class="hljs-string">&quot;two&quot;</span>, <span class="hljs-string">&quot;three&quot;</span>&#125;, <span class="hljs-string">&quot;one\ttwo\tthree\n&quot;</span>&#125;,<br>		&#123;<span class="hljs-literal">true</span>, <span class="hljs-string">&quot;,&quot;</span>, []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>&#125;, <span class="hljs-string">&quot;a,b,c\n&quot;</span>&#125;,<br>		&#123;<span class="hljs-literal">false</span>, <span class="hljs-string">&quot;:&quot;</span>, []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-string">&quot;3&quot;</span>&#125;, <span class="hljs-string">&quot;1:2:3&quot;</span>&#125;,<br>	&#125;<br>	<span class="hljs-keyword">for</span> i, test := <span class="hljs-keyword">range</span> tests &#123;<br>		descr := fmt.Sprintf(<span class="hljs-string">&quot;encho(%v, %q, %q)&quot;</span>, test.newline, test.sep, test.args)<br>		out = <span class="hljs-built_in">new</span>(bytes.Buffer)<br>		<span class="hljs-keyword">if</span> err := echo(test.newline, test.sep, test.args); err != <span class="hljs-literal">nil</span> &#123;<br>			t.Errorf(<span class="hljs-string">&quot;%s failed: %v&quot;</span>, descr, err)<br>		&#125;<br>		got := out.(*bytes.Buffer).String()<br>		<span class="hljs-keyword">if</span> got != test.want &#123;<br>			t.Errorf(<span class="hljs-string">&quot;%d. %s = %q, want %q&quot;</span>, i, descr, got, test.want)<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>要注意的是，测试文件要与main文件放在同一个包内。<br>该测试中，使用了内部包级变量out，在测试中，可以将out替换，以达到测试的效果。</p>
+<h1 id="白盒测试"><a href="#白盒测试" class="headerlink" title="白盒测试"></a>白盒测试</h1><p>一种测试分类的方法是基于测试者是否需要了解被测试对象的内部工作原理。<br><code>黑盒测试</code>只需要测试包公开的文档和API行为，内部实现对测试代码是透明的。<br><code>白盒测试</code>有访问包内部函数和数据结构的权限，因此可以做到一下普通客户端无法实现的测试。<br>白盒测试也叫做<code>clear box test</code>。</p>
+<p>黑盒和白盒这两种测试方法是互补的。<br>黑盒测试一般更健壮，随着软件实现的完善测试代码很少需要更新。<br>    - 它们可以帮助测试者了解真是客户的需求，<br>    - 帮助发现API设计的一些不足之处。<br>白盒测试则可以对内部一些棘手的实现提供更多的测试覆盖。</p>
+<p><code>TestIsPalindrome</code> 测试仅使用了导出的<code>IsPalindrome</code>函数，所以是黑盒测试。<br><code>TestEcho</code>测试则调用了内部的<code>echo</code>函数，还更新内部包级变量<code>out</code>，所以这是白盒测试。</p>
+<p>可以将产品代码的其他部分也替换为一个容易测试的伪对象。使用伪对象的好处是我们可以方便配置，容易预测，更可靠，也更容易观察。同时也可以避免一些不良的副作用，例如更新生产数据库或信用卡消费行为。</p>
+<p>下面的代码演示了为用户提供网络存储的web服务中的配额检测逻辑。当用户使用了超过90%的存储配额之后将发送提醒邮件。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> storage<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;net/smtp&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">bytesInUse</span><span class="hljs-params">(username <span class="hljs-type">string</span>)</span></span> <span class="hljs-type">int64</span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>&#125;<br><br><span class="hljs-keyword">const</span> sender = <span class="hljs-string">&quot;notifications@example.com&quot;</span><br><span class="hljs-keyword">const</span> password = <span class="hljs-string">&quot;correchorsebatterysaple&quot;</span><br><span class="hljs-keyword">const</span> hostname = <span class="hljs-string">&quot;smtp.example.com&quot;</span><br><br><span class="hljs-keyword">const</span> template = <span class="hljs-string">&quot;Warning: you are using %d bytes of storage, %d%% of your quota&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">CheckQuota</span><span class="hljs-params">(username <span class="hljs-type">string</span>)</span></span> &#123;<br>	used := bytesInUse(username)<br>	<span class="hljs-keyword">const</span> quota = <span class="hljs-number">1000000000</span> <span class="hljs-comment">// 1GB</span><br>	percent := <span class="hljs-number">100</span> * used<br>	<span class="hljs-keyword">if</span> percent &lt; <span class="hljs-number">90</span> &#123;<br>		<span class="hljs-keyword">return</span><br>	&#125;<br><br>	msg := fmt.Sprintf(template, used, percent)<br>	auth := smtp.PlainAuth(<span class="hljs-string">&quot;&quot;</span>, sender, password, hostname)<br>	err := smtp.SendMail(hostname+<span class="hljs-string">&quot;:587&quot;</span>, auth, sender, []<span class="hljs-type">string</span>&#123;username&#125;, []<span class="hljs-type">byte</span>(msg))<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Printf(<span class="hljs-string">&quot;smtp.SendMail(%s) failed: %s&quot;</span>, username, err)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>现在我们想测试该函数，但是不想发送邮件，可以将发送邮件逻辑抽取出来，然后进行替换。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> storage<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;net/smtp&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">bytesInUse</span><span class="hljs-params">(username <span class="hljs-type">string</span>)</span></span> <span class="hljs-type">int64</span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">999999999</span><br>&#125;<br><br><span class="hljs-keyword">const</span> sender = <span class="hljs-string">&quot;notifications@example.com&quot;</span><br><span class="hljs-keyword">const</span> password = <span class="hljs-string">&quot;correchorsebatterysaple&quot;</span><br><span class="hljs-keyword">const</span> hostname = <span class="hljs-string">&quot;smtp.example.com&quot;</span><br><br><span class="hljs-keyword">const</span> template = <span class="hljs-string">&quot;Warning: you are using %d bytes of storage, %d%% of your quota&quot;</span><br><br><span class="hljs-keyword">var</span> notifyUser = <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(username, msg <span class="hljs-type">string</span>)</span></span> &#123;<br>	auth := smtp.PlainAuth(<span class="hljs-string">&quot;&quot;</span>, sender, password, hostname)<br>	err := smtp.SendMail(hostname+<span class="hljs-string">&quot;:587&quot;</span>, auth, sender, []<span class="hljs-type">string</span>&#123;username&#125;, []<span class="hljs-type">byte</span>(msg))<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Printf(<span class="hljs-string">&quot;smtp.SendMail(%s) failed: %s&quot;</span>, username, err)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">CheckQuota</span><span class="hljs-params">(username <span class="hljs-type">string</span>)</span></span> &#123;<br>	used := bytesInUse(username)<br>	<span class="hljs-keyword">const</span> quota = <span class="hljs-number">1000000000</span> <span class="hljs-comment">// 1GB</span><br>	percent := <span class="hljs-number">100</span> * used / quota<br>	<span class="hljs-keyword">if</span> percent &lt; <span class="hljs-number">90</span> &#123;<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	msg := fmt.Sprintf(template, used, percent)<br>	notifyUser(username, msg)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>storage_test.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> storage<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;strings&quot;</span><br>	<span class="hljs-string">&quot;testing&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestCheckQuota</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	<span class="hljs-keyword">var</span> notifiedUser, notifiedMsg <span class="hljs-type">string</span><br>	notifyUser = <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(username, msg <span class="hljs-type">string</span>)</span></span> &#123;<br>		notifiedUser, notifiedMsg = username, msg<br>	&#125;<br><br>	<span class="hljs-keyword">const</span> user = <span class="hljs-string">&quot;job@example.org&quot;</span><br>	CheckQuota(user)<br>	<span class="hljs-keyword">if</span> notifiedUser == <span class="hljs-string">&quot;&quot;</span> &amp;&amp; notifiedMsg == <span class="hljs-string">&quot;&quot;</span> &#123;<br>		t.Fatal(<span class="hljs-string">&quot;notifyUser not called&quot;</span>)<br>	&#125;<br><br>	<span class="hljs-keyword">if</span> notifiedUser != user &#123;<br>		t.Errorf(<span class="hljs-string">&quot;wrong user (%s) notified, want %s&quot;</span>, notifiedUser, user)<br>	&#125;<br><br>	<span class="hljs-keyword">const</span> wantSubstring = <span class="hljs-string">&quot;98% of your quota&quot;</span><br>	<span class="hljs-keyword">if</span> !strings.Contains(notifiedMsg, wantSubstring) &#123;<br>		t.Errorf(<span class="hljs-string">&quot;unexpected notification message &lt;&lt;%s&gt;&gt;, want substring %q&quot;</span>, notifiedMsg, wantSubstring)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这里有个问题：当测试函数完成后，<code>CheckQuota</code>将不能正常工作，因为notifiedUser仍然使用的是测试函数中伪发送邮件函数，因为更新的是全局变量。所以必须恢复成原先的路径，保证不会错乱。<br>可以使用defer语句进行恢复。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestCheckQuotaNotifiedUser</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	<span class="hljs-comment">// Save and restore origin notifyUser</span><br>	saved := notifyUser<br>	<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123; notifyUser = saved &#125;()<br><br>	<span class="hljs-keyword">var</span> notifiedUser, notifiedMsg <span class="hljs-type">string</span><br>	notifyUser = <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(username, msg <span class="hljs-type">string</span>)</span></span> &#123;<br>		notifiedUser, notifiedMsg = username, msg<br>	&#125;<br><br>	<span class="hljs-keyword">const</span> user = <span class="hljs-string">&quot;job@example.org&quot;</span><br>	CheckQuota(user)<br>	<span class="hljs-keyword">if</span> notifiedUser == <span class="hljs-string">&quot;&quot;</span> &amp;&amp; notifiedMsg == <span class="hljs-string">&quot;&quot;</span> &#123;<br>		t.Fatal(<span class="hljs-string">&quot;notifyUser not called&quot;</span>)<br>	&#125;<br><br>	<span class="hljs-keyword">if</span> notifiedUser != user &#123;<br>		t.Errorf(<span class="hljs-string">&quot;wrong user (%s) notified, want %s&quot;</span>, notifiedUser, user)<br>	&#125;<br><br>	<span class="hljs-keyword">const</span> wantSubstring = <span class="hljs-string">&quot;98% of your quota&quot;</span><br>	<span class="hljs-keyword">if</span> !strings.Contains(notifiedMsg, wantSubstring) &#123;<br>		t.Errorf(<span class="hljs-string">&quot;unexpected notification message &lt;&lt;%s&gt;&gt;, want substring %q&quot;</span>, notifiedMsg, wantSubstring)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这种处理模式可以用来暂时保存和恢复所有的全局变量，包括命令行标志参数、调试选项和优化参数；安装和移除导致生产代码产生一些调试信息的钩子函数；还有有些诱导生产代码进入某些重要状态的改变，比如超时、错误，甚至是一些刻意制造的并发行为等因素。</p>
+<p><code>go test</code>并不会并发执行测试函数，所以这样修改全局变量是安全的。</p>
+<h1 id="拓展测试包"><a href="#拓展测试包" class="headerlink" title="拓展测试包"></a>拓展测试包</h1><p>有这么一个例子：<br><code>net/url</code>包，提供了URL解析的功能；<br><code>net/http</code>包，提供了web服务和HTTP客户端的功能；<br><code>net/http</code>包依赖于<code>net/url</code>;<br>现在需要写一个<code>net/url</code>测试，需要测试不同url与HTTP客户端的交互行为。<br>相当于<code>net/url</code>反过来依赖<code>net/http</code>，岂不是依赖依赖。<br>我们知道，Go语言是禁止循环依赖的。<br>怎么解决？</p>
+<p>可以引入拓展测试包来解决这个问题，也就是在<code>net/url</code>所在的目录创建一个<code>url_test</code>的测试包。<br>测试包的后缀为<code>_test</code>，它会告诉<code>go test</code>工具，应该创建一个额外的包进行测试。<br>测试拓展包不会被其他包导入。<br>因为测试拓展包是一个独立的包，是导入测试代码的辅助包。<br><code>url_test</code>测试拓展包依赖于<code>net/url</code>，<code>net/http</code>包。</p>
+<p>在集成测试中，测试拓展包可以灵活得导入其他包。</p>
+<p>可以使用<code>go list</code>查询哪些包是测试拓展包，哪些是源码，哪些是包内测试。<br>以fmt包为例，<code>GoFiles</code>表示源码源文件，也是<code>go build</code>构建的那部分代码：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go">$ <span class="hljs-keyword">go</span> list -f=&#123;&#123;.GoFiles&#125;&#125; fmt<br>[doc.<span class="hljs-keyword">go</span> format.<span class="hljs-keyword">go</span> <span class="hljs-built_in">print</span>.<span class="hljs-keyword">go</span> scan.<span class="hljs-keyword">go</span>]<br></code></pre></td></tr></table></figure>
+<p><code>TestGoFiles</code>表示的是fmt包内部测试测试代码，以<code>_test.go</code>为后缀文件名，不过只在测试时被构建：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go">$ <span class="hljs-keyword">go</span> list -f=&#123;&#123;.TestGoFiles&#125;&#125; fmt<br>[export_test.<span class="hljs-keyword">go</span>]<br></code></pre></td></tr></table></figure>
+<p><code>XTestGoFiles</code>表示的是属于测试扩展包的测试代码，也就是<code>fmt_test</code>包，因此它们必须先导入fmt包。同样，这些文件也只是在测试时被构建运行：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go">$ <span class="hljs-keyword">go</span> list -f=&#123;&#123;.XTestGoFiles&#125;&#125; fmt<br>[errors_test.<span class="hljs-keyword">go</span> example_test.<span class="hljs-keyword">go</span> fmt_test.<span class="hljs-keyword">go</span> gostringer_example_test.<span class="hljs-keyword">go</span> scan_test.<span class="hljs-keyword">go</span> stringer_example_test.<span class="hljs-keyword">go</span> stringer_test.<span class="hljs-keyword">go</span>]<br></code></pre></td></tr></table></figure>
+<p>有时候测试扩展包也需要访问被测试包内部的代码，例如在一个为了避免循环导入而被独立到外部测试扩展包的白盒测试。<br>在这种情况下，我们可以通过一些技巧解决：我们在包内的一个_test.go文件中导出一个内部的实现给测试扩展包。因为这些代码只有在测试时才需要，因此一般会放在<code>export_test.go</code>文件中。</p>
+<p>例如，fmt包的<code>fmt.Scanf</code>函数需要<code>unicode.IsSpace</code>函数提供的功能。但是为了避免太多的依赖，fmt包并没有导入包含巨大表格数据的unicode包；相反fmt包有一个叫<code>isSpace</code>内部的简易实现。<br>为了确保<code>fmt.isSpace</code>和<code>unicode.IsSpace</code>函数的行为一致，fmt包谨慎地包含了一个测试。是一个在测试扩展包内的白盒测试，是无法直接访问到isSpace内部函数的，因此fmt通过一个秘密出口导出了isSpace函数。export_test.go文件就是专门用于测试扩展包的秘密出口。<br>export_test.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> fmt<br><br><span class="hljs-keyword">var</span> IsSpace = isSpace<br><span class="hljs-keyword">var</span> Parsenum = parsenum<br></code></pre></td></tr></table></figure>
+<p>fmt_test.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> fmt_test<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestIsSpace</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	<span class="hljs-comment">// This tests the internal isSpace function.</span><br>	<span class="hljs-comment">// IsSpace = isSpace is defined in export_test.go.</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-type">rune</span>(<span class="hljs-number">0</span>); i &lt;= unicode.MaxRune; i++ &#123;<br>		<span class="hljs-keyword">if</span> IsSpace(i) != unicode.IsSpace(i) &#123;<br>			t.Errorf(<span class="hljs-string">&quot;isSpace(%U) = %v, want %v&quot;</span>, i, IsSpace(i), unicode.IsSpace(i))<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这个测试文件并没有定义测试代码；它只是通过<code>fmt.IsSpace</code>简单导出了内部的<code>isSpace</code>函数，提供给测试扩展包使用。这个技巧可以广泛用于位于测试扩展包的白盒测试。</p>
+<h1 id="编写有效的测试"><a href="#编写有效的测试" class="headerlink" title="编写有效的测试"></a>编写有效的测试</h1><p>相对于其它语言，Go语言的测试框架非常非常简洁。<br>其它语言测试函数的机制，包括反射，元数据，钩子函数，assert断言，值比较函数，格式化输出错误信息和停止一个识别的测试等辅助函数。<br>虽然这些辅助函数使得测试是否简洁，但是导致输出日志十分之长，定位和查找费劲。<br>Go语言的测试风格则形成鲜明对比。它期望测试者自己完成大部分的工作，定义函数避免重复，就像普通编程那样。</p>
+<p>一个好的测试不应该引发其他无关的错误信息，它只要清晰简洁地描述问题的症状即可，有时候可能还需要一些上下文信息。</p>
+<p>下面的断言函数比较两个值，然后生成一个通用的错误信息，并停止程序。它很方便使用也确实有效果，但是当测试失败的时候，打印的错误信息却几乎是没有价值的。它并没有为快速解决问题提供一个很好的入口。<br>split_test.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> split<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;strings&quot;</span><br>	<span class="hljs-string">&quot;testing&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">assertEqual</span><span class="hljs-params">(x, y <span class="hljs-type">int</span>)</span></span> &#123;<br>	<span class="hljs-keyword">if</span> x != y &#123;<br>		<span class="hljs-built_in">panic</span>(fmt.Sprintf(<span class="hljs-string">&quot;%d!=%d&quot;</span>, x, y))<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestSplit_Assert</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	words := strings.Split(<span class="hljs-string">&quot;a:b:c&quot;</span>, <span class="hljs-string">&quot;:&quot;</span>)<br>	assertEqual(<span class="hljs-built_in">len</span>(words), <span class="hljs-number">3</span>)<br>	<span class="hljs-comment">//...</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>从这个意义上说，断言函数犯了过早抽象的错误：仅仅测试两个整数是否相同，而放弃了根据上下文提供更有意义的错误信息的做法。我们可以根据具体的错误打印一个更有价值的错误信息，就像下面例子那样。测试在只有一次重复的模式出现时引入抽象。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestSplit</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>    s, sep := <span class="hljs-string">&quot;a:b:c&quot;</span>, <span class="hljs-string">&quot;:&quot;</span><br>    words := strings.Split(s, sep)<br>    <span class="hljs-keyword">if</span> got, want := <span class="hljs-built_in">len</span>(words), <span class="hljs-number">3</span>; got != want &#123;<br>        t.Errorf(<span class="hljs-string">&quot;Split(%q, %q) returned %d words, want %d&quot;</span>,<br>            s, sep, got, want)<br>    &#125;<br>    <span class="hljs-comment">// ...</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>现在的测试不仅报告了调用的具体函数、它的输入和结果的意义；并且打印的真实返回的值和期望返回的值；并且即使断言失败依然会继续尝试运行更多的测试。一旦我们写了这样结构的测试，下一步自然不是用更多的if语句来扩展测试用例，我们可以用像IsPalindrome的表驱动测试那样来准备更多的s和sep测试用例。</p>
+<p>如果有可以使测试代码更简单的方法我们也乐意接受。开始一个好的测试的关键是通过实现你真正想要的具体行为，然后才是考虑然后简化测试代码。最好的接口是直接从库的抽象接口开始，针对公共接口编写一些测试函数。</p>
+<h2 id="练习-2"><a href="#练习-2" class="headerlink" title="练习"></a>练习</h2><p><strong>练习11.5:</strong> 用表格驱动的技术扩展TestSplit测试，并打印期望的输出结果。<br>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> split<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;strings&quot;</span><br>	<span class="hljs-string">&quot;testing&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestSplit</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	tests := []<span class="hljs-keyword">struct</span> &#123;<br>		s    <span class="hljs-type">string</span><br>		sep  <span class="hljs-type">string</span><br>		want <span class="hljs-type">int</span><br>	&#125;&#123;<br>		&#123;<span class="hljs-string">&quot;a:b:c&quot;</span>, <span class="hljs-string">&quot;:&quot;</span>, <span class="hljs-number">3</span>&#125;,<br>		&#123;<span class="hljs-string">&quot;q1w1e1r&quot;</span>, <span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-number">4</span>&#125;,<br>		&#123;<span class="hljs-string">&quot;p-o-i-n-t&quot;</span>, <span class="hljs-string">&quot;-&quot;</span>, <span class="hljs-number">5</span>&#125;,<br>		&#123;<span class="hljs-string">&quot;never give up&quot;</span>, <span class="hljs-string">&quot; &quot;</span>, <span class="hljs-number">3</span>&#125;,<br>	&#125;<br>	<span class="hljs-keyword">for</span> i, test := <span class="hljs-keyword">range</span> tests &#123;<br>		words := strings.Split(test.s, test.sep)<br>		<span class="hljs-keyword">if</span> got := <span class="hljs-built_in">len</span>(words); got != test.want &#123;<br>			t.Errorf(<span class="hljs-string">&quot;%d. split(%q, %q) returns %d words, want %d.&quot;</span>, i, test.s, test.sep, got, test.want)<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="避免不稳定的测试"><a href="#避免不稳定的测试" class="headerlink" title="避免不稳定的测试"></a>避免不稳定的测试</h1><p>如果一个应用程序对于新出现的但有效的输入经常失败说明程序不够稳健；<br>同样如果一个测试仅仅因为输入变化就会导致失败也是不合逻辑的。</p>
+<p>避免脆弱测试代码的方法是只检测你真正关心的属性。保持测试代码的简洁和内部结构的稳定。特别是对断言部分要有所选择。不要检查字符串的全匹配，但是寻找相关的子字符串，因为某些子字符串在项目的发展中是比较稳定不变的。通常编写一个重复杂的输出中提取必要精华信息以用于断言是值得的，虽然这可能会带来很多前期的工作，但是它可以帮助迅速及时修复因为项目演化而导致的不合逻辑的失败测试。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="print-no-link">#读书笔记</a>
+      
+        <a href="/tags/go/" class="print-no-link">#go</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>11.2. 测试函数</div>
+      <div>https://succeedwer.github.io/posts/0bc5b76177c6/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WER</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月21日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年3月18日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/79be1aaa69b3/" title="11.3. 测试覆盖率">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">11.3. 测试覆盖率</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/84a75b89cf5a/" title="11.1 go test">
+                        <span class="hidden-mobile">11.1 go test</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,758 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="题目本章节的例子为非阻塞缓存。即缓存函数的返回结果，调用该函数时，只要返回已缓存的函数结果即可。 下面以httpGetBody函数做为缓存函数的样例。 12345678func httpGetBody(url string) (interface&#123;&#125;, error) &#123;	resp, err :&#x3D; http.Get(url)	if err !&#x3D; nil &#123;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="9.7. 示例：并发的非阻塞缓存">
+<meta property="og:url" content="https://succeedwer.github.io/posts/582daaba3cd4/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:description" content="题目本章节的例子为非阻塞缓存。即缓存函数的返回结果，调用该函数时，只要返回已缓存的函数结果即可。 下面以httpGetBody函数做为缓存函数的样例。 12345678func httpGetBody(url string) (interface&#123;&#125;, error) &#123;	resp, err :&#x3D; http.Get(url)	if err !&#x3D; nil &#123;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-19T09:52:19.000Z">
+<meta property="article:modified_time" content="2024-03-18T05:20:20.000Z">
+<meta property="article:author" content="WER">
+<meta property="article:tag" content="读书笔记">
+<meta property="article:tag" content="go">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>9.7. 示例：并发的非阻塞缓存 - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="9.7. 示例：并发的非阻塞缓存"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-19 17:52" pubdate>
+          2023年3月19日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          24 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">9.7. 示例：并发的非阻塞缓存</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>本章节的例子为非阻塞缓存。<br>即缓存函数的返回结果，调用该函数时，只要返回已缓存的函数结果即可。</p>
+<p>下面以httpGetBody函数做为缓存函数的样例。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">httpGetBody</span><span class="hljs-params">(url <span class="hljs-type">string</span>)</span></span> (<span class="hljs-keyword">interface</span>&#123;&#125;, <span class="hljs-type">error</span>) &#123;<br>	resp, err := http.Get(url)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err<br>	&#125;<br>	<span class="hljs-keyword">defer</span> resp.Body.Close()<br>	<span class="hljs-keyword">return</span> io.ReadAll(resp.Body)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>io.ReadAll</code>函数有两个返回值，一个为[]byte数组和一个错误结果。<br>这里使用interface{}接收[]byte，是为了通配各个函数的返回值。</p>
+<h1 id="test工具包"><a href="#test工具包" class="headerlink" title="test工具包"></a>test工具包</h1><p>为了整合输入参数，进行串行和并发的需求，统一整合为memotest。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> memotest<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;io&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;net/http&quot;</span><br>	<span class="hljs-string">&quot;sync&quot;</span><br>	<span class="hljs-string">&quot;testing&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">httpGetBody</span><span class="hljs-params">(url <span class="hljs-type">string</span>)</span></span> (<span class="hljs-keyword">interface</span>&#123;&#125;, <span class="hljs-type">error</span>) &#123;<br>	resp, err := http.Get(url)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err<br>	&#125;<br>	<span class="hljs-keyword">defer</span> resp.Body.Close()<br>	<span class="hljs-keyword">return</span> io.ReadAll(resp.Body)<br>&#125;<br><br><span class="hljs-keyword">var</span> HTTPGetBody = httpGetBody<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">incomingURLs</span><span class="hljs-params">()</span></span> &lt;-<span class="hljs-keyword">chan</span> <span class="hljs-type">string</span> &#123;<br>	ch := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">string</span>)<br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">for</span> _, url := <span class="hljs-keyword">range</span> []<span class="hljs-type">string</span>&#123;<br>			<span class="hljs-string">&quot;https://baidu.com&quot;</span>,<br>			<span class="hljs-string">&quot;https://jd.com&quot;</span>,<br>			<span class="hljs-string">&quot;https://taobao.com&quot;</span>,<br>			<span class="hljs-string">&quot;https://qq.com&quot;</span>,<br>			<span class="hljs-string">&quot;https://godoc.org&quot;</span>,<br>			<span class="hljs-string">&quot;https://baidu.com&quot;</span>,<br>			<span class="hljs-string">&quot;https://jd.com&quot;</span>,<br>			<span class="hljs-string">&quot;https://taobao.com&quot;</span>,<br>			<span class="hljs-string">&quot;https://qq.com&quot;</span>,<br>			<span class="hljs-string">&quot;https://godoc.org&quot;</span>,<br>		&#125; &#123;<br>			ch &lt;- url<br>		&#125;<br>		<span class="hljs-built_in">close</span>(ch)<br>	&#125;()<br>	<span class="hljs-keyword">return</span> ch<br>&#125;<br><br><span class="hljs-keyword">type</span> M <span class="hljs-keyword">interface</span> &#123;<br>	Get(key <span class="hljs-type">string</span>) (<span class="hljs-keyword">interface</span>&#123;&#125;, <span class="hljs-type">error</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Sequential</span><span class="hljs-params">(t *testing.T, m M)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> url := <span class="hljs-keyword">range</span> incomingURLs() &#123;<br>		start := time.Now()<br>		value, err := m.Get(url)<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			log.Print(err)<br>			<span class="hljs-keyword">continue</span><br>		&#125;<br>		fmt.Printf(<span class="hljs-string">&quot;%s, %s, %d bytes\n&quot;</span>, url, time.Since(start), <span class="hljs-built_in">len</span>(value.([]<span class="hljs-type">byte</span>)))<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Concurrent</span><span class="hljs-params">(t *testing.T, m M)</span></span> &#123;<br>	<span class="hljs-keyword">var</span> n sync.WaitGroup<br>	<span class="hljs-keyword">for</span> url := <span class="hljs-keyword">range</span> incomingURLs() &#123;<br>		n.Add(<span class="hljs-number">1</span>)<br>		<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(url <span class="hljs-type">string</span>)</span></span> &#123;<br>			<span class="hljs-keyword">defer</span> n.Done()<br>			start := time.Now()<br>			value, err := m.Get(url)<br>			<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>				log.Print(err)<br>				<span class="hljs-keyword">return</span><br>			&#125;<br>			fmt.Printf(<span class="hljs-string">&quot;%s, %s, %d bytes\n&quot;</span>, url, time.Since(start), <span class="hljs-built_in">len</span>(value.([]<span class="hljs-type">byte</span>)))<br>		&#125;(url)<br>	&#125;<br>	n.Wait()<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>并为每个版本加入相同的test。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> memo<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;go-learn-gopl/ch/ch9/memotest&quot;</span><br>	<span class="hljs-string">&quot;testing&quot;</span><br>)<br><br><span class="hljs-keyword">var</span> httpGetBody = memotest.HTTPGetBody<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Test</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	m := New(httpGetBody)<br>	memotest.Sequential(t, m)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestConcurrent</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	m := New(httpGetBody)<br>	memotest.Concurrent(t, m)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="初始版本"><a href="#初始版本" class="headerlink" title="初始版本"></a>初始版本</h1><p>下面为第一个“草稿”。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Package memo provides a concurrency-unsafe</span><br><span class="hljs-comment">// memoization of a function of type Func.</span><br><span class="hljs-keyword">package</span> memo<br><br><span class="hljs-keyword">type</span> Memo <span class="hljs-keyword">struct</span> &#123;<br>	f     Func<br>	cache <span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]result<br>&#125;<br><br><span class="hljs-keyword">type</span> Func <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(key <span class="hljs-type">string</span>)</span></span> (<span class="hljs-keyword">interface</span>&#123;&#125;, <span class="hljs-type">error</span>)<br><br><span class="hljs-keyword">type</span> result <span class="hljs-keyword">struct</span> &#123;<br>	value <span class="hljs-keyword">interface</span>&#123;&#125;<br>	err   <span class="hljs-type">error</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">New</span><span class="hljs-params">(f Func)</span></span> *Memo &#123;<br>	<span class="hljs-keyword">return</span> &amp;Memo&#123;f, <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]result)&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(memo *Memo)</span></span> Get(key <span class="hljs-type">string</span>) (<span class="hljs-keyword">interface</span>&#123;&#125;, <span class="hljs-type">error</span>) &#123;<br>	res, ok := memo.cache[key]<br>	<span class="hljs-keyword">if</span> !ok &#123;<br>		res.value, res.err = memo.f(key)<br>		memo.cache[key] = res<br>	&#125;<br>	<span class="hljs-keyword">return</span> res.value, res.err<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>串行测试</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">go</span> test -v -run=Test ./ch/ch9/memo1<br>=== RUN   Test<br>https:<span class="hljs-comment">//baidu.com, 405.543831ms, 2381 bytes</span><br>https:<span class="hljs-comment">//jd.com, 324.683787ms, 183679 bytes</span><br>https:<span class="hljs-comment">//taobao.com, 384.265799ms, 96082 bytes</span><br>https:<span class="hljs-comment">//qq.com, 209.840425ms, 327 bytes</span><br>https:<span class="hljs-comment">//godoc.org, 2.761245376s, 32378 bytes</span><br>https:<span class="hljs-comment">//baidu.com, 661ns, 2381 bytes</span><br>https:<span class="hljs-comment">//jd.com, 224ns, 183679 bytes</span><br>https:<span class="hljs-comment">//taobao.com, 188ns, 96082 bytes</span><br>https:<span class="hljs-comment">//qq.com, 474ns, 327 bytes</span><br>https:<span class="hljs-comment">//godoc.org, 323ns, 32378 bytes</span><br>--- PASS: Test (<span class="hljs-number">4.09</span>s)<br></code></pre></td></tr></table></figure>
+<p>显然是无并发的，不存在数据竞争问题。 请求是一条接着一条，耗时长。</p>
+<p>并行测试</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go">$ <span class="hljs-keyword">go</span> test -run=TestConcurrent -v ./ch/ch9/memo1<br>=== RUN   TestConcurrent<br>https:<span class="hljs-comment">//qq.com, 33.114198ms, 327 bytes</span><br>https:<span class="hljs-comment">//qq.com, 46.830945ms, 327 bytes</span><br>https:<span class="hljs-comment">//jd.com, 68.843239ms, 183679 bytes</span><br>https:<span class="hljs-comment">//taobao.com, 94.846451ms, 96082 bytes</span><br>https:<span class="hljs-comment">//baidu.com, 106.973399ms, 2381 bytes</span><br>https:<span class="hljs-comment">//jd.com, 122.166527ms, 183679 bytes</span><br>https:<span class="hljs-comment">//baidu.com, 172.595417ms, 2381 bytes</span><br>https:<span class="hljs-comment">//taobao.com, 189.742852ms, 96082 bytes</span><br>https:<span class="hljs-comment">//godoc.org, 558.529384ms, 32378 bytes</span><br>https:<span class="hljs-comment">//godoc.org, 688.339219ms, 32378 bytes</span><br>--- PASS: TestConcurrent (<span class="hljs-number">0.69</span>s)<br></code></pre></td></tr></table></figure>
+<p>显然，使用并行，无需要等待，耗时大大缩短。</p>
+<p>但是呢，这并不是每次都能成功运行，有时候还会出现缓存为命中，或命中了缓存却返回错误的数据，甚至于直接崩溃。<br>我们可以使用-race这个flag进行运行程序。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs go">$ <span class="hljs-keyword">go</span> test -run=TestConcurrent -v -race ./ch/ch9/memo1<br>=== RUN   TestConcurrent<br>https:<span class="hljs-comment">//qq.com, 203.543501ms, 327 bytes</span><br>https:<span class="hljs-comment">//qq.com, 210.605108ms, 327 bytes</span><br>https:<span class="hljs-comment">//jd.com, 311.075599ms, 182426 bytes</span><br>==================<br>WARNING: DATA RACE<br>Write at <span class="hljs-number">0x00c00010aed0</span> by goroutine <span class="hljs-number">18</span>:<br>  runtime.mapassign_faststr()<br>      /usr/local/<span class="hljs-keyword">go</span>/src/runtime/map_faststr.<span class="hljs-keyword">go</span>:<span class="hljs-number">203</span> +<span class="hljs-number">0x0</span><br>  <span class="hljs-keyword">go</span>-learn-gopl/ch/ch9/memo1.(*Memo).Get()<br>      /Users/huangfuwang/Desktop/Code/Go/<span class="hljs-keyword">go</span>-learn-gopl/ch/ch9/memo1/memo.<span class="hljs-keyword">go</span>:<span class="hljs-number">25</span> +<span class="hljs-number">0x12c</span><br>  <span class="hljs-keyword">go</span>-learn-gopl/ch/ch9/memotest.Concurrent.func1()<br>      /Users/huangfuwang/Desktop/Code/Go/<span class="hljs-keyword">go</span>-learn-gopl/ch/ch9/memotest/memotest.<span class="hljs-keyword">go</span>:<span class="hljs-number">69</span> +<span class="hljs-number">0xea</span><br>  <span class="hljs-keyword">go</span>-learn-gopl/ch/ch9/memotest.Concurrent.func2()<br>      /Users/huangfuwang/Desktop/Code/Go/<span class="hljs-keyword">go</span>-learn-gopl/ch/ch9/memotest/memotest.<span class="hljs-keyword">go</span>:<span class="hljs-number">75</span> +<span class="hljs-number">0x58</span><br><br>Previous write at <span class="hljs-number">0x00c00010aed0</span> by goroutine <span class="hljs-number">10</span>:<br>  runtime.mapassign_faststr()<br>      /usr/local/<span class="hljs-keyword">go</span>/src/runtime/map_faststr.<span class="hljs-keyword">go</span>:<span class="hljs-number">203</span> +<span class="hljs-number">0x0</span><br>  <span class="hljs-keyword">go</span>-learn-gopl/ch/ch9/memo1.(*Memo).Get()<br>      /Users/huangfuwang/Desktop/Code/Go/<span class="hljs-keyword">go</span>-learn-gopl/ch/ch9/memo1/memo.<span class="hljs-keyword">go</span>:<span class="hljs-number">25</span> +<span class="hljs-number">0x12c</span><br>  <span class="hljs-keyword">go</span>-learn-gopl/ch/ch9/memotest.Concurrent.func1()<br>      /Users/huangfuwang/Desktop/Code/Go/<span class="hljs-keyword">go</span>-learn-gopl/ch/ch9/memotest/memotest.<span class="hljs-keyword">go</span>:<span class="hljs-number">69</span> +<span class="hljs-number">0xea</span><br>  <span class="hljs-keyword">go</span>-learn-gopl/ch/ch9/memotest.Concurrent.func2()<br>      /Users/huangfuwang/Desktop/Code/Go/<span class="hljs-keyword">go</span>-learn-gopl/ch/ch9/memotest/memotest.<span class="hljs-keyword">go</span>:<span class="hljs-number">75</span> +<span class="hljs-number">0x58</span><br>...<br></code></pre></td></tr></table></figure>
+<p>ps：go test出现缓存（cached），可以加上-count&#x3D;1禁止使用缓存。</p>
+<p>显然，程序出现数据竞争，代码的第25行出现了2次。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-number">21</span> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(memo *Memo)</span></span> Get(key <span class="hljs-type">string</span>) (<span class="hljs-keyword">interface</span>&#123;&#125;, <span class="hljs-type">error</span>) &#123;<br><span class="hljs-number">22</span>	res, ok := memo.cache[key]<br><span class="hljs-number">23</span>	<span class="hljs-keyword">if</span> !ok &#123;<br><span class="hljs-number">24</span>		res.value, res.err = memo.f(key)<br><span class="hljs-number">25</span>		memo.cache[key] = res<br><span class="hljs-number">26</span> 	&#125;<br><span class="hljs-number">27</span>	<span class="hljs-keyword">return</span> res.value, res.err<br><span class="hljs-number">28</span>&#125;<br></code></pre></td></tr></table></figure>
+<p>说明这个两个goroutine在没有并发干预下更新了cache map。 表明Get函数非并发安全的，存在数据竞争。</p>
+<h1 id="第二个版本-加锁"><a href="#第二个版本-加锁" class="headerlink" title="第二个版本-加锁"></a>第二个版本-加锁</h1><p>为了解决初始版本的并发问题，可以对Get函数进行加锁处理。<br>在函数开始时，进行获取锁，return的时候释放锁。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> memo<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;sync&quot;</span><br><br><span class="hljs-keyword">type</span> Memo <span class="hljs-keyword">struct</span> &#123;<br>	f     Func<br>	mu    sync.Mutex<br>	cache <span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]result<br>&#125;<br><br><span class="hljs-keyword">type</span> Func <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(key <span class="hljs-type">string</span>)</span></span> (<span class="hljs-keyword">interface</span>&#123;&#125;, <span class="hljs-type">error</span>)<br><br><span class="hljs-keyword">type</span> result <span class="hljs-keyword">struct</span> &#123;<br>	value <span class="hljs-keyword">interface</span>&#123;&#125;<br>	err   <span class="hljs-type">error</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">New</span><span class="hljs-params">(f Func)</span></span> *Memo &#123;<br>	<span class="hljs-keyword">return</span> &amp;Memo&#123;f: f, cache: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]result)&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(memo *Memo)</span></span> Get(key <span class="hljs-type">string</span>) (<span class="hljs-keyword">interface</span>&#123;&#125;, <span class="hljs-type">error</span>) &#123;<br>	memo.mu.Lock()<br>	res, ok := memo.cache[key]<br>	<span class="hljs-keyword">if</span> !ok &#123;<br>		res.value, res.err = memo.f(key)<br>		memo.cache[key] = res<br>	&#125;<br>	memo.mu.Unlock()<br>	<span class="hljs-keyword">return</span> res.value, res.err<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>再次进行测试，显然是没问题的。<br>但是该版本失去并发，性能大大下降。<br>每次对f进行调用期间都获取锁，Get将本来可以并行运行的I&#x2F;O操作串行化了。<br>以至于，不符合本章的目的。</p>
+<h1 id="第三个版本-两个锁"><a href="#第三个版本-两个锁" class="headerlink" title="第三个版本-两个锁"></a>第三个版本-两个锁</h1><p>这个版本，Get函数的goroutine会获取两次锁，在查找缓存阶段一次，在存储缓存阶段一次。<br>这样可以解决第二版本串行化的问题。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> memo<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;sync&quot;</span><br><br><span class="hljs-keyword">type</span> Memo <span class="hljs-keyword">struct</span> &#123;<br>	f     Func<br>	mu    sync.Mutex<br>	cache <span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]result<br>&#125;<br><br><span class="hljs-keyword">type</span> Func <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(<span class="hljs-type">string</span>)</span></span> (<span class="hljs-keyword">interface</span>&#123;&#125;, <span class="hljs-type">error</span>)<br><br><span class="hljs-keyword">type</span> result <span class="hljs-keyword">struct</span> &#123;<br>	value <span class="hljs-keyword">interface</span>&#123;&#125;<br>	err   <span class="hljs-type">error</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">New</span><span class="hljs-params">(f Func)</span></span> *Memo &#123;<br>	<span class="hljs-keyword">return</span> &amp;Memo&#123;f: f, cache: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]result)&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(memo *Memo)</span></span> Get(key <span class="hljs-type">string</span>) (<span class="hljs-keyword">interface</span>&#123;&#125;, <span class="hljs-type">error</span>) &#123;<br>	memo.mu.Lock()<br>	res, ok := memo.cache[key]<br>	memo.mu.Unlock()<br>	<span class="hljs-keyword">if</span> !ok &#123;<br>		res.value, res.err = memo.f(key)<br><br>		<span class="hljs-comment">// Between the two critical sections,several goroutines</span><br>		<span class="hljs-comment">// may race to compute f(key) and update the map.</span><br>		memo.mu.Lock()<br>		memo.cache[key] = res<br>		memo.mu.Unlock()<br>	&#125;<br>	<span class="hljs-keyword">return</span> res.value, res.err<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这个版本性能较第二个版本大大提升，但是也带了一个问题。<br>但多个goroutine进入到Get函数，并在查找阶段，找不到缓存，进入到调用f的阶段。<br>那么就会发生多次请求相同f, 以及后一个goroutine获取到f的返回值会在存储缓存阶段覆盖先前相同的返回值。<br>显然，这样不符合本章的设计目的。</p>
+<h1 id="第四个版本-ready-channel"><a href="#第四个版本-ready-channel" class="headerlink" title="第四个版本-ready channel"></a>第四个版本-ready channel</h1><p>对于第三个版本来说，理想的情况是去除重复多余的工作。<br>这种“避免”工作一般被称为<code>duplicate suppression(重复抑制/避免)</code>。<br>在entry结构体里加入read channel，用于当数据存储完成后广播其他goroutine告知读取数据是安全的。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> memo<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;sync&quot;</span><br><br><span class="hljs-keyword">type</span> Memo <span class="hljs-keyword">struct</span> &#123;<br>	f     Func<br>	mu    sync.Mutex<br>	cache <span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]*entry<br>&#125;<br><br><span class="hljs-keyword">type</span> Func <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(<span class="hljs-type">string</span>)</span></span> (<span class="hljs-keyword">interface</span>&#123;&#125;, <span class="hljs-type">error</span>)<br><br><span class="hljs-keyword">type</span> result <span class="hljs-keyword">struct</span> &#123;<br>	value <span class="hljs-keyword">interface</span>&#123;&#125;<br>	err   <span class="hljs-type">error</span><br>&#125;<br><br><span class="hljs-keyword">type</span> entry <span class="hljs-keyword">struct</span> &#123;<br>	res   result<br>	ready <span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>&#123;&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">New</span><span class="hljs-params">(f Func)</span></span> *Memo &#123;<br>	<span class="hljs-keyword">return</span> &amp;Memo&#123;f: f, cache: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]*entry)&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(memo *Memo)</span></span> Get(key <span class="hljs-type">string</span>) (<span class="hljs-keyword">interface</span>&#123;&#125;, <span class="hljs-type">error</span>) &#123;<br>	memo.mu.Lock()<br>	e := memo.cache[key]<br>	<span class="hljs-keyword">if</span> e == <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-comment">// This is the first request for this key.</span><br>		<span class="hljs-comment">// This goroutine becomes responsible for computing</span><br>		<span class="hljs-comment">// the value and broadcasting the ready condition.</span><br>		e = &amp;entry&#123;ready: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>&#123;&#125;)&#125;<br>		memo.cache[key] = e<br>		memo.mu.Unlock()<br><br>		e.res.value, e.res.err = memo.f(key)<br>		<span class="hljs-built_in">close</span>(e.ready)<br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		<span class="hljs-comment">// This is a repeat request for this key.</span><br>		memo.mu.Unlock()<br>		&lt;-e.ready <span class="hljs-comment">// Waiting for ready condition.</span><br>	&#125;<br>	<span class="hljs-keyword">return</span> e.res.value, e.res.err<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>Get函数的步骤如下：</p>
+<ul>
+<li><ol>
+<li>获取互斥锁保护共享变量cache map。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>查询map中是存在指定数据。</li>
+</ol>
+<ul>
+<li>2.1 如果map没有指定数据。<ul>
+<li>2.1.1 构建含有ready channel的新数据，并存储，然后释放锁。</li>
+<li>2.1.2 释放锁之后，进行对f函数的调用，获取完成后，关闭ready channel，广播数据获取完成的信息。</li>
+</ul>
+</li>
+<li>2.2 如果map有指定数据。<ul>
+<li>2.2.1 释放锁。</li>
+<li>2.2.2 等待接收ready channel的值。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ol start="3">
+<li>当ready channel进行广播后，就可以返回数据。</li>
+</ol>
+</li>
+</ul>
+<p>可以明确知道，entry中的e.res.value和e.res.err是在多个goroutine之间共享的。<br>在goroutine创建entry时，也设置了值（e &#x3D; &amp;entry{ready: make(chan struct{})}），当其它goroutine获取到广播信息（close(e.ready)）后，立即去获取了entry的值。<br>尽管有多个goroutine同时访问，但是也不需要互斥锁。<br>ready channel的关闭一定是在其它goroutine获取到广播之前，因此第一个goroutine的写操作发生在读操作之前，所以不会产生数据竞争。</p>
+<h1 id="第五个版本-monitor-goroutine"><a href="#第五个版本-monitor-goroutine" class="headerlink" title="第五个版本-monitor goroutine"></a>第五个版本-monitor goroutine</h1><p>与第四个互斥量版本对比，该版本引用了monitor goroutine <code>监控协程</code>。<br>该版本对Memo结构进行了修改，Memo类型只有requests channel。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Memo <span class="hljs-keyword">struct</span> &#123;<br>	requests <span class="hljs-keyword">chan</span> request<br>&#125;<br><span class="hljs-comment">// A request is a message requesting that the Func be applied to key.</span><br><span class="hljs-keyword">type</span> request <span class="hljs-keyword">struct</span> &#123;<br>	key      <span class="hljs-type">string</span><br>	response <span class="hljs-keyword">chan</span>&lt;- result <span class="hljs-comment">// the client wants a single result</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>Get的调用方用这个channel来和monitor goroutine来通信。<br>requests channel中的元素类型是request。Get的调用方会把这个结构中的两组key都填充好，实际上用这两个变量来对函数进行缓存的。<br>另一个叫response的channel会被拿来发送响应结果。这个channel只会传回一个单独的值。<br>Get方法，会创建一个response channel，把它放进request结构中，然后发送给monitor goroutine （server），然后马上又会接收到它。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(memo *Memo)</span></span> Get(key <span class="hljs-type">string</span>) (<span class="hljs-keyword">interface</span>&#123;&#125;, <span class="hljs-type">error</span>) &#123;<br>	response := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> result)<br>	memo.requests &lt;- request&#123;key: key, response: response&#125;<br>	res := &lt;-response<br>	<span class="hljs-keyword">return</span> res.value, res.err<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>cache变量被限制在了monitor goroutine (*Memo).server中。<br>monitor会在循环中一直读取请求，直到request channel被Close方法关闭。<br>每一个请求都会去查询cache，如果没有找到entry的话，那么就会创建&#x2F;插入一个新的entry。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(memo *Memo)</span></span> server(f Func) &#123;<br>	cache := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]*entry)<br>	<span class="hljs-keyword">for</span> req := <span class="hljs-keyword">range</span> memo.requests &#123;<br>		e := cache[req.key]<br>		<span class="hljs-keyword">if</span> e == <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-comment">// This is the first request for this key.</span><br>			e = &amp;entry&#123;ready: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>&#123;&#125;)&#125;<br>			cache[req.key] = e<br>			<span class="hljs-keyword">go</span> e.call(f, req.key)<br>		&#125;<br>		<span class="hljs-keyword">go</span> e.deliver(req.response)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(e *entry)</span></span> call(f Func, key <span class="hljs-type">string</span>) &#123;<br>	<span class="hljs-comment">// Evaluate the function.</span><br>	e.res.value, e.res.err = f(key)<br>	<span class="hljs-comment">// Broadcast the ready condition.</span><br>	<span class="hljs-built_in">close</span>(e.ready)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(e *entry)</span></span> deliver(response <span class="hljs-keyword">chan</span>&lt;- result) &#123;<br>	<span class="hljs-comment">// Wait for the ready condition.</span><br>	&lt;-e.ready<br>	<span class="hljs-comment">// Send the result to the client.</span><br>	response &lt;- e.res<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>与第四个互斥量版本类似，都是通过预存entry，然后请求数据，请求完成后，通过close(ready)进行广播。<br>只是在第五版本中，用call函数代替了调用并广播，用deliver函数代替了分发数据。<br>call和deliver的调用必须保证在自己的goroutine中进行，以确保不会阻塞monitor channel。</p>
+<h1 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h1><p>第四种互斥量版本和第五种监控协程版本都是可行的，该如何选择呢？<br>其实各有各的优点，只能根据特定环境下进行选择。<br>Go语言其实更推荐通信并发，即第五种版本。</p>
+<h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><p><em>练习 9.3：</em> 扩展Func类型和(*Memo).Get方法，支持调用方提供一个可选的done channel，使其具备通过该channel来取消整个操作的能力(§8.9)。一个被取消了的Func的调用结果不应该被缓存。<br>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> memo<br><br><span class="hljs-keyword">type</span> Func <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(<span class="hljs-type">string</span>, &lt;-<span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>&#123;&#125;)</span></span> (<span class="hljs-keyword">interface</span>&#123;&#125;, <span class="hljs-type">error</span>)<br><br><span class="hljs-keyword">type</span> result <span class="hljs-keyword">struct</span> &#123;<br>	value <span class="hljs-keyword">interface</span>&#123;&#125;<br>	err   <span class="hljs-type">error</span><br>&#125;<br><br><span class="hljs-keyword">type</span> entry <span class="hljs-keyword">struct</span> &#123;<br>	res   result<br>	ready <span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>&#123;&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(e *entry)</span></span> call(f Func, key <span class="hljs-type">string</span>, done &lt;-<span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>&#123;&#125;) &#123;<br>	e.res.value, e.res.err = f(key, done)<br>	<span class="hljs-built_in">close</span>(e.ready)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(e *entry)</span></span> deliver(response <span class="hljs-keyword">chan</span>&lt;- result) &#123;<br>	&lt;-e.ready<br>	response &lt;- e.res<br>&#125;<br><br><span class="hljs-keyword">type</span> request <span class="hljs-keyword">struct</span> &#123;<br>	key      <span class="hljs-type">string</span><br>	response <span class="hljs-keyword">chan</span>&lt;- result<br>	done     &lt;-<span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>&#123;&#125;<br>&#125;<br><br><span class="hljs-keyword">type</span> Memo <span class="hljs-keyword">struct</span> &#123;<br>	requests <span class="hljs-keyword">chan</span> request<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(memo *Memo)</span></span> server(f Func) &#123;<br>	cache := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]*entry)<br>	<span class="hljs-keyword">for</span> &#123;<br>	LOOP:<br>		<span class="hljs-keyword">for</span> &#123;<br>			<span class="hljs-keyword">select</span> &#123;<br>			<span class="hljs-keyword">case</span> key := &lt;-canceledKeys:<br>				<span class="hljs-built_in">delete</span>(cache, key)<br>			<span class="hljs-keyword">default</span>:<br>				<span class="hljs-keyword">break</span> LOOP<br>			&#125;<br>		&#125;<br>		<span class="hljs-keyword">select</span> &#123;<br>		<span class="hljs-keyword">case</span> req, ok := &lt;-memo.requests:<br>			<span class="hljs-keyword">if</span> !ok &#123;<br>				<span class="hljs-keyword">return</span><br>			&#125;<br>			e := cache[req.key]<br>			<span class="hljs-keyword">if</span> e == <span class="hljs-literal">nil</span> &#123;<br>				e = &amp;entry&#123;ready: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>&#123;&#125;)&#125;<br>				cache[req.key] = e<br>				<span class="hljs-keyword">go</span> e.call(f, req.key, req.done)<br>			&#125;<br>			<span class="hljs-keyword">go</span> e.deliver(req.response)<br>		<span class="hljs-keyword">default</span>:<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-keyword">var</span> canceledKeys = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">string</span>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(memo *Memo)</span></span> Get(key <span class="hljs-type">string</span>, done &lt;-<span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>&#123;&#125;) (<span class="hljs-keyword">interface</span>&#123;&#125;, <span class="hljs-type">error</span>) &#123;<br>	response := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> result)<br>	memo.requests &lt;- request&#123;key: key, response: response, done: done&#125;<br>	resp := &lt;-response<br>	<span class="hljs-keyword">select</span> &#123;<br>	<span class="hljs-keyword">case</span> &lt;-done:<br>		canceledKeys &lt;- key<br>	<span class="hljs-keyword">default</span>:<br>	&#125;<br>	<span class="hljs-keyword">return</span> resp.value, resp.err<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(memo *Memo)</span></span> Close() &#123;<br>	<span class="hljs-built_in">close</span>(memo.requests)<br>	<span class="hljs-built_in">close</span>(canceledKeys)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">New</span><span class="hljs-params">(f Func)</span></span> *Memo &#123;<br>	memo := &amp;Memo&#123;requests: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> request)&#125;<br>	<span class="hljs-keyword">go</span> memo.server(f)<br>	<span class="hljs-keyword">return</span> memo<br>&#125;<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="print-no-link">#读书笔记</a>
+      
+        <a href="/tags/go/" class="print-no-link">#go</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>9.7. 示例：并发的非阻塞缓存</div>
+      <div>https://succeedwer.github.io/posts/582daaba3cd4/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WER</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月19日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年3月18日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/85a231e79892/" title="9.8. Goroutine和线程">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">9.8. Goroutine和线程</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/d92837fb26ef/" title="9.6. 竞争条件检测">
+                        <span class="hidden-mobile">9.6. 竞争条件检测</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

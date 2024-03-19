@@ -1,0 +1,715 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="题目创建一个程序来统计指定目录下的硬盘使用报告，即文件大小，与linux中的du命令类似。 思路毫无疑问，这道题要使用递归去解决。  创建walkDir递归函数，用于获取下层目录，并统计文件大小。 创建dirents函数用于读取目录下的文件目录。 使用fileSize channel去接受发送文件大小。 接收fileSize channel去累加文件大小。  第一个版本该版本比较直白，下面是它的步">
+<meta property="og:type" content="article">
+<meta property="og:title" content="8.8. 示例：并发的字典遍历">
+<meta property="og:url" content="https://succeedwer.github.io/posts/dbf617f2750e/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:description" content="题目创建一个程序来统计指定目录下的硬盘使用报告，即文件大小，与linux中的du命令类似。 思路毫无疑问，这道题要使用递归去解决。  创建walkDir递归函数，用于获取下层目录，并统计文件大小。 创建dirents函数用于读取目录下的文件目录。 使用fileSize channel去接受发送文件大小。 接收fileSize channel去累加文件大小。  第一个版本该版本比较直白，下面是它的步">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-18T10:52:19.000Z">
+<meta property="article:modified_time" content="2024-03-18T05:20:20.000Z">
+<meta property="article:author" content="WER">
+<meta property="article:tag" content="读书笔记">
+<meta property="article:tag" content="go">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>8.8. 示例：并发的字典遍历 - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="8.8. 示例：并发的字典遍历"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-18 18:52" pubdate>
+          2023年3月18日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">8.8. 示例：并发的字典遍历</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>创建一个程序来统计指定目录下的硬盘使用报告，即文件大小，与linux中的du命令类似。</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>毫无疑问，这道题要使用递归去解决。</p>
+<ul>
+<li>创建<code>walkDir</code>递归函数，用于获取下层目录，并统计文件大小。</li>
+<li>创建<code>dirents</code>函数用于读取目录下的文件目录。</li>
+<li>使用<code>fileSize channel</code>去接受发送文件大小。</li>
+<li>接收<code>fileSize channel</code>去累加文件大小。</li>
+</ul>
+<h1 id="第一个版本"><a href="#第一个版本" class="headerlink" title="第一个版本"></a>第一个版本</h1><p>该版本比较直白，下面是它的步骤。</p>
+<ol>
+<li>创建<code>flag</code>获取文件目录（可能是多个目录），并检查初始化目录。</li>
+<li>创建<code>fileSize channel</code>用于接收文件大小，遍历文件目录参数，并创建goroutine来递归文件目录（<code>walkDir</code>）。</li>
+<li>使用<code>range</code>接收<code>fileSize channel</code>， 统计并打印结果。<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// The du command computes the disk usage of the files in a directory.</span><br><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;flag&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;path/filepath&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br><br>	<span class="hljs-comment">// Determine the initial directories.</span><br>	flag.Parse()<br>	roots := flag.Args()<br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(roots) == <span class="hljs-number">0</span> &#123;<br>		roots = []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;.&quot;</span>&#125;<br>	&#125;<br><br>	<span class="hljs-comment">// Traverse the file tree.</span><br>	fileSizes := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int64</span>)<br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">for</span> _, root := <span class="hljs-keyword">range</span> roots &#123;<br>			walkDir(root, fileSizes)<br>		&#125;<br>		<span class="hljs-built_in">close</span>(fileSizes)<br>	&#125;()<br><br>	<span class="hljs-comment">// Print the results.</span><br>	<span class="hljs-keyword">var</span> nfiles, nbytes <span class="hljs-type">int64</span><br>	<span class="hljs-keyword">for</span> size := <span class="hljs-keyword">range</span> fileSizes &#123;<br>		nfiles++<br>		nbytes += size<br>	&#125;<br>	printDickUage(nfiles, nbytes)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">printDickUage</span><span class="hljs-params">(nfiles <span class="hljs-type">int64</span>, nbytes <span class="hljs-type">int64</span>)</span></span> &#123;<br>	fmt.Printf(<span class="hljs-string">&quot;%d files, %.1fGB\n&quot;</span>, nfiles, <span class="hljs-type">float64</span>(nbytes)/<span class="hljs-number">1e9</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">walkDir</span><span class="hljs-params">(dir <span class="hljs-type">string</span>, fileSizes <span class="hljs-keyword">chan</span>&lt;- <span class="hljs-type">int64</span>)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> _, entry := <span class="hljs-keyword">range</span> dirents(dir) &#123;<br>		<span class="hljs-keyword">if</span> entry.IsDir() &#123;<br>			subDir := filepath.Join(dir, entry.Name())<br>			walkDir(subDir, fileSizes)<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			fileInfo, err := entry.Info()<br>			<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>				fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;du1: %v\n&quot;</span>, err)<br>				<span class="hljs-keyword">return</span><br>			&#125;<br>			fileSizes &lt;- fileInfo.Size()<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">dirents</span><span class="hljs-params">(dir <span class="hljs-type">string</span>)</span></span> []os.DirEntry &#123;<br>	entries, err := os.ReadDir(dir)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;du1: %v\n&quot;</span>, err)<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>	&#125;<br>	<span class="hljs-keyword">return</span> entries<br>&#125;<br></code></pre></td></tr></table></figure>
+很明显，该例子需要耗费更多时间才能统计完成。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ go build -o du1 main.go <br>$ sudo ./du1 /usr /bin /etc<br>68755 files, 6.3GB<br></code></pre></td></tr></table></figure>
+注意是否有权限去读取文件，必要时使用<code>sudo</code>。</li>
+</ol>
+<h1 id="第二个版本"><a href="#第二个版本" class="headerlink" title="第二个版本"></a>第二个版本</h1><p>在第一个版本的基础上，加上统计进度，就更直白，而不至于程序运行时间过长，而导致以为程序卡。<br>第二个版本会间歇性打印内容，而且只在于使用了<code>-v</code>的flag才会显示程序进度信息。</p>
+<h2 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h2><p>在<code>roots</code>循环的goroutine保持不变，在<code>main goroutine</code>中使用<code>tick</code>计时器每500ms发送一次事件，取消<code>range</code>循环获取<code>fileSizes</code>，用<code>select</code>语句来等待<code>fileSizes</code>并统计文件大小和获取计时器的事件来打印进度信息，</p>
+<p>如果命令没有<code>-v</code>，那么计时器<code>tick</code>为nil，<code>select</code>语句的<code>tick</code>一直为nil，即<code>tick</code>拥有的case语句被禁用。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;flag&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;path/filepath&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-keyword">var</span> verbose = flag.Bool(<span class="hljs-string">&quot;v&quot;</span>, <span class="hljs-literal">false</span>, <span class="hljs-string">&quot;show verbose progress massage.&quot;</span>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// Determine the initial directory.</span><br>	flag.Parse()<br>	roots := flag.Args()<br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(roots) == <span class="hljs-number">0</span> &#123;<br>		roots = []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;.&quot;</span>&#125;<br>	&#125;<br><br>	<span class="hljs-comment">// Traverse the file tree.</span><br>	fileSizes := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int64</span>)<br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">for</span> _, root := <span class="hljs-keyword">range</span> roots &#123;<br>			walkDir(root, fileSizes)<br>		&#125;<br>		<span class="hljs-built_in">close</span>(fileSizes)<br>	&#125;()<br><br>	<span class="hljs-comment">// Prints the result periodically.</span><br>	<span class="hljs-keyword">var</span> ticker *time.Ticker<br>	<span class="hljs-keyword">var</span> tick &lt;-<span class="hljs-keyword">chan</span> time.Time<br>	<span class="hljs-keyword">if</span> *verbose &#123;<br>		ticker = time.NewTicker(<span class="hljs-number">500</span> * time.Millisecond)<br>		tick = ticker.C<br>	&#125;<br>	<span class="hljs-keyword">var</span> nfiles, nbytes <span class="hljs-type">int64</span><br>loop:<br>	<span class="hljs-keyword">for</span> &#123;<br>		<span class="hljs-keyword">select</span> &#123;<br>		<span class="hljs-keyword">case</span> &lt;-tick:<br>			printDiskUage(nfiles, nbytes)<br>		<span class="hljs-keyword">case</span> size, ok := &lt;-fileSizes:<br>			<span class="hljs-keyword">if</span> !ok &#123;<br>				<span class="hljs-keyword">break</span> loop<br>			&#125;<br>			nfiles++<br>			nbytes += size<br>		&#125;<br>	&#125;<br>	printDiskUage(nfiles, nbytes)<br>	<span class="hljs-keyword">if</span> *verbose &#123;<br>		ticker.Stop()<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">printDiskUage</span><span class="hljs-params">(nfiles, nbytes <span class="hljs-type">int64</span>)</span></span> &#123;<br>	fmt.Printf(<span class="hljs-string">&quot;%d files, %.1f GB\n&quot;</span>, nfiles, <span class="hljs-type">float64</span>(nbytes)/<span class="hljs-number">1e9</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">walkDir</span><span class="hljs-params">(dir <span class="hljs-type">string</span>, fileSizes <span class="hljs-keyword">chan</span>&lt;- <span class="hljs-type">int64</span>)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> _, entry := <span class="hljs-keyword">range</span> dirents(dir) &#123;<br>		<span class="hljs-keyword">if</span> entry.IsDir() &#123;<br>			subDir := filepath.Join(dir, entry.Name())<br>			walkDir(subDir, fileSizes)<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			fileInfo, err := entry.Info()<br>			<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>				fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;du1: %v\n&quot;</span>, err)<br>				<span class="hljs-keyword">return</span><br>			&#125;<br>			fileSizes &lt;- fileInfo.Size()<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">dirents</span><span class="hljs-params">(dir <span class="hljs-type">string</span>)</span></span> []os.DirEntry &#123;<br>	entries, err := os.ReadDir(dir)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;du1: %v\n&quot;</span>, err)<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>	&#125;<br>	<span class="hljs-keyword">return</span> entries<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>下面是运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go build -o du2 main.go</span> <br><span class="hljs-meta prompt_">$ </span><span class="language-bash">sudo ./du2 -v /usr /bin /etc</span><br>6507 files, 1.0 GB<br>18019 files, 1.2 GB<br>27294 files, 1.8 GB<br>37819 files, 2.3 GB<br>44133 files, 3.2 GB<br>51914 files, 3.5 GB<br>60538 files, 5.9 GB<br>68755 files, 6.3 GB<br></code></pre></td></tr></table></figure>
+
+<h1 id="第三个版本"><a href="#第三个版本" class="headerlink" title="第三个版本"></a>第三个版本</h1><p>虽然有了进度信息，但是统计速度太慢了，第三个版本将使用<code>goroutine</code>并行统计文件大小。</p>
+<h2 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h2><p>统计慢，无非在于<code>walkDir</code>函数并不是并行的，那么可以创建<code>goroutine</code>来调用<code>walkDir</code>。<br>以及使用<code>sync.WaitGroup</code>来对活跃的<code>walkDir</code>函数进行计数，再创建一个<code>goroutine</code>用于计数器为0时关闭<code>fileSizes</code>。</p>
+<h2 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;flag&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;path/filepath&quot;</span><br>	<span class="hljs-string">&quot;sync&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-keyword">var</span> verbose = flag.Bool(<span class="hljs-string">&quot;v&quot;</span>, <span class="hljs-literal">false</span>, <span class="hljs-string">&quot;show verbose progress massage.&quot;</span>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// Determine the initial directory.</span><br>	flag.Parse()<br>	roots := flag.Args()<br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(roots) == <span class="hljs-number">0</span> &#123;<br>		roots = []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;.&quot;</span>&#125;<br>	&#125;<br><br>	<span class="hljs-comment">// Traverse the file tree.</span><br>	fileSizes := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int64</span>)<br>	<span class="hljs-keyword">var</span> n sync.WaitGroup<br>	<span class="hljs-keyword">for</span> _, root := <span class="hljs-keyword">range</span> roots &#123;<br>		n.Add(<span class="hljs-number">1</span>)<br>		<span class="hljs-keyword">go</span> walkDir(root, &amp;n, fileSizes)<br>	&#125;<br><br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		n.Wait()<br>		<span class="hljs-built_in">close</span>(fileSizes)<br>	&#125;()<br><br>	<span class="hljs-comment">// Prints the result periodically.</span><br>	<span class="hljs-keyword">var</span> ticker *time.Ticker<br>	<span class="hljs-keyword">var</span> tick &lt;-<span class="hljs-keyword">chan</span> time.Time<br>	<span class="hljs-keyword">if</span> *verbose &#123;<br>		ticker = time.NewTicker(<span class="hljs-number">500</span> * time.Millisecond)<br>		tick = ticker.C<br>	&#125;<br>	<span class="hljs-keyword">var</span> nfiles, nbytes <span class="hljs-type">int64</span><br>loop:<br>	<span class="hljs-keyword">for</span> &#123;<br>		<span class="hljs-keyword">select</span> &#123;<br>		<span class="hljs-keyword">case</span> &lt;-tick:<br>			printDiskUage(nfiles, nbytes)<br>		<span class="hljs-keyword">case</span> size, ok := &lt;-fileSizes:<br>			<span class="hljs-keyword">if</span> !ok &#123;<br>				<span class="hljs-keyword">break</span> loop<br>			&#125;<br>			nfiles++<br>			nbytes += size<br>		&#125;<br>	&#125;<br>	printDiskUage(nfiles, nbytes)<br>	<span class="hljs-keyword">if</span> *verbose &#123;<br>		ticker.Stop()<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">printDiskUage</span><span class="hljs-params">(nfiles, nbytes <span class="hljs-type">int64</span>)</span></span> &#123;<br>	fmt.Printf(<span class="hljs-string">&quot;%d files, %.1f GB.\n&quot;</span>, nfiles, <span class="hljs-type">float64</span>(nbytes)/<span class="hljs-number">1e9</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">walkDir</span><span class="hljs-params">(dir <span class="hljs-type">string</span>, n *sync.WaitGroup, fileSizes <span class="hljs-keyword">chan</span>&lt;- <span class="hljs-type">int64</span>)</span></span> &#123;<br>	<span class="hljs-keyword">defer</span> n.Done()<br>	<span class="hljs-keyword">for</span> _, entry := <span class="hljs-keyword">range</span> dirents(dir) &#123;<br>		<span class="hljs-keyword">if</span> entry.IsDir() &#123;<br>			n.Add(<span class="hljs-number">1</span>)<br>			subDir := filepath.Join(dir, entry.Name())<br>			<span class="hljs-keyword">go</span> walkDir(subDir, n, fileSizes)<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			fileInfo, err := entry.Info()<br>			<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>				fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;du3: %v\n&quot;</span>, err)<br>				<span class="hljs-keyword">return</span><br>			&#125;<br>			fileSizes &lt;- fileInfo.Size()<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-keyword">var</span> sema = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>&#123;&#125;, <span class="hljs-number">20</span>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">dirents</span><span class="hljs-params">(dir <span class="hljs-type">string</span>)</span></span> []os.DirEntry &#123;<br>	<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123; &lt;-sema &#125;()<br>	sema &lt;- <span class="hljs-keyword">struct</span>&#123;&#125;&#123;&#125;<br>	entries, err := os.ReadDir(dir)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;du3: %v\n&quot;</span>, err)<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>	&#125;<br>	<span class="hljs-keyword">return</span> entries<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>如果文件过多，程序会创建成千上万个<code>goroutine</code>，过于并行也不是一件好事情，那么可以使用带缓存的<code>sema channel</code>来对<code>dirents</code>函数进行限制，代码中同时存在的<code>goroutine</code>为20个。</p>
+<h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><p><strong>练习 8.9：</strong> 编写一个du工具，每隔一段时间将root目录下的目录大小计算并显示出来。<br>解：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;path/filepath&quot;</span><br>	<span class="hljs-string">&quot;sync&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> dir <span class="hljs-keyword">struct</span> &#123;<br>	id   <span class="hljs-type">int</span><br>	size <span class="hljs-type">int64</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// Determine the initial directory.</span><br>	roots := os.Args[<span class="hljs-number">1</span>:]<br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(roots) == <span class="hljs-number">0</span> &#123;<br>		roots = []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;.&quot;</span>&#125;<br>	&#125;<br><br>	<span class="hljs-comment">// Traverse the file tree.</span><br>	fileSizes := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> dir)<br>	<span class="hljs-keyword">var</span> n sync.WaitGroup<br>	<span class="hljs-keyword">for</span> id, root := <span class="hljs-keyword">range</span> roots &#123;<br>		n.Add(<span class="hljs-number">1</span>)<br>		<span class="hljs-keyword">go</span> walkDir(root, id, &amp;n, fileSizes)<br>	&#125;<br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		n.Wait()<br>		<span class="hljs-built_in">close</span>(fileSizes)<br>	&#125;()<br><br>	<span class="hljs-comment">// Print the result periodically.</span><br>	ticker := time.NewTicker(<span class="hljs-number">500</span> * time.Millisecond)<br>	nfiles := <span class="hljs-built_in">make</span>([]<span class="hljs-type">int64</span>, <span class="hljs-built_in">len</span>(roots))<br>	nbytes := <span class="hljs-built_in">make</span>([]<span class="hljs-type">int64</span>, <span class="hljs-built_in">len</span>(roots))<br>loop:<br>	<span class="hljs-keyword">for</span> &#123;<br>		<span class="hljs-keyword">select</span> &#123;<br>		<span class="hljs-keyword">case</span> &lt;-ticker.C:<br>			printDiskUsage(roots, nfiles, nbytes)<br>		<span class="hljs-keyword">case</span> dir, ok := &lt;-fileSizes:<br>			<span class="hljs-keyword">if</span> !ok &#123;<br>				<span class="hljs-keyword">break</span> loop<br>			&#125;<br>			nfiles[dir.id]++<br>			nbytes[dir.id] += dir.size<br>		&#125;<br>	&#125;<br>	printDiskUsage(roots, nfiles, nbytes)<br>	ticker.Stop()<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">printDiskUsage</span><span class="hljs-params">(roots []<span class="hljs-type">string</span>, nfiles, nbytes []<span class="hljs-type">int64</span>)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> id, root := <span class="hljs-keyword">range</span> roots &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;%d files, %.1fGB in %s.\n&quot;</span>, nfiles[id], <span class="hljs-type">float64</span>(nbytes[id])/<span class="hljs-number">1e9</span>, root)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">walkDir</span><span class="hljs-params">(d <span class="hljs-type">string</span>, id <span class="hljs-type">int</span>, n *sync.WaitGroup, fileSizes <span class="hljs-keyword">chan</span>&lt;- dir)</span></span> &#123;<br>	<span class="hljs-keyword">defer</span> n.Done()<br>	<span class="hljs-keyword">for</span> _, entry := <span class="hljs-keyword">range</span> dirents(d) &#123;<br>		<span class="hljs-keyword">if</span> entry.IsDir() &#123;<br>			n.Add(<span class="hljs-number">1</span>)<br>			subDir := filepath.Join(d, entry.Name())<br>			<span class="hljs-keyword">go</span> walkDir(subDir, id, n, fileSizes)<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			fileInfo, err := entry.Info()<br>			<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>				fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;du: %v&quot;</span>, err)<br>				<span class="hljs-keyword">return</span><br>			&#125;<br>			fileSizes &lt;- dir&#123;id, fileInfo.Size()&#125;<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">// sema is a counting semaphore for limiting concurrency in dirents.</span><br><span class="hljs-keyword">var</span> sema = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>&#123;&#125;, <span class="hljs-number">20</span>)<br><br><span class="hljs-comment">// dirents returns the entries of directory dir.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">dirents</span><span class="hljs-params">(dir <span class="hljs-type">string</span>)</span></span> []os.DirEntry &#123;<br>	<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123; &lt;-sema &#125;()<br>	sema &lt;- <span class="hljs-keyword">struct</span>&#123;&#125;&#123;&#125;<br>	entries, err := os.ReadDir(dir)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;du: %v\n&quot;</span>, err)<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>	&#125;<br>	<span class="hljs-keyword">return</span> entries<br>&#125;<br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="print-no-link">#读书笔记</a>
+      
+        <a href="/tags/go/" class="print-no-link">#go</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>8.8. 示例：并发的字典遍历</div>
+      <div>https://succeedwer.github.io/posts/dbf617f2750e/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WER</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月18日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年3月18日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/92d779dbee59/" title="8.9. 并发的退出">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">8.9. 并发的退出</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/866000668cee/" title="8.7. 基于select的多路复用">
+                        <span class="hidden-mobile">8.7. 基于select的多路复用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
