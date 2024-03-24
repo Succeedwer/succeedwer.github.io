@@ -229,15 +229,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/556653fe988e/" target="_self">
-          4.4. Struct
+        <a href="/posts/387bb90cfe97/" target="_self">
+          6.6. 封装
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/556653fe988e/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/387bb90cfe97/" target="_self">
         <div>
-          定义结构体是一种聚合的数据类型，是由零个或多个任意类型的值聚合成的实体。 声明下面例子声明了经典的员工信息Employee的结构类型： 1234567891011type Employee struct &#123;	ID        int	Name      string	Address   string	DoB       time.Time	Position  string	Salary
+          一个对象的方法和字段对调用方不可见，定义为封装。封装也叫信息隐藏。 Go语言只有一种方法来控制可见性：大写首字母的标识符会从定义它们的包中被导出，小写字母的则不会。一般情况下，Go语言内，封装一个对象，只有定义为struct类型。如IntSet: 123type IntSet struct &#123;	words []uint&#125; words只能在包内访问，所以能很好地隐藏。 封装的三个
         </div>
       </a>
 
@@ -245,8 +245,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-14 14:52" pubdate>
-              2023-03-14
+            <time datetime="2023-03-16 16:52" pubdate>
+              2023-03-16
             </time>
           </div>
         
@@ -283,9 +283,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -299,15 +299,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/610def108dde/" target="_self">
-          4.3. Map
+        <a href="/posts/aaab166a7bb7/" target="_self">
+          6.5. 示例：Bit数组
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/610def108dde/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/aaab166a7bb7/" target="_self">
         <div>
-          定义哈希表是一个无序的key/value对的集合，其中所有的key都是不同的，然后通过给定的key可以在常数时间复杂度内检索、更新或删除对应的value。map是哈希表的引用，map类型写法：map[K]V，K为key，V为value。所有key都是相同类型，value也都是相同类型，但key和value之间可以是不同的数据类型。key必须是支持==比较运算符的数据类型，所以map可以通过比较ke
+          下面的这个程序展示了一个简单的bit数组类型，并且实现了三个函数来对这个bit数组来进行操作： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859// Package intset provides a set of integer
         </div>
       </a>
 
@@ -315,8 +315,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-14 13:52" pubdate>
-              2023-03-14
+            <time datetime="2023-03-16 15:52" pubdate>
+              2023-03-16
             </time>
           </div>
         
@@ -353,9 +353,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -369,15 +369,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/53445ef771d8/" target="_self">
-          4.2. Slice
+        <a href="/posts/4fa1929ae9d9/" target="_self">
+          6.4. 方法值和方法表达式
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/53445ef771d8/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/4fa1929ae9d9/" target="_self">
         <div>
-          定义Slice（切片）代表变长的序列，序列中每个元素都是相同的类型。slice类型一般写法[]T，其中T代表slice中元素的类型。 初始化字面值初始化1s := []int&#123;0,1,2,3,4,5&#125; 与数组字面值初始化很相似，但slice字面值初始化没有指明序列长度。slice会隐式创建合适大小的数组，然后slice的指针指向底层的数组。 使用make创建内置的make函数创
+          方法值定义通常情况下，调用一个方法，如p.Distance()，实际上可以分为两步来执行。p.Distance是方法选择器，返回一个方法值-&gt;一个将方法（Point.Distance）绑定到特定接收器变量的函数。调用时，不再需要指定接收器，只要传入函数参数即可： 123456789101112p := Point&#123;1, 2&#125;q := Point&#123;4, 6&#12
         </div>
       </a>
 
@@ -385,8 +385,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-14 12:52" pubdate>
-              2023-03-14
+            <time datetime="2023-03-16 14:52" pubdate>
+              2023-03-16
             </time>
           </div>
         
@@ -423,9 +423,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -439,15 +439,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/681582df4225/" target="_self">
-          4.1. 数组
+        <a href="/posts/3d2bce45dc58/" target="_self">
+          6.3. 通过嵌入结构体来扩展类型
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/681582df4225/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/3d2bce45dc58/" target="_self">
         <div>
-          数组是一个由固定长度的特定类型元素组成的序列。 声明12var a [3]intfmt.Println(a) // [0 0 0] Go语言声明变量，会默认初始化。默认情况下，数组每个元素都被初始化为元素类型对应的零值。 初始化可以通过声明数组，也可以直接使用数组字面值初始化。 123var q [3]int = [3]int&#123;1,2,3&#125;var r [3]int = [3]i
+          内嵌结构体下面是一个ColoredPoint的嵌入结构体， 1234567type Point struct &#123;	X, Y float64&#125;type ColoredPoint struct &#123;	Point	color color.RGBA&#125; 由结构体特性可知，内嵌可使得ColoredPoint包含Point的所有字段，并附加自身的一些字段。即可以直接访问Po
         </div>
       </a>
 
@@ -455,8 +455,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-14 10:52" pubdate>
-              2023-03-14
+            <time datetime="2023-03-16 13:52" pubdate>
+              2023-03-16
             </time>
           </div>
         
@@ -493,9 +493,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -509,15 +509,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/a27051ca627c/" target="_self">
-          第四章 复合数据类型
+        <a href="/posts/8633284a6bad/" target="_self">
+          6.2. 基于指针对象的方法
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/a27051ca627c/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/8633284a6bad/" target="_self">
         <div>
-          复合数据类型，它是以不同的方式组合基本类型可以构造出来的复合数据类型。如:数组、slice、map和struct。数组和结构体是聚合类型，其值由许多元素或成员字段的值组成。数组由同构的元素组成，每个元素的类型完全一致。结构体由异构的元素组成，元素类型可以不用完全一致。数组和结构体都是固定内存大小，而slice和map则是动态的数据结构，根据需要动态增长。 4.1. 数组 4.2. Slice 4.
+          声明当调用一个函数时，会对每一个参数值进行拷贝。如果函数的需要更新一个变量，或函数中的某个参数过于大，则希望避免进行默认的拷贝，这种情况可以用到指针。相对应到方法接受器，当接受者过于大，也可以使用指针而非接受者对象本身来声明方法。 1234func (p *Point) ScaleBy(factor float64) &#123;    p.X *= factor    p.Y *= factor
         </div>
       </a>
 
@@ -525,8 +525,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-14 10:52" pubdate>
-              2023-03-14
+            <time datetime="2023-03-16 12:52" pubdate>
+              2023-03-16
             </time>
           </div>
         
@@ -563,9 +563,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -579,15 +579,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/68c22f5501fb/" target="_self">
-          3.6. 常量
+        <a href="/posts/627a83e633ba/" target="_self">
+          6.1. 方法声明
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/68c22f5501fb/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/627a83e633ba/" target="_self">
         <div>
-          常量表达式的值在编译期间计算，而非运行期。常量的潜在类型都是基础类型：boolean、string或数字。 常量的声明语句定义了常量的名字，与变量声明语法类似。常量的值不可改变 ，以防止在运行期间被意外或恶意修改。 1const pi = 3.14159 或批量声明多个相关常量： 1234const (    e  = 2.7182818284590452353602874713526624977
+          在函数声明前加上一个变量，就是方法。第一个例子： 1234567891011121314151617package geometryimport &quot;math&quot;type Point struct &#123;	X, Y float64&#125;// traditional functionfunc Distance(p, q Point) float64 &#123;	retu
         </div>
       </a>
 
@@ -595,8 +595,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-13 17:52" pubdate>
-              2023-03-13
+            <time datetime="2023-03-16 11:52" pubdate>
+              2023-03-16
             </time>
           </div>
         
@@ -633,9 +633,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -649,15 +649,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/a309a7c16f6a/" target="_self">
-          3.5. 字符串
+        <a href="/posts/b376389fd346/" target="_self">
+          第六章 方法
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/a309a7c16f6a/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/b376389fd346/" target="_self">
         <div>
-          字符串是不可变的字节序列。字符串包含任意数据，包括byte值0。文本字符串通常被解释为采用UTF8编码的Unicode码（rune）序列。 内置的len函数返回字符串的字节数量，不是rune字符数量。索引操作s[i]返回第i个字节的值，i必须满足0 ≤ i&lt; len(s)。 123s := &quot;hello, world&quot;fmt.Println(len(s))     //
+          6.1. 方法声明 6.2. 基于指针对象的方法 6.3. 通过嵌入式结构体来扩展类型 6.4. 方法值和方法表达式 6.5. 示例：Bit数组 6.6. 封装
         </div>
       </a>
 
@@ -665,8 +665,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-13 16:52" pubdate>
-              2023-03-13
+            <time datetime="2023-03-16 10:52" pubdate>
+              2023-03-16
             </time>
           </div>
         
@@ -703,9 +703,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -719,15 +719,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/d98a81de6430/" target="_self">
-          3.4. 布尔型
+        <a href="/posts/9b9419099212/" target="_self">
+          5.10. Recover捕获异常
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/d98a81de6430/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/9b9419099212/" target="_self">
         <div>
-          布尔值的运算一元运算符!对应逻辑非操作，!true=false，!false=true。 二元运算符&amp;&amp;(AND)对应逻辑与||(OR)对应逻辑或如果运算符左边已经可以确定整个布尔表达式的值，那么运算符右边的值将不被求值，因此下面的表达式并非异常： 123s := &quot;&quot;fmt.Println(s != &quot;&quot; &amp;&amp; s[0]
+          通常情况下，不应该对panic异常做任何处理，但有时，也可以使得程序从异常中恢复，或至少在程序崩溃前做一些事情。如web服务器在开发过程中，将异常信息反馈到客户端，便于调试。 在defer函数中调用内置recover函数，并且定义该defer语句中的函数发生了panic异常，recover函数会使程序从panic中恢复，并返回panic value。导致panic异常的函数不会继续运行，但能正常返
         </div>
       </a>
 
@@ -735,8 +735,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-13 15:52" pubdate>
-              2023-03-13
+            <time datetime="2023-03-15 20:52" pubdate>
+              2023-03-15
             </time>
           </div>
         
@@ -773,9 +773,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -789,15 +789,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/01a5b9d8501c/" target="_self">
-          3.3. 复数
+        <a href="/posts/b0cbde1e1f43/" target="_self">
+          5.9. Panic异常
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/01a5b9d8501c/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/b0cbde1e1f43/" target="_self">
         <div>
-          3.3.1. 复数的构建复数构建：complex()返回复数的实部：real()返回复数的虚部：imag() 123456var x complex128 = complex(1, 2)var y complex128 = complex(3, 4)fmt.Println(x)           // (1 + 2i)fmt.Println(x * y)       // (1 + 2i) *
+          一般而言，当panic异常发生时，程序会中断运行，并立即执行在该goroutine中被延迟的函数(defer机制)，随后，程序崩溃并输出日志信息。日志信息包括panic value和函数调用的堆栈跟踪信息。不是所有的panic异常都来自运行时，直接调用内置的panic函数也会引起panic异常。panic函数可接受任何值作为参数。 123456789101112switch s := suit(d
         </div>
       </a>
 
@@ -805,8 +805,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-13 14:52" pubdate>
-              2023-03-13
+            <time datetime="2023-03-15 19:52" pubdate>
+              2023-03-15
             </time>
           </div>
         
@@ -843,9 +843,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -859,15 +859,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/2a4f4f65e7ca/" target="_self">
-          3.1. 整型
+        <a href="/posts/6f685641f7fc/" target="_self">
+          5.8. Deferred函数
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/2a4f4f65e7ca/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/6f685641f7fc/" target="_self">
         <div>
-          对应不同的CPU平台机器字大小的分为有符合和无符号整数int和uint。这两种类型都有对应32或64bit。 Unicode字符rune类型是和int32等价的类型，通常用于表示一个人Unicode码。这两个名称可以互换使用，同样byte也是unit8类型的等价类型，byte类型一般用于强调数值是一个原始的数据而不是一个小的整数。 无符号的整数类型uintptr，没有指定具体的bit大小但是足以
+          定义在普通函数前加上关键字defer时，当defer语句被执行时，其后面的函数会被延迟执行。直到包含该defer语句的函数执行完毕时，defer后的函数才会被执行，无论是包含defer的函数通过return正常结束或由于panic导致的异常结束。一个函数中可以执行多条defer语句，它们的执行顺序与声明的顺序相反。 使用技巧defer语句常用于处理成对的操作，如打开、关闭、连接、断开连接、加锁、释
         </div>
       </a>
 
@@ -875,8 +875,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-13 13:52" pubdate>
-              2023-03-13
+            <time datetime="2023-03-15 18:52" pubdate>
+              2023-03-15
             </time>
           </div>
         
@@ -913,9 +913,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -927,7 +927,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/10/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/#board">9</a><a class="page-number" href="/page/10/#board">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/#board">12</a><a class="page-number" href="/page/13/#board">13</a><a class="extend next" rel="next" href="/page/12/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/10/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/#board">9</a><a class="page-number" href="/page/10/#board">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/#board">12</a><a class="page-number" href="/page/13/#board">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/#board">15</a><a class="extend next" rel="next" href="/page/12/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

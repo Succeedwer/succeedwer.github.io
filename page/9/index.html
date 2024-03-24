@@ -229,15 +229,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/f2552a5080b3/" target="_self">
-          第七章 接口
+        <a href="/posts/10cf7d1432ab/" target="_self">
+          8.3. 示例：并发的Echo服务器
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/f2552a5080b3/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/10cf7d1432ab/" target="_self">
         <div>
-          接口类型是对其它类型行为的抽象和概括。Go语言中接口类型的独特之处在于它是满足隐式实现的。也就是说，我们没有必要对于给定的具体类型定义所有满足的接口类型；简单地拥有一些必需的方法就足够了。 7.1. 接口约定7.2. 接口类型7.3. 实现接口的条件7.4. flag.Value接口7.5. 接口值7.6. sort.Interface接口7.7. http.Handler接口7.8. error
+          Echo服务器一般情况下会返回它接收到的内容。类似回音，一开始返回全大写的内容，如HELLO，表示声音很大； 间隔一定时间后，返回有所缓和的Hello；最后返回一个表示声音很小的全小写hello直至消失。 123456789101112131415161718192021222324252627282930313233343536373839404142// Reverb1 is a TCP se
         </div>
       </a>
 
@@ -245,7 +245,427 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 10:52" pubdate>
+            <time datetime="2023-03-18 13:52" pubdate>
+              2023-03-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/posts/fca3f5579354/" target="_self">
+          8.2. 示例：并发的Clock服务
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/fca3f5579354/" target="_self">
+        <div>
+          网络编程是并发大显身手的一个领域，由于服务器是最典型的需要同时处理很多连接的程序，这些连接一般来自远彼此独立的客户端。 第一个例子第一个例子是一个顺序执行的时钟服务器，它会每隔一秒钟将当前时间写到客户端： 123456789101112131415161718192021222324252627282930313233343536// Clock1 is a TCP server that per
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-18 12:52" pubdate>
+              2023-03-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/posts/dbf6e956aad2/" target="_self">
+          8.1. Goroutines
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/dbf6e956aad2/" target="_self">
+        <div>
+          在Go语言中，每一个并发的执行单元叫作一个goroutine。新的goroutine会用go语句来创建。在语法上，go语句是一个普通的函数或方法调用前加上关键字go。 12f()go f() 下面的例子，main goroutine将计算菲波那契数列的第45个元素值。 1234567891011121314151617181920212223242526272829package mainimpo
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-18 11:52" pubdate>
+              2023-03-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/posts/160e8baeca27/" target="_self">
+          第八章 Goroutines和Channels
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/160e8baeca27/" target="_self">
+        <div>
+          并发程序指同时进行多个任务的程序。Go语言中的并发程序可以用两种手段来实现。  goroutine channel  还支持顺序通信进程（communicating sequential processes），简称CSP。CSP是一种现代的并发编程模型，在这种编程模型中值会在不同的运行实例goroutine中传递，尽管会别被限制在单一实例中。第9章则是更为传统的并发模型：多线程共享内存。 8.1.
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-18 10:52" pubdate>
+              2023-03-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/posts/8520b52085ef/" target="_self">
+          7.15. 一些建议
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/8520b52085ef/" target="_self">
+        <div>
+          当设计一个新包时，一般情况下是创建一个接口的集合开始和定义它们的具体类型。这种方式会导致有很多接口，且每一个都会仅有一个实现。这种设计方式是错误的，这种接口是不必要的抽象，且还有运行时损耗。实际上，可以使用导出机制来限制一个类型的方法或一个结构体的字段是否在包外可见。接口只有在当两个或两个以上的具体类型必须以相同的方式进行处理时才需要。 当一个接口只被一个具体类型实现时，往往是因为依赖，即依赖于另
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-18 00:59" pubdate>
+              2023-03-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/posts/c380e460aca4/" target="_self">
+          7.14. 示例：基于标记的XML解码
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/c380e460aca4/" target="_self">
+        <div>
+          第4.5章节展示了如何使用encoding/json包中的Marshal和Unmarshal函数来将JSON文档转换成Go语言的数据结构。encoding/xml包提供了一个相似的API。encoding/xml包也提供了一个更低层的基于标记的API用于XML解码。在基于标记的样式中，解析器消费输入和产生一个标记流；四个主要的标记类型－StartElement，EndElement，CharDat
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-18 00:52" pubdate>
+              2023-03-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/posts/c4e3ed798cee/" target="_self">
+          7.13. 类型开关
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/c4e3ed798cee/" target="_self">
+        <div>
+          接口一般以两种方式使用。  第一个方式中，io.Reader、io.Writer、fmt.Stringer、sort.Interface、http.Handler、和error为例，一个接口的方法表达了实现这个接口的具体类型间的相思性，但是隐藏了代表的细节和这些具体类型本身的操作。重点在于方法上，而不是具体的类型上。 第二个方式利用一个接口值可以持有各种具体类型值的能力并且将这个接口认为是这些类型
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-17 23:52" pubdate>
               2023-03-17
             </time>
           </div>
@@ -283,9 +703,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -299,15 +719,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/387bb90cfe97/" target="_self">
-          6.6. 封装
+        <a href="/posts/b10f700bc1c1/" target="_self">
+          7.12. 通过类型断言询问行为
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/387bb90cfe97/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/b10f700bc1c1/" target="_self">
         <div>
-          一个对象的方法和字段对调用方不可见，定义为封装。封装也叫信息隐藏。 Go语言只有一种方法来控制可见性：大写首字母的标识符会从定义它们的包中被导出，小写字母的则不会。一般情况下，Go语言内，封装一个对象，只有定义为struct类型。如IntSet: 123type IntSet struct &#123;	words []uint&#125; words只能在包内访问，所以能很好地隐藏。 封装的三个
+          stringWriter下面程序与net/http包中web服务器负责写入HTTP头字段（如：Content-type:text/html）的部分相似。io.Writer接口类型的变量w代表HTTP响应。 123456789func writeHeader(w io.Writer, contentType string) error &#123;	if _, err := w.Write([]by
         </div>
       </a>
 
@@ -315,8 +735,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-16 16:52" pubdate>
-              2023-03-16
+            <time datetime="2023-03-17 22:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -353,9 +773,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -369,15 +789,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/aaab166a7bb7/" target="_self">
-          6.5. 示例：Bit数组
+        <a href="/posts/179a7331746a/" target="_self">
+          7.11. 基于类型断言区别错误类型
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/aaab166a7bb7/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/179a7331746a/" target="_self">
         <div>
-          下面的这个程序展示了一个简单的bit数组类型，并且实现了三个函数来对这个bit数组来进行操作： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859// Package intset provides a set of integer
+          os包中文件操作返回的错误集合。I/O可以因为任何数量的原因失败，但是有三种经常的错误必须进行不同的处理：  文件已经存在（对于创建操作）  1os.IsExist(err error) bool 找不到文件（对于读取操作）  1os.IsNotExist(err error) bool 权限拒绝  1os.IsPermission(err error) bool  可能会检测错误信息中是否包含特
         </div>
       </a>
 
@@ -385,8 +805,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-16 15:52" pubdate>
-              2023-03-16
+            <time datetime="2023-03-17 21:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -423,9 +843,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -439,15 +859,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/4fa1929ae9d9/" target="_self">
-          6.4. 方法值和方法表达式
+        <a href="/posts/fcef06327bd8/" target="_self">
+          7.10. 类型断言
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/4fa1929ae9d9/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/fcef06327bd8/" target="_self">
         <div>
-          方法值定义通常情况下，调用一个方法，如p.Distance()，实际上可以分为两步来执行。p.Distance是方法选择器，返回一个方法值-&gt;一个将方法（Point.Distance）绑定到特定接收器变量的函数。调用时，不再需要指定接收器，只要传入函数参数即可： 123456789101112p := Point&#123;1, 2&#125;q := Point&#123;4, 6&#12
+          语法类型断言是作用在接口值上的。断言类型语法： 1x.(T) x表示接口类型；T表示类型。一个类型断言检查它操作对象的动态类型是否和断言的类型匹配。 具体类型如果断言的类型T是一个具体类型，然后类型断言检查x的动态类型是否和T相同。如果成功了，类型断言的结果是x的动态值，当然它的类型是T。如果检查失败，接下来这个操作会抛出panic。例如： 12345var w io.Writerw = os.S
         </div>
       </a>
 
@@ -455,8 +875,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-16 14:52" pubdate>
-              2023-03-16
+            <time datetime="2023-03-17 20:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -493,429 +913,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
             
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/posts/3d2bce45dc58/" target="_self">
-          6.3. 通过嵌入结构体来扩展类型
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/3d2bce45dc58/" target="_self">
-        <div>
-          内嵌结构体下面是一个ColoredPoint的嵌入结构体， 1234567type Point struct &#123;	X, Y float64&#125;type ColoredPoint struct &#123;	Point	color color.RGBA&#125; 由结构体特性可知，内嵌可使得ColoredPoint包含Point的所有字段，并附加自身的一些字段。即可以直接访问Po
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-16 13:52" pubdate>
-              2023-03-16
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/go/" class="category-chain-item">go</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
               <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
-              <a href="/tags/go/">#go</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/posts/8633284a6bad/" target="_self">
-          6.2. 基于指针对象的方法
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/8633284a6bad/" target="_self">
-        <div>
-          声明当调用一个函数时，会对每一个参数值进行拷贝。如果函数的需要更新一个变量，或函数中的某个参数过于大，则希望避免进行默认的拷贝，这种情况可以用到指针。相对应到方法接受器，当接受者过于大，也可以使用指针而非接受者对象本身来声明方法。 1234func (p *Point) ScaleBy(factor float64) &#123;    p.X *= factor    p.Y *= factor
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-16 12:52" pubdate>
-              2023-03-16
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/go/" class="category-chain-item">go</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
-              <a href="/tags/go/">#go</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/posts/627a83e633ba/" target="_self">
-          6.1. 方法声明
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/627a83e633ba/" target="_self">
-        <div>
-          在函数声明前加上一个变量，就是方法。第一个例子： 1234567891011121314151617package geometryimport &quot;math&quot;type Point struct &#123;	X, Y float64&#125;// traditional functionfunc Distance(p, q Point) float64 &#123;	retu
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-16 11:52" pubdate>
-              2023-03-16
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/go/" class="category-chain-item">go</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
-              <a href="/tags/go/">#go</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/posts/b376389fd346/" target="_self">
-          第六章 方法
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/b376389fd346/" target="_self">
-        <div>
-          6.1. 方法声明 6.2. 基于指针对象的方法 6.3. 通过嵌入式结构体来扩展类型 6.4. 方法值和方法表达式 6.5. 示例：Bit数组 6.6. 封装
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-16 10:52" pubdate>
-              2023-03-16
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/go/" class="category-chain-item">go</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
-              <a href="/tags/go/">#go</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/posts/9b9419099212/" target="_self">
-          5.10. Recover捕获异常
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/9b9419099212/" target="_self">
-        <div>
-          通常情况下，不应该对panic异常做任何处理，但有时，也可以使得程序从异常中恢复，或至少在程序崩溃前做一些事情。如web服务器在开发过程中，将异常信息反馈到客户端，便于调试。 在defer函数中调用内置recover函数，并且定义该defer语句中的函数发生了panic异常，recover函数会使程序从panic中恢复，并返回panic value。导致panic异常的函数不会继续运行，但能正常返
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 20:52" pubdate>
-              2023-03-15
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/go/" class="category-chain-item">go</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
-              <a href="/tags/go/">#go</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/posts/b0cbde1e1f43/" target="_self">
-          5.9. Panic异常
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/b0cbde1e1f43/" target="_self">
-        <div>
-          一般而言，当panic异常发生时，程序会中断运行，并立即执行在该goroutine中被延迟的函数(defer机制)，随后，程序崩溃并输出日志信息。日志信息包括panic value和函数调用的堆栈跟踪信息。不是所有的panic异常都来自运行时，直接调用内置的panic函数也会引起panic异常。panic函数可接受任何值作为参数。 123456789101112switch s := suit(d
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 19:52" pubdate>
-              2023-03-15
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/go/" class="category-chain-item">go</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
-              <a href="/tags/go/">#go</a>
             
           </div>
         
@@ -927,7 +927,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/8/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/#board">7</a><a class="page-number" href="/page/8/#board">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/#board">10</a><a class="page-number" href="/page/11/#board">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/#board">13</a><a class="extend next" rel="next" href="/page/10/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/8/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/#board">7</a><a class="page-number" href="/page/8/#board">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/#board">10</a><a class="page-number" href="/page/11/#board">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/#board">15</a><a class="extend next" rel="next" href="/page/10/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

@@ -1,0 +1,963 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Redis集群常用的有三种模式：  主从复制 哨兵模式 Redis Cluster  1. 主从复制Replication1.1 概念 这种模式下的Redis节点，有两种节点，主节点(master) 和从节点(slave)。 这种模式集群由一个主节点和多个从节点构成。  master会同步数据到slave节点，slave不会同步到master, 也就是master节点处理写操作，slave节点处理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis集群">
+<meta property="og:url" content="https://succeedwer.github.io/posts/2ada2362a03e/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:description" content="Redis集群常用的有三种模式：  主从复制 哨兵模式 Redis Cluster  1. 主从复制Replication1.1 概念 这种模式下的Redis节点，有两种节点，主节点(master) 和从节点(slave)。 这种模式集群由一个主节点和多个从节点构成。  master会同步数据到slave节点，slave不会同步到master, 也就是master节点处理写操作，slave节点处理">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://succeedwer.github.io/posts/2ada2362a03e/1620143068494.png">
+<meta property="og:image" content="https://succeedwer.github.io/posts/2ada2362a03e/1620143107235.png">
+<meta property="og:image" content="https://succeedwer.github.io/posts/2ada2362a03e/1620143130228.png">
+<meta property="article:published_time" content="2024-03-23T16:22:12.778Z">
+<meta property="article:modified_time" content="2024-03-19T16:05:03.795Z">
+<meta property="article:author" content="WER">
+<meta property="article:tag" content="redis">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://succeedwer.github.io/posts/2ada2362a03e/1620143068494.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Redis集群 - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Redis集群"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        WER
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-03-24 00:22" pubdate>
+          2024年3月24日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          50 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="database"
+        id="heading-11e0eed8d3696c0a632f822df385ab3c" role="tab" data-toggle="collapse" href="#collapse-11e0eed8d3696c0a632f822df385ab3c"
+        aria-expanded="true"
+      >
+        database
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-11e0eed8d3696c0a632f822df385ab3c"
+           role="tabpanel" aria-labelledby="heading-11e0eed8d3696c0a632f822df385ab3c">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="redis"
+        id="heading-86a1b907d54bf7010394bf316e183e67" role="tab" data-toggle="collapse" href="#collapse-86a1b907d54bf7010394bf316e183e67"
+        aria-expanded="true"
+      >
+        redis
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-86a1b907d54bf7010394bf316e183e67"
+           role="tabpanel" aria-labelledby="heading-86a1b907d54bf7010394bf316e183e67">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/302875762140/" title="Redis缓存"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Redis缓存</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/2ada2362a03e/" title="Redis集群"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">Redis集群</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Redis集群</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>Redis集群常用的有三种模式：</p>
+<ul>
+<li>主从复制</li>
+<li>哨兵模式</li>
+<li>Redis Cluster</li>
+</ul>
+<h2 id="1-主从复制Replication"><a href="#1-主从复制Replication" class="headerlink" title="1. 主从复制Replication"></a>1. 主从复制Replication</h2><h3 id="1-1-概念"><a href="#1-1-概念" class="headerlink" title="1.1 概念"></a>1.1 概念</h3><p> 这种模式下的Redis节点，有两种节点，主节点(master) 和从节点(slave)。 这种模式集群由一个主节点和多个从节点构成。</p>
+<p> master会同步数据到slave节点，slave不会同步到master, 也就是master节点处理写操作，slave节点处理读操作，这叫分布式读写分离模型。</p>
+<h3 id="1-2-1-2-实现"><a href="#1-2-1-2-实现" class="headerlink" title="1-2. 1.2 实现"></a>1-2. 1.2 实现</h3><p> 这里的实现是在同一个服务器上操作的，启动多个redis-server，并非单一个redis程序启动多个redis-server实例.</p>
+<p>环境：Ubuntu server 19.10</p>
+<p> Redis 6.2.1</p>
+<p>有意思的是Redis5.0后，使用repilca替代了slave 说法，下面还是用slave。</p>
+<p>步骤如下：</p>
+<ul>
+<li>复制redis  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd /usr/local/redis/<br>cp redis-6379 redis-6380 -R<br>cp redis-6379 redis-6381 -R<br></code></pre></td></tr></table></figure></li>
+<li>修改master配置文件  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">创建redis配置文件文件夹</span><br>mkdir /etc/redis<br><span class="hljs-meta prompt_"># </span><span class="language-bash">进入安装目录</span><br>cd /usr/local/redis/redis-6379/<br><span class="hljs-meta prompt_"># </span><span class="language-bash">复制配置文件到指定配置路径</span><br>cp ./redis.conf /etc/redis/6379.conf<br><span class="hljs-meta prompt_"># </span><span class="language-bash">创建日志路径</span><br>mkdir /var/log/redis<br><span class="hljs-meta prompt_"># </span><span class="language-bash">创建数据保存路径</span><br>mkdir /var/lib/redis/6379<br>mkdir /var/lib/redis/6380<br>mkdir /var/lib/redis/6381<br><span class="hljs-meta prompt_"># </span><span class="language-bash">修改配置文件 使用/ 去查找</span><br>vim /etc/redis/6379.conf<br>...<br><span class="hljs-meta prompt_"># </span><span class="language-bash">修改<span class="hljs-built_in">bind</span> 实现远程访问</span><br>bind 0.0.0.0<br><span class="hljs-meta prompt_"># </span><span class="language-bash">修改端口号 默认就是6379</span><br>prot 6379<br><span class="hljs-meta prompt_"># </span><span class="language-bash">修改后台启动</span><br>daemonize yes<br><span class="hljs-meta prompt_"># </span><span class="language-bash">开启aof持久化</span><br>appendonly yes<br><span class="hljs-meta prompt_"># </span><span class="language-bash">修改日志文件路径 注意这里是文件 不是路径</span><br>logfile /var/log/redis/redis_6379.log<br><span class="hljs-meta prompt_"># </span><span class="language-bash">修改数据保持路径 这是路径</span><br>dir /var/lib/redis/6379<br><span class="hljs-meta prompt_"># </span><span class="language-bash">修改进程文件pid路径</span><br>pidfile /var/run/redis_6379.pid<br><span class="hljs-meta prompt_"># </span><span class="language-bash">设置密码</span><br>requirespass &#123;密码&#125;<br><span class="hljs-meta prompt_"># </span><span class="language-bash">如果设置了密码 slave实例的配置文件也要加上masterauth</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">然后发现6.0版本及其以上，default 不能通过连接master</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">要设置acl权限管理(Access Control List)，就是要设置新用户</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">acl设置用户有2种方法</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">1. 使用命令设置</span> <br><span class="hljs-meta prompt_"># </span><span class="language-bash">加入redis-cli 客户端</span><br>redis-cli -p 6379<br>127.0.0.1:6379&gt; auth &#123;密码&#125;<br><span class="hljs-meta prompt_"># </span><span class="language-bash">添加新用户 一定要给该用户psync命令权限，psync是同步数据命令 +@<span class="hljs-built_in">read</span> 给予读的权限</span><br>127.0.0.1：6379&gt; acl setuser &#123;用户名&#125; on &gt;&#123;密码&#125; ~* +psync +@read<br><span class="hljs-meta prompt_"># </span><span class="language-bash">如 acl setuser wer on &gt;123456 ~* +psync</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">但这种创建的用户是临时的，服务器重启就没有了</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">2. 启用acl文件创建用户 如</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash"> 在6379.conf 文件中，设置acl文件路径 并创建 (如果启用了 上面的requirespass 就会失效)</span><br>aclfile /etc/redis/users_6379.acl<br><span class="hljs-meta prompt_"># </span><span class="language-bash">保存，并创建文件</span><br>touch /etc/redis/users_6379.acl<br><span class="hljs-meta prompt_"># </span><span class="language-bash">然后可以用第一种方法命令设置用户</span><br>127.0.0.1：6379&gt; acl setuser &#123;用户名&#125; on &gt;&#123;密码&#125; ~* +psync +@read<br><span class="hljs-meta prompt_"># </span><span class="language-bash">保存到acl文件</span><br>127.0.0.1：6379&gt; acl save<br><span class="hljs-meta prompt_"># </span><span class="language-bash">当启用acl文件,requirespass 就会失效，最好default设置密码</span><br>acl setuser default &gt;&#123;密码&#125;<br>...<br><span class="hljs-meta prompt_"># </span><span class="language-bash">配置文件基本项已经修改完成</span> <br><span class="hljs-meta prompt_"># </span><span class="language-bash">如果redis在配置前 有运行过 请检查数据和日志路径，进行删除</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">清空日志</span><br>rm -rf /var/log/redis/redis_6379.log<br><span class="hljs-meta prompt_"># </span><span class="language-bash">清除持久化文件数据 默认名没改就是dump.rdb 和 appendonly.aof 改了就去配置文件查看dbfname,appendfilename</span><br>rm -rf /var/lib/redis/6379/dump.rdb<br>rm -rf /var/lib/redis/6379/appendonly.aof<br></code></pre></td></tr></table></figure></li>
+<li>修改slave配置文件  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">复制master配置文件</span><br>cd /etc/redis/<br>cp 6379.conf 6380.conf<br><span class="hljs-meta prompt_"># </span><span class="language-bash">修改6380配置</span><br>vim 6380.conf<br>...<br><span class="hljs-meta prompt_"># </span><span class="language-bash">修改端口号</span><br>port 6380<br><span class="hljs-meta prompt_"># </span><span class="language-bash">配置slave 5.0版本及之后</span><br>replicaof 127.0.0.1 6379<br><span class="hljs-meta prompt_"># </span><span class="language-bash">5.0版本之前格式 slave master的ip地址 端口号</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">slaveof 127.0.0.1 6379</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">修改日志文件路径 注意这里是文件 不是路径</span><br>logfile /var/log/redis/redis_6380.log<br><span class="hljs-meta prompt_"># </span><span class="language-bash">修改数据保持路径 这是路径</span><br>dir /var/lib/redis/6380<br><span class="hljs-meta prompt_"># </span><span class="language-bash">修改进程文件pid路径</span><br>pidfile /var/run/redis_6380.pid<br><span class="hljs-meta prompt_"># </span><span class="language-bash">如果master设置了密码 需要添加上密码</span><br>masterauth &#123;密码&#125; <br><span class="hljs-meta prompt_"># </span><span class="language-bash">添加上用户 连接master的用户</span><br>masteruser wer<br>...<br><span class="hljs-meta prompt_"># </span><span class="language-bash">修改6381配置</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">直接拷贝 6380.conf</span><br>cp 6380.conf 6381.conf<br><span class="hljs-meta prompt_"># </span><span class="language-bash">将上述的6380 改成6381 即可</span><br></code></pre></td></tr></table></figure></li>
+<li>启动redis  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">进入redis目录b</span><br>cd /usr/loacal/redis<br><span class="hljs-meta prompt_"># </span><span class="language-bash">启动6379 6.2.1的命令路径就是src 有些版本是bin</span><br>cd ./redis-6379/src<br><span class="hljs-meta prompt_"># </span><span class="language-bash">启动服务</span><br>./redis-server /etc/redis/6379.conf<br><span class="hljs-meta prompt_"># </span><span class="language-bash">启动6380</span><br>cd ./redis-6380/src<br>./redis-server /etc/redis/6380.conf<br><span class="hljs-meta prompt_"># </span><span class="language-bash">启动6381</span><br>cd ./redis-6381/src<br>./redis-server /etc/redis/6381.conf<br><span class="hljs-meta prompt_"># </span><span class="language-bash">启动客户端 在任何一个redis中都可以</span><br>cd ./redis-6379/src<br><span class="hljs-meta prompt_"># </span><span class="language-bash">默认是6379端口</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">./redis-cli</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">完整命令</span><br>./redis-cli -h 127.0.0.1 -p 6379<br>...<br><span class="hljs-meta prompt_"># </span><span class="language-bash">master 6379</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">如果设置了密码</span> <br>127.0.0.1:6379&gt;auth &#123;密码&#125;<br><span class="hljs-meta prompt_"># </span><span class="language-bash">输入info</span><br>127.0.0.1:6379&gt; info<br><span class="hljs-meta prompt_"># </span><span class="language-bash">Replication</span><br>role:master<br>connected_slaves:2<br>slave0:ip=127.0.0.1,port=0,state=online,offset=0,lag=0<br>slave1:ip=127.0.0.1,port=0,state=online,offset=0,lag=0<br><span class="hljs-meta prompt_"># </span><span class="language-bash">6380</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">Replication</span><br>role:slave<br>master_host:127.0.0.1<br>master_port:6379<br>master_link_status:up<br>master_last_io_seconds_ago:0<br>master_sync_in_progress:0<br><span class="hljs-meta prompt_"># </span><span class="language-bash">6381</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">Replication</span><br>role:slave<br>master_host:127.0.0.1<br>master_port:6379<br>master_link_status:up<br>master_last_io_seconds_ago:1<br>master_sync_in_progress:0<br></code></pre></td></tr></table></figure></li>
+<li>ACL 相关命令  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">加入客户端</span><br>redis-cli -p 6379<br><span class="hljs-meta prompt_"># </span><span class="language-bash">查询用户列表</span><br>acl list<br><span class="hljs-meta prompt_"># </span><span class="language-bash">获取用户信息</span><br>acl getuser wer<br><span class="hljs-meta prompt_"># </span><span class="language-bash">删除用户</span><br>acl deluser wer<br><span class="hljs-meta prompt_"># </span><span class="language-bash">添加用户</span><br>acl setuser wer on &gt;123456 ~* +psync +@read<br><span class="hljs-meta prompt_"># </span><span class="language-bash">查看命令类别</span><br>acl cat<br><span class="hljs-meta prompt_"># </span><span class="language-bash">查看该类别下的所有命令</span><br>acl cat list<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="2-哨兵sentinel"><a href="#2-哨兵sentinel" class="headerlink" title="2. 哨兵sentinel"></a>2. 哨兵sentinel</h2><p> 主从模式，实现了读写分离，提高redis性能。但是，主从模式下只有一个主节点，主节点一旦宕机了，就无法进行写操作了。显然主从模式，并没有实现高可用(HA)。</p>
+<h3 id="2-1-高可用"><a href="#2-1-高可用" class="headerlink" title="2.1 高可用"></a>2.1 高可用</h3><p>高可用的几点要素：</p>
+<ul>
+<li>在系统设计过程中尽量避免单点。</li>
+<li>通过架构设计而保证系统高可用，其核心准则是：冗余。</li>
+<li>实现自动故障转移。 如redis中的master_failover_state:no-failover</li>
+</ul>
+<h3 id="2-2-Redis-sentinel"><a href="#2-2-Redis-sentinel" class="headerlink" title="2.2 Redis sentinel"></a>2.2 Redis sentinel</h3><h4 id="2-2-1-概念"><a href="#2-2-1-概念" class="headerlink" title="2.2.1 概念"></a>2.2.1 概念</h4><p> sentinel(哨兵)是用于监控redis集群的工具，也就是说是管理redis集群的一个独立运行进程，是Redis高可用的解决方法。</p>
+<p> sentinel 哨兵模式已经被集成在redis2.4之后的版本。</p>
+<h4 id="2-2-2-原理"><a href="#2-2-2-原理" class="headerlink" title="2.2.2 原理"></a>2.2.2 原理</h4><p> Redis sentinel 监视一个或多个的redis master 以及其的slave。当某个master服务宕机了，sentinel就会自动把该master下的某个slave升级到master，用于替代宕机的master，以致于能继续处理请求，并且其它slave会同步新master的数据。</p>
+<p> 同样的，Redis sentinel 也具备高可用性，也能实现集群。</p>
+<h4 id="2-2-3-实现"><a href="#2-2-3-实现" class="headerlink" title="2.2.3 实现"></a>2.2.3 实现</h4><ul>
+<li><p>配置sentinel<br>  在redis的包下，就存在sentinel，一样要修改配置文件。步骤如下：</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">复制配置文件</span><br>cp /user/local/redis/redis_6379/sentinel.conf /etc/redis/<br><span class="hljs-meta prompt_"># </span><span class="language-bash">修改配置文件</span><br>vim /etc/redis/sentinel.conf<br><span class="hljs-meta prompt_"># </span><span class="language-bash">端口 默认不用改也行</span><br>port 26379<br><span class="hljs-meta prompt_"># </span><span class="language-bash">开启后台启动 守护线程</span><br>daemonize yes<br><span class="hljs-meta prompt_"># </span><span class="language-bash">修改日志文件路径</span> <br>logfile /var/log/redis/sentinel.log<br><span class="hljs-meta prompt_"># </span><span class="language-bash">设置master ip</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">sentinel monitor &lt;master-name&gt; &lt;ip&gt; &lt;redis-port&gt; &lt;quorum&gt;</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">判定master失效需要sentinel进行投票，quirum为至少多少票同意，master就被判定为失效</span><br>sentinel monitor mymaster 127.0.0.1 6379 1<br><span class="hljs-meta prompt_"># </span><span class="language-bash">设置master的密码 最好slave也设置一样的密码 所以slave 也要设置acl文件 设置一样的user passwordvi</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">sentinel auth-pass &lt;master-name&gt; &lt;password&gt;</span><br>sentinel auth-pass mymaster &#123;密码&#125;<br><span class="hljs-meta prompt_"># </span><span class="language-bash">设置master用户 6.0起</span><br>sentinel auth-user mymaster wer<br><span class="hljs-meta prompt_"># </span><span class="language-bash">设置sentinel认为master失去连接的判断时间 单位：ms</span><br>sentinel down-after-milliseconds mymaster 10000<br><span class="hljs-meta prompt_"># </span><span class="language-bash">设置执行故障转移时，对新master的同步的slave节点的个数</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">作为一个故障转移需要时间的一个标准，需要进行同步的slave节点越少，就越快，</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">如果业务需要对slave节点进行查询，那么最好不要设置全部节点一起同步，以免无法查询</span><br>sentinel parallel-syncs mymaster 1<br><span class="hljs-meta prompt_"># </span><span class="language-bash">设置故障转移failover的超时时间</span><br>sentinel failover-timeout mymaster 60000<br><span class="hljs-meta prompt_"># </span><span class="language-bash">导致failover超时的原因:</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">1. 当两个sentinel对同一个master进行failover,后一个sentinel要等待前一个sentinel完成failover,那么就会需要两倍的超时时间</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">2. 当发现slave同步到一个错误的新master，再强制同步一个正确的master，超时时间从检测到错误配置开始算。</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">3. 取消已经在进行的failover，发现有错误配置，没有被提升到master的slave节点 识别到SLAVEOF ON ONE</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">4. 正在进行的failover,等待所有的slave被新master重新配置为新master的slave的时间。然而，即使配置完之后，sentinel也会对slave进行重新配置，但不会按照parallel-syncs进行配置</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">故障转移指的是，当master失去连接，sentinel将某一个slave节点升级成新的matser，其他slave节点完成对新master同步的过程</span><br></code></pre></td></tr></table></figure></li>
+<li><p>启动sentinel</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd /usr/local/redis/redis-6379/src<br>./redis-sentinel /etc/redis/sentinel.conf<br></code></pre></td></tr></table></figure></li>
+<li><p>查看日志文件</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">cat /var/log/redis/sentinel.log<br></code></pre></td></tr></table></figure>
+<p>  <img src="/posts/2ada2362a03e/1620143068494.png" srcset="/images/loading.gif" lazyload alt="1620143068494.png"><br>  可以看到sentinel已经 监视6379 一个master 和6380 6381两个slave。<br>  但是两个slave节点宕机，这就是因为两个slave没有配置acl，sentinel没法通过slave的认证， 重新配置和master一样的acl文件，修改slave配置文件中的aclfile。</p>
+</li>
+<li><p>测试<br>  ​ 通过关闭master 6379 , 测试是否升级为新的master节点。</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">127.0.0.1：6379&gt; shutdown<br></code></pre></td></tr></table></figure>
+<p>  在sentinel.log中发现并没有成功<br>  <img src="/posts/2ada2362a03e/1620143107235.png" srcset="/images/loading.gif" lazyload alt="1620143107235.png"><br>  再去查看redis_6380.log，发现没有replconf权限<br>  <img src="/posts/2ada2362a03e/1620143130228.png" srcset="/images/loading.gif" lazyload alt="1620143130228.png"><br>  所以，直接把用户权限改到+@all，不过这个给全部权限不好，怎么样准确给权限，以后再研究。</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">127.0.0.1：6379&gt; acl setuser wer +@all<br>127.0.0.1：6379&gt; acl save<br></code></pre></td></tr></table></figure>
+<p>  再次关闭6379, 查看sentinel.log</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs shell">+sdown slave 127.0.0.1:6381 127.0.0.1 6379 # 6379 master 宕机<br>+odown master mymaster 127.0.0.1 6379 #quorum 1/1<br>+new-epoch 1  # 开始第一次 failover<br>+try-failover master mymaster 127.0.0.1 6379 # 开发failover<br>+vote-for-leader 855ee66e09e740ca948775dd8d96018c87c3428d 1 # 投票选举leader<br>+elected-leader master mymaster 127.0.0.1 6379 # 之前被选举的leader<br>+failover-state-select-slave master mymaster 127.0.0.1 6379 # failover选择slave节点<br>+selected-slave slave 127.0.0.1:6380 127.0.0.1 6380 @ mymaster 127.0.0.1 6379 #选择6380 slave<br>+failover-state-send-slaveof-noone slave 127.0.0.1:6380 127.0.0.1 6380 @ mymaster 127.0.0.1 6379 # 结束选择slave<br>+failover-state-wait-promotion slave 127.0.0.1:6380 127.0.0.1 6380 @ mymaster 127.0.0.1 6379 # 等待 6380 slave 完成晋升<br>+promoted-slave slave 127.0.0.1:6380 127.0.0.1 6380 @ mymaster 127.0.0.1 6379 # 6380 slave 晋升完毕<br>+failover-state-reconf-slaves master mymaster 127.0.0.1 6379 #重新配置6379<br>+failover-end master mymaster 127.0.0.1 6379 # failover 完成<br>+switch-master mymaster 127.0.0.1 6379 127.0.0.1 6380 #  转换6380为 master <br>+slave slave 127.0.0.1:6381 127.0.0.1 6381 @ mymaster 127.0.0.1 6380 # 6381为6380的slave<br>+slave slave 127.0.0.1:6379 127.0.0.1 6379 @ mymaster 127.0.0.1 6380# 6379为6380的slave<br>+sdown slave 127.0.0.1:6379 127.0.0.1 6379 @ mymaster 127.0.0.1 6380 #6379 宕机<br></code></pre></td></tr></table></figure>
+<p>  查看6380 info</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">Replication</span><br>role:master<br>connected_slaves:1<br>slave0:ip=127.0.0.1,port=6381,state=online,offset=10742,lag=0<br></code></pre></td></tr></table></figure>
+<p>  查看6381 info</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">Replication</span><br>role:slave<br>master_host:127.0.0.1<br>master_port:6380<br>master_link_status:up<br></code></pre></td></tr></table></figure>
+<p>  正如自己所想的设置<br>  查看6379.conf ，并没有变化<br>  重启6379，查看info</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">Replication</span><br>role:slave<br>master_host:127.0.0.1<br>master_port:6380<br>master_link_status:down<br>master_last_io_seconds_ago:-1<br>master_sync_in_progress:0<br></code></pre></td></tr></table></figure>
+<p>  发现master变成6380，但是没连接上<br>  查看redis_6379.log</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell">MASTER &lt;-&gt; REPLICA sync started  # 开始同步<br>Non blocking connect for SYNC fired the event. <br>Master replied to PING, replication can continue... # master ping<br>(Non critical) Master does not understand REPLCONF listening-port: -NOAUTH Authentication required. # 认证没通过<br>(Non critical) Master does not understand REPLCONF capa: -NOAUTH Authentication required.<br>Partial resynchronization not possible (no cached master)<br>Unexpected reply to PSYNC from master: -NOAUTH Authentication required.<br>Retrying with SYNC...<br>MASTER aborted replication with an error: NOAUTH Authentication required.<br></code></pre></td></tr></table></figure>
+<p>  然后去查看6379.conf</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">save 3600 1<br>save 300 100<br>save 60 10000<br>replicaof 127.0.0.1 6380<br></code></pre></td></tr></table></figure>
+<p>  最末尾添加了replicaof 127.0.0.1 6380，却没有masteruser, masterauth，怪不得没有通过认证。<br>  手动添加，重新启动。</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">masterauth &#123;密码&#125;<br>masteruser &#123;用户名&#125;<br></code></pre></td></tr></table></figure>
+<p>  这就是redis sentinel为什么建议使用一样的用户名和密码了，因为sentinel在failover过程中重新配置(reconf)配置文件，如果主从用户名密码不一致，就会导致认证失败。<br>  查看6379 info</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">Replication</span><br>role:slave<br>master_host:127.0.0.1<br>master_port:6380<br>master_link_status:up<br>master_last_io_seconds_ago:1<br></code></pre></td></tr></table></figure>
+<p>  成功<br>  测试slave读写，猜想：slave节点能读不能写。</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">127.0.0.1：6379&gt; get a<br>&quot;1&quot;<br>127.0.0.1：6379&gt; set a 2<br>(error) READONLY You can&#x27;t write against a read only replica.<br></code></pre></td></tr></table></figure>
+<p>  猜想完全正确。</p>
+</li>
+<li><p>总结</p>
+<ul>
+<li>redis6.0版本后，主从的acl文件要打开，而且用于连接的user.password要一样。</li>
+<li>用于连接的user, 权限要够，必须能做到sync,psync,reconf等等。(先使用+@all, 其他权限未知)</li>
+<li>虽然用于连接的user用户拥有+@all权限，但是slave节点仍然无法set等其它的写操作，因为在redis2.6版本后配置文件被加入了replica-read-only yes，如果改为no，可以用slave写入一些缓存数据(key不同)，但是在和master同步后被删除。如果客户端由于错误配置而写入数据的话，就会导致问题。建议还是改成yes。</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-Redis-Cluster"><a href="#3-Redis-Cluster" class="headerlink" title="3. Redis Cluster"></a>3. Redis Cluster</h2><h3 id="3-1-概念"><a href="#3-1-概念" class="headerlink" title="3.1 概念"></a>3.1 概念</h3><p>Redis Cluster是Redis的内置集群，在Redis3.0后推出的实现方案。以下是它的几个特点：</p>
+<ul>
+<li>Redis Cluster 是无中心节点的集群架构，依靠Gossip协议协同自动化修复集群的状态。</li>
+<li>Redis Cluster 是去中心化，去中间件的，所以集群的每个节点(slave)都是平等的。</li>
+<li>每个节点都保存着各自的数据和集群的状态。</li>
+<li>每个节点都和其他节点连接，而且连接一直保持活跃，只要访问任意一个节点都能获取其它节点的值。</li>
+</ul>
+<h3 id="3-2-哈希槽-hash-slot-方式分配数据"><a href="#3-2-哈希槽-hash-slot-方式分配数据" class="headerlink" title="3.2 哈希槽(hash slot)方式分配数据"></a>3.2 哈希槽(hash slot)方式分配数据</h3><p>Redis Cluster，这种集群模式中，每个节点保存的数据并非完整，只有一部分数据。</p>
+<p>这是因为集群采用哈希槽方式分配数据，Redis Cluster 默认分配了16384个<code>slot</code>，当set一个key时，会用<code>CRC6</code>算法来取模得到所属的<code>slot</code>，然后将这个key分到哈希槽区间的节点上，具体算法：<code>CRC16(key) % 16384</code>。</p>
+<p>采用哈希槽方式来分配16384个<code>slot</code>，假设有3个节点组成集群，那么它们分别的<code>slot</code>区间为: [0 ,5460]，[5461, 10922]，[10923, 16383]。 可见它们是均分16348个<code>slot</code>。</p>
+<p>如果设置一个key<code>my_name</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">set my_name wer<br></code></pre></td></tr></table></figure>
+
+<p>那么根据哈希槽算法：<code>CRC16(&#39;my_name&#39;)%16384 = 2412</code>，可得该key的值存储会被分配到[0, 5460]。</p>
+<h3 id="3-3-Redis-Cluster的主从模式"><a href="#3-3-Redis-Cluster的主从模式" class="headerlink" title="3.3 Redis Cluster的主从模式"></a>3.3 Redis Cluster的主从模式</h3><p>Redis Cluster 为了保证数据的高可用性，加入主从模式，一个主节点对应一个或多个从节点，主节点负责数据存取，从节点复制从主节点拉去数据备份，当主节点宕机了，就会在从节点中选取一个当主节点，从而保证集群不会挂。</p>
+<h3 id="3-4-Redis-Cluter-搭建"><a href="#3-4-Redis-Cluter-搭建" class="headerlink" title="3.4 Redis Cluter 搭建"></a>3.4 Redis Cluter 搭建</h3><h4 id="3-4-1-准备Redis节点"><a href="#3-4-1-准备Redis节点" class="headerlink" title="3.4.1 准备Redis节点"></a>3.4.1 准备Redis节点</h4><blockquote>
+<p>配置： 主节点 3个</p>
+<p> 从节点 3个</p>
+<p> 端口号 7001~7006</p>
+</blockquote>
+<p>3个节点起才能进行投票，所以主节点要3个，每个主节点至少一个从节点，共6个节点。</p>
+<p>Redis5.0 后不需要Redis.gem去搭建集群了, 不需要搭建Ruby环境了。</p>
+<p>这次是在同一个机器中搭建的。</p>
+<ul>
+<li><p>复制节点</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd /usr/local/redis/<br>mkdir ./cluster<br><span class="hljs-meta prompt_"># </span><span class="language-bash">复制节点</span><br>cp /usr/local/redis/reids-6.2.1 ./node_7001<br>cp /usr/local/redis/reids-6.2.1 ./node_7002<br>cp /usr/local/redis/reids-6.2.1 ./node_7003<br>cp /usr/local/redis/reids-6.2.1 ./node_7004<br>cp /usr/local/redis/reids-6.2.1 ./node_7005<br>cp /usr/local/redis/reids-6.2.1 ./node_7006<br></code></pre></td></tr></table></figure></li>
+<li><p>修改配置文件</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">复制配置文件到指定目录</span><br>mkdir /etc/redis/cluster<br>cp /user/local/redis-6.2.1/redis.conf /etc/redis/cluster/7001.conf<br>vim 7001.conf<br>···<br><span class="hljs-meta prompt_"># </span><span class="language-bash">修改绑定地址为 所有ip都可以访问 生产环境中 建议绑定</span><br>bind 0.0.0.0<br><span class="hljs-meta prompt_"># </span><span class="language-bash">修改端口号</span><br>port 7001<br><span class="hljs-meta prompt_"># </span><span class="language-bash">开启保护模式 默认是开启的 如果设置了密码 可以开启，否则要关闭</span><br>protected-mode yes<br><span class="hljs-meta prompt_"># </span><span class="language-bash">开启守护线程 后台启动</span><br>daemonize yes<br><span class="hljs-meta prompt_"># </span><span class="language-bash">修改pidfile</span> <br>pidfile /var/run/redis_7001.pid<br><span class="hljs-meta prompt_"># </span><span class="language-bash">修改日志文件路径 注意：要手动创建路径</span><br>logfile /var/log/redis/cluster/7001.log<br><span class="hljs-meta prompt_"># </span><span class="language-bash">修改持久化文件路径 注意：要手动创建路径</span><br>dir /var/lib/redis/cluster/7001/<br><span class="hljs-meta prompt_"># </span><span class="language-bash">设置master用户名</span><br>masteruser wer<br><span class="hljs-meta prompt_"># </span><span class="language-bash">设置master密码</span><br>masteruser redis123<br><span class="hljs-meta prompt_"># </span><span class="language-bash">开启acl文件 redis6.0后 节点不能通过master节点默认用户default访问 注意：要手动创建文件</span><br>aclfile /etc/redis/cluster/users_7001.acl<br><span class="hljs-meta prompt_"># </span><span class="language-bash">开启aof持久化</span><br>appendonly yes<br><span class="hljs-meta prompt_"># </span><span class="language-bash">开启集群</span><br>cluster-enabled yes<br><span class="hljs-meta prompt_"># </span><span class="language-bash">修改集群的配置文件(自动生成)</span><br>cluster-config-file nodes-7001.conf<br><span class="hljs-meta prompt_"># </span><span class="language-bash">修改请求节点超时时间 默认15000 单位 ms</span><br>cluster-node-timeout 5000<br>···<br></code></pre></td></tr></table></figure>
+<p>  复制配置文件 5份</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">cp -R 7001.conf 7002.conf<br>cp -R 7001.conf 7003.conf<br>cp -R 7001.conf 7004.conf<br>cp -R 7001.conf 7005.conf<br>cp -R 7001.conf 7006.conf<br></code></pre></td></tr></table></figure>
+<p>  批量修改配置文件</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">vim 7002.conf<br>···<br>使用命令<br>:%s/7001/7002/g<br>可以看到输出<br>6 substitutions on 6 lines<br>···<br></code></pre></td></tr></table></figure></li>
+<li><p>创建acl文件</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd /etc/redis/cluster<br>touch users_7001.acl<br></code></pre></td></tr></table></figure>
+<p>  使用redis-cli 客户端创建用户</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd /usr/local/redis/clustr/node_7001/src<br>./redis-cli -p 7001<br>···<br><span class="hljs-meta prompt_"># </span><span class="language-bash">设置默认用户密码</span><br>127.0.0.1：7001&gt; acl setuser default &gt;&#123;密码&#125;<br><span class="hljs-meta prompt_"># </span><span class="language-bash">设置集群用户</span><br>127.0.0.1：7001&gt; acl setuser wer on &gt;&#123;密码&#125; ~* +@all<br><span class="hljs-meta prompt_"># </span><span class="language-bash">保存到acl文件</span><br>127.0.0.1：7001&gt; acl save<br><span class="hljs-meta prompt_"># </span><span class="language-bash">退出</span><br>127.0.0.1：7001&gt; quit<br></code></pre></td></tr></table></figure>
+<p>  复制acl文件 使用一样的用户和密码名</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd /etc/redis/cluster<br>cp users_7001.acl users_7002.acl<br>cp users_7001.acl users_7003.acl<br>cp users_7001.acl users_7004.acl<br>cp users_7001.acl users_7005.acl<br>cp users_7001.acl users_7006.acl<br></code></pre></td></tr></table></figure></li>
+<li><p>启动节点<br>  这里有管理节点脚本，<a target="_blank" rel="noopener" href="http://复制命名为cluster.sh/">复制命名为cluster.sh</a>, 修改脚本内，的IPS 和端口REDISPORTS 注意要对应上<br>  如果要用Jedis 来远程访问，必须使用redis部署服务器的外网地址，不能使用回环地址127.0.0.1！<br>  详情：请看<a href="/posts/238e29daecc1/">Jedis连接Redis Cluster的java.net.SocketTimeoutException: connect timed out</a>。</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">!/bin/sh</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">Author WER</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">CreateTime 4/25/2021</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">enter port</span><br>REDISPORTS=(7001 7002 7003 7004 7005 7006)<br><span class="hljs-meta prompt_"># </span><span class="language-bash">mathching ip with port defualt 127.0.0.1</span><br>IPS=(192.168.1.102 192.168.1.102 192.168.1.102 192.168.1.102 192.168.1.102 192.168.1.102)<br>CONF=/etc/redis/cluster/<br>EXEC=/src/redis-server<br>CLIEXEC=/src/redis-cli<br>PIDFILEPATH=/var/run/<br>if [ $&#123;#IPS[@]&#125; -ne $&#123;#REDISPORTS[@]&#125; ]<br>then<br>	echo &quot;ERROR: IP count does not mathch PORT count, review cluter.sh on line 3, lin 5&quot;<br>	echo &quot;IPS COUNT: $&#123;#IPS[@]&#125;, REDISPORTS COUNT: $&#123;#REDISPORTS[@]&#125;&quot;<br>	exit 1<br>fi<br>case &quot;$1&quot; in<br>	start)<br>		for i in &quot;$&#123;!REDISPORTS[@]&#125;&quot;;<br>	        do<br>			IP=$&#123;IPS[i]&#125;<br>			PORT=$&#123;REDISPORTS[i]&#125;<br>			PARAMS=&quot;$PARAMS $IP:$PORT&quot;<br>                        PIDFILE=$&#123;PIDFILEPATH&#125;redis_$PORT.pid<br>			if [ -f $PIDFILE ]<br>			then<br>				echo &quot;Redis server is running. IP: $IP PORT: $PORT&quot;<br>			else<br>				./node_$PORT$EXEC $CONF$PORT.conf<br>				echo &quot;Starting Redis server... IP: $IP PORT: $PORT&quot;<br>			fi<br>		done<br>		;;<br>	stop)	<br>		for i in &quot;$&#123;!REDISPORTS[@]&#125;&quot;;<br>		do<br>			IP=$&#123;IPS[i]&#125;<br>			PORT=$&#123;REDISPORTS[i]&#125;<br>                        PIDFILE=$&#123;PIDFILEPATH&#125;redis_$PORT.pid<br>			if [ ! -f $PIDFILE ]<br>			then<br>				echo  &quot;Redis servier is not running... IP: $IP PORT: $PORT&quot;<br>			else<br>				PID=$(cat $PIDFILE)<br>				echo &quot;Stopping Redis server... IP: $IP PORT: $PORT&quot;<br>				if [ -n $&#123;2&#125; ];then<br>					./node_$PORT$CLIEXEC -h $IP -p $PORT -a $2 shutdown<br>				else<br>					./node_$PORT$CLIEXEC -h $IP -p $PORT shutdown<br>				fi		<br>				while [ -x /proc/$&#123;PID&#125; ]<br>				do<br>					echo &quot;PID: $PID, waiting for shutdown ... IP: $IP PORT: $PORT&quot;<br>					sleep 1<br>				done<br>				echo &quot;Redis server stopped. IP: $IP PORT: $PORT&quot;<br>			fi<br>		done<br>		;;<br>	status)<br>		for i in &quot;$&#123;!REDISPORTS[@]&#125;&quot;;<br>		do	<br>			IP=$&#123;IPS[i]&#125;<br>			PORT=$&#123;REDISPORTS[i]&#125;<br>                        PIDFILE=$&#123;PIDFILEPATH&#125;redis_$PORT.pid<br>			PID=$(cat $PIDFILE)<br>			if [ -x /proc/$&#123;PID&#125; ] &amp;&amp; [ -f $PIDFILE ]<br>			then<br>				echo &quot;Redis server is running. IP: $IP PORT: $PORT PID: $PID&quot;<br>			else<br>				echo &quot;Redis server is not running. IP: $IP PORT: $PORT&quot;<br>			fi<br>		done<br>		;;<br>	cluster)<br>                $0 start $2 $3<br>		for i in &quot;$&#123;!REDISPORTS[@]&#125;&quot;;<br>	        do<br>			IP=$&#123;IPS[i]&#125;<br>			PORT=$&#123;REDISPORTS[i]&#125;	<br>			PARAMS=&quot;$PARAMS $IP:$PORT&quot;<br>		done<br>		./node_$PORT$CLIEXEC --cluster create $PARAMS --cluster-replicas 1 --user $2 -a $3<br>		;;<br>	restart)<br><span class="hljs-meta prompt_">		$</span><span class="language-bash">0 stop <span class="hljs-variable">$3</span></span><br><span class="hljs-meta prompt_">		$</span><span class="language-bash">0 start <span class="hljs-variable">$2</span> <span class="hljs-variable">$3</span></span><br>		;;<br>	help)	<br>		echo &quot;Please user start, stop, restart, status help as first argument.&quot;<br>		echo &quot;example:&quot; <br>		echo &quot;./cluter.sh start &lt;username&gt; &lt;password&gt;&quot;<br>		echo &quot;         eg:  ./cluter.sh start WER 12345&quot;<br>		echo &quot;./cluter.sh stop &lt;password&gt;&quot;<br>		echo &quot;         eg:  ./cluter.sh stop 12345&quot;<br>		echo &quot;./cluter.sh restart &lt;username&gt; &lt;password&gt;&quot;<br>		echo &quot;         eg:  ./cluter.sh restart WER 12345&quot;<br>		echo &quot;./cluter.sh status&quot;<br>		echo &quot;./cluter.sh cluter &lt;username&gt; &lt;pasword&gt;&quot;<br>		echo &quot;         eg:  ./cluter.sh cluter WER 12345&quot;<br>		echo &quot;./cluter.sh help&quot;<br>		;;<br>	*)<br>		echo &quot;Please user start, stop, restart, status help as first argument.&quot;<br>		;;<br>esac<br></code></pre></td></tr></table></figure>
+<p>  <a target="_blank" rel="noopener" href="http://保存为cluster.sh/">保存为cluster.sh</a>，保存在路径<code>/usr/local/redis/cluster/</code></p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd /usr/local/redis/cluster/<br><span class="hljs-meta prompt_"># </span><span class="language-bash">执行命令</span><br>./cluster.sh start<br><span class="hljs-meta prompt_"># </span><span class="language-bash">查看帮助</span><br>./cluster.sh help<br></code></pre></td></tr></table></figure>
+<p>  如果出现语法错误，说明当前系统脚本运行默认采用不是bash。<br>  修改系统默认的shell运行</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo dpkg-reconfigure dash<br></code></pre></td></tr></table></figure>
+<p>  选no<br>  Ubuntu系统为了启动快，默认使用了dash，而采用的是bash。<br>  启动成功</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">Starting Redis server... IP: 192.168.1.102 PORT: 7001<br>Starting Redis server... IP: 192.168.1.102 PORT: 7002<br>Starting Redis server... IP: 192.168.1.102 PORT: 7003<br>Starting Redis server... IP: 192.168.1.102 PORT: 7004<br>Starting Redis server... IP: 192.168.1.102 PORT: 7005<br>Starting Redis server... IP: 192.168.1.102 PORT: 7006<br></code></pre></td></tr></table></figure>
+<p>  查看进程</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell">ps aux | grep redis<br>···<br>root      2477  0.6  0.0 135716  5292 ?        Ssl  18:41   0:06 ./node_7001/src/redis-server 0.0.0.0:7001 [cluster]<br>root      2483  0.6  0.0 135716  5236 ?        Ssl  18:41   0:06 ./node_7002/src/redis-server 0.0.0.0:7002 [cluster]<br>root      2489  0.6  0.1 135716  5608 ?        Ssl  18:41   0:06 ./node_7003/src/redis-server 0.0.0.0:7003 [cluster]<br>root      2495  0.5  0.1  57888  5552 ?        Ssl  18:41   0:05 ./node_7004/src/redis-server 0.0.0.0:7004 [cluster]<br>root      2501  0.5  0.0  57888  5504 ?        Ssl  18:41   0:05 ./node_7005/src/redis-server 0.0.0.0:7005 [cluster]<br>root      2507  0.6  0.0  57888  5420 ?        Ssl  18:41   0:05 ./node_7006/src/redis-server 0.0.0.0:7006 [cluster]<br>root      2526  0.0  0.0   6296   924 pts/1    S+   18:57   0:00 grep --color=auto redis<br>···<br></code></pre></td></tr></table></figure>
+<p>  启动成功</p>
+</li>
+</ul>
+<h4 id="3-4-2-搭建集群"><a href="#3-4-2-搭建集群" class="headerlink" title="3.4.2 搭建集群"></a>3.4.2 搭建集群</h4><p>节点已经启动了，但是仍然没创建集群.</p>
+<p>可以使用脚本<code>./cluster.sh cluster &#123;用户名&#125; &#123;密码&#125;</code> 创建集群</p>
+<p>也可以直接输入以下命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">加入到任意一个redis-cli</span><br>cd /usr/local/redis/cluster/node_7001/src<br><span class="hljs-meta prompt_"># </span><span class="language-bash">输入创建集群命令</span><br>redis-cli --cluster create 192.168.1.102:7001 192.168.1.102:7002 192.168.1.102:7003 192.168.1.102:7004 192.168.1.102:7005 192.168.1.102:7006 --cluster-replicas 1 --user &#123;用户名&#125; -a &#123;密码&#125;<br></code></pre></td></tr></table></figure>
+
+<p>该命令格式解读</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">redis-cli --cluster create &#123;ip1&#125;:&#123;port1&#125; &#123;ip2&#125;:&#123;port2&#125; &#123;ipN&#125;:&#123;portN&#125; --cluster-replicas &#123;reolicas&#125; --user &#123;username&#125; -a &#123;password&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>--cluster-replicas</code> 是指每个主节点的从节点数。</p>
+<p>可看到输出， 为了jedis连接 换了路由分配地址</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs shell">Warning: Using a password with &#x27;-a&#x27; or &#x27;-u&#x27; option on the command line interface may not be safe.<br><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; Performing <span class="hljs-built_in">hash</span> slots allocation on 6 nodes... <span class="hljs-comment">#分配哈希槽 计划</span></span><br>Master[0] -&gt; Slots 0 - 5460<br>Master[1] -&gt; Slots 5461 - 10922<br>Master[2] -&gt; Slots 10923 - 16383<br>Adding replica 192.168.1.102:7005 to 192.168.1.102:7001 # 原先slave分配计划<br>Adding replica 192.168.1.102:7006 to 192.168.1.102:7002<br>Adding replica 192.168.1.102:7004 to 192.168.1.102:7003<br><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; Trying to optimize slaves allocation <span class="hljs-keyword">for</span> anti-affinity <span class="hljs-comment">#使用反关联性规则 优化slave的分配</span></span><br>															# 为了平衡各个服务器压力，将slave分配给master<br>[WARNING] Some slaves are in the same host as their master # 所有slave都在同一服务器<br>M: 30f10a03422c2b01bc3a0b89b406317c73a475fd 192.168.1.102:7001 # 重新分配slave <br>   slots:[0-5460] (5461 slots) master<br>M: 9dfb46bacd97eb36c6be4edc07095ae6327ce3ef 192.168.1.102:7002<br>   slots:[5461-10922] (5462 slots) master<br>M: 1df02bfed5039e5bc33d5e92ba317edf06905174 192.168.1.102:7003<br>   slots:[10923-16383] (5461 slots) master<br>S: 6543b0a7a6e9624d8912185803d461c16579a8cc 192.168.1.102:7004<br>   replicates 30f10a03422c2b01bc3a0b89b406317c73a475fd<br>S: 688c8cd11e12a7ac6e8f65894d6617cd01264f3d 192.168.1.102:7005<br>   replicates 9dfb46bacd97eb36c6be4edc07095ae6327ce3ef<br>S: 8813af22feed8ef5882e29383b45a18467e5d533 192.168.1.102:7006<br>   replicates 1df02bfed5039e5bc33d5e92ba317edf06905174<br>Can I set the above configuration? (type &#x27;yes&#x27; to accept): yes # 是否同意这样的分配<br><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; Nodes configuration updated        <span class="hljs-comment"># 节点配置更新</span></span><br><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; Assign a different config epoch to each node   <span class="hljs-comment"># 更新不同配置对不同节点</span></span>  <br><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; Sending CLUSTER MEET messages to <span class="hljs-built_in">join</span> the cluster <span class="hljs-comment"># 准备开会</span></span><br>Waiting for the cluster to join # 等待集群开会<br>..<br><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; Performing Cluster Check (using node 192.168.1.102:7001) <span class="hljs-comment"># 集群正在检查 用的是node 7001</span></span><br>M: 30f10a03422c2b01bc3a0b89b406317c73a475fd 192.168.1.102:7001 # 实施上述的分配计划<br>   slots:[0-5460] (5461 slots) master<br>   1 additional replica(s)<br>S: 8813af22feed8ef5882e29383b45a18467e5d533 192.168.1.102:7006<br>   slots: (0 slots) slave<br>   replicates 1df02bfed5039e5bc33d5e92ba317edf06905174<br>S: 6543b0a7a6e9624d8912185803d461c16579a8cc 192.168.1.102:7004<br>   slots: (0 slots) slave<br>   replicates 30f10a03422c2b01bc3a0b89b406317c73a475fd<br>M: 9dfb46bacd97eb36c6be4edc07095ae6327ce3ef 192.168.1.102:7002<br>   slots:[5461-10922] (5462 slots) master<br>   1 additional replica(s)<br>S: 688c8cd11e12a7ac6e8f65894d6617cd01264f3d 192.168.1.102:7005<br>   slots: (0 slots) slave<br>   replicates 9dfb46bacd97eb36c6be4edc07095ae6327ce3ef<br>M: 1df02bfed5039e5bc33d5e92ba317edf06905174 192.168.1.102:7003<br>   slots:[10923-16383] (5461 slots) master<br>   1 additional replica(s)<br>[OK] All nodes agree about slots configuration. # 所有节点同意<br><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; Check <span class="hljs-keyword">for</span> open slots... <span class="hljs-comment"># 检查所有开放的slot</span></span><br><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; Check slots coverage... <span class="hljs-comment"># 检查slot 覆盖率</span></span><br>[OK] All 16384 slots covered. # 16384个slot都被分配了<br></code></pre></td></tr></table></figure>
+
+<p>可见master节点才会被分配哈希槽<code>hash slot</code>，因为master节点才能写数据，而slave节点只能读数据。</p>
+<p>可以看到master节点有7001，7002，7003，与其对应的slave节点是7004，7005，7006。</p>
+<p>查看集群信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">登录redis-cli</span><br>cd /usr/local/redis/cluster/node_7001/src<br>./redis-cli -p 7001<br><br>···<br><span class="hljs-meta prompt_"># </span><span class="language-bash">查看集群信息</span><br>127.0.0.1:7001&gt; cluster info<br>···<br>cluster_state:ok<br>cluster_slots_assigned:16384 # 集群分配的哈希槽数<br>cluster_slots_ok:16384<br>cluster_slots_pfail:0<br>cluster_slots_fail:0<br>cluster_known_nodes:6 # 6个已知节点<br>cluster_size:3<br>cluster_current_epoch:6<br>cluster_my_epoch:2<br>cluster_stats_messages_ping_sent:3438<br>cluster_stats_messages_pong_sent:3390<br>cluster_stats_messages_meet_sent:1<br>cluster_stats_messages_sent:6829<br>cluster_stats_messages_ping_received:3390<br>cluster_stats_messages_pong_received:3439<br>cluster_stats_messages_received:6829<br><span class="hljs-meta prompt_"># </span><span class="language-bash">查看节点</span><br>192.168.1.102:7001&gt; cluster nodes<br>8813af22feed8ef5882e29383b45a18467e5d533 192.168.1.102:7006@17006 slave 1df02bfed5039e5bc33d5e92ba317edf06905174 0 1619358137000 3 connected<br>6543b0a7a6e9624d8912185803d461c16579a8cc 192.168.1.102:7004@17004 slave 30f10a03422c2b01bc3a0b89b406317c73a475fd 0 1619358135466 1 connected<br>9dfb46bacd97eb36c6be4edc07095ae6327ce3ef 192.168.1.102:7002@17002 master - 0 1619358136000 2 connected 5461-10922<br>30f10a03422c2b01bc3a0b89b406317c73a475fd 192.168.1.102:7001@17001 myself,master - 0 1619358135000 1 connected 0-5460<br>688c8cd11e12a7ac6e8f65894d6617cd01264f3d 192.168.1.102:7005@17005 slave 9dfb46bacd97eb36c6be4edc07095ae6327ce3ef 0 1619358137000 2 connected<br>1df02bfed5039e5bc33d5e92ba317edf06905174 192.168.1.102:7003@17003 master - 0 1619358137471 3 connected 10923-16383<br></code></pre></td></tr></table></figure>
+
+<h4 id="3-4-2-测试"><a href="#3-4-2-测试" class="headerlink" title="3.4.2 测试"></a>3.4.2 测试</h4><ul>
+<li><p>测试存数据<br>  猜想：</p>
+<ol>
+<li><p>根据key值不同，<code>CRC16(key)%16384</code>算出<code>hash slot</code>，再将数据存储在<code>hash slot</code>所在节点。</p>
+</li>
+<li><p>根据集群去中心化的设计概念，在slave节点存储数据，一样能存储成功，只不过会通过master节点存储，slave节点备份。</p>
+</li>
+</ol>
+<p>  实验：<br>  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">输入连接集群命令 连接到slave节点 7005 只需要输入密码即可 因为各个节点的关联集群的用户密码一样 acl文件一样</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">-c 表示cluster 集群 必须加上-c 能访问集群</span><br>cd /usr/local/redis/cluster/node_7001/src<br>redis-cli -c -h 192.168.1.102 -p 7005 -a &#123;密码&#125;<br>···<br>192.168.1.102:7005&gt; set a 1<br><span class="hljs-meta prompt_">-&gt; </span><span class="language-bash">Redirected to slot [15495] located at 192.168.1.102:7003</span><br>OK<br>192.168.1.102:7003&gt; set b 2<br><span class="hljs-meta prompt_">-&gt; </span><span class="language-bash">Redirected to slot [3300] located at 192.168.1.102:7001</span><br>OK<br>192.168.1.102:7001&gt; set c 3<br><span class="hljs-meta prompt_">-&gt; </span><span class="language-bash">Redirected to slot [7365] located at 192.168.1.102:7002</span><br>OK<br></code></pre></td></tr></table></figure><br>  根据哈希槽策略分配存储数据的节点，猜想1正确。<br>  slave节点存储数据会重定向到确定分配的节点，再存储数据，猜想2正确。</p>
+</li>
+<li><p>测试取数据<br>  猜想：</p>
+<ol>
+<li>各个节点都能取到数据，通过计算key的哈希槽，重定向到该哈希槽对应的节点，再取值。</li>
+</ol>
+<p>  实验：<br>  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs shell">192.168.1.102:7003&gt; get a<br>&quot;1&quot;<br>192.168.1.102:7003&gt; get b<br><span class="hljs-meta prompt_">-&gt; </span><span class="language-bash">Redirected to slot [3300] located at 192.168.1.102:7001</span><br>&quot;2&quot;<br>192.168.1.102:7001&gt; get c<br><span class="hljs-meta prompt_">-&gt; </span><span class="language-bash">Redirected to slot [7365] located at 192.168.1.102:7002</span><br>&quot;3&quot;<br>192.168.1.102:7002&gt; get haha<br><span class="hljs-meta prompt_">-&gt; </span><span class="language-bash">Redirected to slot [3662] located at 192.168.1.102:7001</span><br>(nil)<br></code></pre></td></tr></table></figure><br>  猜想正确，key的哈希槽不同，找到对应的master节点，取值，就算是没有存储的键值对依然如此。</p>
+</li>
+<li><p>测试slave节点的晋升<br>  猜想：</p>
+<ol>
+<li><p>当某一个master节点宕机，其对应的slave节点，会晋升为新master。</p>
+</li>
+<li><p>宕机后的master节点，重启后，变成新master节点的slave节点。</p>
+</li>
+</ol>
+<p>  实验：<br>  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">shutdown master节点 7001</span> <br>redis-cli -h 192.168.1.102 -p 7001 -a &#123;密码&#125; shutdown<br><span class="hljs-meta prompt_"># </span><span class="language-bash">查看 7001的slave节点 7004</span><br>redis -cli -h 192.168.1.102 -p 7004 -a &#123;密码&#125;<br>···<br>192.168.1.102:7004&gt; info<br>···<br><span class="hljs-meta prompt_"># </span><span class="language-bash">Replication</span><br>role:master # 晋升为master<br>connected_slaves:0<br>master_failover_state:no-failover<br>master_replid:379758e0e31c118fa611d75df266b5cb940fab1f<br>master_replid2:589179e07c6a1557909e7cb0106e065bb85e2cf2<br><span class="hljs-meta prompt_"># </span><span class="language-bash">重启7001 脚本启动 或者命令启动 redis-server /etc/redis/cluster/7001.conf</span><br>root@werserver:/usr/local/redis/cluster# ./cluster.sh start<br>Starting Redis server... IP: 192.168.1.102 PORT: 7001<br>Redis server is running. IP: 192.168.1.102 PORT: 7002<br>Redis server is running. IP: 192.168.1.102 PORT: 7003<br>Redis server is running. IP: 192.168.1.102 PORT: 7004<br>Redis server is running. IP: 192.168.1.102 PORT: 7005<br>Redis server is running. IP: 192.168.1.102 PORT: 7006<br><span class="hljs-meta prompt_">#</span><span class="language-bash">查看 7001 信息</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">Replication</span><br>role:slave  # 成为了7004的slave节点<br>master_host:192.168.1.102<br>master_port:7004<br>master_link_status:up <br></code></pre></td></tr></table></figure><br>  7001宕机后，7004成为了新master节点，重启7001节点，7001变成7004的slave节点。猜想正确。</p>
+</li>
+</ul>
+<h3 id="3-5-总结"><a href="#3-5-总结" class="headerlink" title="3.5 总结"></a>3.5 总结</h3><ol>
+<li>搭建Redis 集群，如果非单机的话，尽量使用外网地址，不要用回环地址127.0.0.1。具体请看 <a href="/posts/238e29daecc1/">Jedis连接Redis Cluster的java.net.SocketTimeoutException: connect timed out</a>。</li>
+<li>基于去中心化的设计理念，Redis集群的集群节点配置文件，存储在每个节点的资源路径下，即redis.conf下的dir路径下。</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/database/" class="category-chain-item">database</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/database/redis/" class="category-chain-item">redis</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/redis/" class="print-no-link">#redis</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Redis集群</div>
+      <div>https://succeedwer.github.io/posts/2ada2362a03e/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WER</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年3月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年3月20日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/50b3e49e0a6f/" title="导入包">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">导入包</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/adcfecfee3a0/" title="如何创建Go项目">
+                        <span class="hidden-mobile">如何创建Go项目</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -229,15 +229,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/1294ae8bb0f7/" target="_self">
-          9.3. sync.RWMutex读写锁
+        <a href="/posts/f5ef3e713f2a/" target="_self">
+          11.5. 剖析
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/1294ae8bb0f7/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/f5ef3e713f2a/" target="_self">
         <div>
-          允许多个只读操作并发执行，但写操作完全互斥，这样的锁叫多读单写锁（multipe readers, single writer lock）， 在go语言中，sync.RWMutex是这样的锁。 调用了RLock和RUnlock方法来获取和释放一个读取或者共享锁。 RLock只能在临界区共享变量没有任何写入操作可用。不应该在只读函数&#x2F;方法内更新共享变量。 RWMutex只有当获得锁的大部分
+          性能分析过早的优化是万恶之源！自动化的剖析技术是基于程序执行期间一些抽样数据，然后推断后面的执行状态；最终产生一个运行时间的统计数据文件。 Go语言支持多种类型的剖析性能分析，内建的go test工具对几种分析方式都提供了支持：  CPU分析,CPU分析文件标识了函数执行时所需要的CPU时间。  当前运行的系统线程在每隔几毫秒都会遇到操作系统的中断事件，每次中断时都会记录一个分析文件然后恢复正常的
         </div>
       </a>
 
@@ -245,8 +245,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-19 13:52" pubdate>
-              2023-03-19
+            <time datetime="2023-03-21 15:52" pubdate>
+              2023-03-21
             </time>
           </div>
         
@@ -283,9 +283,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -299,15 +299,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/da8e0d3d1c07/" target="_self">
-          9.2. sync.Mutex互斥锁
+        <a href="/posts/a1b71dd23f51/" target="_self">
+          11.4. 基准测试
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/da8e0d3d1c07/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/a1b71dd23f51/" target="_self">
         <div>
-          channel互斥在前面例子中，我们用buffered channel来设计sema信号量，来保证至多20个goroutine同时执行http请求。如果使用容量只有1的channel来保证至多1个goroutine同一时刻来访问一个共享变量，这样也能达成互斥。 123456789101112131415161718package bankvar (	sema    = make(chan stru
+          基准测试是测量一个程序在固定工作负载下的性能。以Benchmark为前缀名，并且带有一个*testing.B类型的参数；*testing.B参数除了提供和*testing.T类似的方法，还有额外一些和性能测量相关的方法。它还提供了一个整数N，用于指定操作执行的循环次数。 下面是IsPalindrome的基准测试函数，将循环调用多次： 12345func BenchmarkIsPalindrome(
         </div>
       </a>
 
@@ -315,8 +315,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-19 12:52" pubdate>
-              2023-03-19
+            <time datetime="2023-03-21 14:52" pubdate>
+              2023-03-21
             </time>
           </div>
         
@@ -353,9 +353,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -369,15 +369,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/df4edc666b3d/" target="_self">
-          9.1. 竞争条件
+        <a href="/posts/79be1aaa69b3/" target="_self">
+          11.3. 测试覆盖率
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/df4edc666b3d/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/79be1aaa69b3/" target="_self">
         <div>
-          在线性的程序中，即只有一个goroutine，程序的执行顺序由程序逻辑决定。当我们无法确认两个事件之间执行的先后顺序时，说明这两个事件是并发的。 在并发的情况下，函数能够正确并正常运行，那么可以说这个函数是并发安全的。并发安全的函数不需要额外进行同步。同样的，不但适用于函数，还可以适用于类型的函数和方法，如果这个类型是并发安全的，那么类型的方法和函数同样是并发安全的。 导出包级别的函数一般情况下是
+          由测试驱动触发运行到的被测试函数的代码数目称为测试的覆盖率。测试覆盖率并不能量化——甚至连最简单的动态程序也难以精确测量——但是可以启发并帮助我们编写的有效的测试代码。 语句的覆盖率是指在测试中至少被运行一次的代码占总代码数的比例。在本节中，我们使用go test命令中集成的测试覆盖率工具，来度量下面代码的测试覆盖率，帮助我们识别测试和我们期望间的差距。 下面的代码是一个表格驱动的测试，用于测试第
         </div>
       </a>
 
@@ -385,8 +385,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-19 11:52" pubdate>
-              2023-03-19
+            <time datetime="2023-03-21 13:52" pubdate>
+              2023-03-21
             </time>
           </div>
         
@@ -423,9 +423,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -439,15 +439,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/261f973145a5/" target="_self">
-          第九章 基于共享变量的并发
+        <a href="/posts/0bc5b76177c6/" target="_self">
+          11.2. 测试函数
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/261f973145a5/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/0bc5b76177c6/" target="_self">
         <div>
-          在未引入锁机制前，我们可以使用不要用共享数据来通信，使用通信来共享数据，即单独goroutine访问局部变量。本章主要为Go语言的锁机制。 9.1. 竞争条件9.2. sync.Mutex互斥锁9.3. sync.RWMutex读写锁9.4. 内存同步9.5. sync.Once初始化9.6. 竞争条件检测9.7. 并发的非阻塞缓存9.8. Goroutines和线程
+          每个测试函数必须导入test包。测试函数格式如下： 123func TestName(t *testing.T) &#123;	//...&#125;  测试函数必须以Test为前缀，可选的后缀名必须以大写开头。 123func Test(t *testing.T)&#123;...&#125;func TestSin(t *testing.T)&#123;...&#125;func TestCo
         </div>
       </a>
 
@@ -455,8 +455,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-19 10:52" pubdate>
-              2023-03-19
+            <time datetime="2023-03-21 12:52" pubdate>
+              2023-03-21
             </time>
           </div>
         
@@ -493,9 +493,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -509,15 +509,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/7a3e094c0893/" target="_self">
-          8.10. 示例：聊天服务
+        <a href="/posts/84a75b89cf5a/" target="_self">
+          11.1 go test
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/7a3e094c0893/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/84a75b89cf5a/" target="_self">
         <div>
-          题目这个程序可以让用户通过服务器向其他用户广播文本信息。 思路该程序可以分解为四个goroutine。  main 主函数goroutine实例，用于创建连接。 broadcaster 用于处理不同类型的的消息。 handleConn 用于处理连接数据。 cientWriter 用于返回客户端信息。  实现mainmain 主要用于处理（listen and accept）从客户端过来的连接。而对
+          Go语言关于测试的命令为go test。在包目录范围内，所有以_test.go结尾的源代码文件，并非属于go build框架，而是属于go test测试的一部分。 在*_test.go文件中，一共有三种函数：  测试函数 测试函数以Test为前缀，用于测试函数的逻辑是否正确。   基准测试函数 基准测试函数以Benchmark为前缀，用于衡量函数的性能。   示例函数 示例函数以Example为前
         </div>
       </a>
 
@@ -525,8 +525,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 20:52" pubdate>
-              2023-03-18
+            <time datetime="2023-03-21 11:52" pubdate>
+              2023-03-21
             </time>
           </div>
         
@@ -563,9 +563,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -579,15 +579,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/92d779dbee59/" target="_self">
-          8.9. 并发的退出
+        <a href="/posts/2b3895c22904/" target="_self">
+          第十一章 测试
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/92d779dbee59/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/2b3895c22904/" target="_self">
         <div>
-          书接上回，话说上章节实现du工具，并做了进一步扩展，在本章节进行进一步的扩展。如果du的文件目录下有很多很大的文件，那么时间就会增加，这时，用户等待到不耐烦了，就想退出但又不想通过kill程序。 思路众所周知，如果我们需要通知正在运行的goroutine停止它手头上的事时，如web服务器端要中断已经和服务器断开连接的客户端，go语言并没有提供这样的方法。换个思路，在先前的章节中，我们有通过往cha
+          Go语言的测试技术是相对低级的。它依赖一个go test测试命令和一组按照约定方式编写的测试函数，测试命令可以运行这些测试函数。 11.1. go test 11.2. 测试函数 11.3. 测试覆盖率 11.4. 基准测试 11.5. 剖析 11.6. 示例函数
         </div>
       </a>
 
@@ -595,8 +595,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 19:52" pubdate>
-              2023-03-18
+            <time datetime="2023-03-21 10:52" pubdate>
+              2023-03-21
             </time>
           </div>
         
@@ -633,9 +633,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -649,15 +649,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/dbf617f2750e/" target="_self">
-          8.8. 示例：并发的字典遍历
+        <a href="/posts/c1eef8565635/" target="_self">
+          10.7. 工具
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/dbf617f2750e/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/c1eef8565635/" target="_self">
         <div>
-          题目创建一个程序来统计指定目录下的硬盘使用报告，即文件大小，与linux中的du命令类似。 思路毫无疑问，这道题要使用递归去解决。  创建walkDir递归函数，用于获取下层目录，并统计文件大小。 创建dirents函数用于读取目录下的文件目录。 使用fileSize channel去接受发送文件大小。 接收fileSize channel去累加文件大小。  第一个版本该版本比较直白，下面是它的步
+          可以使用go或go help获取内置的帮助文档。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253$ goGo is a tool for managing Go source code.Usage:	go &lt;command&gt; [argume
         </div>
       </a>
 
@@ -665,8 +665,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 18:52" pubdate>
-              2023-03-18
+            <time datetime="2023-03-20 17:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -703,9 +703,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -719,15 +719,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/866000668cee/" target="_self">
-          8.7. 基于select的多路复用
+        <a href="/posts/26ffbeb103e4/" target="_self">
+          10.6. 包的命名
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/866000668cee/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/26ffbeb103e4/" target="_self">
         <div>
-          select下面以火箭发射倒计时为例，说明select的多路复用。 123456789101112131415161718192021// Countdown implement the countdown for a rocket launch.package mainimport (	&quot;fmt&quot;	&quot;time&quot;)func main() &#123;	fmt
+          包的命名规则：  命名尽量短小 要尽量避免与常用的局部变量重复 尽量使用单数形式 避免与预定义类型冲突，可以复数形式 避免与关键字冲突，可以复数形式 避免包名歧义  当设计一个包时，要考虑包名与方法&#x2F;函数&#x2F;成员变量名配合。 1flag.Int	bytes.Equal		http.Get  也有可能包名与方法、函数和成员名重复。 1rand.Rand 所以，包名要尽量简洁短小。
         </div>
       </a>
 
@@ -735,8 +735,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 17:52" pubdate>
-              2023-03-18
+            <time datetime="2023-03-20 16:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -773,9 +773,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -789,15 +789,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/1258766bd2ef/" target="_self">
-          8.6. 示例：并发的Web爬虫
+        <a href="/posts/85c6d629ce42/" target="_self">
+          10.5. 包的匿名导入
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/1258766bd2ef/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/85c6d629ce42/" target="_self">
         <div>
-          在先前的学习中，学习过简单爬虫算法，用bfs(广度优先)算法来抓取整个网站。下面对其进行优化： 12345678910111213141516171819202122232425262728293031323334353637// Crawl1 crawls web links starting with the command-line arguments.package mainimport
+          如果导入一个包而不去使用这个包，那么就会导致编译错误。但是只想使用导入包的而产生的副作用，如“计算包级变量的初始化表达式和执行导入包的init初始化函数”。这时候，需要抑制该编译错误，可以 使用—下划线空白标识符，重命名导入的包。空白标识符表示，不能被访问。 1improt _ &quot;image/png&quot; 这种行为被称为包的匿名导入。它通常是用来实现一个编译时机制，然后通过在mai
         </div>
       </a>
 
@@ -805,8 +805,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 16:52" pubdate>
-              2023-03-18
+            <time datetime="2023-03-20 15:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -843,9 +843,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -859,15 +859,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/5f0a41aff939/" target="_self">
-          8.5. 并发的循环
+        <a href="/posts/7c1cbb35e653/" target="_self">
+          10.4. 导入声明
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/5f0a41aff939/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/7c1cbb35e653/" target="_self">
         <div>
-          在并发的情况下，循环迭代的程序往往要注意一些问题。下面引用对图片批量压缩的例子进行解析。thumbnail.go是关于拉伸图片的方法。 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707
+          每个导入声明可以单独指定导入路径，也可以通过圆括号同时导入多个导入路径。 1234567import &quot;fmt&quot;import &quot;os&quot;improt (	&quot;fmt&quot;	&quot;os&quot;)  导入的包之间可以通过添加空行来分组。通常将来自不同组织的包进行独立分组。 包的导入顺序无关紧要，但是每个分组中一般会根据字符串顺序排序。（go
         </div>
       </a>
 
@@ -875,8 +875,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 15:52" pubdate>
-              2023-03-18
+            <time datetime="2023-03-20 14:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -913,9 +913,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -927,7 +927,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/5/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/#board">4</a><a class="page-number" href="/page/5/#board">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/#board">7</a><a class="page-number" href="/page/8/#board">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/#board">13</a><a class="extend next" rel="next" href="/page/7/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/5/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/#board">4</a><a class="page-number" href="/page/5/#board">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/#board">7</a><a class="page-number" href="/page/8/#board">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/#board">15</a><a class="extend next" rel="next" href="/page/7/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

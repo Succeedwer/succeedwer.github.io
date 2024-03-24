@@ -229,15 +229,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/6f685641f7fc/" target="_self">
-          5.8. Deferred函数
+        <a href="/posts/d3aed5deb5f5/" target="_self">
+          7.9. 示例：表达式求值
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/6f685641f7fc/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/d3aed5deb5f5/" target="_self">
         <div>
-          定义在普通函数前加上关键字defer时，当defer语句被执行时，其后面的函数会被延迟执行。直到包含该defer语句的函数执行完毕时，defer后的函数才会被执行，无论是包含defer的函数通过return正常结束或由于panic导致的异常结束。一个函数中可以执行多条defer语句，它们的执行顺序与声明的顺序相反。 使用技巧defer语句常用于处理成对的操作，如打开、关闭、连接、断开连接、加锁、释
+          表达式求值器在本节中，我们会构建一个简单算术表达式的求值器。下面为一些表达式。 123sqrt(A / pi)pow(x, 3) + pow(y, 3)(F - 32) * 5 / 9”  使用一个接口Expr来表示Go语言中任意的表达式。  1type Expr interface&#123;&#125; Var类型表示一个变量。  1type Var string literal类型表示一个浮
         </div>
       </a>
 
@@ -245,8 +245,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 18:52" pubdate>
-              2023-03-15
+            <time datetime="2023-03-17 19:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -283,9 +283,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -299,15 +299,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/f16f86776a10/" target="_self">
-          5.7. 可变参数
+        <a href="/posts/21f47e2c8c53/" target="_self">
+          7.8. error接口
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/f16f86776a10/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/21f47e2c8c53/" target="_self">
         <div>
-          定义参数数量可变的函数称为可变参数函数。如fmt.Printf和类似参数。  在声明可变参数函数时，需要在参数列表的最后一个参数类型之前加上省略符号...，表示该函数会接受任何数量的该类型参数。  1234567 func sum(vals ...int) int  &#123;	total := 0	for _, val := range vals &#123;		total += val	&#
+          error接口error接口是interface类型，这个类型只有一个返回错误信息的方法。 123type error interface &#123;	Error() string&#125; 创建errorerrors.New创建error的最简单方法就是调用errors.New函数。 12345678910111213package errorsfunc New(text string) e
         </div>
       </a>
 
@@ -315,8 +315,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 17:52" pubdate>
-              2023-03-15
+            <time datetime="2023-03-17 18:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -353,9 +353,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -369,15 +369,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/f29c530bb54f/" target="_self">
-          5.6. 匿名函数
+        <a href="/posts/fc3145dbfc40/" target="_self">
+          7.7. http.Handler接口
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/f29c530bb54f/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/fc3145dbfc40/" target="_self">
         <div>
-          匿名函数的定义拥有函数名的函数只能在包级语法块中被声明。可以通过函数字面量（function literal），可以绕过限制，在任何表达式内表示函数值。没有名字的函数，即函数值字面量，被称为匿名函数（anonymous function）。 函数字面量可以在使用函数时，再定义。如下： 123strings.Map(func(r rune) rune &#123;	return r + 1&#125
+          Handlerhttp.Handler接口用于实现客户端和服务器。具体接口如下: 123type Handler interface &#123;	ServeHTTP(ResponseWriter, *Request)&#125; 而常与func ListenAndServe(address string, h Handler) error结合使用，该方法需要一个服务器地址和接口分派的Handle
         </div>
       </a>
 
@@ -385,8 +385,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 16:52" pubdate>
-              2023-03-15
+            <time datetime="2023-03-17 17:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -423,9 +423,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -439,15 +439,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/e0d18dccf0bc/" target="_self">
-          5.5. 函数值
+        <a href="/posts/8d8e98ca9007/" target="_self">
+          7.6. sort.Interface接口
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/e0d18dccf0bc/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/8d8e98ca9007/" target="_self">
         <div>
-          在Go中，函数被看作第一类值（first-class values）：函数像其他值一样，拥有类型，可以被赋值给其他变量，传递给函数，从函数返回。对函数值（function value）的调用类似函数调用。例子如下： 1234567891011121314151617181920212223242526package mainimport &quot;fmt&quot;func square(n i
+          解析sort包内包含对任何序列进行排序的接口，sort.Interface接口。该接口规定了序列的排序算法和对序列类型之间的约定。排序算法包含了以下三个要点：  序列长度 元素比较的结果 交换元素的方式  三个要点也对应着sort.Interface的三个方法： 12345type Interface interface &#123;	Len() int	Less(i, j int) bool	S
         </div>
       </a>
 
@@ -455,8 +455,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 15:52" pubdate>
-              2023-03-15
+            <time datetime="2023-03-17 16:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -493,9 +493,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -509,15 +509,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/b269706cb426/" target="_self">
-          5.4. 错误
+        <a href="/posts/b8be0b651295/" target="_self">
+          7.5 接口值
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/b269706cb426/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/b8be0b651295/" target="_self">
         <div>
-          函数对于运行失败预期结果，都会返回一个额外的返回值，通常是最后一个，用于传递错误信息。额外的返回值可以是一个布尔值，通常被命名为ok。 1234value, ok := cache.Lookup(key)if !ok &#123;	...&#125; 也可以返回error类型的返回值。当error为nil，则代表运行成功，error为non-nil时表示失败。对于non-nil的error类型，可
+          基本概念接口值由两部分组成，具体类型和类型的值，也称为动态类型和动态值。如下例子： 1234var w io.Writerw = os.Stdoutw = new(bytes.Buffer)w = nil 4个语句中，变量w得到了3个不同的值。在Go语言中，变量在声明中会被初始化为其类型的零值。对于接口类型，同样会被初始化为零值，一个接口的零值指的是接口的类型和值都是nil。一个接口值基于它的动态
         </div>
       </a>
 
@@ -525,8 +525,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 14:52" pubdate>
-              2023-03-15
+            <time datetime="2023-03-17 15:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -563,9 +563,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -579,15 +579,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/3b104e15a027/" target="_self">
-          5.3. 多返回值
+        <a href="/posts/146b263d555d/" target="_self">
+          7.4 flag.Value接口
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/3b104e15a027/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/146b263d555d/" target="_self">
         <div>
-          在Go中，一个函数可以返回多个值。 下面的程序是findlinks的改进版本。修改后的findlinks可以自己发起HTTP请求，这样我们就不必再运行fetch。因为HTTP请求和解析操作可能会失败，因此findlinks声明了2个返回值：链接列表和错误信息。一般而言，HTML的解析器可以处理HTML页面的错误结点，构造出HTML页面结构，所以解析HTML很少失败。这意味着如果findlinks函
+          使用flag.Value接口，可以定义新的命令行符号。下面是休眠特定时间的例子： 12345678910111213141516package mainimport (	&quot;flag&quot;	&quot;fmt&quot;	&quot;time&quot;)var period = flag.Duration(&quot;period&quot;, 1*time.Second, &qu
         </div>
       </a>
 
@@ -595,8 +595,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 13:52" pubdate>
-              2023-03-15
+            <time datetime="2023-03-17 14:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -633,9 +633,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -649,15 +649,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/3e816bbb7aaa/" target="_self">
-          5.2. 递归
+        <a href="/posts/001ff23c523b/" target="_self">
+          7.3 实现接口的条件
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/3e816bbb7aaa/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/001ff23c523b/" target="_self">
         <div>
-          函数递归：函数直接或间接地调用自身。例子中调用golang.org/x/net/html的部分api如下所示。html.Parse函数读入一组bytes.解析后，返回html.node类型的HTML页面树状结构根节点。HTML拥有很多类型的结点如text（文本）,commnets（注释）类型，在下面的例子中，我们 只关注&lt; name key&#x3D;’value’ &gt;形式的结点。 1
+          实现接口的规则一个类型如果拥有一个接口需要的所有方法，那么这个类型就实现了这个接口。如果一个类型属于某个接口，只要这个类型实现这个接口。如果某类型能够赋值或new对象赋值给接口类型，那么说明该类型实现了接口的所有方法。 12345678910var w io.Writerw = os.Stdout         // *File 实现了Write方法w = new(bytes.Buffer) /
         </div>
       </a>
 
@@ -665,8 +665,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 12:52" pubdate>
-              2023-03-15
+            <time datetime="2023-03-17 13:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -703,9 +703,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -719,15 +719,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/9ebdd846b6d6/" target="_self">
-          5.1. 函数声明
+        <a href="/posts/55bc49f4b7cc/" target="_self">
+          7.2. 接口类型
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/9ebdd846b6d6/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/55bc49f4b7cc/" target="_self">
         <div>
-          函数声明的写法： 123func name(parameter-list) (result-list) &#123;	body&#125; 函数声包括函数名、形式参数列表、返回值列表（可省略）以及函数体。形式参数列表描述了函数的参数名以及参数类型。返回值列表描述了函数返回值的变量名以及类型。如果函数返回一个无名变量或者没有返回值，返回值列表的括号是可以省略的。函数声明没有返回值列表时，那么函数体执
+          接口类型具体描述了一系列方法的集合，一个实现了这些方法的具体类型是这个接口类型的实例。 单方法接口命名在Go语言中，单方法接口的命名习惯是很常见的。 1234567package iotype Reader interface &#123;    Read(p []byte) (n int, err error)&#125;type Closer interface &#123;    Close
         </div>
       </a>
 
@@ -735,8 +735,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 11:52" pubdate>
-              2023-03-15
+            <time datetime="2023-03-17 12:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -773,9 +773,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -789,15 +789,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/4d1bb1bed6d0/" target="_self">
-          4.6 文本和HTML模版
+        <a href="/posts/8e657f0750ec/" target="_self">
+          7.1. 接口约定
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/4d1bb1bed6d0/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/8e657f0750ec/" target="_self">
         <div>
-          复杂的打印格式可以使用text/template和html\template等模板包实现。模版包含一个字符串或一个文件，里面包含一个或多个由双花括号包含的&#123;&#123;action&#125;&#125;对象。action对象包含一个用模板语言书写的表达式，如选择结构体的成员、调用函数或方法、表达式控制流if-else语句和range循环语句等等特性。 text&#x2F;templat
+          接口类型是一种抽象的类型。它不会暴露出它所代表的对象的内部值的结构和这个对象支持的基础操作的集合；它们只会展示出它们自己的方法。 下面*ByteCounter类型里的Write方法，仅仅在丢失写向它的字节前统计它们的长度。(在这个+&#x3D;赋值语句中，让len(p)的类型和*c的类型匹配的转换是必须的。) 1234567891011121314151617181920212223// Byte
         </div>
       </a>
 
@@ -805,8 +805,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-14 16:52" pubdate>
-              2023-03-14
+            <time datetime="2023-03-17 11:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -843,9 +843,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -859,15 +859,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/b184f11121f4/" target="_self">
-          4.5. JSON
+        <a href="/posts/f2552a5080b3/" target="_self">
+          第七章 接口
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/b184f11121f4/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/f2552a5080b3/" target="_self">
         <div>
-          定义JSON（JavaScript Object Notation）是基于JavaScript语言的轻量级的数据交换格式，也常用于发送和接收结构化信息的标准协议。还有类似的协议，如XML、ASN.1和Google的Protocol Buffers。 Go语言对于这些标准格式的编码和解码都有良好的支持，标准库中对应的包有encoding/json、encoding/xml、encoding/asn1
+          接口类型是对其它类型行为的抽象和概括。Go语言中接口类型的独特之处在于它是满足隐式实现的。也就是说，我们没有必要对于给定的具体类型定义所有满足的接口类型；简单地拥有一些必需的方法就足够了。 7.1. 接口约定7.2. 接口类型7.3. 实现接口的条件7.4. flag.Value接口7.5. 接口值7.6. sort.Interface接口7.7. http.Handler接口7.8. error
         </div>
       </a>
 
@@ -875,8 +875,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-14 15:52" pubdate>
-              2023-03-14
+            <time datetime="2023-03-17 10:52" pubdate>
+              2023-03-17
             </time>
           </div>
         
@@ -913,9 +913,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
               <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -927,7 +927,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/9/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/#board">8</a><a class="page-number" href="/page/9/#board">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/#board">11</a><a class="page-number" href="/page/12/#board">12</a><a class="page-number" href="/page/13/#board">13</a><a class="extend next" rel="next" href="/page/11/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/9/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/#board">8</a><a class="page-number" href="/page/9/#board">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/#board">11</a><a class="page-number" href="/page/12/#board">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/#board">15</a><a class="extend next" rel="next" href="/page/11/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
