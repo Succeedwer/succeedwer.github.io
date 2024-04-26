@@ -229,15 +229,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/387bb90cfe97/" target="_self">
-          6.6. 封装
+        <a href="/posts/582daaba3cd4/" target="_self">
+          9.7. 示例：并发的非阻塞缓存
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/387bb90cfe97/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/582daaba3cd4/" target="_self">
         <div>
-          一个对象的方法和字段对调用方不可见，定义为封装。封装也叫信息隐藏。 Go语言只有一种方法来控制可见性：大写首字母的标识符会从定义它们的包中被导出，小写字母的则不会。一般情况下，Go语言内，封装一个对象，只有定义为struct类型。如IntSet: 123type IntSet struct &#123;	words []uint&#125; words只能在包内访问，所以能很好地隐藏。 封装的三个
+          题目本章节的例子为非阻塞缓存。即缓存函数的返回结果，调用该函数时，只要返回已缓存的函数结果即可。 下面以httpGetBody函数做为缓存函数的样例。 12345678func httpGetBody(url string) (interface&#123;&#125;, error) &#123;	resp, err := http.Get(url)	if err != nil &#123;
         </div>
       </a>
 
@@ -245,8 +245,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-16 16:52" pubdate>
-              2023-03-16
+            <time datetime="2023-03-19 17:52" pubdate>
+              2023-03-19
             </time>
           </div>
         
@@ -299,15 +299,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/aaab166a7bb7/" target="_self">
-          6.5. 示例：Bit数组
+        <a href="/posts/d92837fb26ef/" target="_self">
+          9.6. 竞争条件检测
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/aaab166a7bb7/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/d92837fb26ef/" target="_self">
         <div>
-          下面的这个程序展示了一个简单的bit数组类型，并且实现了三个函数来对这个bit数组来进行操作： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859// Package intset provides a set of integer
+          程序并发发生问题实在无可避免，但是Go的runtime和工具链提供了一个复杂但好用的动态分析工具，竞争检查器（the race detector）。 用法：只要在go build、go run 或 go test 后面加上-race 的flag即可。编译器创建一个你的应用的“修改”版或者一个附带了能够记录所有运行期对共享变量访问工具的test，并且会记录下每一个读或者写共享变量的goroutine
         </div>
       </a>
 
@@ -315,8 +315,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-16 15:52" pubdate>
-              2023-03-16
+            <time datetime="2023-03-19 16:52" pubdate>
+              2023-03-19
             </time>
           </div>
         
@@ -369,15 +369,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/4fa1929ae9d9/" target="_self">
-          6.4. 方法值和方法表达式
+        <a href="/posts/76eb94f5fa7d/" target="_self">
+          9.5. sync.Once初始化
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/4fa1929ae9d9/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/76eb94f5fa7d/" target="_self">
         <div>
-          方法值定义通常情况下，调用一个方法，如p.Distance()，实际上可以分为两步来执行。p.Distance是方法选择器，返回一个方法值-&gt;一个将方法（Point.Distance）绑定到特定接收器变量的函数。调用时，不再需要指定接收器，只要传入函数参数即可： 123456789101112p := Point&#123;1, 2&#125;q := Point&#123;4, 6&#12
+          下面是一个懒加载的例子。 12345678910111213141516func loadIcons() &#123;    icons = map[string]image.Image&#123;        &quot;spades.png&quot;:   loadIcon(&quot;spades.png&quot;),        &quot;hearts.png&quot;:
         </div>
       </a>
 
@@ -385,8 +385,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-16 14:52" pubdate>
-              2023-03-16
+            <time datetime="2023-03-19 15:52" pubdate>
+              2023-03-19
             </time>
           </div>
         
@@ -439,15 +439,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/3d2bce45dc58/" target="_self">
-          6.3. 通过嵌入结构体来扩展类型
+        <a href="/posts/e115a072f817/" target="_self">
+          9.4. 内存同步
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/3d2bce45dc58/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/e115a072f817/" target="_self">
         <div>
-          内嵌结构体下面是一个ColoredPoint的嵌入结构体， 1234567type Point struct &#123;	X, Y float64&#125;type ColoredPoint struct &#123;	Point	color color.RGBA&#125; 由结构体特性可知，内嵌可使得ColoredPoint包含Point的所有字段，并附加自身的一些字段。即可以直接访问Po
+          在9.2，9.3章节中，我们对Balance方法使用了互斥锁mutex，在此有两方面的考虑。  Balance方法不会在其他操作（如Withdraw）中执行。 更重要的是不单是一堆goroutine的执行顺序问题，而是内存同步问题。  何为内存同步？在现代计算机中可能会有一堆处理器，每一个都会有其本地缓存(local cache)。为了效率，对内存的写入一般会在每一个处理器中缓冲，并在必要时一起f
         </div>
       </a>
 
@@ -455,8 +455,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-16 13:52" pubdate>
-              2023-03-16
+            <time datetime="2023-03-19 14:52" pubdate>
+              2023-03-19
             </time>
           </div>
         
@@ -509,15 +509,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/8633284a6bad/" target="_self">
-          6.2. 基于指针对象的方法
+        <a href="/posts/1294ae8bb0f7/" target="_self">
+          9.3. sync.RWMutex读写锁
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/8633284a6bad/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/1294ae8bb0f7/" target="_self">
         <div>
-          声明当调用一个函数时，会对每一个参数值进行拷贝。如果函数的需要更新一个变量，或函数中的某个参数过于大，则希望避免进行默认的拷贝，这种情况可以用到指针。相对应到方法接受器，当接受者过于大，也可以使用指针而非接受者对象本身来声明方法。 1234func (p *Point) ScaleBy(factor float64) &#123;    p.X *= factor    p.Y *= factor
+          允许多个只读操作并发执行，但写操作完全互斥，这样的锁叫多读单写锁（multipe readers, single writer lock）， 在go语言中，sync.RWMutex是这样的锁。 调用了RLock和RUnlock方法来获取和释放一个读取或者共享锁。 RLock只能在临界区共享变量没有任何写入操作可用。不应该在只读函数&#x2F;方法内更新共享变量。 RWMutex只有当获得锁的大部分
         </div>
       </a>
 
@@ -525,8 +525,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-16 12:52" pubdate>
-              2023-03-16
+            <time datetime="2023-03-19 13:52" pubdate>
+              2023-03-19
             </time>
           </div>
         
@@ -579,15 +579,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/627a83e633ba/" target="_self">
-          6.1. 方法声明
+        <a href="/posts/da8e0d3d1c07/" target="_self">
+          9.2. sync.Mutex互斥锁
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/627a83e633ba/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/da8e0d3d1c07/" target="_self">
         <div>
-          在函数声明前加上一个变量，就是方法。第一个例子： 1234567891011121314151617package geometryimport &quot;math&quot;type Point struct &#123;	X, Y float64&#125;// traditional functionfunc Distance(p, q Point) float64 &#123;	retu
+          channel互斥在前面例子中，我们用buffered channel来设计sema信号量，来保证至多20个goroutine同时执行http请求。如果使用容量只有1的channel来保证至多1个goroutine同一时刻来访问一个共享变量，这样也能达成互斥。 123456789101112131415161718package bankvar (	sema    = make(chan stru
         </div>
       </a>
 
@@ -595,8 +595,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-16 11:52" pubdate>
-              2023-03-16
+            <time datetime="2023-03-19 12:52" pubdate>
+              2023-03-19
             </time>
           </div>
         
@@ -649,15 +649,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/b376389fd346/" target="_self">
-          第六章 方法
+        <a href="/posts/df4edc666b3d/" target="_self">
+          9.1. 竞争条件
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/b376389fd346/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/df4edc666b3d/" target="_self">
         <div>
-          6.1. 方法声明 6.2. 基于指针对象的方法 6.3. 通过嵌入式结构体来扩展类型 6.4. 方法值和方法表达式 6.5. 示例：Bit数组 6.6. 封装
+          在线性的程序中，即只有一个goroutine，程序的执行顺序由程序逻辑决定。当我们无法确认两个事件之间执行的先后顺序时，说明这两个事件是并发的。 在并发的情况下，函数能够正确并正常运行，那么可以说这个函数是并发安全的。并发安全的函数不需要额外进行同步。同样的，不但适用于函数，还可以适用于类型的函数和方法，如果这个类型是并发安全的，那么类型的方法和函数同样是并发安全的。 导出包级别的函数一般情况下是
         </div>
       </a>
 
@@ -665,8 +665,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-16 10:52" pubdate>
-              2023-03-16
+            <time datetime="2023-03-19 11:52" pubdate>
+              2023-03-19
             </time>
           </div>
         
@@ -719,15 +719,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/9b9419099212/" target="_self">
-          5.10. Recover捕获异常
+        <a href="/posts/261f973145a5/" target="_self">
+          第九章 基于共享变量的并发
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/9b9419099212/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/261f973145a5/" target="_self">
         <div>
-          通常情况下，不应该对panic异常做任何处理，但有时，也可以使得程序从异常中恢复，或至少在程序崩溃前做一些事情。如web服务器在开发过程中，将异常信息反馈到客户端，便于调试。 在defer函数中调用内置recover函数，并且定义该defer语句中的函数发生了panic异常，recover函数会使程序从panic中恢复，并返回panic value。导致panic异常的函数不会继续运行，但能正常返
+          在未引入锁机制前，我们可以使用不要用共享数据来通信，使用通信来共享数据，即单独goroutine访问局部变量。本章主要为Go语言的锁机制。 9.1. 竞争条件9.2. sync.Mutex互斥锁9.3. sync.RWMutex读写锁9.4. 内存同步9.5. sync.Once初始化9.6. 竞争条件检测9.7. 并发的非阻塞缓存9.8. Goroutines和线程
         </div>
       </a>
 
@@ -735,8 +735,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 20:52" pubdate>
-              2023-03-15
+            <time datetime="2023-03-19 10:52" pubdate>
+              2023-03-19
             </time>
           </div>
         
@@ -789,15 +789,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/b0cbde1e1f43/" target="_self">
-          5.9. Panic异常
+        <a href="/posts/7a3e094c0893/" target="_self">
+          8.10. 示例：聊天服务
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/b0cbde1e1f43/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/7a3e094c0893/" target="_self">
         <div>
-          一般而言，当panic异常发生时，程序会中断运行，并立即执行在该goroutine中被延迟的函数(defer机制)，随后，程序崩溃并输出日志信息。日志信息包括panic value和函数调用的堆栈跟踪信息。不是所有的panic异常都来自运行时，直接调用内置的panic函数也会引起panic异常。panic函数可接受任何值作为参数。 123456789101112switch s := suit(d
+          题目这个程序可以让用户通过服务器向其他用户广播文本信息。 思路该程序可以分解为四个goroutine。  main 主函数goroutine实例，用于创建连接。 broadcaster 用于处理不同类型的的消息。 handleConn 用于处理连接数据。 cientWriter 用于返回客户端信息。  实现mainmain 主要用于处理（listen and accept）从客户端过来的连接。而对
         </div>
       </a>
 
@@ -805,8 +805,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 19:52" pubdate>
-              2023-03-15
+            <time datetime="2023-03-18 20:52" pubdate>
+              2023-03-18
             </time>
           </div>
         
@@ -859,15 +859,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/6f685641f7fc/" target="_self">
-          5.8. Deferred函数
+        <a href="/posts/92d779dbee59/" target="_self">
+          8.9. 并发的退出
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/6f685641f7fc/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/92d779dbee59/" target="_self">
         <div>
-          定义在普通函数前加上关键字defer时，当defer语句被执行时，其后面的函数会被延迟执行。直到包含该defer语句的函数执行完毕时，defer后的函数才会被执行，无论是包含defer的函数通过return正常结束或由于panic导致的异常结束。一个函数中可以执行多条defer语句，它们的执行顺序与声明的顺序相反。 使用技巧defer语句常用于处理成对的操作，如打开、关闭、连接、断开连接、加锁、释
+          书接上回，话说上章节实现du工具，并做了进一步扩展，在本章节进行进一步的扩展。如果du的文件目录下有很多很大的文件，那么时间就会增加，这时，用户等待到不耐烦了，就想退出但又不想通过kill程序。 思路众所周知，如果我们需要通知正在运行的goroutine停止它手头上的事时，如web服务器端要中断已经和服务器断开连接的客户端，go语言并没有提供这样的方法。换个思路，在先前的章节中，我们有通过往cha
         </div>
       </a>
 
@@ -875,8 +875,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 18:52" pubdate>
-              2023-03-15
+            <time datetime="2023-03-18 19:52" pubdate>
+              2023-03-18
             </time>
           </div>
         
@@ -927,7 +927,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/10/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/#board">9</a><a class="page-number" href="/page/10/#board">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/#board">12</a><a class="page-number" href="/page/13/#board">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/#board">15</a><a class="extend next" rel="next" href="/page/12/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/10/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/#board">9</a><a class="page-number" href="/page/10/#board">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/#board">12</a><a class="page-number" href="/page/13/#board">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/#board">19</a><a class="extend next" rel="next" href="/page/12/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

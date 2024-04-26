@@ -1,0 +1,2419 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="创建记录1234567891011121314birthday, _ :&#x3D; time.Parse(&quot;2006-01-02&quot;, &quot;1993-12-15&quot;)user :&#x3D; User&#123;	Name:     &quot;WER&quot;,	Age:      18,	Birthday: &amp;birthday,&#125;&#x2F;&#x2F; 创建记录 成功后会回填">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4.创建">
+<meta property="og:url" content="https://succeedwer.github.io/posts/53612c859d2e/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:description" content="创建记录1234567891011121314birthday, _ :&#x3D; time.Parse(&quot;2006-01-02&quot;, &quot;1993-12-15&quot;)user :&#x3D; User&#123;	Name:     &quot;WER&quot;,	Age:      18,	Birthday: &amp;birthday,&#125;&#x2F;&#x2F; 创建记录 成功后会回填">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-26T14:25:56.536Z">
+<meta property="article:modified_time" content="2024-03-29T15:58:01.132Z">
+<meta property="article:author" content="WER">
+<meta property="article:tag" content="go">
+<meta property="article:tag" content="gorm">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>4.创建 - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="4.创建"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        WER
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-04-26 22:25" pubdate>
+          2024年4月26日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="go"
+        id="heading-34d1f91fb2e514b8576fab1a75a89a6b" role="tab" data-toggle="collapse" href="#collapse-34d1f91fb2e514b8576fab1a75a89a6b"
+        aria-expanded="true"
+      >
+        go
+        <span class="list-group-count">(150)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-34d1f91fb2e514b8576fab1a75a89a6b"
+           role="tabpanel" aria-labelledby="heading-34d1f91fb2e514b8576fab1a75a89a6b">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Go知识点"
+        id="heading-ec29eb0e47c3d42ef48491438b3281b8" role="tab" data-toggle="collapse" href="#collapse-ec29eb0e47c3d42ef48491438b3281b8"
+        aria-expanded="false"
+      >
+        Go知识点
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-ec29eb0e47c3d42ef48491438b3281b8"
+           role="tabpanel" aria-labelledby="heading-ec29eb0e47c3d42ef48491438b3281b8">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/adcfecfee3a0/" title="如何创建Go项目"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">如何创建Go项目</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/50b3e49e0a6f/" title="导入包"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">导入包</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Go语言圣经"
+        id="heading-33788affbf7997f1ebd563f7aacce3ad" role="tab" data-toggle="collapse" href="#collapse-33788affbf7997f1ebd563f7aacce3ad"
+        aria-expanded="false"
+      >
+        Go语言圣经
+        <span class="list-group-count">(97)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-33788affbf7997f1ebd563f7aacce3ad"
+           role="tabpanel" aria-labelledby="heading-33788affbf7997f1ebd563f7aacce3ad">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/02fc6779c7cd/" title="1.1. Hello, World"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.1. Hello, World</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b7c6dc0a75aa/" title="1.2. 命令行参数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.2. 命令行参数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c749b9e4bafd/" title="1.3. 查找重复的行"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.3. 查找重复的行</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d37e56e6ca24/" title="1.4. GIF动画"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.4. GIF动画</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8855378318a6/" title="1.5. 获取URL"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.5. 获取URL</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c84dc5dd7597/" title="1.6. 并发获取多个URL"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.6. 并发获取多个URL</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/94de4df7cd79/" title="1.7. Web服务"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.7. Web服务</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f529e3c31d9e/" title="1.8. 本章要点"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.8. 本章要点</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a912c21440d0/" title="10.1. 包简介"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10.1. 包简介</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/ce5416f3abff/" title="10.2. 导入路径"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10.2. 导入路径</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/376c63460620/" title="10.3. 包声明"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10.3. 包声明</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/7c1cbb35e653/" title="10.4. 导入声明"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10.4. 导入声明</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/85c6d629ce42/" title="10.5. 包的匿名导入"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10.5. 包的匿名导入</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/26ffbeb103e4/" title="10.6. 包的命名"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10.6. 包的命名</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c1eef8565635/" title="10.7. 工具"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10.7. 工具</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/84a75b89cf5a/" title="11.1 go test"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11.1 go test</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/0bc5b76177c6/" title="11.2. 测试函数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11.2. 测试函数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/79be1aaa69b3/" title="11.3. 测试覆盖率"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11.3. 测试覆盖率</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a1b71dd23f51/" title="11.4. 基准测试"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11.4. 基准测试</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f5ef3e713f2a/" title="11.5. 剖析"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11.5. 剖析</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/feafd476469a/" title="2.1. 命名"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.1. 命名</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/2628b27da087/" title="2.2. 声明"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.2. 声明</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/7095472d910d/" title="2.3.变量"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.3.变量</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/3bab4b966165/" title="2.4. 赋值"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.4. 赋值</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/9f13bfd0f9d8/" title="2.5. 类型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.5. 类型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/4bd2d633ee16/" title="2.6. 包和文件"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.6. 包和文件</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/5b89ef7a41d0/" title="2.7. 作用域"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.7. 作用域</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/2a4f4f65e7ca/" title="3.1. 整型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.1. 整型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/01a5b9d8501c/" title="3.3. 复数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.3. 复数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d98a81de6430/" title="3.4. 布尔型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.4. 布尔型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a309a7c16f6a/" title="3.5. 字符串"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.5. 字符串</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/68c22f5501fb/" title="3.6. 常量"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.6. 常量</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/681582df4225/" title="4.1. 数组"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.1. 数组</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/53445ef771d8/" title="4.2. Slice"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.2. Slice</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/610def108dde/" title="4.3. Map"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.3. Map</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/556653fe988e/" title="4.4. Struct"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.4. Struct</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b184f11121f4/" title="4.5. JSON"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.5. JSON</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/4d1bb1bed6d0/" title="4.6 文本和HTML模版"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.6 文本和HTML模版</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/9ebdd846b6d6/" title="5.1. 函数声明"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.1. 函数声明</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/9b9419099212/" title="5.10. Recover捕获异常"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.10. Recover捕获异常</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/3e816bbb7aaa/" title="5.2. 递归"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.2. 递归</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/3b104e15a027/" title="5.3. 多返回值"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.3. 多返回值</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b269706cb426/" title="5.4. 错误"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.4. 错误</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e0d18dccf0bc/" title="5.5. 函数值"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.5. 函数值</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f29c530bb54f/" title="5.6. 匿名函数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.6. 匿名函数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f16f86776a10/" title="5.7. 可变参数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.7. 可变参数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/6f685641f7fc/" title="5.8. Deferred函数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.8. Deferred函数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b0cbde1e1f43/" title="5.9. Panic异常"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.9. Panic异常</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/627a83e633ba/" title="6.1. 方法声明"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.1. 方法声明</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8633284a6bad/" title="6.2. 基于指针对象的方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.2. 基于指针对象的方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/3d2bce45dc58/" title="6.3. 通过嵌入结构体来扩展类型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.3. 通过嵌入结构体来扩展类型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/4fa1929ae9d9/" title="6.4. 方法值和方法表达式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.4. 方法值和方法表达式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/aaab166a7bb7/" title="6.5. 示例：Bit数组"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.5. 示例：Bit数组</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/387bb90cfe97/" title="6.6. 封装"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.6. 封装</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8e657f0750ec/" title="7.1. 接口约定"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.1. 接口约定</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/fcef06327bd8/" title="7.10. 类型断言"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.10. 类型断言</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/179a7331746a/" title="7.11. 基于类型断言区别错误类型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.11. 基于类型断言区别错误类型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b10f700bc1c1/" title="7.12. 通过类型断言询问行为"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.12. 通过类型断言询问行为</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c4e3ed798cee/" title="7.13. 类型开关"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.13. 类型开关</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c380e460aca4/" title="7.14. 示例：基于标记的XML解码"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.14. 示例：基于标记的XML解码</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8520b52085ef/" title="7.15. 一些建议"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.15. 一些建议</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/55bc49f4b7cc/" title="7.2. 接口类型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.2. 接口类型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/001ff23c523b/" title="7.3 实现接口的条件"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.3 实现接口的条件</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/146b263d555d/" title="7.4 flag.Value接口"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.4 flag.Value接口</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b8be0b651295/" title="7.5 接口值"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.5 接口值</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8d8e98ca9007/" title="7.6. sort.Interface接口"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.6. sort.Interface接口</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/fc3145dbfc40/" title="7.7. http.Handler接口"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.7. http.Handler接口</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/21f47e2c8c53/" title="7.8. error接口"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.8. error接口</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d3aed5deb5f5/" title="7.9. 示例：表达式求值"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.9. 示例：表达式求值</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/dbf6e956aad2/" title="8.1. Goroutines"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.1. Goroutines</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/7a3e094c0893/" title="8.10. 示例：聊天服务"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.10. 示例：聊天服务</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/fca3f5579354/" title="8.2. 示例：并发的Clock服务"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.2. 示例：并发的Clock服务</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/10cf7d1432ab/" title="8.3. 示例：并发的Echo服务器"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.3. 示例：并发的Echo服务器</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e24baaf2eab7/" title="8.4. Channels"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.4. Channels</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/5f0a41aff939/" title="8.5. 并发的循环"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.5. 并发的循环</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/1258766bd2ef/" title="8.6. 示例：并发的Web爬虫"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.6. 示例：并发的Web爬虫</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/866000668cee/" title="8.7. 基于select的多路复用"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.7. 基于select的多路复用</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/dbf617f2750e/" title="8.8. 示例：并发的字典遍历"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.8. 示例：并发的字典遍历</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/92d779dbee59/" title="8.9. 并发的退出"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.9. 并发的退出</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/df4edc666b3d/" title="9.1. 竞争条件"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">9.1. 竞争条件</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/da8e0d3d1c07/" title="9.2. sync.Mutex互斥锁"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">9.2. sync.Mutex互斥锁</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/1294ae8bb0f7/" title="9.3. sync.RWMutex读写锁"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">9.3. sync.RWMutex读写锁</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e115a072f817/" title="9.4. 内存同步"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">9.4. 内存同步</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/76eb94f5fa7d/" title="9.5. sync.Once初始化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">9.5. sync.Once初始化</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d92837fb26ef/" title="9.6. 竞争条件检测"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">9.6. 竞争条件检测</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/582daaba3cd4/" title="9.7. 示例：并发的非阻塞缓存"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">9.7. 示例：并发的非阻塞缓存</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/85a231e79892/" title="9.8. Goroutine和线程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">9.8. Goroutine和线程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b721eb61c1a0/" title="第一章 入门"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">第一章 入门</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f2552a5080b3/" title="第七章 接口"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">第七章 接口</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/0a1ced1a832c/" title="第三章 基础数据类型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">第三章 基础数据类型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/261f973145a5/" title="第九章 基于共享变量的并发"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">第九章 基于共享变量的并发</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/04348d4815af/" title="第二章 程序结构"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">第二章 程序结构</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/160e8baeca27/" title="第八章 Goroutines和Channels"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">第八章 Goroutines和Channels</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b376389fd346/" title="第六章 方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">第六章 方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/2b3895c22904/" title="第十一章 测试"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">第十一章 测试</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/94532dfae374/" title="第十章 包和工具"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">第十章 包和工具</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a27051ca627c/" title="第四章 复合数据类型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">第四章 复合数据类型</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="框架"
+        id="heading-41f1d2b62436eded1a6776504b6895d7" role="tab" data-toggle="collapse" href="#collapse-41f1d2b62436eded1a6776504b6895d7"
+        aria-expanded="true"
+      >
+        框架
+        <span class="list-group-count">(51)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-41f1d2b62436eded1a6776504b6895d7"
+           role="tabpanel" aria-labelledby="heading-41f1d2b62436eded1a6776504b6895d7">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Gin"
+        id="heading-d7ad223a94b1cdb31734ad5fb25df4bd" role="tab" data-toggle="collapse" href="#collapse-d7ad223a94b1cdb31734ad5fb25df4bd"
+        aria-expanded="false"
+      >
+        Gin
+        <span class="list-group-count">(18)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-d7ad223a94b1cdb31734ad5fb25df4bd"
+           role="tabpanel" aria-labelledby="heading-d7ad223a94b1cdb31734ad5fb25df4bd">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/95727cb0ffc9/" title="gin集成logrus"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">gin集成logrus</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a6e83b941443/" title="上传文件"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">上传文件</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/ed7d1dd00b60/" title="下载文件"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">下载文件</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c9f3ef43070e/" title="中间件"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">中间件</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a28905649b40/" title="参数的原始数据"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">参数的原始数据</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/5a60c248c269/" title="参数绑定Bind"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">参数绑定Bind</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d78c65a022bc/" title="响应"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">响应</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/00e89fa8a397/" title="快速入门"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">快速入门</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/bd6dc8c5f59e/" title="日志"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">日志</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/66a9c92ddb73/" title="查询参数Query"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">查询参数Query</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f6ee75a1ecbd/" title="表单参数Form"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">表单参数Form</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c90d75f34831/" title="请求头和响应头"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">请求头和响应头</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/80ceeac6365f/" title="路径参数Param"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">路径参数Param</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/57c8ef506fa3/" title="路由分组"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">路由分组</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b8bb40761f9a/" title="重定向"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">重定向</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a79d93f065e5/" title="静态文件服务"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">静态文件服务</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/0a0bac247d6d/" title="验证器-基本使用"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">验证器-基本使用</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a71945e4bc54/" title="验证器-自定义"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">验证器-自定义</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="go-zero"
+        id="heading-83fdcc64aab02add29c4974fa58e8dc7" role="tab" data-toggle="collapse" href="#collapse-83fdcc64aab02add29c4974fa58e8dc7"
+        aria-expanded="false"
+      >
+        go-zero
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-83fdcc64aab02add29c4974fa58e8dc7"
+           role="tabpanel" aria-labelledby="heading-83fdcc64aab02add29c4974fa58e8dc7">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/9bc5aec70087/" title="1.快速开始"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.快速开始</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e725e07a3e28/" title="2.goctl"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.goctl</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="gorm"
+        id="heading-a12fc2584cb0e7f305298c2ae1005bc1" role="tab" data-toggle="collapse" href="#collapse-a12fc2584cb0e7f305298c2ae1005bc1"
+        aria-expanded="true"
+      >
+        gorm
+        <span class="list-group-count">(6)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-a12fc2584cb0e7f305298c2ae1005bc1"
+           role="tabpanel" aria-labelledby="heading-a12fc2584cb0e7f305298c2ae1005bc1">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/ade027eea3d7/" title="1.快速入门"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.快速入门</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/edfdcddae0d0/" title="2.连接数据库"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.连接数据库</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d13da7423df4/" title="3.定义model"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.定义model</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/53612c859d2e/" title="4.创建"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">4.创建</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/cd06b11e1d12/" title="5.查询"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.查询</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/874c69da2af1/" title="6.高级查询"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.高级查询</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="grpc"
+        id="heading-5d738324e2189d8e9a1c3974d34f5a95" role="tab" data-toggle="collapse" href="#collapse-5d738324e2189d8e9a1c3974d34f5a95"
+        aria-expanded="false"
+      >
+        grpc
+        <span class="list-group-count">(17)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-5d738324e2189d8e9a1c3974d34f5a95"
+           role="tabpanel" aria-labelledby="heading-5d738324e2189d8e9a1c3974d34f5a95">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/97db5630a275/" title="1.grpc简介"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.grpc简介</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/71f004ec13fb/" title="10.Deadline"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10.Deadline</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/6fc2adb3fd94/" title="11.Debugging"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11.Debugging</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/cef707177d92/" title="12.Encryption"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">12.Encryption</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/0efd3da8069a/" title="13.Error-detail"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">13.Error-detail</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d8532d4941a7/" title="14.flow-control"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">14.flow-control</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/04b5afc2625f/" title="15.Health"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">15.Health</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/5ba0e6110fa0/" title="16.Interceptor"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">16.Interceptor</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/952be8a0fcc2/" title="17.Keepalive"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">17.Keepalive</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f79763432dce/" title="2.快速开始"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.快速开始</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/052ecc492222/" title="3.基础教程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.基础教程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a2694b6ef159/" title="4.认证"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.认证</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8280d9410f0c/" title="5.Authorization"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.Authorization</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f0350a06fa23/" title="5.特征"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.特征</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/5f6a91d393f6/" title="7.Authz-rbac"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.Authz-rbac</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/9a0c4dff1be1/" title="8.Cancellation"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.Cancellation</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c9d547dbfa72/" title="9.Compression"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">9.Compression</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="logrus"
+        id="heading-b6c7fa78ba16862c1577434471a612a4" role="tab" data-toggle="collapse" href="#collapse-b6c7fa78ba16862c1577434471a612a4"
+        aria-expanded="false"
+      >
+        logrus
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-b6c7fa78ba16862c1577434471a612a4"
+           role="tabpanel" aria-labelledby="heading-b6c7fa78ba16862c1577434471a612a4">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/866ef296f7f3/" title="1.快速入门"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.快速入门</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/4d70eda438e0/" title="2. 日志格式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2. 日志格式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/eb5098f7d0d5/" title="3.控制台颜色"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.控制台颜色</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/199f34a19708/" title="4.输出到日志文件"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.输出到日志文件</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8971aaae4da7/" title="5.自定义输出格式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.自定义输出格式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/20bfae75514a/" title="6.Field"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.Field</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/ee158b5a6809/" title="6.Hook机制"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.Hook机制</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b9cf5dd3e8c1/" title="8.Hook应用场景"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.Hook应用场景</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">4.创建</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="创建记录"><a href="#创建记录" class="headerlink" title="创建记录"></a>创建记录</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go">birthday, _ := time.Parse(<span class="hljs-string">&quot;2006-01-02&quot;</span>, <span class="hljs-string">&quot;1993-12-15&quot;</span>)<br>user := User&#123;<br>	Name:     <span class="hljs-string">&quot;WER&quot;</span>,<br>	Age:      <span class="hljs-number">18</span>,<br>	Birthday: &amp;birthday,<br>&#125;<br><span class="hljs-comment">// 创建记录 成功后会回填数据到&amp;user</span><br>result := db.Create(&amp;user)<br><span class="hljs-comment">//  INSERT INTO `tb_user` (`created_at`,`updated_at`,`deleted_at`,`name`,`age`,`birthday`) VALUES</span><br><span class="hljs-comment">// (&#x27;2024-03-27 21:52:11.627&#x27;,&#x27;2024-03-27 21:52:11.627&#x27;,NULL,&#x27;WER&#x27;,18,&#x27;1993-12-15 08:00:00&#x27;)</span><br><span class="hljs-comment">// 打印错误</span><br>fmt.Println(result.Error)<br><span class="hljs-comment">// 打印插入记录的条数</span><br>fmt.Println(result.RowsAffected)<br></code></pre></td></tr></table></figure>
+
+<h2 id="指定字段赋值"><a href="#指定字段赋值" class="headerlink" title="指定字段赋值"></a>指定字段赋值</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 创建记录并为指定字段赋值</span><br>db.Select(<span class="hljs-string">&quot;Name&quot;</span>, <span class="hljs-string">&quot;Age&quot;</span>, <span class="hljs-string">&quot;CreatedAt&quot;</span>).Create(&amp;user)<br><span class="hljs-comment">// INSERT INTO `tb_user` (`created_at`,`updated_at`,`name`,`age`) VALUES</span><br><span class="hljs-comment">//(&#x27;2024-03-27 21:52:11.627&#x27;,&#x27;2024-03-27 21:52:11.627&#x27;,&#x27;WER&#x27;,18)</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="忽略某些字段"><a href="#忽略某些字段" class="headerlink" title="忽略某些字段"></a>忽略某些字段</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 创建记录并忽略某些字段</span><br>db.Omit(<span class="hljs-string">&quot;Name&quot;</span>, <span class="hljs-string">&quot;Age&quot;</span>, <span class="hljs-string">&quot;CreatedAt&quot;</span>, <span class="hljs-string">&quot;ID&quot;</span>).Create(&amp;user)<br></code></pre></td></tr></table></figure>
+
+<h1 id="批量插入"><a href="#批量插入" class="headerlink" title="批量插入"></a>批量插入</h1><p>只需将slice传递给<code>Create</code>方法即可，生成sql来插入数据，并返回所有主键，而且还会触发<code>Hook</code>，将记录分割成多个批次。当然，这些都会在事务下来处理。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 批量插入</span><br><span class="hljs-keyword">var</span> users = []User&#123;&#123;Name: <span class="hljs-string">&quot;盖伦&quot;</span>&#125;, &#123;Name: <span class="hljs-string">&quot;艾希&quot;</span>&#125;, &#123;Name: <span class="hljs-string">&quot;蛮王&quot;</span>&#125;&#125;<br>db.Create(&amp;users)<br><span class="hljs-keyword">for</span> _, u := <span class="hljs-keyword">range</span> users &#123;<br>	<span class="hljs-built_in">println</span>(u.ID)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="指定批次大小"><a href="#指定批次大小" class="headerlink" title="指定批次大小"></a>指定批次大小</h2><h2 id="单次指定"><a href="#单次指定" class="headerlink" title="单次指定"></a>单次指定</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">db.CreateInBatches(&amp;user, <span class="hljs-number">100</span>)<br></code></pre></td></tr></table></figure>
+
+<h2 id="全局指定"><a href="#全局指定" class="headerlink" title="全局指定"></a>全局指定</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">db, err := gorm.Open(mysql.Open(dsn), &amp;gorm.Config&#123;CreateBatchSize: <span class="hljs-number">1000</span>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>or</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">db := db.Session(&amp;gorm.Session&#123;CreateBatchSize: <span class="hljs-number">1000</span>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>全局指定批次大小后，所有的create和关联操作时所有的<code>INSERT</code>行为都会遵循初始化时的配置。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go">users = [<span class="hljs-number">5000</span>]User&#123;&#123;Name: <span class="hljs-string">&quot;jinzhu&quot;</span>, Pets: []Pet&#123;pet1, pet2, pet3&#125;&#125;...&#125;<br><br>db.Create(&amp;users)<br><span class="hljs-comment">// INSERT INTO users xxx (5 batches)</span><br><span class="hljs-comment">// INSERT INTO pets xxx (15 batches)</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="创建Hook钩子"><a href="#创建Hook钩子" class="headerlink" title="创建Hook钩子"></a>创建Hook钩子</h1><p><code>gorm</code>允许用户提供实现接口来自定义钩子函数。</p>
+<ul>
+<li><p><code>BeforeSave</code></p>
+</li>
+<li><p><code>BeforeCreate</code></p>
+</li>
+<li><p><code>AfterSave</code></p>
+</li>
+<li><p><code>AfterCreate</code></p>
+</li>
+</ul>
+<p>在创建前插入<code>uuid</code>。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(u *User)</span></span> BeforeCreate(tx *gorm.DB) (err <span class="hljs-type">error</span>) &#123;<br>  u.UUID = uuid.New()<br><br>    <span class="hljs-keyword">if</span> u.Role == <span class="hljs-string">&quot;admin&quot;</span> &#123;<br>        <span class="hljs-keyword">return</span> errors.New(<span class="hljs-string">&quot;invalid role&quot;</span>)<br>    &#125;<br>    <span class="hljs-keyword">return</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="跳过hooks"><a href="#跳过hooks" class="headerlink" title="跳过hooks"></a>跳过hooks</h2><p>跳过hooks，可以使用<code>SkipHooks</code>会话模式，例子如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go">DB.Session(&amp;gorm.Session&#123;SkipHooks: <span class="hljs-literal">true</span>&#125;).Create(&amp;user)<br><br>DB.Session(&amp;gorm.Session&#123;SkipHooks: <span class="hljs-literal">true</span>&#125;).Create(&amp;users)<br><br>DB.Session(&amp;gorm.Session&#123;SkipHooks: <span class="hljs-literal">true</span>&#125;).CreateInBatches(users, <span class="hljs-number">100</span>)<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：当使用map来创建时，钩子函数不会执行，关联不会被保存且不会回写主键。</p>
+</blockquote>
+<h1 id="使用SQL表达式、Context-Valuer创建记录"><a href="#使用SQL表达式、Context-Valuer创建记录" class="headerlink" title="使用SQL表达式、Context Valuer创建记录"></a>使用SQL表达式、Context Valuer创建记录</h1><h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// create form map</span><br>db.Model(&amp;user).Create(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-keyword">interface</span>&#123;&#125;&#123;<br>	<span class="hljs-string">&quot;Name&quot;</span>: <span class="hljs-string">&quot;wer&quot;</span>,<br>	<span class="hljs-string">&quot;Birthday&quot;</span>: clause.Expr&#123;<br>		SQL:  <span class="hljs-string">&quot;cast(? as date)&quot;</span>,<br>		Vars: []<span class="hljs-keyword">interface</span>&#123;&#125;&#123;<span class="hljs-string">&quot;19931215&quot;</span>&#125;,<br>	&#125;,<br>&#125;)<br><span class="hljs-comment">// INSERT INTO `tb_user` (`birthday`,`name`) VALUES (cast(&#x27;19931215&#x27; as date),&#x27;wer&#x27;)</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="Customized-Data-Types"><a href="#Customized-Data-Types" class="headerlink" title="Customized Data Types"></a>Customized Data Types</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Location <span class="hljs-keyword">struct</span> &#123;<br>	X, Y <span class="hljs-type">int</span><br>&#125;<br><br><span class="hljs-comment">// sql.Scanner interface</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(loc *Location)</span></span> Scan(v <span class="hljs-keyword">interface</span>&#123;&#125;) <span class="hljs-type">error</span> &#123;<br>	<span class="hljs-comment">// 从数据库驱动扫描数据插入到struct</span><br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-comment">// schema.GormDataTypeInterface</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(loc *Location)</span></span> GormDataType() <span class="hljs-type">string</span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;geometry&quot;</span><br>&#125;<br><br><span class="hljs-comment">// gorm.Valuer interface</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(loc Location)</span></span> GormValue(ctx context.Context, db *gorm.DB) clause.Expr &#123;<br>	<span class="hljs-keyword">return</span> clause.Expr&#123;<br>		SQL:  <span class="hljs-string">&quot;ST_PointFromText(?)&quot;</span>,<br>		Vars: []<span class="hljs-keyword">interface</span>&#123;&#125;&#123;fmt.Sprintf(<span class="hljs-string">&quot;POINT(%d %d)&quot;</span>, loc.X, loc.Y)&#125;,<br>	&#125;<br>&#125;<br><br><span class="hljs-keyword">type</span> Worker <span class="hljs-keyword">struct</span> &#123;<br>	Name     <span class="hljs-type">string</span><br>	Location Location<br>&#125;<br><br>db.Create(&amp;Worker&#123;<br>	Name:     <span class="hljs-string">&quot;WER&quot;</span>,<br>	Location: Location&#123;X: <span class="hljs-number">100</span>, Y: <span class="hljs-number">100</span>&#125;,<br>&#125;)<br><span class="hljs-comment">// INSERT INTO `tb_worker` (`name`,`location`) VALUES (&#x27;WER&#x27;,ST_PointFromText(&#x27;POINT(100 100)&#x27;))</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="关联创建"><a href="#关联创建" class="headerlink" title="关联创建"></a>关联创建</h1><p>创建关联数据时，当关联值非零，这些关联数据会被插入，而关联数据的<code>Hooks</code>方法会被调用。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> CreditCard <span class="hljs-keyword">struct</span> &#123;<br>	gorm.Model<br>	Number <span class="hljs-type">string</span><br>	UserId <span class="hljs-type">uint</span><br>&#125;<br><br><span class="hljs-keyword">type</span> User <span class="hljs-keyword">struct</span> &#123;<br>	gorm.Model<br>	Name       <span class="hljs-type">string</span><br>	CreditCard CreditCard<br>&#125;<br><br>db.Set(<span class="hljs-string">&quot;gorm:table_options&quot;</span>, <span class="hljs-string">&quot;ENGINE=InnoDB&quot;</span>).AutoMigrate(&amp;User&#123;&#125;, &amp;CreditCard&#123;&#125;)<br><br>db.Create(&amp;User&#123;<br>	Name:       <span class="hljs-string">&quot;WER&quot;</span>,<br>	CreditCard: CreditCard&#123;Number: <span class="hljs-string">&quot;1201010210&quot;</span>&#125;,<br>&#125;)<br><span class="hljs-comment">// INSERT INTO `tb_credit_card` (`created_at`,`updated_at`,`deleted_at`,`number`,`user_id`)</span><br><span class="hljs-comment">//VALUES  (&#x27;2024-03-28 16:07:19.373&#x27;,&#x27;2024-03-28 16:07:19.373&#x27;,NULL,&#x27;1201010210&#x27;,1) ON DUPLICATE KEY UPDATE `user_id`=VALUES(`user_id`)</span><br><span class="hljs-comment">// INSERT INTO `tb_user` (`created_at`,`updated_at`,`deleted_at`,`name`)</span><br><span class="hljs-comment">//VALUES (&#x27;2024-03-28 16:07:19.372&#x27;,&#x27;2024-03-28 16:07:19.372&#x27;,NULL,&#x27;WER&#x27;)</span><br></code></pre></td></tr></table></figure>
+
+<p>可以使用<code>Select</code>、<code>Omit</code>方法来跳过关联更新，如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 跳过`CreditCard`字段</span><br>db.Omit(<span class="hljs-string">&quot;CreditCard&quot;</span>).Create(&amp;user)<br><span class="hljs-comment">// 跳过所有关联</span><br>db.Omit(clause.Associations).Create(&amp;user)<br></code></pre></td></tr></table></figure>
+
+<h1 id="默认值"><a href="#默认值" class="headerlink" title="默认值"></a>默认值</h1><p>可以通过结构体<code>Tag</code>：<code>default</code>字段来定义默认值，示例如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> User <span class="hljs-keyword">struct</span> &#123;<br>  ID   <span class="hljs-type">int64</span><br>  Name <span class="hljs-type">string</span> <span class="hljs-string">`gorm:&quot;default:galeone&quot;`</span><br>  Age  <span class="hljs-type">int64</span>  <span class="hljs-string">`gorm:&quot;default:18&quot;`</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这些默认值会被当做结构体字段的<code>零值</code>插入到数据库中。</p>
+<blockquote>
+<p>当结构体字段为零值时，即<code>0</code>、<code>&#39;&#39;</code>、<code>false</code>，这些字段值不会被保存到数据库中，可以通过指针类型或者实现<code>Scanner</code>&#x2F;<code>Valuer</code>接口来避免这种情况。</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> User <span class="hljs-keyword">struct</span> &#123;<br>  gorm.Model<br>  Name <span class="hljs-type">string</span><br>  Age  *<span class="hljs-type">int</span>           <span class="hljs-string">`gorm:&quot;default:18&quot;`</span><br>  Active sql.NullBool <span class="hljs-string">`gorm:&quot;default:true&quot;`</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果要让字段在数据库中拥有默认值则必须使用<code>default</code>标签来为结构体字段设置默认值。</p>
+<p>如果想在数据库迁移（<code>AutoMigrate</code>）时跳过默认值，则可以使用<code>default:(-).</code></p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> User <span class="hljs-keyword">struct</span> &#123;<br>	ID        <span class="hljs-type">int64</span><br>	FirstName <span class="hljs-type">string</span> <span class="hljs-string">`gorm:&quot;default:galeone&quot;`</span><br>	LastName  <span class="hljs-type">string</span><br>	FullName  <span class="hljs-type">string</span> <span class="hljs-string">`gorm:&quot;-&gt;;type:VARCHAR(100) GENERATED ALWAYS AS (concat(first_name,&#x27; &#x27;,last_name)) VIRTUAL;default:(-);&quot;`</span><br>	Age       *<span class="hljs-type">int</span>   <span class="hljs-string">`gorm:&quot;default:18&quot;`</span><br>&#125;<br>db.Set(<span class="hljs-string">&quot;gorm:table_options&quot;</span>, <span class="hljs-string">&quot;ENGINE=InnoDB&quot;</span>).AutoMigrate(&amp;User&#123;&#125;)<br><br>db.Create(&amp;User&#123;LastName: <span class="hljs-string">&quot;go&quot;</span>&#125;)<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p> <strong>SQLite</strong> 不支持批量插入的时候使用默认值。可以跳过hook函数来设置默认值。</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p *Pet)</span></span> BeforeCreate(tx *gorm.DB) (err <span class="hljs-type">error</span>) &#123;<br>    <span class="hljs-keyword">if</span> p.Name == <span class="hljs-string">&quot;&quot;</span> &#123;<br>        p.Name = <span class="hljs-string">&quot;cat&quot;</span><br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">type</span> Pet <span class="hljs-keyword">struct</span> &#123;<br>   <span class="hljs-comment">// Name string `gorm:&quot;default:cat&quot;`</span><br>    Name <span class="hljs-type">string</span><br>&#125;<br><br><span class="hljs-comment">// 在SqlLite中，这是不允许的, 所以GORM会通过构建错误的SQL来返回错误:</span><br><span class="hljs-comment">// INSERT INTO `pets` (`name`) VALUES (&quot;dog&quot;),(DEFAULT) RETURNING `name`</span><br>db.Create(&amp;[]Pet&#123;&#123;Name: <span class="hljs-string">&quot;dog&quot;</span>&#125;, &#123;&#125;&#125;)<br></code></pre></td></tr></table></figure>
+
+<h1 id="Upsert和冲突"><a href="#Upsert和冲突" class="headerlink" title="Upsert和冲突"></a>Upsert和冲突</h1><blockquote>
+<p><code>upsert</code>是数据库插入操作的扩展，如果唯一字段已经存在，则将本次新增插入操作变成更新操作，否则就正常执行插入操作。</p>
+</blockquote>
+<p>GORM为不同数据库提供了对Upsert的兼容性支持。</p>
+<h2 id="冲突时不做任何操作"><a href="#冲突时不做任何操作" class="headerlink" title="冲突时不做任何操作"></a>冲突时不做任何操作</h2><p>如果发生冲突了，什么也不干，不更新也不插入记录。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestUpsert1</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	<span class="hljs-keyword">type</span> User <span class="hljs-keyword">struct</span> &#123;<br>		ID        <span class="hljs-type">int64</span><br>		FirstName <span class="hljs-type">string</span> <span class="hljs-string">`gorm:&quot;default:galeone&quot;`</span><br>		LastName  <span class="hljs-type">string</span><br>		FullName  <span class="hljs-type">string</span> <span class="hljs-string">`gorm:&quot;-&gt;;type:VARCHAR(100) GENERATED ALWAYS AS (concat(first_name,&#x27; &#x27;,last_name)) VIRTUAL;default:(-);&quot;`</span><br>		Age       *<span class="hljs-type">int</span>   <span class="hljs-string">`gorm:&quot;default:18&quot;`</span><br>	&#125;<br><br>	result := db.Clauses(clause.OnConflict&#123;DoNothing: <span class="hljs-literal">true</span>&#125;).Create(&amp;User&#123;ID: <span class="hljs-number">1</span>&#125;)<br>	<span class="hljs-comment">// INSERT INTO `tb_user` (`first_name`,`last_name`,`age`,`id`)</span><br>	<span class="hljs-comment">// VALUES (&#x27;galeone&#x27;,&#x27;&#x27;,18,1) ON DUPLICATE KEY UPDATE `id`=`id`</span><br>	fmt.Println(result.RowsAffected) <span class="hljs-comment">// 0 没有插入记录</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="冲突时更新指定字段的指定值"><a href="#冲突时更新指定字段的指定值" class="headerlink" title="冲突时更新指定字段的指定值"></a>冲突时更新指定字段的指定值</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestUpsert2</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	user1 := User&#123;<br>		Model: gorm.Model&#123;<br>			ID: <span class="hljs-number">1</span>,<br>		&#125;,<br>		Name: <span class="hljs-string">&quot;zhansan&quot;</span>,<br>		Age:  <span class="hljs-number">20</span>,<br>	&#125;<br>	user2 := User&#123;<br>		Model: gorm.Model&#123;<br>			ID: <span class="hljs-number">2</span>,<br>		&#125;,<br>		Name: <span class="hljs-string">&quot;lisi&quot;</span>,<br>		Age:  <span class="hljs-number">21</span>,<br>	&#125;<br>	db.Set(<span class="hljs-string">&quot;gorm:table_options&quot;</span>, <span class="hljs-string">&quot;ENGINE=InnoDB&quot;</span>).AutoMigrate(&amp;User&#123;&#125;)<br>	<span class="hljs-keyword">var</span> users = []User&#123;user1, user2&#125;<br>	db.Clauses(clause.OnConflict&#123;<br>		Columns:   []clause.Column&#123;&#123;Name: <span class="hljs-string">&quot;id&quot;</span>&#125;&#125;,<br>		DoUpdates: clause.Assignments(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-keyword">interface</span>&#123;&#125;&#123;<span class="hljs-string">&quot;Age&quot;</span>: <span class="hljs-number">32</span>&#125;),<br>	&#125;).Create(&amp;users)<br>	<span class="hljs-comment">// 主键id冲突时，不新增，更新user中的`Age`为32</span><br>	<span class="hljs-comment">// INSERT INTO `tb_user` (`created_at`,`updated_at`,`deleted_at`,`name`,`age`,`birthday`,`id`)</span><br>	<span class="hljs-comment">// VALUES (&#x27;2024-03-28 21:55:43.997&#x27;,&#x27;2024-03-28 21:55:43.997&#x27;,NULL,&#x27;zhansan&#x27;,20,NULL,1),</span><br>	<span class="hljs-comment">//(&#x27;2024-03-28 21:55:43.997&#x27;,&#x27;2024-03-28 21:55:43.997&#x27;,NULL,&#x27;lisi&#x27;,21,NULL,2) ON DUPLICATE KEY UPDATE `Age`=32</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="使用SQL指定冲突时的值"><a href="#使用SQL指定冲突时的值" class="headerlink" title="使用SQL指定冲突时的值"></a>使用SQL指定冲突时的值</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestUpsert3</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	user1 := User&#123;<br>		Model: gorm.Model&#123;<br>			ID: <span class="hljs-number">1</span>,<br>		&#125;,<br>		Name: <span class="hljs-string">&quot;zhansan&quot;</span>,<br>		Age:  <span class="hljs-number">33</span>,<br>	&#125;<br>	user2 := User&#123;<br>		Model: gorm.Model&#123;<br>			ID: <span class="hljs-number">2</span>,<br>		&#125;,<br>		Name: <span class="hljs-string">&quot;lisi&quot;</span>,<br>		Age:  <span class="hljs-number">22</span>,<br>	&#125;<br>	db.Set(<span class="hljs-string">&quot;gorm:table_options&quot;</span>, <span class="hljs-string">&quot;ENGINE=InnoDB&quot;</span>).AutoMigrate(&amp;User&#123;&#125;)<br>	<span class="hljs-keyword">var</span> users = []User&#123;user1, user2&#125;<br><br>	db.Clauses(clause.OnConflict&#123;<br>		Columns:   []clause.Column&#123;&#123;Name: <span class="hljs-string">&quot;id&quot;</span>&#125;&#125;,<br>		DoUpdates: clause.Assignments(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-keyword">interface</span>&#123;&#125;&#123;<span class="hljs-string">&quot;age&quot;</span>: gorm.Expr(<span class="hljs-string">&quot;GREATEST(age, VALUES(age))&quot;</span>)&#125;),<br>	&#125;).Create(&amp;users)<br>	<span class="hljs-comment">// 当id冲突时，将更新age, 谁大更新谁的</span><br>	<span class="hljs-comment">// INSERT INTO `tb_user` (`created_at`,`updated_at`,`deleted_at`,`name`,`age`,`birthday`,`id`)</span><br>	<span class="hljs-comment">// VALUES (&#x27;2024-03-28 22:02:30.666&#x27;,&#x27;2024-03-28 22:02:30.666&#x27;,NULL,&#x27;zhansan&#x27;,33,NULL,1),</span><br>	<span class="hljs-comment">// (&#x27;2024-03-28 22:02:30.666&#x27;,&#x27;2024-03-28 22:02:30.666&#x27;,NULL,&#x27;lisi&#x27;,22,NULL,2) ON DUPLICATE KEY UPDATE `age`=GREATEST(age, VALUES(age))</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="冲突时更新某些字段"><a href="#冲突时更新某些字段" class="headerlink" title="冲突时更新某些字段"></a>冲突时更新某些字段</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs go">unc TestUpsert4(t *testing.T) &#123;<br>	user1 := User&#123;<br>		Model: gorm.Model&#123;<br>			ID: <span class="hljs-number">1</span>,<br>		&#125;,<br>		Name: <span class="hljs-string">&quot;zhansan1&quot;</span>,<br>		Age:  <span class="hljs-number">33</span>,<br>	&#125;<br>	user2 := User&#123;<br>		Model: gorm.Model&#123;<br>			ID: <span class="hljs-number">2</span>,<br>		&#125;,<br>		Name: <span class="hljs-string">&quot;lisi1&quot;</span>,<br>		Age:  <span class="hljs-number">22</span>,<br>	&#125;<br>	db.Set(<span class="hljs-string">&quot;gorm:table_options&quot;</span>, <span class="hljs-string">&quot;ENGINE=InnoDB&quot;</span>).AutoMigrate(&amp;User&#123;&#125;)<br>	<span class="hljs-keyword">var</span> users = []User&#123;user1, user2&#125;<br>	db.Clauses(clause.OnConflict&#123;<br>		Columns:   []clause.Column&#123;&#123;Name: <span class="hljs-string">&quot;id&quot;</span>&#125;&#125;,<br>		DoUpdates: clause.AssignmentColumns([]<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;age&quot;</span>&#125;),<br>	&#125;).Create(&amp;users)<br>    <span class="hljs-comment">// 发生冲突时，更新字段`name`、`age`</span><br>	<span class="hljs-comment">// INSERT INTO `tb_user` (`created_at`,`updated_at`,`deleted_at`,`name`,`age`,`birthday`,`id`)</span><br>	<span class="hljs-comment">// VALUES (&#x27;2024-03-28 22:07:36.064&#x27;,&#x27;2024-03-28 22:07:36.064&#x27;,NULL,&#x27;zhansan1&#x27;,33,NULL,1),</span><br>	<span class="hljs-comment">//(&#x27;2024-03-28 22:07:36.064&#x27;,&#x27;2024-03-28 22:07:36.064&#x27;,NULL,&#x27;lisi1&#x27;,22,NULL,2) ON DUPLICATE KEY UPDATE `name`=VALUES(`name`),`age`=VALUES(`age`)</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="冲突时更新所有字段"><a href="#冲突时更新所有字段" class="headerlink" title="冲突时更新所有字段"></a>冲突时更新所有字段</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestUpsert5</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	user1 := User&#123;<br>		Model: gorm.Model&#123;<br>			ID: <span class="hljs-number">1</span>,<br>		&#125;,<br>		Name: <span class="hljs-string">&quot;zhansan2&quot;</span>,<br>		Age:  <span class="hljs-number">34</span>,<br>	&#125;<br>	user2 := User&#123;<br>		Model: gorm.Model&#123;<br>			ID: <span class="hljs-number">2</span>,<br>		&#125;,<br>		Name: <span class="hljs-string">&quot;lisi2&quot;</span>,<br>		Age:  <span class="hljs-number">23</span>,<br>	&#125;<br>	db.Set(<span class="hljs-string">&quot;gorm:table_options&quot;</span>, <span class="hljs-string">&quot;ENGINE=InnoDB&quot;</span>).AutoMigrate(&amp;User&#123;&#125;)<br>	<span class="hljs-keyword">var</span> users = []User&#123;user1, user2&#125;<br>	db.Clauses(clause.OnConflict&#123;<br>		UpdateAll: <span class="hljs-literal">true</span>,<br>	&#125;).Create(&amp;users)<br>	<span class="hljs-comment">// 当主键冲突时，更新全部字段除了默认值的字段和主键</span><br>	<span class="hljs-comment">// INSERT INTO `tb_user` (`created_at`,`updated_at`,`deleted_at`,`name`,`age`,`birthday`,`id`)</span><br>	<span class="hljs-comment">//VALUES (&#x27;2024-03-28 22:10:37.117&#x27;,&#x27;2024-03-28 22:10:37.117&#x27;,NULL,&#x27;zhansan2&#x27;,34,NULL,1),</span><br>	<span class="hljs-comment">//(&#x27;2024-03-28 22:10:37.117&#x27;,&#x27;2024-03-28 22:10:37.117&#x27;,NULL,&#x27;lisi2&#x27;,23,NULL,2)</span><br>	<span class="hljs-comment">//ON DUPLICATE KEY UPDATE `updated_at`=&#x27;2024-03-28 22:10:37.117&#x27;,`deleted_at`=VALUES(`deleted_at`),`name`=VALUES(`name`),`age`=VALUES(`age`),`birthday`=VALUES(`birthday`)</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h1><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://gorm.io/docs/">GORM 文档</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/gorm/" class="category-chain-item">gorm</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/go/" class="print-no-link">#go</a>
+      
+        <a href="/tags/gorm/" class="print-no-link">#gorm</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>4.创建</div>
+      <div>https://succeedwer.github.io/posts/53612c859d2e/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WER</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年4月26日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年3月29日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/874c69da2af1/" title="6.高级查询">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">6.高级查询</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/d13da7423df4/" title="3.定义model">
+                        <span class="hidden-mobile">3.定义model</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

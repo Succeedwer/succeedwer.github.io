@@ -229,15 +229,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/a6e83b941443/" target="_self">
-          上传文件
+        <a href="/posts/b9cf5dd3e8c1/" target="_self">
+          8.Hook应用场景
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/a6e83b941443/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/b9cf5dd3e8c1/" target="_self">
         <div>
-          单文件123456789101112131415161718192021222324252627282930func main() &#123;	r := gin.Default()	// 为multipart forms设置内存限制，默认为32Mib	r.MaxMultipartMemory = 8 &lt;&lt; 20 // 8 Mib	r.POST(&quot;/upload&quot;,
+          按日期分割日志—writer123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979
         </div>
       </a>
 
@@ -245,8 +245,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-24 00:22" pubdate>
-              2024-03-24
+            <time datetime="2024-04-26 22:25" pubdate>
+              2024-04-26
             </time>
           </div>
         
@@ -271,7 +271,7 @@
   
     <span>></span>
     
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/Gin/" class="category-chain-item">Gin</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/logrus/" class="category-chain-item">logrus</a>
   
   
 
@@ -292,7 +292,7 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/Gin/">#Gin</a>
+              <a href="/tags/logrus/">#logrus</a>
             
           </div>
         
@@ -306,15 +306,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/ed7d1dd00b60/" target="_self">
-          下载文件
+        <a href="/posts/ee158b5a6809/" target="_self">
+          6.Hook机制
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/ed7d1dd00b60/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/ee158b5a6809/" target="_self">
         <div>
-          直接响应下载123456789101112131415161718192021package mainimport &quot;github.com/gin-gonic/gin&quot;func main() &#123;	r := gin.Default()	// 直接响应下载文件	r.GET(&quot;/download&quot;, func(c *gin.Context) &#123;
+          介绍logrus框架的Hook机制，可以自定义各种功能，实现各种模板。 github上也有各种完善的模板 ，可以使用。 1234type Hook interface &#123;	Levels() []Level // 使用的level	Fire(*Entry) error // 每次输出日志都会走该方法&#125;  应用场景 按日期为日志分类 将错误发送到跟踪服务器，如kafka、redis
         </div>
       </a>
 
@@ -322,8 +322,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-24 00:22" pubdate>
-              2024-03-24
+            <time datetime="2024-04-26 22:25" pubdate>
+              2024-04-26
             </time>
           </div>
         
@@ -348,7 +348,7 @@
   
     <span>></span>
     
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/Gin/" class="category-chain-item">Gin</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/logrus/" class="category-chain-item">logrus</a>
   
   
 
@@ -369,7 +369,7 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/Gin/">#Gin</a>
+              <a href="/tags/logrus/">#logrus</a>
             
           </div>
         
@@ -383,15 +383,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/a28905649b40/" target="_self">
-          参数的原始数据
+        <a href="/posts/20bfae75514a/" target="_self">
+          6.Field
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/a28905649b40/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/20bfae75514a/" target="_self">
         <div>
-          getRawData返回的是请求body里的数据流。 12345678910111213func main() &#123;	r := gin.Default()	r.POST(&quot;/raw&quot;, func(c *gin.Context) &#123;		data, err := c.GetRawData()		if err != nil &#123;			return		&#12
+          介绍logrus鼓励使用Field机制进行结构化日志记录，而不是无法进行解析的日志。 使用基本使用12345log.WithFields(log.Fields&#123;  &quot;event&quot;: event,  &quot;topic&quot;: topic,  &quot;key&quot;: key,&#125;).Fatal(&quot;Failed to send eve
         </div>
       </a>
 
@@ -399,8 +399,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-24 00:22" pubdate>
-              2024-03-24
+            <time datetime="2024-04-26 22:25" pubdate>
+              2024-04-26
             </time>
           </div>
         
@@ -425,7 +425,7 @@
   
     <span>></span>
     
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/Gin/" class="category-chain-item">Gin</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/logrus/" class="category-chain-item">logrus</a>
   
   
 
@@ -446,7 +446,7 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/Gin/">#Gin</a>
+              <a href="/tags/logrus/">#logrus</a>
             
           </div>
         
@@ -460,15 +460,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/c9f3ef43070e/" target="_self">
-          中间件
+        <a href="/posts/8971aaae4da7/" target="_self">
+          5.自定义输出格式
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/c9f3ef43070e/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/8971aaae4da7/" target="_self">
         <div>
-          介绍Gin允许开发者在处理请求的过程中，加入中间件，即hook函数（钩子函数），意义与java中的过滤器，拦截器类似。 定义Gin的中间件其实就是HandlerFunc类型的对象，而HandlerFunc其实就是func(*Context)函数。 单独请求的中间件12345678910111213141516171819202122232425262728293031323334353637383
+          自定义输出格式123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899pack
         </div>
       </a>
 
@@ -476,8 +476,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-24 00:22" pubdate>
-              2024-03-24
+            <time datetime="2024-04-26 22:25" pubdate>
+              2024-04-26
             </time>
           </div>
         
@@ -502,7 +502,7 @@
   
     <span>></span>
     
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/Gin/" class="category-chain-item">Gin</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/logrus/" class="category-chain-item">logrus</a>
   
   
 
@@ -523,7 +523,7 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/Gin/">#Gin</a>
+              <a href="/tags/logrus/">#logrus</a>
             
           </div>
         
@@ -537,15 +537,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/5a60c248c269/" target="_self">
-          参数绑定Bind
+        <a href="/posts/199f34a19708/" target="_self">
+          4.输出到日志文件
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/5a60c248c269/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/199f34a19708/" target="_self">
         <div>
-          介绍Gin的参数绑定可以将请求中的参数结构化成所需的模型。 Gin目前支持JSON、XML、yaml、AML、路径参数、标准表单值、query参数的绑定。 使用要使用参数绑定，需要在结构体的成员变量加上对应的tag: json:&quot;fieldname&quot;、xml:&quot;fieldname&quot;、yaml:&quot;fieldname&quot;、form:&quot;
+          输出到日志文件12345678910111213141516package mainimport (	&quot;github.com/sirupsen/logrus&quot;	&quot;os&quot;)func main() &#123;	// 输出到日志文件	file, _ := os.OpenFile(&quot;logfile/info.log&quot;, os.O_CREATE|
         </div>
       </a>
 
@@ -553,8 +553,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-24 00:22" pubdate>
-              2024-03-24
+            <time datetime="2024-04-26 22:25" pubdate>
+              2024-04-26
             </time>
           </div>
         
@@ -579,7 +579,7 @@
   
     <span>></span>
     
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/Gin/" class="category-chain-item">Gin</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/logrus/" class="category-chain-item">logrus</a>
   
   
 
@@ -600,7 +600,7 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/Gin/">#Gin</a>
+              <a href="/tags/logrus/">#logrus</a>
             
           </div>
         
@@ -614,15 +614,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/d78c65a022bc/" target="_self">
-          响应
+        <a href="/posts/eb5098f7d0d5/" target="_self">
+          3.控制台颜色
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/d78c65a022bc/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/eb5098f7d0d5/" target="_self">
         <div>
-          字符串1234567891011func text(c *gin.Context) &#123;	c.String(http.StatusOK, &quot;我是字符串&quot;)&#125;func main() &#123;	r := gin.Default()	r.GET(&quot;/text&quot;, text)	r.Run()&#125;  响应： 1我是字符串  json123
+          介绍ANSI定义了用于屏幕显示的Escape屏幕控制码，控制台也是基于ANSI实现了颜色输出。 格式例子： 1\033[1;40;32m color!!! \033[0m  \033：开始转义序列； [：开始定义； 1: 定义字体特殊属性，这里定义高亮显示字符； 40: 定义背景颜色；40表示黑色； 32：定义字体颜色；32表示绿色； \033[0m：关闭转义序列，这里指终端默认颜色； 颜色代码
         </div>
       </a>
 
@@ -630,8 +630,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-24 00:22" pubdate>
-              2024-03-24
+            <time datetime="2024-04-26 22:25" pubdate>
+              2024-04-26
             </time>
           </div>
         
@@ -656,7 +656,7 @@
   
     <span>></span>
     
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/Gin/" class="category-chain-item">Gin</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/logrus/" class="category-chain-item">logrus</a>
   
   
 
@@ -677,7 +677,7 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/Gin/">#Gin</a>
+              <a href="/tags/logrus/">#logrus</a>
             
           </div>
         
@@ -691,15 +691,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/00e89fa8a397/" target="_self">
-          快速入门
+        <a href="/posts/866ef296f7f3/" target="_self">
+          1.快速入门
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/00e89fa8a397/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/866ef296f7f3/" target="_self">
         <div>
-          安装在go项目根目录下，下载Gin包。 1$ go get github.com/gin-gonic/gin  等待下载完成后，即可引用。 Hello, world在项目中，创建1.hello_world.go。 123456789101112131415package mainimport &quot;github.com/gin-gonic/gin&quot;func main() &#123
+          导包用命令导入 1go get github.com/sirupsen/logrus  直接import, 然后执行命令go mod tidy 1import &quot;github.com/sirupsen/logrus&quot;  特点 兼容Go标准库log 支持7种日志级别：Trace、Debug、Info、Warn、Error、Fatal、Panic。 支持结构化日志记录，即key-v
         </div>
       </a>
 
@@ -707,8 +707,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-24 00:22" pubdate>
-              2024-03-24
+            <time datetime="2024-04-26 22:25" pubdate>
+              2024-04-26
             </time>
           </div>
         
@@ -733,7 +733,7 @@
   
     <span>></span>
     
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/Gin/" class="category-chain-item">Gin</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/logrus/" class="category-chain-item">logrus</a>
   
   
 
@@ -754,7 +754,7 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/Gin/">#Gin</a>
+              <a href="/tags/logrus/">#logrus</a>
             
           </div>
         
@@ -768,15 +768,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/bd6dc8c5f59e/" target="_self">
-          日志
+        <a href="/posts/4d70eda438e0/" target="_self">
+          2. 日志格式
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/bd6dc8c5f59e/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/4d70eda438e0/" target="_self">
         <div>
-          将日志写入文件123456789101112131415161718192021222324package mainimport (	&quot;github.com/gin-gonic/gin&quot;	&quot;io&quot;	&quot;os&quot;)func main() &#123;	file, _ := os.Create(&quot;log/gin.log&quot;)
+          介绍logrus提供了两种输出格式：  JsonFormatter   1&#123;&quot;level&quot;:&quot;debug&quot;,&quot;msg&quot;:&quot;Debug&quot;,&quot;time&quot;:&quot;2024-03-24T13:36:18+08:00&quot;&#125;  TextFormatter   1time=&qu
         </div>
       </a>
 
@@ -784,8 +784,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-24 00:22" pubdate>
-              2024-03-24
+            <time datetime="2024-04-26 22:25" pubdate>
+              2024-04-26
             </time>
           </div>
         
@@ -810,7 +810,7 @@
   
     <span>></span>
     
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/Gin/" class="category-chain-item">Gin</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/logrus/" class="category-chain-item">logrus</a>
   
   
 
@@ -831,7 +831,7 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/Gin/">#Gin</a>
+              <a href="/tags/logrus/">#logrus</a>
             
           </div>
         
@@ -845,15 +845,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/66a9c92ddb73/" target="_self">
-          查询参数Query
+        <a href="/posts/c9d547dbfa72/" target="_self">
+          9.Compression
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/66a9c92ddb73/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/c9d547dbfa72/" target="_self">
         <div>
-          Query即从url的查询参数中获取参数。 1http://path/to/query?[参数名1]=[参数值1]&amp;[参数名2]=[参数值2]    12345678910111213141516171819package mainimport (	&quot;fmt&quot;	gin &quot;github.com/gin-gonic/gin&quot;)func main() &#
+          概述grpc可以实现对发送的数据进行压缩，已达到减少通信时的带宽。 还可以根据消息的级别和调用，启用和禁用压缩。 可以对通道进行不同的压缩设置，以及支持不同算法，和自定义压缩器。 非对称的压缩grpc允许非对称的通信，如：响应不被压缩，而请求进行压缩。 响应还可以使用与请求不同的压缩方法。 如果客户端的请求消息被服务器不支持的算法压缩，那么服务器将导致UNIMPLEMENTED的错误码。 而且服务
         </div>
       </a>
 
@@ -861,8 +861,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-24 00:22" pubdate>
-              2024-03-24
+            <time datetime="2024-04-26 22:25" pubdate>
+              2024-04-26
             </time>
           </div>
         
@@ -887,7 +887,7 @@
   
     <span>></span>
     
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/Gin/" class="category-chain-item">Gin</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/grpc/" class="category-chain-item">grpc</a>
   
   
 
@@ -908,7 +908,7 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/Gin/">#Gin</a>
+              <a href="/tags/grpc/">#grpc</a>
             
           </div>
         
@@ -922,15 +922,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/f6ee75a1ecbd/" target="_self">
-          表单参数Form
+        <a href="/posts/9a0c4dff1be1/" target="_self">
+          8.Cancellation
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/f6ee75a1ecbd/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/9a0c4dff1be1/" target="_self">
         <div>
-          表单参数即是从表单中获取参数。 1234567891011121314151617181920212223242526func main() &#123;	r := gin.Default()	/*		username:wer		age:30		accountInfo[id]:1		accountInfo[amount]:99999999		height:184		language:c,c++,g
+          概述当grpc客户端不再需要rpc调用结果时，可以向服务器发出Cancel信号。 当超时和I/O错误时也会触发取消。 当客户端的请求结果无关紧要时，可以提前Cancel，以达到节约能耗的作用。 当client发出一个请求到server1，然后server1需要调用server2，如果要取消该调用，则需要将取消信号往下传递。  原理grpc的取消流程如下：  客户端调用在附带的context中的取消
         </div>
       </a>
 
@@ -938,8 +938,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-24 00:22" pubdate>
-              2024-03-24
+            <time datetime="2024-04-26 22:25" pubdate>
+              2024-04-26
             </time>
           </div>
         
@@ -964,7 +964,7 @@
   
     <span>></span>
     
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/Gin/" class="category-chain-item">Gin</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/grpc/" class="category-chain-item">grpc</a>
   
   
 
@@ -985,7 +985,7 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/Gin/">#Gin</a>
+              <a href="/tags/grpc/">#grpc</a>
             
           </div>
         
@@ -997,7 +997,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/#board">15</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/#board">19</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

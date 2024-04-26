@@ -229,15 +229,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/d3aed5deb5f5/" target="_self">
-          7.9. 示例：表达式求值
+        <a href="/posts/2b3895c22904/" target="_self">
+          第十一章 测试
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/d3aed5deb5f5/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/2b3895c22904/" target="_self">
         <div>
-          表达式求值器在本节中，我们会构建一个简单算术表达式的求值器。下面为一些表达式。 123sqrt(A / pi)pow(x, 3) + pow(y, 3)(F - 32) * 5 / 9”  使用一个接口Expr来表示Go语言中任意的表达式。  1type Expr interface&#123;&#125; Var类型表示一个变量。  1type Var string literal类型表示一个浮
+          Go语言的测试技术是相对低级的。它依赖一个go test测试命令和一组按照约定方式编写的测试函数，测试命令可以运行这些测试函数。 11.1. go test 11.2. 测试函数 11.3. 测试覆盖率 11.4. 基准测试 11.5. 剖析 11.6. 示例函数
         </div>
       </a>
 
@@ -245,8 +245,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 19:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-21 10:52" pubdate>
+              2023-03-21
             </time>
           </div>
         
@@ -299,15 +299,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/21f47e2c8c53/" target="_self">
-          7.8. error接口
+        <a href="/posts/c1eef8565635/" target="_self">
+          10.7. 工具
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/21f47e2c8c53/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/c1eef8565635/" target="_self">
         <div>
-          error接口error接口是interface类型，这个类型只有一个返回错误信息的方法。 123type error interface &#123;	Error() string&#125; 创建errorerrors.New创建error的最简单方法就是调用errors.New函数。 12345678910111213package errorsfunc New(text string) e
+          可以使用go或go help获取内置的帮助文档。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253$ goGo is a tool for managing Go source code.Usage:	go &lt;command&gt; [argume
         </div>
       </a>
 
@@ -315,8 +315,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 18:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-20 17:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -369,15 +369,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/fc3145dbfc40/" target="_self">
-          7.7. http.Handler接口
+        <a href="/posts/26ffbeb103e4/" target="_self">
+          10.6. 包的命名
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/fc3145dbfc40/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/26ffbeb103e4/" target="_self">
         <div>
-          Handlerhttp.Handler接口用于实现客户端和服务器。具体接口如下: 123type Handler interface &#123;	ServeHTTP(ResponseWriter, *Request)&#125; 而常与func ListenAndServe(address string, h Handler) error结合使用，该方法需要一个服务器地址和接口分派的Handle
+          包的命名规则：  命名尽量短小 要尽量避免与常用的局部变量重复 尽量使用单数形式 避免与预定义类型冲突，可以复数形式 避免与关键字冲突，可以复数形式 避免包名歧义  当设计一个包时，要考虑包名与方法&#x2F;函数&#x2F;成员变量名配合。 1flag.Int	bytes.Equal		http.Get  也有可能包名与方法、函数和成员名重复。 1rand.Rand 所以，包名要尽量简洁短小。
         </div>
       </a>
 
@@ -385,8 +385,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 17:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-20 16:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -439,15 +439,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/8d8e98ca9007/" target="_self">
-          7.6. sort.Interface接口
+        <a href="/posts/85c6d629ce42/" target="_self">
+          10.5. 包的匿名导入
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/8d8e98ca9007/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/85c6d629ce42/" target="_self">
         <div>
-          解析sort包内包含对任何序列进行排序的接口，sort.Interface接口。该接口规定了序列的排序算法和对序列类型之间的约定。排序算法包含了以下三个要点：  序列长度 元素比较的结果 交换元素的方式  三个要点也对应着sort.Interface的三个方法： 12345type Interface interface &#123;	Len() int	Less(i, j int) bool	S
+          如果导入一个包而不去使用这个包，那么就会导致编译错误。但是只想使用导入包的而产生的副作用，如“计算包级变量的初始化表达式和执行导入包的init初始化函数”。这时候，需要抑制该编译错误，可以 使用—下划线空白标识符，重命名导入的包。空白标识符表示，不能被访问。 1improt _ &quot;image/png&quot; 这种行为被称为包的匿名导入。它通常是用来实现一个编译时机制，然后通过在mai
         </div>
       </a>
 
@@ -455,8 +455,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 16:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-20 15:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -509,15 +509,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/b8be0b651295/" target="_self">
-          7.5 接口值
+        <a href="/posts/7c1cbb35e653/" target="_self">
+          10.4. 导入声明
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/b8be0b651295/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/7c1cbb35e653/" target="_self">
         <div>
-          基本概念接口值由两部分组成，具体类型和类型的值，也称为动态类型和动态值。如下例子： 1234var w io.Writerw = os.Stdoutw = new(bytes.Buffer)w = nil 4个语句中，变量w得到了3个不同的值。在Go语言中，变量在声明中会被初始化为其类型的零值。对于接口类型，同样会被初始化为零值，一个接口的零值指的是接口的类型和值都是nil。一个接口值基于它的动态
+          每个导入声明可以单独指定导入路径，也可以通过圆括号同时导入多个导入路径。 1234567import &quot;fmt&quot;import &quot;os&quot;improt (	&quot;fmt&quot;	&quot;os&quot;)  导入的包之间可以通过添加空行来分组。通常将来自不同组织的包进行独立分组。 包的导入顺序无关紧要，但是每个分组中一般会根据字符串顺序排序。（go
         </div>
       </a>
 
@@ -525,8 +525,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 15:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-20 14:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -579,15 +579,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/146b263d555d/" target="_self">
-          7.4 flag.Value接口
+        <a href="/posts/376c63460620/" target="_self">
+          10.3. 包声明
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/146b263d555d/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/376c63460620/" target="_self">
         <div>
-          使用flag.Value接口，可以定义新的命令行符号。下面是休眠特定时间的例子： 12345678910111213141516package mainimport (	&quot;flag&quot;	&quot;fmt&quot;	&quot;time&quot;)var period = flag.Duration(&quot;period&quot;, 1*time.Second, &qu
+          每个go语言源码文件开头必须是包声明语句。包声明语句的主要目的是确定当前包被其它包导入时默认的标识符（也称为包名）。 如 math&#x2F;rand包的每个源码文件开头都是package rand。 通常来说，默认的包名就是包导入路径名的最后一段，因此即使两个包的导入路径不同，它们依然可能有一个相同的包名。 关于默认包名一般采用导入路径名的最后一段的约定也有三种例外情况。  第一个例外，包对应一
         </div>
       </a>
 
@@ -595,8 +595,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 14:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-20 13:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -649,15 +649,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/001ff23c523b/" target="_self">
-          7.3 实现接口的条件
+        <a href="/posts/ce5416f3abff/" target="_self">
+          10.2. 导入路径
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/001ff23c523b/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/ce5416f3abff/" target="_self">
         <div>
-          实现接口的规则一个类型如果拥有一个接口需要的所有方法，那么这个类型就实现了这个接口。如果一个类型属于某个接口，只要这个类型实现这个接口。如果某类型能够赋值或new对象赋值给接口类型，那么说明该类型实现了接口的所有方法。 12345678910var w io.Writerw = os.Stdout         // *File 实现了Write方法w = new(bytes.Buffer) /
+          每个包是由一个全局唯一的字符串所标识的导入路径定位。 import语句中的字符串就是导入路径。 123456789import (    &quot;fmt&quot;    &quot;math/rand&quot;    &quot;encoding/json&quot;    &quot;golang.org/x/net/html&quot;    &quot;github.com/go-s
         </div>
       </a>
 
@@ -665,8 +665,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 13:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-20 12:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -719,15 +719,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/55bc49f4b7cc/" target="_self">
-          7.2. 接口类型
+        <a href="/posts/a912c21440d0/" target="_self">
+          10.1. 包简介
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/55bc49f4b7cc/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/a912c21440d0/" target="_self">
         <div>
-          接口类型具体描述了一系列方法的集合，一个实现了这些方法的具体类型是这个接口类型的实例。 单方法接口命名在Go语言中，单方法接口的命名习惯是很常见的。 1234567package iotype Reader interface &#123;    Read(p []byte) (n int, err error)&#125;type Closer interface &#123;    Close
+          任何包系统的设计目的离不开，抽象，封装和复用。为了简化大型程序的设计和维护工作，通过将一系列相关的特性放入一个独立的单元以理解和更新。在每个单元更新时也同时保持和程序中其它单元的相对独立性。这种模块化的特性允许每个包可以被其它不同的项目共享和重用，在项目范围内，甚至全世界范围内统一分发和复用。 包还通过控制包内名字的可见性和是否导出来实现封装特性。 Go语言的闪电般的编译速度主要得益于三个语言特性
         </div>
       </a>
 
@@ -735,8 +735,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 12:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-20 11:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -789,15 +789,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/8e657f0750ec/" target="_self">
-          7.1. 接口约定
+        <a href="/posts/94532dfae374/" target="_self">
+          第十章 包和工具
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/8e657f0750ec/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/94532dfae374/" target="_self">
         <div>
-          接口类型是一种抽象的类型。它不会暴露出它所代表的对象的内部值的结构和这个对象支持的基础操作的集合；它们只会展示出它们自己的方法。 下面*ByteCounter类型里的Write方法，仅仅在丢失写向它的字节前统计它们的长度。(在这个+&#x3D;赋值语句中，让len(p)的类型和*c的类型匹配的转换是必须的。) 1234567891011121314151617181920212223// Byte
+          本章主要讲go语言的包及其工具。查询Go语言下的包数量： 12$ go list std | wc -l			240  10.1. 包简介10.2. 导入路径10.3. 包声明10.4. 导入声明10.5. 包的匿名导入10.6. 包和命名10.7. 工具
         </div>
       </a>
 
@@ -805,8 +805,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 11:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-20 10:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -859,15 +859,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/f2552a5080b3/" target="_self">
-          第七章 接口
+        <a href="/posts/85a231e79892/" target="_self">
+          9.8. Goroutine和线程
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/f2552a5080b3/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/85a231e79892/" target="_self">
         <div>
-          接口类型是对其它类型行为的抽象和概括。Go语言中接口类型的独特之处在于它是满足隐式实现的。也就是说，我们没有必要对于给定的具体类型定义所有满足的接口类型；简单地拥有一些必需的方法就足够了。 7.1. 接口约定7.2. 接口类型7.3. 实现接口的条件7.4. flag.Value接口7.5. 接口值7.6. sort.Interface接口7.7. http.Handler接口7.8. error
+          本章主要内容：Goroutine和线程的区别。 9.8.1 动态栈每个OS线程都拥有一个固定大小的内存块（一般为2MB）作为栈，该栈用于存储函数调用或挂起（调用其它函数时）的函数内部变量。Goroutine的栈大小并不是固定的，可以根据需要动态伸缩的。 Goroutine会以很小的栈开始生命周期，一般为2KB。 与OS线程一样，Goroutine的栈同样存储其活跃或挂起的函数内部变量。 练习练习
         </div>
       </a>
 
@@ -875,8 +875,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 10:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-19 18:52" pubdate>
+              2023-03-19
             </time>
           </div>
         
@@ -927,7 +927,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/9/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/#board">8</a><a class="page-number" href="/page/9/#board">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/#board">11</a><a class="page-number" href="/page/12/#board">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/#board">15</a><a class="extend next" rel="next" href="/page/11/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/9/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/#board">8</a><a class="page-number" href="/page/9/#board">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/#board">11</a><a class="page-number" href="/page/12/#board">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/#board">19</a><a class="extend next" rel="next" href="/page/11/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
