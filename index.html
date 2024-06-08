@@ -229,15 +229,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/b9cf5dd3e8c1/" target="_self">
-          8.Hook应用场景
+        <a href="/posts/82200d947e47/" target="_self">
+          8.子事务屏障
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/b9cf5dd3e8c1/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/82200d947e47/" target="_self">
         <div>
-          按日期分割日志—writer123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979
+          介绍子事务屏障是dtm首先提出来的一种解决分布式系统事务中常遇到异常情况的技术。 异常分布式系统遇到的异常可概括为NPC，(Network Delay,Process Pause,Clock Drift)。  Network Delay：网络延迟 TCP只保证了传输顺序和不会丢失，但无法解决网络延迟。   Process Pause:  进程暂停 导致进程暂停的原因：编程语言的GC垃圾回收机制；暂
         </div>
       </a>
 
@@ -245,8 +245,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-04-26 22:25" pubdate>
-              2024-04-26
+            <time datetime="2024-06-09 01:52" pubdate>
+              2024-06-09
             </time>
           </div>
         
@@ -271,7 +271,7 @@
   
     <span>></span>
     
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/logrus/" class="category-chain-item">logrus</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/dtm/" class="category-chain-item">dtm</a>
   
   
 
@@ -292,7 +292,9 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/logrus/">#logrus</a>
+              <a href="/tags/dtm/">#dtm</a>
+            
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">#分布式事务</a>
             
           </div>
         
@@ -306,15 +308,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/ee158b5a6809/" target="_self">
-          6.Hook机制
+        <a href="/posts/636e69971297/" target="_self">
+          6.workflow模式
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/ee158b5a6809/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/636e69971297/" target="_self">
         <div>
-          介绍logrus框架的Hook机制，可以自定义各种功能，实现各种模板。 github上也有各种完善的模板 ，可以使用。 1234type Hook interface &#123;	Levels() []Level // 使用的level	Fire(*Entry) error // 每次输出日志都会走该方法&#125;  应用场景 按日期为日志分类 将错误发送到跟踪服务器，如kafka、redis
+          介绍workflow模式是dtm首创模式。简单来说，就是混合使用XA、SAGA、TCC事务模式，还可以混用Http、GRPC、本地操作。 该模式有着极大灵活性，给予开发人员极大的定制内容。 使用简单使用以saga模式简述workflow事务的实现流程。 需要使用混合协议进行事务，有三个步骤。  初始化SDK  HTTP 1workflow.InitHTTP(server.DtmHTTPServer
         </div>
       </a>
 
@@ -322,8 +324,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-04-26 22:25" pubdate>
-              2024-04-26
+            <time datetime="2024-06-09 01:52" pubdate>
+              2024-06-09
             </time>
           </div>
         
@@ -348,7 +350,7 @@
   
     <span>></span>
     
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/logrus/" class="category-chain-item">logrus</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/dtm/" class="category-chain-item">dtm</a>
   
   
 
@@ -369,7 +371,9 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/logrus/">#logrus</a>
+              <a href="/tags/dtm/">#dtm</a>
+            
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">#分布式事务</a>
             
           </div>
         
@@ -383,15 +387,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/20bfae75514a/" target="_self">
-          6.Field
+        <a href="/posts/20346ef29d8d/" target="_self">
+          5.xa事务模式
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/20bfae75514a/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/20346ef29d8d/" target="_self">
         <div>
-          介绍logrus鼓励使用Field机制进行结构化日志记录，而不是无法进行解析的日志。 使用基本使用12345log.WithFields(log.Fields&#123;  &quot;event&quot;: event,  &quot;topic&quot;: topic,  &quot;key&quot;: key,&#125;).Fatal(&quot;Failed to send eve
+          介绍 XA是由X&#x2F;Open组织提出的分布式事务的规范，XA规范主要定义了(全局)事务管理器(TM)和(局部)资源管理器(RM)之间的接口。本地的数据库如mysql在XA中扮演的是RM角色  使用简单使用12345678gid := shortuuid.New()err := dtmcli.XaGlobalTransaction(server.DtmHTTPServer, gid, fun
         </div>
       </a>
 
@@ -399,8 +403,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-04-26 22:25" pubdate>
-              2024-04-26
+            <time datetime="2024-06-09 01:52" pubdate>
+              2024-06-09
             </time>
           </div>
         
@@ -425,7 +429,7 @@
   
     <span>></span>
     
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/logrus/" class="category-chain-item">logrus</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/dtm/" class="category-chain-item">dtm</a>
   
   
 
@@ -446,7 +450,9 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/logrus/">#logrus</a>
+              <a href="/tags/dtm/">#dtm</a>
+            
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">#分布式事务</a>
             
           </div>
         
@@ -460,15 +466,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/8971aaae4da7/" target="_self">
-          5.自定义输出格式
+        <a href="/posts/fbd0d1ec2e5e/" target="_self">
+          3.二阶段消息事务模式
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/8971aaae4da7/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/fbd0d1ec2e5e/" target="_self">
         <div>
-          自定义输出格式123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899pack
+          介绍二阶段消息是dtm首创的事务模式，用于替换本地事务表和事务消息这两种现有的方案。它能够保证本地事务的提交和全局事务提交是“原子的”，适合解决不需要回滚的分布式事务场景。下面我们来看看二阶段消息，如何解决这个业务场景的问题。 业务场景介绍如下： 我们需要跨行从A转给B 30元，我们先进行可能失败的转出操作TransOut，即进行A扣减30元。 如果A因余额不足扣减失败，那么转账直接失败，返回错误
         </div>
       </a>
 
@@ -476,8 +482,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-04-26 22:25" pubdate>
-              2024-04-26
+            <time datetime="2024-06-09 01:52" pubdate>
+              2024-06-09
             </time>
           </div>
         
@@ -502,7 +508,7 @@
   
     <span>></span>
     
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/logrus/" class="category-chain-item">logrus</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/dtm/" class="category-chain-item">dtm</a>
   
   
 
@@ -523,7 +529,9 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/logrus/">#logrus</a>
+              <a href="/tags/dtm/">#dtm</a>
+            
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">#分布式事务</a>
             
           </div>
         
@@ -537,15 +545,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/199f34a19708/" target="_self">
-          4.输出到日志文件
+        <a href="/posts/13a8765f6a56/" target="_self">
+          4.tcc事务模式
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/199f34a19708/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/13a8765f6a56/" target="_self">
         <div>
-          输出到日志文件12345678910111213141516package mainimport (	&quot;github.com/sirupsen/logrus&quot;	&quot;os&quot;)func main() &#123;	// 输出到日志文件	file, _ := os.OpenFile(&quot;logfile/info.log&quot;, os.O_CREATE|
+          介绍什么是TCC? Try、Confirm、Cancel的首字母缩写。 最早是由 Pat Helland 于 2007 年发表的一篇名为《Life beyond Distributed Transactions:an Apostate’s Opinion》的论文提出。 使用简单使用12345678910111213141516gid := shortuuid.New()err := dtmcli.
         </div>
       </a>
 
@@ -553,8 +561,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-04-26 22:25" pubdate>
-              2024-04-26
+            <time datetime="2024-06-09 01:52" pubdate>
+              2024-06-09
             </time>
           </div>
         
@@ -579,7 +587,7 @@
   
     <span>></span>
     
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/logrus/" class="category-chain-item">logrus</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/dtm/" class="category-chain-item">dtm</a>
   
   
 
@@ -600,7 +608,9 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/logrus/">#logrus</a>
+              <a href="/tags/dtm/">#dtm</a>
+            
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">#分布式事务</a>
             
           </div>
         
@@ -614,15 +624,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/eb5098f7d0d5/" target="_self">
-          3.控制台颜色
+        <a href="/posts/1bdb16c60bd7/" target="_self">
+          2.saga事务模式
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/eb5098f7d0d5/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/1bdb16c60bd7/" target="_self">
         <div>
-          介绍ANSI定义了用于屏幕显示的Escape屏幕控制码，控制台也是基于ANSI实现了颜色输出。 格式例子： 1\033[1;40;32m color!!! \033[0m  \033：开始转义序列； [：开始定义； 1: 定义字体特殊属性，这里定义高亮显示字符； 40: 定义背景颜色；40表示黑色； 32：定义字体颜色；32表示绿色； \033[0m：关闭转义序列，这里指终端默认颜色； 颜色代码
+          介绍saga事务模式的核心思想是将长事务拆分为多个短事务，由sage事务协调器协调，如果每个短事务都成功提交完成，那么全局事务就正常完成，如果某个步骤失败，则根据相反顺序依次调用补偿操作。 使用docker 安装安装dtm 12docker pull yedf/dtm:latestdocker run -td --name dtm -p 36789:36789 -p 36790:36790 yed
         </div>
       </a>
 
@@ -630,8 +640,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-04-26 22:25" pubdate>
-              2024-04-26
+            <time datetime="2024-06-09 01:52" pubdate>
+              2024-06-09
             </time>
           </div>
         
@@ -656,7 +666,7 @@
   
     <span>></span>
     
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/logrus/" class="category-chain-item">logrus</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/dtm/" class="category-chain-item">dtm</a>
   
   
 
@@ -677,7 +687,9 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/logrus/">#logrus</a>
+              <a href="/tags/dtm/">#dtm</a>
+            
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">#分布式事务</a>
             
           </div>
         
@@ -691,15 +703,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/866ef296f7f3/" target="_self">
-          1.快速入门
+        <a href="/posts/153be8f2855f/" target="_self">
+          1.介绍
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/866ef296f7f3/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/153be8f2855f/" target="_self">
         <div>
-          导包用命令导入 1go get github.com/sirupsen/logrus  直接import, 然后执行命令go mod tidy 1import &quot;github.com/sirupsen/logrus&quot;  特点 兼容Go标准库log 支持7种日志级别：Trace、Debug、Info、Warn、Error、Fatal、Panic。 支持结构化日志记录，即key-v
+          介绍 本系列是对dtm的集成和使用的作简要笔记，更多详情请看官方文档：为什么dtm | DTM开源项目文档  dtm是使用go语言进行开发的一款分布式事务管理器，在众多大厂中广受好评。 分布式事务最大的作用是能够保证数据的一致性，dtm能够跨数据库，跨服务，跨语言栈来保证数据一致性。 一致性，简单来说，就是保证服务在多个节点中，要么全部成功，要么全部失败，避免部分成功而导致数据的一致性问题。 gi
         </div>
       </a>
 
@@ -707,8 +719,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-04-26 22:25" pubdate>
-              2024-04-26
+            <time datetime="2024-06-09 01:52" pubdate>
+              2024-06-09
             </time>
           </div>
         
@@ -733,7 +745,7 @@
   
     <span>></span>
     
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/logrus/" class="category-chain-item">logrus</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/dtm/" class="category-chain-item">dtm</a>
   
   
 
@@ -754,7 +766,9 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/logrus/">#logrus</a>
+              <a href="/tags/dtm/">#dtm</a>
+            
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">#分布式事务</a>
             
           </div>
         
@@ -768,15 +782,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/4d70eda438e0/" target="_self">
-          2. 日志格式
+        <a href="/posts/2e9fedc5cd71/" target="_self">
+          02.搭建nginx网关
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/4d70eda438e0/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/2e9fedc5cd71/" target="_self">
         <div>
-          介绍logrus提供了两种输出格式：  JsonFormatter   1&#123;&quot;level&quot;:&quot;debug&quot;,&quot;msg&quot;:&quot;Debug&quot;,&quot;time&quot;:&quot;2024-03-24T13:36:18+08:00&quot;&#125;  TextFormatter   1time=&qu
+          安装使用docker安装 下载Nginx镜像1sudo docker pull nginx:latest  运行1sudo docker run --name nginx -p 80:80 -d nginx   --name nginx 指定容器名称 -p 80:80 映射80端口 -d 守护进程运行  创建挂载目录 创建主机挂载目录 123sudo mkdir -p /opt/nginx-doc
         </div>
       </a>
 
@@ -784,8 +798,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-04-26 22:25" pubdate>
-              2024-04-26
+            <time datetime="2024-06-09 01:52" pubdate>
+              2024-06-09
             </time>
           </div>
         
@@ -805,15 +819,8 @@
   
     <span>></span>
     
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
+  <a href="/categories/go/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/logrus/" class="category-chain-item">logrus</a>
-  
-  
-
   
 
   
@@ -831,7 +838,7 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/logrus/">#logrus</a>
+              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">#微服务</a>
             
           </div>
         
@@ -845,15 +852,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/c9d547dbfa72/" target="_self">
-          9.Compression
+        <a href="/posts/32070ce8ff10/" target="_self">
+          01.搭建项目环境
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/c9d547dbfa72/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/32070ce8ff10/" target="_self">
         <div>
-          概述grpc可以实现对发送的数据进行压缩，已达到减少通信时的带宽。 还可以根据消息的级别和调用，启用和禁用压缩。 可以对通道进行不同的压缩设置，以及支持不同算法，和自定义压缩器。 非对称的压缩grpc允许非对称的通信，如：响应不被压缩，而请求进行压缩。 响应还可以使用与请求不同的压缩方法。 如果客户端的请求消息被服务器不支持的算法压缩，那么服务器将导致UNIMPLEMENTED的错误码。 而且服务
+          项目简介项目目录结构项目目录结构如下：  app user  order payment product identify   common deploy doc  技术栈 go-zero : 微服务框架  nginx : 网关  mysql : 数据库  redis : 缓存  etcd : 注册中心  kafka : 消息中间件   项目架构图业务架构图
         </div>
       </a>
 
@@ -861,8 +868,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-04-26 22:25" pubdate>
-              2024-04-26
+            <time datetime="2024-06-09 01:52" pubdate>
+              2024-06-09
             </time>
           </div>
         
@@ -882,15 +889,8 @@
   
     <span>></span>
     
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
+  <a href="/categories/go/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/grpc/" class="category-chain-item">grpc</a>
-  
-  
-
   
 
   
@@ -908,7 +908,7 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/grpc/">#grpc</a>
+              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">#微服务</a>
             
           </div>
         
@@ -922,15 +922,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/9a0c4dff1be1/" target="_self">
-          8.Cancellation
+        <a href="/posts/b9d878669b45/" target="_self">
+          protoc
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/9a0c4dff1be1/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/b9d878669b45/" target="_self">
         <div>
-          概述当grpc客户端不再需要rpc调用结果时，可以向服务器发出Cancel信号。 当超时和I/O错误时也会触发取消。 当客户端的请求结果无关紧要时，可以提前Cancel，以达到节约能耗的作用。 当client发出一个请求到server1，然后server1需要调用server2，如果要取消该调用，则需要将取消信号往下传递。  原理grpc的取消流程如下：  客户端调用在附带的context中的取消
+          安装1go install google.golang.org/protobuf/cmd/protoc-gen-go@latest  引入全局代码找出安装protoc的目录 1which protoc  如果输出usr/local/bin，则在usr/local目录下，创建&#96;&#96;usr&#x2F;local&#x2F;include目录，然后将需要引用的代码复制到该目录即可。如goo
         </div>
       </a>
 
@@ -938,8 +938,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-04-26 22:25" pubdate>
-              2024-04-26
+            <time datetime="2024-06-09 01:52" pubdate>
+              2024-06-09
             </time>
           </div>
         
@@ -959,12 +959,12 @@
   
     <span>></span>
     
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
+  <a href="/categories/go/%E5%B7%A5%E5%85%B7/" class="category-chain-item">工具</a>
   
   
     <span>></span>
     
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/grpc/" class="category-chain-item">grpc</a>
+  <a href="/categories/go/%E5%B7%A5%E5%85%B7/protoc/" class="category-chain-item">protoc</a>
   
   
 
@@ -985,7 +985,7 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/grpc/">#grpc</a>
+              <a href="/tags/protoc/">#protoc</a>
             
           </div>
         
@@ -997,7 +997,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/#board">19</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/#board">21</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

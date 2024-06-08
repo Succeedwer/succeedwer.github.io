@@ -229,15 +229,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/112cfaf3aacf/" target="_self">
-          数组
+        <a href="/posts/dcd9648973f8/" target="_self">
+          转义字符
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/112cfaf3aacf/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/dcd9648973f8/" target="_self">
         <div>
-          数组概念 数组是存储同一种数据类型多个元素的集合。也可以看成是一个容器。 数组既可以存储基本数据类型，也可以存储引用数据类型。  数组定义格式1数据类型[] 数组名 = new 数据类型[数组的长度];  数组的初始化动态初始化什么是数组的初始化 就是为数组开辟连续的内存空间，并为每个数组元素赋予值  如何对数组进行初始化 a:动态初始化 只指定长度，由系统给出初始化值   int[] arr &
+          &#39;\x&#39;， x表示任意，\是转义符号,这种做法叫转移字符。 12345&#x27;\t&#x27; tab键的位置&#x27;\r&#x27; 回车&#x27;\n&#x27; 换行&#x27;\&quot;&#x27; 转义&quot;&#x27;\&#x27;&#x27; 转义&#x27;   注意： &quot;\x&quot; 和&#39;\x&#39;是一样的。
         </div>
       </a>
 
@@ -297,15 +297,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/60ac4dd96489/" target="_self">
-          方法重写
+        <a href="/posts/3860f641048a/" target="_self">
+          选择结构switch语句
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/60ac4dd96489/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/3860f641048a/" target="_self">
         <div>
-          方法重写的注意事项 父类中私有方法不能被重写  因为父类私有方法子类根本就无法继承   子类重写父类方法时，访问权限不能更低  最好就一致   父类静态方法，子类也必须通过静态方法进行重写  其实这个算不上方法重写，但是现象确实如此(静态只能覆盖静态)   子类重写父类方法的时候，最好声明一模一样。  方法重写的面试题 Override和Overload的区别?Overload能改变返回值类型吗?
+          switch语句的格式1234567891011switch(表达式)&#123; // 基本数据类型可以接受byte,short,char,int.（能升级到int的类型）  引用数据类型可以接受枚举（JDK1.5）String字符串（JDK1.7）                     case 值1:         语句体1;        break;    case 值2:
         </div>
       </a>
 
@@ -365,15 +365,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/43b10daae19d/" target="_self">
-          构造方法（Constructor）
+        <a href="/posts/318fb91e03a3/" target="_self">
+          逻辑运算符
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/43b10daae19d/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/318fb91e03a3/" target="_self">
         <div>
-          构造方法Constructor概述和格式 A:构造方法概述和作用  给对象的数据(属性)进行初始化   B:构造方法格式特点  a:方法名与类名相同(大小也要与类名一致) b:没有返回值类型，连void都没有 c:没有具体的返回值return;    例子： 1234567public Person() &#123;        	name = &quot;疯狂的小托马斯&quot;;
+          逻辑运算符的基本用法 A:逻辑运算符有哪些  &amp;,|,^,! （位运算符） &amp;&amp;,||   B:案例演示 逻辑运算符的基本用法 注意事项： a:逻辑运算符一般用于连接boolean类型的表达式或者值。 b:表达式：就是用运算符把常量或者变量连接起来的符合java语法的式子。  算术表达式：a + b 比较表达式：a &#x3D;&#x3D; b(条件表达式)     C:结
         </div>
       </a>
 
@@ -433,15 +433,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/760f8596ce5d/" target="_self">
-          继承
+        <a href="/posts/c25d691cf8db/" target="_self">
+          键盘录入的基本格式
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/760f8596ce5d/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/c25d691cf8db/" target="_self">
         <div>
-          格式让类与类之间产生关系,子父类关系。 例子： 1234567891011class Animal &#123;    String color;    int leg;        public void eat()&#123;        System.out.println(&quot;eat&quot;);    &#125;&#125;class Cat extends Animal
+          步骤：  a:导包  格式：  import java.util.Scanner;  位置：  在class上面。   b:创建键盘录入对象  格式：  Scanner sc = new Scanner(System.in);     c:通过对象获取数据  格式：  int x = sc.nextInt();        例子： 12345678910111213import java.uti
         </div>
       </a>
 
@@ -501,15 +501,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/80e49b175985/" target="_self">
-          说明书的制作过程
+        <a href="/posts/6cb95dcc346b/" target="_self">
+          隐式转换and强制转换
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/80e49b175985/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/6cb95dcc346b/" target="_self">
         <div>
-          A:对工具类加入文档注释  B:通过javadoc命令生成说明书   @author(提取作者内容) @version(提取版本内容) javadoc -d 指定的文件目录 -author -version ArrayTool.java @param 参数名称&#x2F;&#x2F;形式参数的变量名称@return 函数运行完返回的数据    例子： 1234567891011121314151
+          A:案例演示  a:int + int b:byte + int  a：int + int &#x3D; int b: byte + int &#x3D; int     B:Java中的默认转换规则 取值范围小的数据类型与取值范围大的数据类型进行运算,会先将小的数据类型提升为大的,再运算   A:案例演示 面试题:看下面的程序是否有问题，如果有问题，请指出并说明理由。 byte b1 &#x3
         </div>
       </a>
 
@@ -569,15 +569,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/f5ef3e713f2a/" target="_self">
-          11.5. 剖析
+        <a href="/posts/e8dcff2825b6/" target="_self">
+          Collection
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/f5ef3e713f2a/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/e8dcff2825b6/" target="_self">
         <div>
-          性能分析过早的优化是万恶之源！自动化的剖析技术是基于程序执行期间一些抽样数据，然后推断后面的执行状态；最终产生一个运行时间的统计数据文件。 Go语言支持多种类型的剖析性能分析，内建的go test工具对几种分析方式都提供了支持：  CPU分析,CPU分析文件标识了函数执行时所需要的CPU时间。  当前运行的系统线程在每隔几毫秒都会遇到操作系统的中断事件，每次中断时都会记录一个分析文件然后恢复正常的
+          集合与数组区别存储 数组既能存储基本数据类型，也能存储引用数据类型，基本数据类型存储的是值，而引用数据类型存储的是地址值。 集合只能存储引用数据类型，虽然也能存储基本数据类型，但是存储基本数据类型时会自动装箱。  长度 数组长度是固定的，不能自动增长。 集合长度是可变的，是能够根据元素个数的增加而自动增长。  Collection结构 List 有序，存取顺序一一对应，有索引，可重复存储 Arra
         </div>
       </a>
 
@@ -585,8 +585,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-21 15:52" pubdate>
-              2023-03-21
+            <time datetime="2024-03-24 00:22" pubdate>
+              2024-03-24
             </time>
           </div>
         
@@ -601,12 +601,12 @@
     
       <span class="category-chain">
         
-  <a href="/categories/go/" class="category-chain-item">go</a>
+  <a href="/categories/java/" class="category-chain-item">java</a>
   
   
     <span>></span>
     
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
   
   
 
@@ -623,9 +623,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/go/">#go</a>
-            
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+              <a href="/tags/%E3%80%90java%E3%80%91/">#【java】</a>
             
           </div>
         
@@ -639,15 +637,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/a1b71dd23f51/" target="_self">
-          11.4. 基准测试
+        <a href="/posts/b1f62f45a7c7/" target="_self">
+          Java中的内存分配以及栈和堆的区别
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/a1b71dd23f51/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/b1f62f45a7c7/" target="_self">
         <div>
-          基准测试是测量一个程序在固定工作负载下的性能。以Benchmark为前缀名，并且带有一个*testing.B类型的参数；*testing.B参数除了提供和*testing.T类似的方法，还有额外一些和性能测量相关的方法。它还提供了一个整数N，用于指定操作执行的循环次数。 下面是IsPalindrome的基准测试函数，将循环调用多次： 12345func BenchmarkIsPalindrome(
+          栈  先进后出 存储局部变量   堆  存储new出来的数组或对象   方法区  面向对象部分讲解   本地方法区  和系统相关   寄存器  给CPU使用
         </div>
       </a>
 
@@ -655,8 +653,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-21 14:52" pubdate>
-              2023-03-21
+            <time datetime="2024-03-24 00:22" pubdate>
+              2024-03-24
             </time>
           </div>
         
@@ -671,12 +669,12 @@
     
       <span class="category-chain">
         
-  <a href="/categories/go/" class="category-chain-item">go</a>
+  <a href="/categories/java/" class="category-chain-item">java</a>
   
   
     <span>></span>
     
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
   
   
 
@@ -693,9 +691,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/go/">#go</a>
-            
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+              <a href="/tags/java/">#java</a>
             
           </div>
         
@@ -709,15 +705,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/79be1aaa69b3/" target="_self">
-          11.3. 测试覆盖率
+        <a href="/posts/1efa0aba8621/" target="_self">
+          Elasticsearch和Kibana的使用
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/79be1aaa69b3/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/1efa0aba8621/" target="_self">
         <div>
-          由测试驱动触发运行到的被测试函数的代码数目称为测试的覆盖率。测试覆盖率并不能量化——甚至连最简单的动态程序也难以精确测量——但是可以启发并帮助我们编写的有效的测试代码。 语句的覆盖率是指在测试中至少被运行一次的代码占总代码数的比例。在本节中，我们使用go test命令中集成的测试覆盖率工具，来度量下面代码的测试覆盖率，帮助我们识别测试和我们期望间的差距。 下面的代码是一个表格驱动的测试，用于测试第
+          Elasticsearch 相关命令 后台运行Elasticsearch  1./elasticsearch-7.12.1/bin/elasticsearch -d  Kibana 相关命令 启动  非守护线程启动  1./kibana-7.12.1-linux-x86_64/bin/kibana 后台启动  12cd ./kibana-7.12.1-linux-x86_64/bin/nohup
         </div>
       </a>
 
@@ -725,8 +721,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-21 13:52" pubdate>
-              2023-03-21
+            <time datetime="2024-03-24 00:22" pubdate>
+              2024-03-24
             </time>
           </div>
         
@@ -741,15 +737,8 @@
     
       <span class="category-chain">
         
-  <a href="/categories/go/" class="category-chain-item">go</a>
+  <a href="/categories/Linux/" class="category-chain-item">Linux</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
-  
-  
-
   
 
       </span>
@@ -763,9 +752,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/go/">#go</a>
+              <a href="/tags/Elasticsearch/">#Elasticsearch</a>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+              <a href="/tags/Kibana/">#Kibana</a>
             
           </div>
         
@@ -779,15 +768,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/0bc5b76177c6/" target="_self">
-          11.2. 测试函数
+        <a href="/posts/7bfa36ff30db/" target="_self">
+          Java中的引用
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/0bc5b76177c6/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/7bfa36ff30db/" target="_self">
         <div>
-          每个测试函数必须导入test包。测试函数格式如下： 123func TestName(t *testing.T) &#123;	//...&#125;  测试函数必须以Test为前缀，可选的后缀名必须以大写开头。 123func Test(t *testing.T)&#123;...&#125;func TestSin(t *testing.T)&#123;...&#125;func TestCo
+          1. 强引用、软引用、弱引用和虚引用1.1 强引用（Strong Reference）被强引用的对象，不会被垃圾回收器回收。 1Integer prime = 1;  1.2 软引用（Soft Reference）如果一个对象只被软引用时，当JVM内存足够时，对象不会被垃圾回收器回收；如果内存不足时，就会回收这类对象。 1234Integer prime = 1;SoftReference&lt;
         </div>
       </a>
 
@@ -795,8 +784,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-21 12:52" pubdate>
-              2023-03-21
+            <time datetime="2024-03-24 00:22" pubdate>
+              2024-03-24
             </time>
           </div>
         
@@ -811,12 +800,12 @@
     
       <span class="category-chain">
         
-  <a href="/categories/go/" class="category-chain-item">go</a>
+  <a href="/categories/java/" class="category-chain-item">java</a>
   
   
     <span>></span>
     
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
   
   
 
@@ -833,9 +822,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/go/">#go</a>
-            
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+              <a href="/tags/java/">#java</a>
             
           </div>
         
@@ -849,15 +836,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/84a75b89cf5a/" target="_self">
-          11.1 go test
+        <a href="/posts/3ba86ac31720/" target="_self">
+          Static关键字
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/84a75b89cf5a/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/3ba86ac31720/" target="_self">
         <div>
-          Go语言关于测试的命令为go test。在包目录范围内，所有以_test.go结尾的源代码文件，并非属于go build框架，而是属于go test测试的一部分。 在*_test.go文件中，一共有三种函数：  测试函数 测试函数以Test为前缀，用于测试函数的逻辑是否正确。   基准测试函数 基准测试函数以Benchmark为前缀，用于衡量函数的性能。   示例函数 示例函数以Example为前
+          static关键字的特点 a:随着类的加载而加载  b:优先于对象存在 c:被类的所有对象共享  举例：咱们班级的学生应该共用同一个班级编号。 其实这个特点也是在告诉我们什么时候使用静态?  如果某个成员变量是被所有对象共享的，那么它就应该定义为静态的。   举例：  饮水机(用静态修饰) 水杯(不能用静态修饰) 共性用静态,特性用非静态     d:可以通过类名调用  其实它本身也可以通过对象名
         </div>
       </a>
 
@@ -865,8 +852,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-21 11:52" pubdate>
-              2023-03-21
+            <time datetime="2024-03-24 00:22" pubdate>
+              2024-03-24
             </time>
           </div>
         
@@ -881,12 +868,12 @@
     
       <span class="category-chain">
         
-  <a href="/categories/go/" class="category-chain-item">go</a>
+  <a href="/categories/java/" class="category-chain-item">java</a>
   
   
     <span>></span>
     
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
   
   
 
@@ -903,9 +890,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/go/">#go</a>
-            
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+              <a href="/tags/java/">#java</a>
             
           </div>
         
@@ -917,7 +902,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/8/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/#board">7</a><a class="page-number" href="/page/8/#board">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/#board">10</a><a class="page-number" href="/page/11/#board">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/#board">19</a><a class="extend next" rel="next" href="/page/10/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/8/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/#board">7</a><a class="page-number" href="/page/8/#board">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/#board">10</a><a class="page-number" href="/page/11/#board">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/#board">21</a><a class="extend next" rel="next" href="/page/10/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

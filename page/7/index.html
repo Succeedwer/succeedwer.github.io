@@ -229,15 +229,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/318fb91e03a3/" target="_self">
-          逻辑运算符
+        <a href="/posts/00e89fa8a397/" target="_self">
+          快速入门
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/318fb91e03a3/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/00e89fa8a397/" target="_self">
         <div>
-          逻辑运算符的基本用法 A:逻辑运算符有哪些  &amp;,|,^,! （位运算符） &amp;&amp;,||   B:案例演示 逻辑运算符的基本用法 注意事项： a:逻辑运算符一般用于连接boolean类型的表达式或者值。 b:表达式：就是用运算符把常量或者变量连接起来的符合java语法的式子。  算术表达式：a + b 比较表达式：a &#x3D;&#x3D; b(条件表达式)     C:结
+          安装在go项目根目录下，下载Gin包。 1go get github.com/gin-gonic/gin  等待下载完成后，即可引用。 Hello, world在项目中，创建1.hello_world.go。 123456789101112131415package mainimport &quot;github.com/gin-gonic/gin&quot;func main() &#123;
         </div>
       </a>
 
@@ -261,13 +261,20 @@
     
       <span class="category-chain">
         
-  <a href="/categories/java/" class="category-chain-item">java</a>
+  <a href="/categories/go/" class="category-chain-item">go</a>
   
   
     <span>></span>
     
-  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/gin/" class="category-chain-item">gin</a>
+  
+  
+
   
 
   
@@ -283,7 +290,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/java/">#java</a>
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/gin/">#gin</a>
             
           </div>
         
@@ -297,15 +306,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/dcd9648973f8/" target="_self">
-          转义字符
+        <a href="/posts/d78c65a022bc/" target="_self">
+          响应
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/dcd9648973f8/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/d78c65a022bc/" target="_self">
         <div>
-          &#39;\x&#39;， x表示任意，\是转义符号,这种做法叫转移字符。 12345&#x27;\t&#x27; tab键的位置&#x27;\r&#x27; 回车&#x27;\n&#x27; 换行&#x27;\&quot;&#x27; 转义&quot;&#x27;\&#x27;&#x27; 转义&#x27;   注意： &quot;\x&quot; 和&#39;\x&#39;是一样的。
+          字符串1234567891011func text(c *gin.Context) &#123;	c.String(http.StatusOK, &quot;我是字符串&quot;)&#125;func main() &#123;	r := gin.Default()	r.GET(&quot;/text&quot;, text)	r.Run()&#125;  响应： 1我是字符串  json123
         </div>
       </a>
 
@@ -329,13 +338,20 @@
     
       <span class="category-chain">
         
-  <a href="/categories/java/" class="category-chain-item">java</a>
+  <a href="/categories/go/" class="category-chain-item">go</a>
   
   
     <span>></span>
     
-  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/gin/" class="category-chain-item">gin</a>
+  
+  
+
   
 
   
@@ -351,7 +367,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/java/">#java</a>
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/gin/">#gin</a>
             
           </div>
         
@@ -365,15 +383,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/3860f641048a/" target="_self">
-          选择结构switch语句
+        <a href="/posts/bd6dc8c5f59e/" target="_self">
+          日志
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/3860f641048a/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/bd6dc8c5f59e/" target="_self">
         <div>
-          switch语句的格式1234567891011switch(表达式)&#123; // 基本数据类型可以接受byte,short,char,int.（能升级到int的类型）  引用数据类型可以接受枚举（JDK1.5）String字符串（JDK1.7）                     case 值1:         语句体1;        break;    case 值2:
+          将日志写入文件123456789101112131415161718192021222324package mainimport (	&quot;github.com/gin-gonic/gin&quot;	&quot;io&quot;	&quot;os&quot;)func main() &#123;    file, _ := os.OpenFile(&quot;log/gin.log&quo
         </div>
       </a>
 
@@ -397,13 +415,20 @@
     
       <span class="category-chain">
         
-  <a href="/categories/java/" class="category-chain-item">java</a>
+  <a href="/categories/go/" class="category-chain-item">go</a>
   
   
     <span>></span>
     
-  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/gin/" class="category-chain-item">gin</a>
+  
+  
+
   
 
   
@@ -419,7 +444,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/java/">#java</a>
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/gin/">#gin</a>
             
           </div>
         
@@ -433,15 +460,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/c25d691cf8db/" target="_self">
-          键盘录入的基本格式
+        <a href="/posts/66a9c92ddb73/" target="_self">
+          查询参数Query
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/c25d691cf8db/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/66a9c92ddb73/" target="_self">
         <div>
-          步骤：  a:导包  格式：  import java.util.Scanner;  位置：  在class上面。   b:创建键盘录入对象  格式：  Scanner sc = new Scanner(System.in);     c:通过对象获取数据  格式：  int x = sc.nextInt();        例子： 12345678910111213import java.uti
+          Query即从url的查询参数中获取参数。 1http://path/to/query?[参数名1]=[参数值1]&amp;[参数名2]=[参数值2]    12345678910111213141516171819package mainimport (	&quot;fmt&quot;	gin &quot;github.com/gin-gonic/gin&quot;)func main() &#
         </div>
       </a>
 
@@ -465,13 +492,20 @@
     
       <span class="category-chain">
         
-  <a href="/categories/java/" class="category-chain-item">java</a>
+  <a href="/categories/go/" class="category-chain-item">go</a>
   
   
     <span>></span>
     
-  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/gin/" class="category-chain-item">gin</a>
+  
+  
+
   
 
   
@@ -487,7 +521,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/java/">#java</a>
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/gin/">#gin</a>
             
           </div>
         
@@ -501,15 +537,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/6cb95dcc346b/" target="_self">
-          隐式转换and强制转换
+        <a href="/posts/f6ee75a1ecbd/" target="_self">
+          表单参数Form
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/6cb95dcc346b/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/f6ee75a1ecbd/" target="_self">
         <div>
-          A:案例演示  a:int + int b:byte + int  a：int + int &#x3D; int b: byte + int &#x3D; int     B:Java中的默认转换规则 取值范围小的数据类型与取值范围大的数据类型进行运算,会先将小的数据类型提升为大的,再运算   A:案例演示 面试题:看下面的程序是否有问题，如果有问题，请指出并说明理由。 byte b1 &#x3
+          表单参数即是从表单中获取参数。 1234567891011121314151617181920212223242526func main() &#123;	r := gin.Default()	/*		username:wer		age:30		accountInfo[id]:1		accountInfo[amount]:99999999		height:184		language:c,c++,g
         </div>
       </a>
 
@@ -533,13 +569,20 @@
     
       <span class="category-chain">
         
-  <a href="/categories/java/" class="category-chain-item">java</a>
+  <a href="/categories/go/" class="category-chain-item">go</a>
   
   
     <span>></span>
     
-  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/gin/" class="category-chain-item">gin</a>
+  
+  
+
   
 
   
@@ -555,7 +598,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/java/">#java</a>
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/gin/">#gin</a>
             
           </div>
         
@@ -569,15 +614,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/e8dcff2825b6/" target="_self">
-          Collection
+        <a href="/posts/80ceeac6365f/" target="_self">
+          路径参数Param
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/e8dcff2825b6/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/80ceeac6365f/" target="_self">
         <div>
-          集合与数组区别存储 数组既能存储基本数据类型，也能存储引用数据类型，基本数据类型存储的是值，而引用数据类型存储的是地址值。 集合只能存储引用数据类型，虽然也能存储基本数据类型，但是存储基本数据类型时会自动装箱。  长度 数组长度是固定的，不能自动增长。 集合长度是可变的，是能够根据元素个数的增加而自动增长。  Collection结构 List 有序，存取顺序一一对应，有索引，可重复存储 Arra
+          动态参数Param，即url的path上获取参数。 1http://path/to/[参数值]  12345678910func main() &#123;	r := gin.Default()	// http://127.0.0.1:8080/userInfo/123456	r.POST(&quot;/userInfo/:id&quot;, func(c *gin.Context) &#123;
         </div>
       </a>
 
@@ -601,13 +646,20 @@
     
       <span class="category-chain">
         
-  <a href="/categories/java/" class="category-chain-item">java</a>
+  <a href="/categories/go/" class="category-chain-item">go</a>
   
   
     <span>></span>
     
-  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/gin/" class="category-chain-item">gin</a>
+  
+  
+
   
 
   
@@ -623,7 +675,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E3%80%90java%E3%80%91/">#【java】</a>
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/gin/">#gin</a>
             
           </div>
         
@@ -637,15 +691,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/b1f62f45a7c7/" target="_self">
-          Java中的内存分配以及栈和堆的区别
+        <a href="/posts/57c8ef506fa3/" target="_self">
+          路由分组
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/b1f62f45a7c7/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/57c8ef506fa3/" target="_self">
         <div>
-          栈  先进后出 存储局部变量   堆  存储new出来的数组或对象   方法区  面向对象部分讲解   本地方法区  和系统相关   寄存器  给CPU使用
+          路由分组1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798991001011
         </div>
       </a>
 
@@ -669,13 +723,20 @@
     
       <span class="category-chain">
         
-  <a href="/categories/java/" class="category-chain-item">java</a>
+  <a href="/categories/go/" class="category-chain-item">go</a>
   
   
     <span>></span>
     
-  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/gin/" class="category-chain-item">gin</a>
+  
+  
+
   
 
   
@@ -691,7 +752,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/java/">#java</a>
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/gin/">#gin</a>
             
           </div>
         
@@ -705,15 +768,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/7bfa36ff30db/" target="_self">
-          Java中的引用
+        <a href="/posts/c90d75f34831/" target="_self">
+          请求头和响应头
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/7bfa36ff30db/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/c90d75f34831/" target="_self">
         <div>
-          1. 强引用、软引用、弱引用和虚引用1.1 强引用（Strong Reference）被强引用的对象，不会被垃圾回收器回收。 1Integer prime = 1;  1.2 软引用（Soft Reference）如果一个对象只被软引用时，当JVM内存足够时，对象不会被垃圾回收器回收；如果内存不足时，就会回收这类对象。 1234Integer prime = 1;SoftReference&lt;
+          12345678910111213141516func main() &#123;	r := gin.Default()	r.GET(&quot;/header&quot;, func(c *gin.Context) &#123;		// 请求头		// 不分大小写		fmt.Println(c.GetHeader(&quot;content-type&quot;))		fmt.Println(c
         </div>
       </a>
 
@@ -737,13 +800,20 @@
     
       <span class="category-chain">
         
-  <a href="/categories/java/" class="category-chain-item">java</a>
+  <a href="/categories/go/" class="category-chain-item">go</a>
   
   
     <span>></span>
     
-  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/gin/" class="category-chain-item">gin</a>
+  
+  
+
   
 
   
@@ -759,7 +829,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/java/">#java</a>
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/gin/">#gin</a>
             
           </div>
         
@@ -773,15 +845,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/1efa0aba8621/" target="_self">
-          Elasticsearch和Kibana的使用
+        <a href="/posts/b8bb40761f9a/" target="_self">
+          重定向
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/1efa0aba8621/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/b8bb40761f9a/" target="_self">
         <div>
-          Elasticsearch 相关命令 后台运行Elasticsearch  1./elasticsearch-7.12.1/bin/elasticsearch -d  Kibana 相关命令 启动  非守护线程启动  1./kibana-7.12.1-linux-x86_64/bin/kibana 后台启动  12cd ./kibana-7.12.1-linux-x86_64/bin/nohup
+          123456789101112131415161718192021222324252627282930func main() &#123;	r := gin.Default()	// 301 永久重定向	r.GET(&quot;/redirect1&quot;, func(c *gin.Context) &#123;		c.Redirect(http.StatusMovedPermanently,
         </div>
       </a>
 
@@ -805,8 +877,22 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Linux/" class="category-chain-item">Linux</a>
+  <a href="/categories/go/" class="category-chain-item">go</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/gin/" class="category-chain-item">gin</a>
+  
+  
+
+  
+
   
 
       </span>
@@ -820,9 +906,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/Elasticsearch/">#Elasticsearch</a>
+              <a href="/tags/go/">#go</a>
             
-              <a href="/tags/Kibana/">#Kibana</a>
+              <a href="/tags/gin/">#gin</a>
             
           </div>
         
@@ -836,15 +922,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/3ba86ac31720/" target="_self">
-          Static关键字
+        <a href="/posts/a79d93f065e5/" target="_self">
+          静态文件服务
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/3ba86ac31720/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/a79d93f065e5/" target="_self">
         <div>
-          static关键字的特点 a:随着类的加载而加载  b:优先于对象存在 c:被类的所有对象共享  举例：咱们班级的学生应该共用同一个班级编号。 其实这个特点也是在告诉我们什么时候使用静态?  如果某个成员变量是被所有对象共享的，那么它就应该定义为静态的。   举例：  饮水机(用静态修饰) 水杯(不能用静态修饰) 共性用静态,特性用非静态     d:可以通过类名调用  其实它本身也可以通过对象名
+          12345678910111213141516171819package mainimport (	&quot;github.com/gin-gonic/gin&quot;	&quot;net/http&quot;)func main() &#123;	r := gin.Default()	r.Static(&quot;/assert&quot;, &quot;assert&quot;)	// 文
         </div>
       </a>
 
@@ -868,13 +954,20 @@
     
       <span class="category-chain">
         
-  <a href="/categories/java/" class="category-chain-item">java</a>
+  <a href="/categories/go/" class="category-chain-item">go</a>
   
   
     <span>></span>
     
-  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/gin/" class="category-chain-item">gin</a>
+  
+  
+
   
 
   
@@ -890,7 +983,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/java/">#java</a>
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/gin/">#gin</a>
             
           </div>
         
@@ -902,7 +997,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/6/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/#board">5</a><a class="page-number" href="/page/6/#board">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/#board">8</a><a class="page-number" href="/page/9/#board">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/#board">19</a><a class="extend next" rel="next" href="/page/8/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/6/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/#board">5</a><a class="page-number" href="/page/6/#board">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/#board">8</a><a class="page-number" href="/page/9/#board">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/#board">21</a><a class="extend next" rel="next" href="/page/8/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

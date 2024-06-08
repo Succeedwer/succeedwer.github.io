@@ -229,15 +229,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/dbf617f2750e/" target="_self">
-          8.8. 示例：并发的字典遍历
+        <a href="/posts/2b3895c22904/" target="_self">
+          第十一章 测试
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/dbf617f2750e/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/2b3895c22904/" target="_self">
         <div>
-          题目创建一个程序来统计指定目录下的硬盘使用报告，即文件大小，与linux中的du命令类似。 思路毫无疑问，这道题要使用递归去解决。  创建walkDir递归函数，用于获取下层目录，并统计文件大小。 创建dirents函数用于读取目录下的文件目录。 使用fileSize channel去接受发送文件大小。 接收fileSize channel去累加文件大小。  第一个版本该版本比较直白，下面是它的步
+          Go语言的测试技术是相对低级的。它依赖一个go test测试命令和一组按照约定方式编写的测试函数，测试命令可以运行这些测试函数。 11.1. go test 11.2. 测试函数 11.3. 测试覆盖率 11.4. 基准测试 11.5. 剖析 11.6. 示例函数
         </div>
       </a>
 
@@ -245,8 +245,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 18:52" pubdate>
-              2023-03-18
+            <time datetime="2023-03-21 10:52" pubdate>
+              2023-03-21
             </time>
           </div>
         
@@ -299,15 +299,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/866000668cee/" target="_self">
-          8.7. 基于select的多路复用
+        <a href="/posts/c1eef8565635/" target="_self">
+          10.7. 工具
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/866000668cee/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/c1eef8565635/" target="_self">
         <div>
-          select下面以火箭发射倒计时为例，说明select的多路复用。 123456789101112131415161718192021// Countdown implement the countdown for a rocket launch.package mainimport (	&quot;fmt&quot;	&quot;time&quot;)func main() &#123;	fmt
+          可以使用go或go help获取内置的帮助文档。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253$ goGo is a tool for managing Go source code.Usage:	go &lt;command&gt; [argume
         </div>
       </a>
 
@@ -315,8 +315,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 17:52" pubdate>
-              2023-03-18
+            <time datetime="2023-03-20 17:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -369,15 +369,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/1258766bd2ef/" target="_self">
-          8.6. 示例：并发的Web爬虫
+        <a href="/posts/26ffbeb103e4/" target="_self">
+          10.6. 包的命名
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/1258766bd2ef/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/26ffbeb103e4/" target="_self">
         <div>
-          在先前的学习中，学习过简单爬虫算法，用bfs(广度优先)算法来抓取整个网站。下面对其进行优化： 12345678910111213141516171819202122232425262728293031323334353637// Crawl1 crawls web links starting with the command-line arguments.package mainimport
+          包的命名规则：  命名尽量短小 要尽量避免与常用的局部变量重复 尽量使用单数形式 避免与预定义类型冲突，可以复数形式 避免与关键字冲突，可以复数形式 避免包名歧义  当设计一个包时，要考虑包名与方法&#x2F;函数&#x2F;成员变量名配合。 1flag.Int	bytes.Equal		http.Get  也有可能包名与方法、函数和成员名重复。 1rand.Rand 所以，包名要尽量简洁短小。
         </div>
       </a>
 
@@ -385,8 +385,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 16:52" pubdate>
-              2023-03-18
+            <time datetime="2023-03-20 16:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -439,15 +439,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/5f0a41aff939/" target="_self">
-          8.5. 并发的循环
+        <a href="/posts/85c6d629ce42/" target="_self">
+          10.5. 包的匿名导入
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/5f0a41aff939/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/85c6d629ce42/" target="_self">
         <div>
-          在并发的情况下，循环迭代的程序往往要注意一些问题。下面引用对图片批量压缩的例子进行解析。thumbnail.go是关于拉伸图片的方法。 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707
+          如果导入一个包而不去使用这个包，那么就会导致编译错误。但是只想使用导入包的而产生的副作用，如“计算包级变量的初始化表达式和执行导入包的init初始化函数”。这时候，需要抑制该编译错误，可以 使用—下划线空白标识符，重命名导入的包。空白标识符表示，不能被访问。 1improt _ &quot;image/png&quot; 这种行为被称为包的匿名导入。它通常是用来实现一个编译时机制，然后通过在mai
         </div>
       </a>
 
@@ -455,8 +455,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 15:52" pubdate>
-              2023-03-18
+            <time datetime="2023-03-20 15:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -509,15 +509,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/e24baaf2eab7/" target="_self">
-          8.4. Channels
+        <a href="/posts/7c1cbb35e653/" target="_self">
+          10.4. 导入声明
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/e24baaf2eab7/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/7c1cbb35e653/" target="_self">
         <div>
-          基本信息定义如果说goroutine是go语言的并发体，那么Channels是它们之间的通信机制。一个goroutine可以通过Channels发送信息给另一个goroutine。每个Channels都有其可发送的数据的数据类型，如一个可以发送int类型数据的channel一般写为chan int。 创建channel使用内置的make函数，我们可以创建一个channel： 1ch := make
+          每个导入声明可以单独指定导入路径，也可以通过圆括号同时导入多个导入路径。 1234567import &quot;fmt&quot;import &quot;os&quot;improt (	&quot;fmt&quot;	&quot;os&quot;)  导入的包之间可以通过添加空行来分组。通常将来自不同组织的包进行独立分组。 包的导入顺序无关紧要，但是每个分组中一般会根据字符串顺序排序。（go
         </div>
       </a>
 
@@ -525,8 +525,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 14:52" pubdate>
-              2023-03-18
+            <time datetime="2023-03-20 14:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -579,15 +579,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/10cf7d1432ab/" target="_self">
-          8.3. 示例：并发的Echo服务器
+        <a href="/posts/376c63460620/" target="_self">
+          10.3. 包声明
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/10cf7d1432ab/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/376c63460620/" target="_self">
         <div>
-          Echo服务器一般情况下会返回它接收到的内容。类似回音，一开始返回全大写的内容，如HELLO，表示声音很大； 间隔一定时间后，返回有所缓和的Hello；最后返回一个表示声音很小的全小写hello直至消失。 123456789101112131415161718192021222324252627282930313233343536373839404142// Reverb1 is a TCP se
+          每个go语言源码文件开头必须是包声明语句。包声明语句的主要目的是确定当前包被其它包导入时默认的标识符（也称为包名）。 如 math&#x2F;rand包的每个源码文件开头都是package rand。 通常来说，默认的包名就是包导入路径名的最后一段，因此即使两个包的导入路径不同，它们依然可能有一个相同的包名。 关于默认包名一般采用导入路径名的最后一段的约定也有三种例外情况。  第一个例外，包对应一
         </div>
       </a>
 
@@ -595,8 +595,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 13:52" pubdate>
-              2023-03-18
+            <time datetime="2023-03-20 13:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -649,15 +649,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/fca3f5579354/" target="_self">
-          8.2. 示例：并发的Clock服务
+        <a href="/posts/ce5416f3abff/" target="_self">
+          10.2. 导入路径
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/fca3f5579354/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/ce5416f3abff/" target="_self">
         <div>
-          网络编程是并发大显身手的一个领域，由于服务器是最典型的需要同时处理很多连接的程序，这些连接一般来自远彼此独立的客户端。 第一个例子第一个例子是一个顺序执行的时钟服务器，它会每隔一秒钟将当前时间写到客户端： 123456789101112131415161718192021222324252627282930313233343536// Clock1 is a TCP server that per
+          每个包是由一个全局唯一的字符串所标识的导入路径定位。 import语句中的字符串就是导入路径。 123456789import (    &quot;fmt&quot;    &quot;math/rand&quot;    &quot;encoding/json&quot;    &quot;golang.org/x/net/html&quot;    &quot;github.com/go-s
         </div>
       </a>
 
@@ -665,8 +665,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 12:52" pubdate>
-              2023-03-18
+            <time datetime="2023-03-20 12:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -719,15 +719,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/dbf6e956aad2/" target="_self">
-          8.1. Goroutines
+        <a href="/posts/a912c21440d0/" target="_self">
+          10.1. 包简介
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/dbf6e956aad2/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/a912c21440d0/" target="_self">
         <div>
-          在Go语言中，每一个并发的执行单元叫作一个goroutine。新的goroutine会用go语句来创建。在语法上，go语句是一个普通的函数或方法调用前加上关键字go。 12f()go f() 下面的例子，main goroutine将计算菲波那契数列的第45个元素值。 1234567891011121314151617181920212223242526272829package mainimpo
+          任何包系统的设计目的离不开，抽象，封装和复用。为了简化大型程序的设计和维护工作，通过将一系列相关的特性放入一个独立的单元以理解和更新。在每个单元更新时也同时保持和程序中其它单元的相对独立性。这种模块化的特性允许每个包可以被其它不同的项目共享和重用，在项目范围内，甚至全世界范围内统一分发和复用。 包还通过控制包内名字的可见性和是否导出来实现封装特性。 Go语言的闪电般的编译速度主要得益于三个语言特性
         </div>
       </a>
 
@@ -735,8 +735,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 11:52" pubdate>
-              2023-03-18
+            <time datetime="2023-03-20 11:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -789,15 +789,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/160e8baeca27/" target="_self">
-          第八章 Goroutines和Channels
+        <a href="/posts/94532dfae374/" target="_self">
+          第十章 包和工具
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/160e8baeca27/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/94532dfae374/" target="_self">
         <div>
-          并发程序指同时进行多个任务的程序。Go语言中的并发程序可以用两种手段来实现。  goroutine channel  还支持顺序通信进程（communicating sequential processes），简称CSP。CSP是一种现代的并发编程模型，在这种编程模型中值会在不同的运行实例goroutine中传递，尽管会别被限制在单一实例中。第9章则是更为传统的并发模型：多线程共享内存。 8.1.
+          本章主要讲go语言的包及其工具。查询Go语言下的包数量： 12$ go list std | wc -l			240  10.1. 包简介10.2. 导入路径10.3. 包声明10.4. 导入声明10.5. 包的匿名导入10.6. 包和命名10.7. 工具
         </div>
       </a>
 
@@ -805,8 +805,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 10:52" pubdate>
-              2023-03-18
+            <time datetime="2023-03-20 10:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -859,15 +859,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/8520b52085ef/" target="_self">
-          7.15. 一些建议
+        <a href="/posts/85a231e79892/" target="_self">
+          9.8. Goroutine和线程
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/8520b52085ef/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/85a231e79892/" target="_self">
         <div>
-          当设计一个新包时，一般情况下是创建一个接口的集合开始和定义它们的具体类型。这种方式会导致有很多接口，且每一个都会仅有一个实现。这种设计方式是错误的，这种接口是不必要的抽象，且还有运行时损耗。实际上，可以使用导出机制来限制一个类型的方法或一个结构体的字段是否在包外可见。接口只有在当两个或两个以上的具体类型必须以相同的方式进行处理时才需要。 当一个接口只被一个具体类型实现时，往往是因为依赖，即依赖于另
+          本章主要内容：Goroutine和线程的区别。 9.8.1 动态栈每个OS线程都拥有一个固定大小的内存块（一般为2MB）作为栈，该栈用于存储函数调用或挂起（调用其它函数时）的函数内部变量。Goroutine的栈大小并不是固定的，可以根据需要动态伸缩的。 Goroutine会以很小的栈开始生命周期，一般为2KB。 与OS线程一样，Goroutine的栈同样存储其活跃或挂起的函数内部变量。 练习练习
         </div>
       </a>
 
@@ -875,8 +875,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 00:59" pubdate>
-              2023-03-18
+            <time datetime="2023-03-19 18:52" pubdate>
+              2023-03-19
             </time>
           </div>
         
@@ -927,7 +927,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/11/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/#board">10</a><a class="page-number" href="/page/11/#board">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/#board">13</a><a class="page-number" href="/page/14/#board">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/#board">19</a><a class="extend next" rel="next" href="/page/13/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/11/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/#board">10</a><a class="page-number" href="/page/11/#board">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/#board">13</a><a class="page-number" href="/page/14/#board">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/#board">21</a><a class="extend next" rel="next" href="/page/13/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
