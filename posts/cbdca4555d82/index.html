@@ -1,0 +1,1180 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="环境  JDK 1.8 Redis 6.2.1 Redis Cluster 有6个节点，端口7001到7006，使用的内环地址127.0.0.1搭建。 最新版本，2021年4月份发布的 环境使用了ACLS，Access Conttrol Lists Jedis 3.6.0 Redis Cluster 搭建环境： Ubuntu 19.10 RedisDesktopManager 可视化工具   问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jedis连接Redis Cluster的java.net.SocketTimeoutException: connect timed out">
+<meta property="og:url" content="https://succeedwer.github.io/posts/cbdca4555d82/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:description" content="环境  JDK 1.8 Redis 6.2.1 Redis Cluster 有6个节点，端口7001到7006，使用的内环地址127.0.0.1搭建。 最新版本，2021年4月份发布的 环境使用了ACLS，Access Conttrol Lists Jedis 3.6.0 Redis Cluster 搭建环境： Ubuntu 19.10 RedisDesktopManager 可视化工具   问题">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-10-25T14:49:40.979Z">
+<meta property="article:modified_time" content="2024-03-19T17:10:09.530Z">
+<meta property="article:author" content="WER">
+<meta property="article:tag" content="java，Redis">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Jedis连接Redis Cluster的java.net.SocketTimeoutException: connect timed out - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Jedis连接Redis Cluster的java.net.SocketTimeoutException: connect timed out"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        WER
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-10-25 22:49" pubdate>
+          2024年10月25日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          22 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java"
+        id="heading-93f725a07423fe1c889f448b33d21f46" role="tab" data-toggle="collapse" href="#collapse-93f725a07423fe1c889f448b33d21f46"
+        aria-expanded="true"
+      >
+        java
+        <span class="list-group-count">(28)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-93f725a07423fe1c889f448b33d21f46"
+           role="tabpanel" aria-labelledby="heading-93f725a07423fe1c889f448b33d21f46">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java基础"
+        id="heading-df7759872e49dfa342518015262abb95" role="tab" data-toggle="collapse" href="#collapse-df7759872e49dfa342518015262abb95"
+        aria-expanded="false"
+      >
+        java基础
+        <span class="list-group-count">(24)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-df7759872e49dfa342518015262abb95"
+           role="tabpanel" aria-labelledby="heading-df7759872e49dfa342518015262abb95">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/0c210e532b9d/" title="Collection"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Collection</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/58f8c37c0a49/" title="Java中的内存分配以及栈和堆的区别"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Java中的内存分配以及栈和堆的区别</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/708919c6d9e0/" title="Java中的引用"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Java中的引用</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/552ebaacb148/" title="Static关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Static关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/5cdffd9e03f0/" title="final关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">final关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/35e723a9266f/" title="main方法的格式详细解释"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">main方法的格式详细解释</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/be461779749d/" title="private关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">private关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c776d93a7408/" title="this关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">this关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/06a316be0730/" title="代码块"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">代码块</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/49e55547527e/" title="创建对象的内存操作"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">创建对象的内存操作</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/ca6ffab33dc6/" title="字符串参与运算"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">字符串参与运算</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/68da12dfb487/" title="工具类中使用静态"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">工具类中使用静态</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/dc8404ef620e/" title="成员变量&amp;局部变量"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">成员变量&amp;局部变量</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/cc01690675fa/" title="控制跳转语句标号"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">控制跳转语句标号</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d224f53d62e3/" title="数组"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数组</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/66d2afd1bbbb/" title="方法重写"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">方法重写</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f708f5e9998e/" title="构造方法（Constructor）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">构造方法（Constructor）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/00a05b632a75/" title="继承"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">继承</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/3e013653e95f/" title="说明书的制作过程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">说明书的制作过程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/bfb6ed6759f8/" title="转义字符"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">转义字符</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/18f7c86a70e9/" title="选择结构switch语句"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">选择结构switch语句</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/75202f6c3ae6/" title="逻辑运算符"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">逻辑运算符</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b30c55904f1b/" title="键盘录入的基本格式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">键盘录入的基本格式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/94114acca2dc/" title="隐式转换and强制转换"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">隐式转换and强制转换</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java进阶"
+        id="heading-f37659ce2630cc205815e63e97ca680d" role="tab" data-toggle="collapse" href="#collapse-f37659ce2630cc205815e63e97ca680d"
+        aria-expanded="false"
+      >
+        java进阶
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-f37659ce2630cc205815e63e97ca680d"
+           role="tabpanel" aria-labelledby="heading-f37659ce2630cc205815e63e97ca680d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/81fdf1638f5e/" title="Spring Cloud"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Spring Cloud</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java错误集"
+        id="heading-15f313469c4c1a0934d8aadb7bf7e364" role="tab" data-toggle="collapse" href="#collapse-15f313469c4c1a0934d8aadb7bf7e364"
+        aria-expanded="true"
+      >
+        java错误集
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-15f313469c4c1a0934d8aadb7bf7e364"
+           role="tabpanel" aria-labelledby="heading-15f313469c4c1a0934d8aadb7bf7e364">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/cbdca4555d82/" title="Jedis连接Redis Cluster的java.net.SocketTimeoutException: connect timed out"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">Jedis连接Redis Cluster的java.net.SocketTimeoutException: connect timed out</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java面试题"
+        id="heading-ad2aaee8db2e74079d35223ebbf1338c" role="tab" data-toggle="collapse" href="#collapse-ad2aaee8db2e74079d35223ebbf1338c"
+        aria-expanded="false"
+      >
+        java面试题
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-ad2aaee8db2e74079d35223ebbf1338c"
+           role="tabpanel" aria-labelledby="heading-ad2aaee8db2e74079d35223ebbf1338c">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/e48f1d3b5509/" title="面试题之Java基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">面试题之Java基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/36f687c14870/" title="面试题之Java多线程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">面试题之Java多线程</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Jedis连接Redis Cluster的java.net.SocketTimeoutException: connect timed out</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><blockquote>
+<ul>
+<li>JDK 1.8</li>
+<li>Redis 6.2.1</li>
+<li>Redis Cluster 有6个节点，端口7001到7006，使用的内环地址127.0.0.1搭建。</li>
+<li>最新版本，2021年4月份发布的</li>
+<li>环境使用了ACLS，Access Conttrol Lists</li>
+<li>Jedis 3.6.0</li>
+<li>Redis Cluster 搭建环境： Ubuntu 19.10</li>
+<li>RedisDesktopManager 可视化工具</li>
+</ul>
+</blockquote>
+<h1 id="问题再现"><a href="#问题再现" class="headerlink" title="问题再现"></a>问题再现</h1><p>框架使用：</p>
+<ul>
+<li>Spring-data-redis 2.5.0</li>
+<li>Jedis 3.6.0</li>
+</ul>
+<p>spring-redis.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span>?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">beans</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;http://www.springframework.org/schema/beans&quot;</span></span><br><span class="hljs-tag"><span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span><br><span class="hljs-tag"><span class="hljs-attr">xmlns:context</span>=<span class="hljs-string">&quot;http://www.springframework.org/schema/context&quot;</span></span><br><span class="hljs-tag"><span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">&quot;http://www.springframework.org/schema/beans</span></span><br><span class="hljs-string"><span class="hljs-tag">http://www.springframework.org/schema/beans/spring-beans.xsd</span></span><br><span class="hljs-string"><span class="hljs-tag">http://www.springframework.org/schema/context</span></span><br><span class="hljs-string"><span class="hljs-tag">http://www.springframework.org/schema/context/spring-context.xsd&quot;</span>&gt;</span><br><br><span class="hljs-comment">&lt;!-- 加载redis.properties--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">context:property-placeholder</span> <span class="hljs-attr">location</span>=<span class="hljs-string">&quot;classpath:redis.properties&quot;</span>/&gt;</span><br><br><span class="hljs-comment">&lt;!-- 注册redisTemplate --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;redisTemplate&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;org.springframework.data.redis.core.RedisTemplate&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;connectionFactory&quot;</span> <span class="hljs-attr">ref</span> = <span class="hljs-string">&quot;jedisConnectionFactory&quot;</span> /&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;keySerializer&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;org.springframework.data.redis.serializer.StringRedisSerializer&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;valueSerializer&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;org.springframework.data.redis.serializer.JdkSerializationRedisSerializer&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;hashKeySerializer&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;org.springframework.data.redis.serializer.StringRedisSerializer&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;hashValueSerializer&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;org.springframework.data.redis.serializer.JdkSerializationRedisSerializer&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span><br><br><br><span class="hljs-comment">&lt;!-- 注册redis连接池管理工厂--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;jedisConnectionFactory&quot;</span></span><br><span class="hljs-tag"><span class="hljs-attr">class</span>=<span class="hljs-string">&quot;org.springframework.data.redis.connection.jedis.JedisConnectionFactory&quot;</span> <span class="hljs-attr">destroy-method</span>=<span class="hljs-string">&quot;destroy&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">constructor-arg</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;redisClusterConfiguration&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">constructor-arg</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;jedisPoolConfig&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;usePool&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;true&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span><br><br><span class="hljs-comment">&lt;!-- 集群配置 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;redisClusterConfiguration&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;org.springframework.data.redis.connection.RedisClusterConfiguration&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;clusterNodes&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">set</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">ref</span> <span class="hljs-attr">bean</span>=<span class="hljs-string">&quot;clusterRedisNodes1&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">ref</span> <span class="hljs-attr">bean</span>=<span class="hljs-string">&quot;clusterRedisNodes2&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">ref</span> <span class="hljs-attr">bean</span>=<span class="hljs-string">&quot;clusterRedisNodes3&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">ref</span> <span class="hljs-attr">bean</span>=<span class="hljs-string">&quot;clusterRedisNodes4&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">ref</span> <span class="hljs-attr">bean</span>=<span class="hljs-string">&quot;clusterRedisNodes5&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">ref</span> <span class="hljs-attr">bean</span>=<span class="hljs-string">&quot;clusterRedisNodes6&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">set</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><span class="hljs-comment">&lt;!-- 重定向的最大数量 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;maxRedirects&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;$&#123;spring.redis.maxRedirects&#125;&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;username&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;wer&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;password&quot;</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;redisPassword&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;redisPassword&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;org.springframework.data.redis.connection.RedisPassword&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">constructor-arg</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;redis123&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;char[]&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span><br><br><span class="hljs-comment">&lt;!-- 集群节点 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;clusterRedisNodes1&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;org.springframework.data.redis.connection.RedisNode&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">constructor-arg</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;$&#123;spring.redis.cluster.nodes1.host&#125;&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">constructor-arg</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;$&#123;spring.redis.cluster.nodes1.port&#125;&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;int&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;clusterRedisNodes2&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;org.springframework.data.redis.connection.RedisNode&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">constructor-arg</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;$&#123;spring.redis.cluster.nodes2.host&#125;&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">constructor-arg</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;$&#123;spring.redis.cluster.nodes2.port&#125;&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;int&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;clusterRedisNodes3&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;org.springframework.data.redis.connection.RedisNode&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">constructor-arg</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;$&#123;spring.redis.cluster.nodes3.host&#125;&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">constructor-arg</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;$&#123;spring.redis.cluster.nodes3.port&#125;&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;int&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;clusterRedisNodes4&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;org.springframework.data.redis.connection.RedisNode&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">constructor-arg</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;$&#123;spring.redis.cluster.nodes4.host&#125;&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">constructor-arg</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;$&#123;spring.redis.cluster.nodes4.port&#125;&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;int&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;clusterRedisNodes5&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;org.springframework.data.redis.connection.RedisNode&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">constructor-arg</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;$&#123;spring.redis.cluster.nodes5.host&#125;&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">constructor-arg</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;$&#123;spring.redis.cluster.nodes5.port&#125;&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;int&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;clusterRedisNodes6&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;org.springframework.data.redis.connection.RedisNode&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">constructor-arg</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;$&#123;spring.redis.cluster.nodes6.host&#125;&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">constructor-arg</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;$&#123;spring.redis.cluster.nodes6.port&#125;&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;int&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;jedisPoolConfig&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;redis.clients.jedis.JedisPoolConfig&quot;</span>&gt;</span><br><span class="hljs-comment">&lt;!--连接池的最大数据库连接数 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;maxTotal&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;$&#123;spring.redis.pool.maxTotal&#125;&quot;</span>/&gt;</span><br><span class="hljs-comment">&lt;!--最大空闲数--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;maxIdle&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;$&#123;spring.redis.pool.maxIdle&#125;&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;minIdle&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;$&#123;spring.redis.pool.minIdle&#125;&quot;</span>/&gt;</span><br><span class="hljs-comment">&lt;!--最大建立连接等待时间--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;maxWaitMillis&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;$&#123;spring.redis.pool.maxWaitMillis&#125;&quot;</span>/&gt;</span><br><span class="hljs-comment">&lt;!--逐出连接的最小空闲时间 默认1800000毫秒(30分钟)--&gt;</span><br><span class="hljs-comment">&lt;!-- &lt;property name=&quot;minEvictableIdleTimeMillis&quot; value=&quot;$&#123;spring.reids.pool.minEvictableIdleTimeMillis&#125;&quot;/&gt;--&gt;</span><br><span class="hljs-comment">&lt;!-- &amp;lt;!&amp;ndash;每次逐出检查时 逐出的最大数目 如果为负数就是 : 1/abs(n), 默认3&amp;ndash;&amp;gt;--&gt;</span><br><span class="hljs-comment">&lt;!-- &lt;property name=&quot;numTestsPerEvictionRun&quot; value=&quot;$&#123;spring.redis.pool.numTestsPerEvictionRun&#125;&quot;/&gt;--&gt;</span><br><span class="hljs-comment">&lt;!-- &amp;lt;!&amp;ndash;逐出扫描的时间间隔(毫秒) 如果为负数,则不运行逐出线程, 默认-1&amp;ndash;&amp;gt;--&gt;</span><br><span class="hljs-comment">&lt;!-- &lt;property name=&quot;timeBetweenEvictionRunsMillis&quot; value=&quot;$&#123;spring.redis.pool.timeBetweenEvictionRunsMillis&#125;&quot;/&gt;--&gt;</span><br><span class="hljs-comment">&lt;!-- 从连接池中取出时检查连接是否失活 失活了就再重新取一个--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;testOnBorrow&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;$&#123;spring.redis.pool.testOnBorrow&#125;&quot;</span>/&gt;</span><br><span class="hljs-comment">&lt;!-- 连接池回收连接时候检查连接是否失活 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;testOnReturn&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;$&#123;spring.redis.pool.testOnReturn&#125;&quot;</span>/&gt;</span><br><span class="hljs-comment">&lt;!-- 向调用者输出“链接”对象时，是否检测它的空闲超时 --&gt;</span><br><span class="hljs-comment">&lt;!-- &lt;property name=&quot;testWhileIdle&quot; value=&quot;$&#123;spring.redis.pool.testWhileIdle&#125;&quot;/&gt;--&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">beans</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>使用了<code>org.springframework.data.redis.connection.RedisPassword</code>注入密码，节点Host皆为服务器地址192.168.1.102。用的测试类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RunWith(SpringJUnit4ClassRunner.class)</span><br><span class="hljs-meta">@ContextConfiguration(locations = &#123;&quot;classpath:spring.xml&quot;&#125;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RedisTest</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    RedisTemplate redisTemplate;<br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">redisTest</span><span class="hljs-params">()</span>&#123;<br><br>        <span class="hljs-keyword">try</span> &#123;<br>            redisTemplate.opsForValue().set(<span class="hljs-string">&quot;key1&quot;</span>, <span class="hljs-string">&quot;value1&quot;</span>, <span class="hljs-number">5</span>, TimeUnit.MINUTES);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e)&#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">getValue</span><span class="hljs-params">()</span>&#123;<br><br>        System.out.println(<span class="hljs-string">&quot;=====================================================&quot;</span>);<br>        System.out.println(redisTemplate.opsForValue().get(<span class="hljs-string">&quot;key1&quot;</span>));<br>    &#125;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">socket</span><span class="hljs-params">()</span>&#123;<br><br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">Socket</span> <span class="hljs-variable">socket</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Socket</span>();<br>            socket.setReuseAddress(<span class="hljs-literal">true</span>);<br>            socket.setKeepAlive(<span class="hljs-literal">true</span>);<br>            socket.setTcpNoDelay(<span class="hljs-literal">true</span>);<br>            socket.setSoLinger(<span class="hljs-literal">true</span>, <span class="hljs-number">0</span>);<br>            socket.connect(<span class="hljs-keyword">new</span> <span class="hljs-title class_">InetSocketAddress</span>(<span class="hljs-string">&quot;192.168.1.102&quot;</span>, <span class="hljs-number">7004</span>), <span class="hljs-number">2000</span>);<br>            socket.setSoTimeout(<span class="hljs-number">2000</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (SocketException e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>报错：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs shell">java.net.SocketTimeoutException: connect timed out<br><br>    at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)<br><br>    at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:81)<br><br>    at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:476)<br><br>    at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:218)<br><br>    at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:200)<br><br>    at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:162)<br><br>    at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:394)<br><br>    at java.net.Socket.connect(Socket.java:606)<br></code></pre></td></tr></table></figure>
+
+<h1 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h1><p>从怀疑代码开始，问题解决永远先从自身找问题。</p>
+<ul>
+<li>配置问题 无<br>  参考spring-data-redis文档，并没有发现问题</li>
+<li>代码问题 无<br>  一句调用代码，不可能吧，spring启动也正常</li>
+<li>依赖版本问题 无<br>  降低Jedis版本，2.9.0 ，3.5.2<br>  结果 ：报错换了个，<code>ClassNoFoundException: JedisClientConfig No Found</code><br>  2.9.0 还不支持ACL<br>  直接连接一个redis，没问题</li>
+<li>Ubuntn 和 运行环境 防火墙问题 无<br>  端口都开放了</li>
+<li>Redis 版本问题 无<br>  6.0 大版本出了快一年了，不存在不兼容，而且一直在使用Redis 6.2.1<br>  测试其他局域网内 用redis-cli 连接Redis Cluster，发现能连接上，使用正常。<br>  使用RedisDesktopManager ，依然没问题。</li>
+<li>Jedis 有bug?<br>  从报错地方出发，发现HostAndPort是192.168.1.102 7001(7001-7006) 没问题，socket能成功连接。<br>  超时的都是127.0.0.1 7001 (7001 - 7006)。<br>  这不就是问题关键么？<br>  能通才奇怪呢，但是这个127.0.0.1从哪来的呢？<br>  跟踪报错，居然发现是从Jedis内的redis.client.jedis.Connection获取的HostAndPort  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">connect</span><span class="hljs-params">()</span><span class="hljs-keyword">throws</span> JedisConnectionException&#123;<br><br>        <span class="hljs-keyword">if</span>(<span class="hljs-built_in">this</span>.socketParamModified)&#123;<br>            <span class="hljs-keyword">try</span>&#123;<br>                <span class="hljs-built_in">this</span>.disconnect();<br>            &#125;<span class="hljs-keyword">catch</span>(Exception var9)&#123;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">if</span>(!<span class="hljs-built_in">this</span>.isConnected())&#123;<br>            <span class="hljs-keyword">try</span>&#123;<br>                <span class="hljs-built_in">this</span>.socket=<span class="hljs-built_in">this</span>.socketFactory.createSocket();<br>                <span class="hljs-built_in">this</span>.outputStream=<span class="hljs-keyword">new</span> <span class="hljs-title class_">RedisOutputStream</span>(<span class="hljs-built_in">this</span>.socket.getOutputStream());<br>                <span class="hljs-comment">// 获取scokect返回的信息 包含集群里面各个节点的Host Port</span><br>                <span class="hljs-built_in">this</span>.inputStream=<span class="hljs-keyword">new</span> <span class="hljs-title class_">RedisInputStream</span>(<span class="hljs-built_in">this</span>.socket.getInputStream());<br>            &#125;<span class="hljs-keyword">catch</span>(IOException var7)&#123;<br>                <span class="hljs-built_in">this</span>.broken=<span class="hljs-literal">true</span>;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">JedisConnectionException</span>(<span class="hljs-string">&quot;Failed to create input/output stream&quot;</span>,var7);<br>            &#125;<span class="hljs-keyword">catch</span>(JedisConnectionException var8)&#123;<br>                <span class="hljs-built_in">this</span>.broken=<span class="hljs-literal">true</span>;<br>                <span class="hljs-keyword">throw</span> var8;<br>            &#125;<span class="hljs-keyword">finally</span>&#123;<br>                <span class="hljs-keyword">if</span>(<span class="hljs-built_in">this</span>.broken)&#123;<br>                    IOUtils.closeQuietly(<span class="hljs-built_in">this</span>.socket);<br>                &#125;<br><br>            &#125;<br>        &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+  发现127.0.0.1居然是Redis返回的。<ul>
+<li>猜想：<ul>
+<li>Jedis 开始socket连接192.168.1.102 7001并成功了，Redis 返回获集群里所有节点的IP127.0.0.1 7001 …</li>
+<li>Jedis 开始连接返回各个节点的IP，连接127.0.0.1 7001失败，然后连接127.0.0.1 7002失败 …</li>
+<li>Jedis 发现都失败了，开始连接配置中第二个节点IP192.168.1.102 7002，又拿到Redis返回的集群所有节点IP127.0.0.1 7001 …<br>  ···</li>
+<li>然后连接超过，配置中的maxRedirects，并且每次socket连接都超过超时时间2s，然后就报错java.net.SocketTimeoutException: connect timed out。</li>
+</ul>
+</li>
+<li>提出问题：<ul>
+<li>为什么redis 会返回127.0.0.1呢？ 和搭建Redis Cluster时，搭建集群使用回环地址127.0.0.1有关？</li>
+<li>如果有关，为什么使用其他工具(同一局域网内的RedisDesktopManager，redis-cli)能正常连接并使用？</li>
+</ul>
+</li>
+<li>实验：<ul>
+<li>重新搭建Redis Cluster，并使用服务器地址192.168.1.102的host，搭建。</li>
+</ul>
+</li>
+<li>结果：<ul>
+<li>代码运行成功，也能设置值，和拿到值。</li>
+</ul>
+</li>
+<li>再一些问题：<ul>
+<li>为什么同一局域网内的RedisDesktopManager，redis-cli能正常使用？</li>
+<li>这是Jedis的bug？都已经配置了节点ip，为什么还要从redis拿回节点ip?</li>
+<li>既然要去拿节点ip，为什么还要配置那么多个？</li>
+</ul>
+</li>
+<li>再一些猜想：<ul>
+<li>同一局域网内的RedisDesktopManager，redis-cli内部也许做了对回环地址的转换，就是当拿到的是127.0.0.1就转换该服务器的IP地址192.168.1.102；Jedis不会转换回环地址，是个耿直boy，如果转换，同一局域网内能连接上，统一服务器也能连接上。</li>
+<li>显然从某一节点，获取其他节点IP，从逻辑上来说，是一个很好机制。一开始获取全部节点IP，并进行连接放进连接池，需要使用时，直接使用即可，如果找不到一个可用连接，就会进行重试，超过重试次数，就报错。</li>
+<li>假如，某一个配置好的master节点A宕机了，那么它的slave节点中就会有一个晋升到master节点B，而这个新的节点B，并没有在我们的配置文件中，那么需要读写B节点的数据时，就会从其他节点重定向(Redirect)到新的节点B，Redis返回节点B的IP，那Jedis就能连接B节点，进行执行了。那么如果宕机的刚好就是配置中唯一的一个，连接都连接不上，何来获取其他节点IP。配置多个节点能够增加容错率，一个连不上，有其他可以进行连接。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h1><p>搭建Redis 集群使用了回环地址127.0.0.1，再加上Jedis 耿直boy，没有转换回环地址。需要使用服务器地址去搭建Redis集群。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>遇到socket连接超时，从以下几个方向考虑：<br>    - spring配置问题，maxRedirects重连次数太少，超时时间设置太短 。<br>    - 网络环境差，适当增加重连次数，增加超时时间，Jeids中socket默认超时时间2s。<br>    - 防火墙关闭了端口，pingpong测试，以及查看运行环境和服务器的防火墙策略。<br>    - 依赖版本过高，或过低，是否兼容Redis版本的新特性。Jedis3.6.0不支持jdk1.7。<br>    - Redis Cluter 是否正常运行，以及是否用了回环地址搭建。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/java/" class="category-chain-item">java</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/java/java%E9%94%99%E8%AF%AF%E9%9B%86/" class="category-chain-item">java错误集</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/java%EF%BC%8CRedis/" class="print-no-link">#java，Redis</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Jedis连接Redis Cluster的java.net.SocketTimeoutException: connect timed out</div>
+      <div>https://succeedwer.github.io/posts/cbdca4555d82/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WER</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年10月25日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年3月20日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/e48f1d3b5509/" title="面试题之Java基础">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">面试题之Java基础</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/81fdf1638f5e/" title="Spring Cloud">
+                        <span class="hidden-mobile">Spring Cloud</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

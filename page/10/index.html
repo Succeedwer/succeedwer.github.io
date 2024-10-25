@@ -229,15 +229,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/c15dcdd3eb78/" target="_self">
-          final关键字
+        <a href="/posts/790ad334de3c/" target="_self">
+          请求头和响应头
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/c15dcdd3eb78/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/790ad334de3c/" target="_self">
         <div>
-          1、final概述 最终的意思，修饰的内容不能再被修改。  2、final修饰特点 修饰类，最终类，类不能被继承。如String类 修饰方法，方法不能被重写。 修饰变量，最终变量，变量变成常量，只能被赋值一次。  注意：常量要大写，NUM，MAX_NUM  123class Son &#123;        public static final double PI = 3.14;	//fina
+          12345678910111213141516func main() &#123;	r := gin.Default()	r.GET(&quot;/header&quot;, func(c *gin.Context) &#123;		// 请求头		// 不分大小写		fmt.Println(c.GetHeader(&quot;content-type&quot;))		fmt.Println(c
         </div>
       </a>
 
@@ -245,8 +245,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-24 00:22" pubdate>
-              2024-03-24
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -261,13 +261,20 @@
     
       <span class="category-chain">
         
-  <a href="/categories/java/" class="category-chain-item">java</a>
+  <a href="/categories/go/" class="category-chain-item">go</a>
   
   
     <span>></span>
     
-  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/gin/" class="category-chain-item">gin</a>
+  
+  
+
   
 
   
@@ -283,7 +290,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/java/">#java</a>
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/gin/">#gin</a>
             
           </div>
         
@@ -297,15 +306,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/8041c4aa4603/" target="_self">
-          main方法的格式详细解释
+        <a href="/posts/464235325121/" target="_self">
+          表单参数Form
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/8041c4aa4603/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/464235325121/" target="_self">
         <div>
-          A:格式  public static void main(String[] args) &#123;&#125;   B:针对格式的解释  public 被jvm调用，访问权限足够大。 static 被jvm调用，不用创建对象，直接类名访问 void被jvm调用，不需要给jvm返回值 main 一个通用的名称，虽然不是关键字，但是被jvm识别 String[] args 以前用于接收键盘录入的
+          表单参数即是从表单中获取参数。 1234567891011121314151617181920212223242526func main() &#123;	r := gin.Default()	/*		username:wer		age:30		accountInfo[id]:1		accountInfo[amount]:99999999		height:184		language:c,c++,g
         </div>
       </a>
 
@@ -313,8 +322,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-24 00:22" pubdate>
-              2024-03-24
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -329,13 +338,20 @@
     
       <span class="category-chain">
         
-  <a href="/categories/java/" class="category-chain-item">java</a>
+  <a href="/categories/go/" class="category-chain-item">go</a>
   
   
     <span>></span>
     
-  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/gin/" class="category-chain-item">gin</a>
+  
+  
+
   
 
   
@@ -351,7 +367,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/java/">#java</a>
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/gin/">#gin</a>
             
           </div>
         
@@ -365,15 +383,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/3bb684b8cdb9/" target="_self">
-          private关键字
+        <a href="/posts/eacbe13ae5b9/" target="_self">
+          查询参数Query
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/3bb684b8cdb9/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/eacbe13ae5b9/" target="_self">
         <div>
-          private关键字的概述和特点private关键字特点   a:是一个权限修饰符   b:可以修饰成员变量和成员方法   c:被其修饰的成员只能在本类中被访问    A:把成员变量用private修饰 B:提供对应的getXxx()和setXxx()方法 private仅仅是封装的一种体现形式,不能说封装就是私有
+          Query即从url的查询参数中获取参数。 1http://path/to/query?[参数名1]=[参数值1]&amp;[参数名2]=[参数值2]    12345678910111213141516171819package mainimport (	&quot;fmt&quot;	gin &quot;github.com/gin-gonic/gin&quot;)func main() &#
         </div>
       </a>
 
@@ -381,8 +399,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-24 00:22" pubdate>
-              2024-03-24
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -397,13 +415,20 @@
     
       <span class="category-chain">
         
-  <a href="/categories/java/" class="category-chain-item">java</a>
+  <a href="/categories/go/" class="category-chain-item">go</a>
   
   
     <span>></span>
     
-  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/gin/" class="category-chain-item">gin</a>
+  
+  
+
   
 
   
@@ -419,7 +444,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/java/">#java</a>
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/gin/">#gin</a>
             
           </div>
         
@@ -433,15 +460,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/dd291c2f8528/" target="_self">
-          this关键字
+        <a href="/posts/7d4c8be2e1cc/" target="_self">
+          日志
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/dd291c2f8528/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/7d4c8be2e1cc/" target="_self">
         <div>
-          this关键字特点代表当前对象的引用  this的作用用来区分成员变量和局部变量重名 例子： 1234567891011121314151617181920212223242526class Person &#123;    private String name;    private int age;    public void setAge(int age) &#123;        i
+          将日志写入文件123456789101112131415161718192021222324package mainimport (	&quot;github.com/gin-gonic/gin&quot;	&quot;io&quot;	&quot;os&quot;)func main() &#123;    file, _ := os.OpenFile(&quot;log/gin.log&quo
         </div>
       </a>
 
@@ -449,8 +476,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-24 00:22" pubdate>
-              2024-03-24
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -465,13 +492,20 @@
     
       <span class="category-chain">
         
-  <a href="/categories/java/" class="category-chain-item">java</a>
+  <a href="/categories/go/" class="category-chain-item">go</a>
   
   
     <span>></span>
     
-  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/gin/" class="category-chain-item">gin</a>
+  
+  
+
   
 
   
@@ -487,7 +521,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/java/">#java</a>
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/gin/">#gin</a>
             
           </div>
         
@@ -501,15 +537,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/a538d5f346df/" target="_self">
-          代码块
+        <a href="/posts/25c0e43a0a5b/" target="_self">
+          快速入门
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/a538d5f346df/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/25c0e43a0a5b/" target="_self">
         <div>
-          代码块概述在Java中，使用{}括起来的代码被称为代码块。 代码块分类根据其位置和声明的不同，可以分为局部代码块，构造代码块，静态代码块，同步代码块(多线程讲解)。 常见代码块的应用a:局部代码块   在方法中出现；限定变量生命周期，及早释放，提高内存利用率  b:构造代码块 (初始化块) 在类中方法外出现；多个构造方法方法中相同的代码存放到一起，每次调用构造都执行，并且在构造方法前执行  c:静
+          安装在go项目根目录下，下载Gin包。 1go get github.com/gin-gonic/gin  等待下载完成后，即可引用。 Hello, world在项目中，创建1.hello_world.go。 123456789101112131415package mainimport &quot;github.com/gin-gonic/gin&quot;func main() &#123;
         </div>
       </a>
 
@@ -517,8 +553,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-24 00:22" pubdate>
-              2024-03-24
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -533,13 +569,20 @@
     
       <span class="category-chain">
         
-  <a href="/categories/java/" class="category-chain-item">java</a>
+  <a href="/categories/go/" class="category-chain-item">go</a>
   
   
     <span>></span>
     
-  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/gin/" class="category-chain-item">gin</a>
+  
+  
+
   
 
   
@@ -555,7 +598,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/java/">#java</a>
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/gin/">#gin</a>
             
           </div>
         
@@ -569,15 +614,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/cadd53eb69d2/" target="_self">
-          字符串参与运算
+        <a href="/posts/01fdfc039cd4/" target="_self">
+          响应
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/cadd53eb69d2/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/01fdfc039cd4/" target="_self">
         <div>
-          注意：任何数据类型用+与字符串相连接都会产生新字符串  例子： 12345678class Demo_String &#123;    public static void main(String[] args) &#123;        System.out.println(&quot;hello&quot; + &#x27;a&#x27; + 1);        System.out.p
+          字符串1234567891011func text(c *gin.Context) &#123;	c.String(http.StatusOK, &quot;我是字符串&quot;)&#125;func main() &#123;	r := gin.Default()	r.GET(&quot;/text&quot;, text)	r.Run()&#125;  响应： 1我是字符串  json123
         </div>
       </a>
 
@@ -585,8 +630,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-24 00:22" pubdate>
-              2024-03-24
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -601,13 +646,20 @@
     
       <span class="category-chain">
         
-  <a href="/categories/java/" class="category-chain-item">java</a>
+  <a href="/categories/go/" class="category-chain-item">go</a>
   
   
     <span>></span>
     
-  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/gin/" class="category-chain-item">gin</a>
+  
+  
+
   
 
   
@@ -623,7 +675,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E3%80%90java%E3%80%91/">#【java】</a>
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/gin/">#gin</a>
             
           </div>
         
@@ -637,15 +691,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/aad2c7e9c83a/" target="_self">
-          创建对象的内存操作
+        <a href="/posts/f916ff294816/" target="_self">
+          参数绑定Bind
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/aad2c7e9c83a/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/f916ff294816/" target="_self">
         <div>
-          Student s &#x3D; new Student();   Student.class加载进内存    声明一个Student类型引用s    在堆内存创建对象,    给对象中属性默认初始化值    属性进行显示初始化    构造方法进栈,对对象中的属性赋值,构造方法弹栈    将对象的地址值赋值给s      1234567891011121314151617181920class
+          介绍Gin的参数绑定可以将请求中的参数结构化成所需的模型。 Gin目前支持JSON、XML、yaml、AML、路径参数、标准表单值、query参数的绑定。 使用要使用参数绑定，需要在结构体的成员变量加上对应的tag: json:&quot;fieldname&quot;、xml:&quot;fieldname&quot;、yaml:&quot;fieldname&quot;、form:&quot;
         </div>
       </a>
 
@@ -653,8 +707,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-24 00:22" pubdate>
-              2024-03-24
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -669,13 +723,20 @@
     
       <span class="category-chain">
         
-  <a href="/categories/java/" class="category-chain-item">java</a>
+  <a href="/categories/go/" class="category-chain-item">go</a>
   
   
     <span>></span>
     
-  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/gin/" class="category-chain-item">gin</a>
+  
+  
+
   
 
   
@@ -691,7 +752,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E3%80%90java%E3%80%91/">#【java】</a>
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/gin/">#gin</a>
             
           </div>
         
@@ -705,15 +768,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/683857aeabe2/" target="_self">
-          工具类中使用静态
+        <a href="/posts/a3021afb7c00/" target="_self">
+          参数的原始数据
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/683857aeabe2/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/a3021afb7c00/" target="_self">
         <div>
-          直接类名调用方法即可。  例子： 12345678910111213141516171819202122232425262728public class ArrayTool &#123;    private ArrayTool() &#123; //防止创建对象    &#125;    public static int getMax(int[] arr) &#123;        int
+          getRawData返回的是请求body里的数据流。 12345678910111213func main() &#123;	r := gin.Default()	r.POST(&quot;/raw&quot;, func(c *gin.Context) &#123;		data, err := c.GetRawData()		if err != nil &#123;			return		&#12
         </div>
       </a>
 
@@ -721,8 +784,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-24 00:22" pubdate>
-              2024-03-24
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -737,13 +800,20 @@
     
       <span class="category-chain">
         
-  <a href="/categories/java/" class="category-chain-item">java</a>
+  <a href="/categories/go/" class="category-chain-item">go</a>
   
   
     <span>></span>
     
-  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/gin/" class="category-chain-item">gin</a>
+  
+  
+
   
 
   
@@ -759,7 +829,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/java/">#java</a>
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/gin/">#gin</a>
             
           </div>
         
@@ -773,15 +845,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/b01900e2d061/" target="_self">
-          成员变量&amp;局部变量
+        <a href="/posts/ccaf6c320167/" target="_self">
+          中间件
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/b01900e2d061/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/ccaf6c320167/" target="_self">
         <div>
-          区别：  A:在类中的位置不同  成员变量：在类中方法外 局部变量：在方法定义中或者方法声明上   B:在内存中的位置不同  成员变量：在堆内存(成员变量属于对象,对象进堆内存) 局部变量：在栈内存(局部变量属于方法,方法进栈内存)   C:生命周期不同  成员变量：随着对象的创建而存在，随着对象的消失而消失 局部变量：随着方法的调用而存在，随着方法的调用完毕而消失   D:初始化值不同 成员变量
+          介绍Gin允许开发者在处理请求的过程中，加入中间件，即hook函数（钩子函数），意义与java中的过滤器，拦截器类似。 定义Gin的中间件其实就是HandlerFunc类型的对象，而HandlerFunc其实就是func(*Context)函数。 单独请求的中间件12345678910111213141516171819202122232425262728293031323334353637383
         </div>
       </a>
 
@@ -789,8 +861,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-24 00:22" pubdate>
-              2024-03-24
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -805,13 +877,20 @@
     
       <span class="category-chain">
         
-  <a href="/categories/java/" class="category-chain-item">java</a>
+  <a href="/categories/go/" class="category-chain-item">go</a>
   
   
     <span>></span>
     
-  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/gin/" class="category-chain-item">gin</a>
+  
+  
+
   
 
   
@@ -827,7 +906,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/java/">#java</a>
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/gin/">#gin</a>
             
           </div>
         
@@ -841,15 +922,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/030bf8c9a031/" target="_self">
-          控制跳转语句标号
+        <a href="/posts/2f3d8737e99d/" target="_self">
+          下载文件
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/030bf8c9a031/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/2f3d8737e99d/" target="_self">
         <div>
-          标号:标记某个循环对其控制。  标号组成规则：需要使用合法的标识符。   例子： 123456789//outer，inner是标号outer: for(int i=1;i&lt;=10;i++)&#123;            System.out.println(&quot;i = &quot;+i);       inner: for(int j=1;j&lt;=10;j++)&#123
+          直接响应下载123456789101112131415161718192021package mainimport &quot;github.com/gin-gonic/gin&quot;func main() &#123;	r := gin.Default()	// 直接响应下载文件	r.GET(&quot;/download&quot;, func(c *gin.Context) &#123;
         </div>
       </a>
 
@@ -857,8 +938,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-24 00:22" pubdate>
-              2024-03-24
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -873,13 +954,20 @@
     
       <span class="category-chain">
         
-  <a href="/categories/java/" class="category-chain-item">java</a>
+  <a href="/categories/go/" class="category-chain-item">go</a>
   
   
     <span>></span>
     
-  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/gin/" class="category-chain-item">gin</a>
+  
+  
+
   
 
   
@@ -895,7 +983,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/java/">#java</a>
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/gin/">#gin</a>
             
           </div>
         
@@ -907,7 +997,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/9/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/#board">8</a><a class="page-number" href="/page/9/#board">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/#board">11</a><a class="page-number" href="/page/12/#board">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/#board">21</a><a class="extend next" rel="next" href="/page/11/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/9/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/#board">8</a><a class="page-number" href="/page/9/#board">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/#board">11</a><a class="page-number" href="/page/12/#board">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/#board">24</a><a class="extend next" rel="next" href="/page/11/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

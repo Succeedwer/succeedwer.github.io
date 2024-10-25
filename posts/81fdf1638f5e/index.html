@@ -1,0 +1,1433 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="架构微服务 架构方式 Spring Cloud，Dubbo，华为的Service Combo，Istio  单一应用架构 集中式框架 数据访问框架(ORM)   垂直应用架构 Web框架MVC   分布式服务架构 分布式服务框架(RPC)   面向服务(SOA)架构 流动计算架构 的Dubbo。CP   微服务架构AP SpringCloud      Spring CloudSpringClou">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Cloud">
+<meta property="og:url" content="https://succeedwer.github.io/posts/81fdf1638f5e/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:description" content="架构微服务 架构方式 Spring Cloud，Dubbo，华为的Service Combo，Istio  单一应用架构 集中式框架 数据访问框架(ORM)   垂直应用架构 Web框架MVC   分布式服务架构 分布式服务框架(RPC)   面向服务(SOA)架构 流动计算架构 的Dubbo。CP   微服务架构AP SpringCloud      Spring CloudSpringClou">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://succeedwer.github.io/posts/81fdf1638f5e/1620142783362.png">
+<meta property="article:published_time" content="2024-10-25T14:49:40.971Z">
+<meta property="article:modified_time" content="2024-03-19T15:36:52.611Z">
+<meta property="article:author" content="WER">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="Spring">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://succeedwer.github.io/posts/81fdf1638f5e/1620142783362.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Spring Cloud - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Spring Cloud"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        WER
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-10-25 22:49" pubdate>
+          2024年10月25日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          33 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java"
+        id="heading-93f725a07423fe1c889f448b33d21f46" role="tab" data-toggle="collapse" href="#collapse-93f725a07423fe1c889f448b33d21f46"
+        aria-expanded="true"
+      >
+        java
+        <span class="list-group-count">(28)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-93f725a07423fe1c889f448b33d21f46"
+           role="tabpanel" aria-labelledby="heading-93f725a07423fe1c889f448b33d21f46">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java基础"
+        id="heading-df7759872e49dfa342518015262abb95" role="tab" data-toggle="collapse" href="#collapse-df7759872e49dfa342518015262abb95"
+        aria-expanded="false"
+      >
+        java基础
+        <span class="list-group-count">(24)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-df7759872e49dfa342518015262abb95"
+           role="tabpanel" aria-labelledby="heading-df7759872e49dfa342518015262abb95">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/0c210e532b9d/" title="Collection"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Collection</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/58f8c37c0a49/" title="Java中的内存分配以及栈和堆的区别"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Java中的内存分配以及栈和堆的区别</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/708919c6d9e0/" title="Java中的引用"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Java中的引用</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/552ebaacb148/" title="Static关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Static关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/5cdffd9e03f0/" title="final关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">final关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/35e723a9266f/" title="main方法的格式详细解释"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">main方法的格式详细解释</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/be461779749d/" title="private关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">private关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c776d93a7408/" title="this关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">this关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/06a316be0730/" title="代码块"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">代码块</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/49e55547527e/" title="创建对象的内存操作"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">创建对象的内存操作</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/ca6ffab33dc6/" title="字符串参与运算"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">字符串参与运算</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/68da12dfb487/" title="工具类中使用静态"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">工具类中使用静态</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/dc8404ef620e/" title="成员变量&amp;局部变量"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">成员变量&amp;局部变量</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/cc01690675fa/" title="控制跳转语句标号"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">控制跳转语句标号</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d224f53d62e3/" title="数组"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数组</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/66d2afd1bbbb/" title="方法重写"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">方法重写</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f708f5e9998e/" title="构造方法（Constructor）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">构造方法（Constructor）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/00a05b632a75/" title="继承"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">继承</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/3e013653e95f/" title="说明书的制作过程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">说明书的制作过程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/bfb6ed6759f8/" title="转义字符"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">转义字符</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/18f7c86a70e9/" title="选择结构switch语句"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">选择结构switch语句</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/75202f6c3ae6/" title="逻辑运算符"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">逻辑运算符</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b30c55904f1b/" title="键盘录入的基本格式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">键盘录入的基本格式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/94114acca2dc/" title="隐式转换and强制转换"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">隐式转换and强制转换</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java进阶"
+        id="heading-f37659ce2630cc205815e63e97ca680d" role="tab" data-toggle="collapse" href="#collapse-f37659ce2630cc205815e63e97ca680d"
+        aria-expanded="true"
+      >
+        java进阶
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-f37659ce2630cc205815e63e97ca680d"
+           role="tabpanel" aria-labelledby="heading-f37659ce2630cc205815e63e97ca680d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/81fdf1638f5e/" title="Spring Cloud"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">Spring Cloud</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java错误集"
+        id="heading-15f313469c4c1a0934d8aadb7bf7e364" role="tab" data-toggle="collapse" href="#collapse-15f313469c4c1a0934d8aadb7bf7e364"
+        aria-expanded="false"
+      >
+        java错误集
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-15f313469c4c1a0934d8aadb7bf7e364"
+           role="tabpanel" aria-labelledby="heading-15f313469c4c1a0934d8aadb7bf7e364">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/cbdca4555d82/" title="Jedis连接Redis Cluster的java.net.SocketTimeoutException: connect timed out"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Jedis连接Redis Cluster的java.net.SocketTimeoutException: connect timed out</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java面试题"
+        id="heading-ad2aaee8db2e74079d35223ebbf1338c" role="tab" data-toggle="collapse" href="#collapse-ad2aaee8db2e74079d35223ebbf1338c"
+        aria-expanded="false"
+      >
+        java面试题
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-ad2aaee8db2e74079d35223ebbf1338c"
+           role="tabpanel" aria-labelledby="heading-ad2aaee8db2e74079d35223ebbf1338c">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/e48f1d3b5509/" title="面试题之Java基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">面试题之Java基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/36f687c14870/" title="面试题之Java多线程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">面试题之Java多线程</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Spring Cloud</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h1><p>微服务 架构方式 Spring Cloud，Dubbo，华为的Service Combo，Istio</p>
+<ul>
+<li>单一应用架构<ul>
+<li>集中式框架 数据访问框架(ORM)</li>
+</ul>
+</li>
+<li>垂直应用架构<ul>
+<li>Web框架MVC</li>
+</ul>
+</li>
+<li>分布式服务架构<ul>
+<li>分布式服务框架(RPC)</li>
+</ul>
+</li>
+<li>面向服务(SOA)架构<ul>
+<li>流动计算架构<ul>
+<li>的Dubbo。CP</li>
+</ul>
+</li>
+<li>微服务架构AP<ul>
+<li>SpringCloud</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Spring-Cloud"><a href="#Spring-Cloud" class="headerlink" title="Spring Cloud"></a>Spring Cloud</h1><p>SpringCloud是一系列框架的有序集合,也是把非常流行的微服务的技术整合到一起，是属于微服务架构的一站式技术解决方案。</p>
+<p>包括：</p>
+<ul>
+<li>注册中心：Eureka、consul、Zookeeper</li>
+<li>负载均衡：Ribbon</li>
+<li>熔断器：Hystrix</li>
+<li>服务通信：Feign（基于Ribbon开发而来的）</li>
+<li>网关：Gateway</li>
+<li>配置中心 ：config</li>
+<li>消息总线：Bus（Rabbitmq）<br>  ···<blockquote>
+<p>SpringCloud是一系列框架组合，为了避免与框架版本产生混淆，采用新的版本命名方式，形式为大版本名+子版本名称</p>
+<p>大版本名用伦敦地铁站名</p>
+<p>子版本名称三种</p>
+<p>SNAPSHOT：快照版本，尝鲜版，随时可能修改</p>
+<p>M版本，MileStone，M1表示第一个里程碑版本，一般同时标注PRE，表示预览版</p>
+<p>SR，Service Release，SR1表示第一个正式版本，同时标注GA(Generally Available)，稳定版</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="服务调用方式"><a href="#服务调用方式" class="headerlink" title="服务调用方式"></a>服务调用方式</h2><ul>
+<li>RPC<br>  RPC(Remote Procedure Call)，远程过程调用<blockquote>
+<p>1.基于Socket</p>
+<p>2.自定义数据格式</p>
+<p>3.速度快，效率高</p>
+<p>4.典型应用代表：Dubbo，WebService，ElasticSearch集群间互相调用</p>
+</blockquote>
+</li>
+<li>HTTP<br>  HTTP：网络传输协议<blockquote>
+<p>1.基于TCP&#x2F;IP</p>
+<p>2.规定数据传输格式</p>
+<p>3.缺点是消息封装比较臃肿、传输速度比较慢</p>
+<p>4.优点是对服务提供和调用方式没有任何技术限定，自由灵活，更符合微服务理念</p>
+<p>5.常见Http客户端工具：HttpClient、OKHttp、URLConnection</p>
+<p>6.三次握手 四次挥手(作业) 为什么三次 为什么四次?</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="RestTemplate"><a href="#RestTemplate" class="headerlink" title="RestTemplate"></a>RestTemplate</h3><ul>
+<li>RestTemplate是Rest的HTTP客户端模板工具类(json)</li>
+<li>对基于Http的客户端进行封装</li>
+<li>实现对象与JSON的序列化与反序列化</li>
+<li>不限定客户端类型，目前常用的3种客户端都支持：HttpClient、OKHttp、JDK原生URLConnection(默认方式)</li>
+</ul>
+<h1 id="Spring-Cloud-Eureka-注册中心"><a href="#Spring-Cloud-Eureka-注册中心" class="headerlink" title="Spring Cloud Eureka 注册中心"></a>Spring Cloud Eureka 注册中心</h1><h2 id="基础架构"><a href="#基础架构" class="headerlink" title="基础架构"></a>基础架构</h2><ul>
+<li>服务注册中心 eureka-server<ul>
+<li>Eureka的服务端应用 提供服务注册发现功能</li>
+</ul>
+</li>
+<li>服务提供者<ul>
+<li>为消费者提供服务</li>
+<li>可以使用Rest风格的服务</li>
+</ul>
+</li>
+<li>服务消费者<ul>
+<li>从注册中心获取服务列表，然后选择服务提供者，调用服务</li>
+</ul>
+</li>
+</ul>
+<h2 id="Eureka-Server"><a href="#Eureka-Server" class="headerlink" title="Eureka Server"></a>Eureka Server</h2><ul>
+<li>服务下线<ul>
+<li>当服务正常关闭操作时，会发送服务下线的REST请求给EurekaServer。<br>  服务中心接受到请求后，将该服务置为下线状态</li>
+</ul>
+</li>
+<li>失效剔除<ul>
+<li>服务中心每隔一段时间(默认60秒)将清单中没有续约的服务剔除。<br>  通过eviction-interval-timer-in-ms配置可以对其进行修改，单位是毫秒</li>
+</ul>
+</li>
+<li>自我保护<ul>
+<li>Eureka会统计服务实例最近15分钟心跳续约的比例是否低于85%，如果低于则会触发自我保护机制。<ul>
+<li>会出现：<strong>EMERGENCY! EUREKA MAY BE INCORRECTLY CLAIMING INSTANCES ARE UP WHEN THEY’RE NOT. RENEWALS ARE LESSER THAN THRESHOLD AND HENCE THE INSTANCES ARE NOT BEING EXPIRED JUST TO BE SAFE.</strong></li>
+<li>含义：紧急情况！Eureka可能错误地声称实例已经启动，而事实并非如此。续约低于阈值，因此实例不会为了安全而过期。</li>
+</ul>
+</li>
+<li>自我保护模式下，不会剔除任何服务实例</li>
+<li>自我保护模式保证了大多数服务依然可用</li>
+<li>通过enable-self-preservation配置可用关停自我保护，默认值是打开</li>
+</ul>
+</li>
+</ul>
+<h2 id="Eureka-Client"><a href="#Eureka-Client" class="headerlink" title="Eureka Client"></a>Eureka Client</h2><ul>
+<li>服务注册<ul>
+<li>当我们开启了客户端发现注解@DiscoveryClient。同时导入了eureka-client依赖坐标</li>
+</ul>
+<ol>
+<li>同时配置Eureka服务注册中心地址在配置文件中</li>
+<li>服务在启动时，检测是否有@DiscoveryClient注解和配置信息</li>
+<li>如果有，则会向注册中心发起注册请求，携带服务元数据信息(IP、端口等)</li>
+<li>Eureka注册中心会把服务的信息保存在Map中。</li>
+</ol>
+</li>
+<li>服务续约<ul>
+<li>服务注册完成以后，服务提供者会维持一个<code>心跳</code>，保存服务处于存在状态。这个动作称之为服务续约(renew)。</li>
+<li>1.两个参数可以修改服务续约行为<br>  lease-renewal-interval-seconds:90，租约到期时效时间，默认90秒<br>  lease-expiration-duration-in-seconds:30，租约续约间隔时间，默认30秒<br>  2.服务超过90秒没有发生心跳，EurekaServer会将服务从列表移除[前提是EurekaServer关闭了自我保护]</li>
+</ul>
+</li>
+<li>获取服务列表<ul>
+<li>服务消费者启动时，会检测是否获取服务注册信息配置<br>  如果是，则会从 EurekaServer服务列表获取只读备份，缓存到本地<br>  每隔30秒，会重新获取并更新数据<br>  每隔30秒的时间可以通过配置registry-fetch-interval-seconds修改</li>
+</ul>
+</li>
+</ul>
+<h1 id="Spring-Cloud-Ribbon-负载均衡"><a href="#Spring-Cloud-Ribbon-负载均衡" class="headerlink" title="Spring Cloud Ribbon 负载均衡"></a>Spring Cloud Ribbon 负载均衡</h1><p>Ribbon是Netflix发布的负载均衡器，有助于控制HTTP客户端行为。为Ribbon配置服务提供者地址列表后，Ribbon就可基于负载均衡算法，自动帮助服务消费者请求。</p>
+<p>Ribbon默认提供的负载均衡算法：轮询，随机,重试法,加权。当然，我们可用自己定义负载均衡算法</p>
+<p>Ribbon是对restTemplate的一个升级封装,封包了一系列的负载均衡算法!</p>
+<p>Nginx （反向代理服务器）是对服务器调用的负载均衡，Ribbon是服务端的负载均衡。</p>
+<h1 id="Spring-Cloud-Hystrix-熔断器"><a href="#Spring-Cloud-Hystrix-熔断器" class="headerlink" title="Spring Cloud Hystrix 熔断器"></a>Spring Cloud Hystrix 熔断器</h1><p>Hystrix是Netflix开源的一个延迟和容错库，用于隔离访问远程服务、第三方库、防止出现级联失败也就是雪崩效应。</p>
+<h2 id="雪崩效应"><a href="#雪崩效应" class="headerlink" title="雪崩效应"></a>雪崩效应</h2><blockquote>
+<p>1.微服务中，一个请求可能需要多个微服务接口才能实现，会形成复杂的调用链路。</p>
+<p>2.如果某服务出现异常，请求阻塞，用户得不到响应，容器中线程不会释放，于是越来越多用户请求堆积，越来越多线程阻塞。</p>
+<p>3.单服务器支持线程和并发数有限，请求如果一直阻塞，会导致服务器资源耗尽，从而导致所有其他服务都不可用，从而形成雪崩效应；</p>
+</blockquote>
+<h2 id="机制"><a href="#机制" class="headerlink" title="机制"></a>机制</h2><p>Hystrix解决雪崩问题的手段，主要是服务降级**(兜底)**，线程隔离；</p>
+<p>三种状态：</p>
+<ul>
+<li>Closed：关闭状态，所有请求正常访问</li>
+<li>Open：打开状态，所有请求都会被降级<ul>
+<li>Hystrix会对请求情况计数，当一定时间段内失败请求百分比达到阈值(极限值)，则触发熔断，断路器完全关闭</li>
+<li>默认失败比例的阈值是50%，请求次数最低不少于20次</li>
+</ul>
+</li>
+<li>Half Open：半开状态<ul>
+<li>Open状态不是永久的，打开一会后会进入休眠时间(默认5秒)。休眠时间过后会进入半开状态。</li>
+<li>半开状态：熔断器会判断下一次请求的返回状况，如果成功，熔断器切回closed状态。如果失败，熔断器切回open状态。</li>
+</ul>
+</li>
+</ul>
+<p>threshold reached 到达阈值</p>
+<p>under threshold 阈值以下</p>
+<p><strong>熔断器的核心：线程隔离和服务降级。</strong></p>
+<blockquote>
+<p>1.线程隔离：是指Hystrix为每个依赖服务调用一个小的线程池，如果线程池用尽，调用立即被拒绝，默认不采用排队。</p>
+<p>2.服务降级(兜底方法)：优先保证核心服务，而非核心服务不可用或弱可用。触发Hystrix服务降级的情况：线程池已满、请求超时。</p>
+</blockquote>
+<h2 id="熔断策略配置"><a href="#熔断策略配置" class="headerlink" title="熔断策略配置"></a>熔断策略配置</h2><ul>
+<li>熔断后休眠时间：sleepWindowInMilliseconds</li>
+<li>熔断触发最小请求次数：requestVolumeThreshold</li>
+<li>熔断触发错误比例阈值：errorThresholdPercentage</li>
+<li>熔断超时时间：timeoutInMilliseconds</li>
+</ul>
+<h1 id="Spring-Cloud-Feign"><a href="#Spring-Cloud-Feign" class="headerlink" title="Spring Cloud Feign"></a>Spring Cloud Feign</h1><h2 id="Feign简介"><a href="#Feign简介" class="headerlink" title="Feign简介"></a>Feign简介</h2><p>Feign [feɪn] 译文 伪装。Feign是一个声明式WebService客户端.使用Feign能让编写WebService客户端更加简单,它的使用方法是定义一个接口，然后在上面添加注解。不再需要拼接URL，参数等操作。项目主页：<a target="_blank" rel="noopener" href="https://github.com/OpenFeign/feign">https://github.com/OpenFeign/feign</a> 。</p>
+<ul>
+<li>集成Ribbon的负载均衡功能</li>
+<li>集成了Hystrix的熔断器功能</li>
+<li>支持请求压缩</li>
+<li>大大简化了远程调用的代码，同时功能还增强啦</li>
+<li>Feign以更加优雅的方式编写远程调用代码，并简化重复代码</li>
+</ul>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ol>
+<li>导入依赖spring-cloud-starter-openfeign</li>
+<li>编写Feign客户端接口</li>
+<li>消费者启动类开启Feign注解@EnableFeignClients</li>
+<li>在Controller使用Feign client调用接口</li>
+</ol>
+<h2 id="支持负载均衡Ribbon"><a href="#支持负载均衡Ribbon" class="headerlink" title="支持负载均衡Ribbon"></a>支持负载均衡Ribbon</h2><p> 默认使用了 ribbon 可在配置文件 修改默认配置</p>
+<h2 id="支持熔断器Hystrix"><a href="#支持熔断器Hystrix" class="headerlink" title="支持熔断器Hystrix"></a>支持熔断器Hystrix</h2><ol>
+<li>在配置文件开启熔断器</li>
+<li>编写fallback处理类，并实现Feignclient客户端</li>
+<li>在feignclient客户端接口上要在@FeignClient指定fallback处理类</li>
+</ol>
+<h2 id="GZIP请求响应压缩压缩"><a href="#GZIP请求响应压缩压缩" class="headerlink" title="GZIP请求响应压缩压缩"></a>GZIP请求响应压缩压缩</h2><p>SpringCloudFeign支持对请求和响应进行GZIP压缩，以减少通信过程中的性能损耗。</p>
+<ol>
+<li>在配置文件开启请求响应压缩即可</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment">#  Feign配置</span><br><span class="hljs-attr">feign:</span><br>	<span class="hljs-attr">compression:</span><br>		<span class="hljs-attr">request:</span><br>			<span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span> <span class="hljs-comment"># 开启请求压缩</span><br>			<span class="hljs-attr">mime-types:</span>	<span class="hljs-string">text/html,application/xml,application/json</span> <span class="hljs-comment"># 设置压缩的数据类型</span><br>			<span class="hljs-attr">min-request-size:</span> <span class="hljs-number">2048</span> <span class="hljs-comment"># 设置触发压缩的大小下限</span><br>			<span class="hljs-comment">#以上数据类型，压缩大小下限均为默认值</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="Feign日志"><a href="#Feign日志" class="headerlink" title="Feign日志"></a>Feign日志</h2><p>通过loggin.level.xx&#x3D;debug来设置日志级别。然而这个对Feign客户端不会产生效果。因为@FeignClient注解修饰的客户端在被代理时，都会创建一个新的Feign.Logger实例。我们需要额外通过配置类的方式指定这个日志的级别才可以。</p>
+<ol>
+<li>在配置文件开启普通日志级别配置</li>
+<li>编写配置类 定义Feign日志级别bean</li>
+<li>在接口@FeignClient中指定Feign日志配置所在配置类</li>
+</ol>
+<h1 id="Spring-Cloud-Gateway-网关"><a href="#Spring-Cloud-Gateway-网关" class="headerlink" title="Spring Cloud Gateway 网关"></a>Spring Cloud Gateway 网关</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Spring Cloud Gateway 是Spring Cloud团队的一个全新项目，基于Spring 5.0、SpringBoot2.0、Project Reactor 等技术开发的网关。 旨在为微服务架构提供一种简单有效统一的API路由管理方式。</p>
+<p>Spring Cloud Gateway 作为SpringCloud生态系统中的网关，目标是替代Netflix Zuul。Gateway不仅提供统一路由方式，并且基于Filter链的方式提供网关的基本功能。例如：安全，监控&#x2F;指标，和限流。</p>
+<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><ul>
+<li>为微服务架构提供一种简单有效统一的API路由管理方式。(路由)</li>
+<li>基于Filter链的方式提供网关的基本功能。例如：安全，监控&#x2F;指标，和限流。(过滤)</li>
+</ul>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
+<li><strong>本身也是一个微服务，需要注册到Eureka</strong></li>
+</ul>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>如拦截到一个请求：localhost:8080&#x2F;order&#x2F;add</p>
+<ul>
+<li>路由(route): localhost:18081 分配到localhost:18081的服务</li>
+<li>断言Predicate函数 ：路由转发规则 &#x2F;order 属于&#x2F;order</li>
+<li>过滤器(Filter): 安全，监控&#x2F;指标，和限流</li>
+</ul>
+<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><ol>
+<li>创建gateway-service工程SpringBoot</li>
+<li>编写基础配置</li>
+<li>编写路由规则，配置静态路由策略</li>
+<li>启动网关服务进行测试</li>
+</ol>
+<ul>
+<li><p>静态路由</p>
+<ul>
+<li>在配置文件写死服务地址</li>
+</ul>
+</li>
+<li><p>动态路由</p>
+<ul>
+<li>路由配置中uri所用的协议为lb时，gateway将把服务名解析为实际的主机和端口，并通过Ribbon进行负载均衡。  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">application:</span><br>    <span class="hljs-comment"># 应用名</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">api-gateway</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">gateway:</span><br>      <span class="hljs-attr">routes:</span><br>        <span class="hljs-comment">#id唯一标识，可自定义</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">id:</span> <span class="hljs-string">user-service-route</span><br>          <span class="hljs-comment">#路由的服务地址</span><br>          <span class="hljs-comment">#uri: http://localhost:18081</span><br>          <span class="hljs-comment">#lb协议表示从Eureka注册中心获取服务请求地址</span><br>          <span class="hljs-comment">#user-provider访问的服务名称。</span><br>          <span class="hljs-comment">#路由地址如果通过lb协议加服务名称时，会自动使用负载均衡访问对应服务</span><br>          <span class="hljs-attr">uri:</span> <span class="hljs-string">lb://user-provider</span><br>          <span class="hljs-comment"># 路由拦截的地址配置（断言）</span><br>          <span class="hljs-attr">predicates:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-string">Path=/user/**</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>过滤器<br>  作用：常用于请求鉴权、服务调用时长统计、修改请求或响应header、限流、去除路径等等…</p>
+<ul>
+<li>分类<ul>
+<li>默认过滤器<ul>
+<li>全局默认过滤器<table>
+<thead>
+<tr>
+<th>过滤器名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AddRequestHeader</td>
+<td>对匹配上的请求加上Header</td>
+</tr>
+<tr>
+<td>AddRequestParameters</td>
+<td>对匹配上的请求路由增加参数</td>
+</tr>
+<tr>
+<td>AddResponseHeader</td>
+<td>对从网关返回的响应添加Header</td>
+</tr>
+</tbody></table>
+</li>
+<li>局部默认过滤器<table>
+<thead>
+<tr>
+<th>过滤器名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PrefixPath</td>
+<td>对匹配上的请求路径添加前缀</td>
+</tr>
+<tr>
+<td>StripPrefix</td>
+<td>对匹配上的请求路径去除前缀</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+<li>自定义过滤器<ul>
+<li>全局默认过滤器 作用在所有路由 如登陆校验</li>
+<li>局部默认过滤器 配置在具体路由下，只作用在当前路由 如打印字段</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Spring-Cloud-Config-配置中心"><a href="#Spring-Cloud-Config-配置中心" class="headerlink" title="Spring Cloud Config 配置中心"></a>Spring Cloud Config 配置中心</h1><h2 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h2><p>分布式系统中，由于服务数量非常多，配置文件分散在不同微服务项目中，管理极其不方便。为了方便配置文件集中管理，需要分布式配置中心组件。在Spring Cloud中，提供了Spring Cloud Config，它支持配置文件放在配置服务的本地，也支持配置文件放在远程仓库Git(GitHub、码云)。配置中心本质上是一个微服务，同样需要注册到Eureka服务中心！</p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><ol>
+<li>在启动类添加开启配置服务支持注释 @EnableConfigServer</li>
+<li>配置文件设置git</li>
+<li>在git上 添加配置文件 .yml <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs vim">命名规则 配置文件的命名方式：&#123;application&#125;-&#123;<span class="hljs-keyword">profile</span>&#125;.yml或&#123;application&#125;-&#123;<span class="hljs-keyword">profile</span>&#125;.properties<br>application为应用名称<br><span class="hljs-keyword">profile</span>用于区分开发环境dev，测试环境test，生产环境<span class="hljs-keyword">pro</span>等<br>开发环境 user-dev.yml<br>测试环境 user-test.yml<br>生产环境 user-<span class="hljs-keyword">pro</span>.yml<br></code></pre></td></tr></table></figure></li>
+<li>在需要远程配置的服务 加入依赖spring-cloud-starter-config</li>
+<li>删除需要配置的服务的配置文件，新增bootstrap.yml配置文件</li>
+<li>设置bootstrap.yml配置文件<ul>
+<li>bootstrap.yml文件是SpringBoot的默认配置文件，而且其加载时间相比于application.yml更早。</li>
+<li>bootstrap.yml和application.yml都是默认配置文件，但定位不同<ul>
+<li>bootstrap.yml可以理解成系统级别的一些参数配置，一般不会变动</li>
+<li>application.yml用来定义应用级别的参数</li>
+</ul>
+</li>
+<li>搭配spring-cloud-config使用application.yml的配置可以动态替换。</li>
+<li>bootstrap.yml相当于项目启动的引导文件，内容相对固定</li>
+<li>application.yml文件是微服务的常规配置参数，变化比较频繁</li>
+</ul>
+</li>
+</ol>
+<h1 id="Spring-Cloud-Bus-消息总线"><a href="#Spring-Cloud-Bus-消息总线" class="headerlink" title="Spring Cloud Bus 消息总线"></a>Spring Cloud Bus 消息总线</h1><h2 id="简介-2"><a href="#简介-2" class="headerlink" title="简介"></a>简介</h2><p>Bus是用轻量的消息代理将分布式的节点连接起来，可以用于<strong>广播配置文件的更改</strong>或者服务的监控管理。</p>
+<p>Bus可以为微服务做监控，也可以实现应用程序之间互相通信。Bus可选的消息代理<strong>RabbitMQ</strong>和Kafka。</p>
+<p>广播出去的配置文件服务会进行本地缓存。</p>
+<h2 id="作用-1"><a href="#作用-1" class="headerlink" title="作用"></a>作用</h2><p>SpringCloud Bus，实现配置自动更新。</p>
+<p>注意：SpringCloudBus基于RabbitMQ实现，默认使用本地的消息队列服务，所以需要提前安装并启动RabbitMQ。</p>
+<h2 id="流程-1"><a href="#流程-1" class="headerlink" title="流程"></a>流程</h2><figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs mel">a.config-server<br>    <span class="hljs-number">1.</span> 添加依赖 消息总线<span class="hljs-keyword">spring</span>-cloud-bus RabbitMQ依赖<span class="hljs-keyword">spring</span>-cloud-stream-binder-rabbit<br>    <span class="hljs-number">2.</span> 修改配置文件 添加rabbitmq management<br>b. 其他服务<br>    <span class="hljs-number">1.</span> 添加依赖 消息总线<span class="hljs-keyword">spring</span>-cloud-bus RabbitMQ依赖<span class="hljs-keyword">spring</span>-cloud-stream-binder-rabbit 健康监控依赖 <span class="hljs-keyword">spring</span>-boot-starter-actuator<br>    <span class="hljs-number">2.</span> 在bootstrap.yml 中添加rabbitmq的配置<br>    <span class="hljs-number">3.</span> 在需要用到实时刷新的数据的类上加上注释@RefreshScope<br>	   使用@Value sqEl表达式获取配置文件的值 @Value(<span class="hljs-string">&quot;$&#123;test.message&#125;&quot;</span>)<br>c. 修改git上的配置文件 添加值 如 test.message: hello<br>d. 使用POST请求 http:<span class="hljs-comment">//&#123;config-server所在的ip:port&#125;/actuator/&#123;config-server配置文件中management include的值&#125;</span><br> 如：http:<span class="hljs-comment">//localhost:18080/actuator/bus-refresh</span><br> 访问配置中心的消息总线，消息总线向rabbitmq的消息队列发送消息，其他服务接受到队列消息后，就重新从配置中心获取最新的配置信息<br>e. 可以正常请求其他服务接口 如：http:<span class="hljs-comment">//localhost:8081/api/config/load?token=aaa</span><br></code></pre></td></tr></table></figure>
+
+<p>测试得出 不能修改端口号~</p>
+<p>DiscoveryClient_USER-PROVIDER&#x2F;DESKTOP-4U92VMS:user-provider:8082 - registration status: 204</p>
+<p><strong>消息总线实现消息分发过程：</strong></p>
+<ul>
+<li>请求地址访问配置中心的消息总线</li>
+<li>消息总线接收到请求</li>
+<li>消息总线向消息队列发送消息</li>
+<li>user-service微服务会监听消息队列</li>
+<li>user-service微服务接到消息队列中消息后</li>
+<li>user-service微服务会重新从配置中心获取最新配置信息</li>
+</ul>
+<p><img src="/posts/81fdf1638f5e/1620142783362.png" srcset="/images/loading.gif" lazyload alt="1620142783362.png"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/java/" class="category-chain-item">java</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/java/java%E8%BF%9B%E9%98%B6/" class="category-chain-item">java进阶</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/java/" class="print-no-link">#java</a>
+      
+        <a href="/tags/Spring/" class="print-no-link">#Spring</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Spring Cloud</div>
+      <div>https://succeedwer.github.io/posts/81fdf1638f5e/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WER</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年10月25日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年3月19日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/cbdca4555d82/" title="Jedis连接Redis Cluster的java.net.SocketTimeoutException: connect timed out">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Jedis连接Redis Cluster的java.net.SocketTimeoutException: connect timed out</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/94114acca2dc/" title="隐式转换and强制转换">
+                        <span class="hidden-mobile">隐式转换and强制转换</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

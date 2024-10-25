@@ -229,15 +229,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/582daaba3cd4/" target="_self">
-          9.7. 示例：并发的非阻塞缓存
+        <a href="/posts/3fe3adad6cdf/" target="_self">
+          导入包
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/582daaba3cd4/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/3fe3adad6cdf/" target="_self">
         <div>
-          题目本章节的例子为非阻塞缓存。即缓存函数的返回结果，调用该函数时，只要返回已缓存的函数结果即可。 下面以httpGetBody函数做为缓存函数的样例。 12345678func httpGetBody(url string) (interface&#123;&#125;, error) &#123;	resp, err := http.Get(url)	if err != nil &#123;
+          前言一般情况下，可以将包分为3种：  内置包 本地包 远程包  导入内置包内置包指的是Go语言下的标准库中的包。 1import &quot;fmt&quot;	  导入本地包本地包指的是开发者自定义的包。 1improt &quot;模块名/包名&quot;  导入远程包远程包指的是远程仓库的包。 1import &quot;github.com/darjun/go-daily-lib/comm
         </div>
       </a>
 
@@ -245,8 +245,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-19 17:52" pubdate>
-              2023-03-19
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -266,7 +266,7 @@
   
     <span>></span>
     
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  <a href="/categories/go/Go%E7%9F%A5%E8%AF%86%E7%82%B9/" class="category-chain-item">Go知识点</a>
   
   
 
@@ -284,8 +284,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/go/">#go</a>
-            
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -299,15 +297,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/d92837fb26ef/" target="_self">
-          9.6. 竞争条件检测
+        <a href="/posts/b8d018569662/" target="_self">
+          如何创建Go项目
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/d92837fb26ef/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/b8d018569662/" target="_self">
         <div>
-          程序并发发生问题实在无可避免，但是Go的runtime和工具链提供了一个复杂但好用的动态分析工具，竞争检查器（the race detector）。 用法：只要在go build、go run 或 go test 后面加上-race 的flag即可。编译器创建一个你的应用的“修改”版或者一个附带了能够记录所有运行期对共享变量访问工具的test，并且会记录下每一个读或者写共享变量的goroutine
+          前言本文旨在手把手教你使用go tool创建Go项目。 项目构成Go项目由以下构成：  packages: 一个目录即一个包。 module：多个包组成一个模块。  go.mod文件定义了module的路径。 第一个Go项目创建一个项目名为hello的Go项目，其中包含路径为example/user/hello的模块，且在go.mod定义该模块。 12345678$ mkdir hello  #
         </div>
       </a>
 
@@ -315,8 +313,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-19 16:52" pubdate>
-              2023-03-19
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -336,7 +334,7 @@
   
     <span>></span>
     
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  <a href="/categories/go/Go%E7%9F%A5%E8%AF%86%E7%82%B9/" class="category-chain-item">Go知识点</a>
   
   
 
@@ -354,8 +352,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/go/">#go</a>
-            
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
             
           </div>
         
@@ -369,15 +365,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/76eb94f5fa7d/" target="_self">
-          9.5. sync.Once初始化
+        <a href="/posts/60e5971c76f4/" target="_self">
+          go框架
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/76eb94f5fa7d/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/60e5971c76f4/" target="_self">
         <div>
-          下面是一个懒加载的例子。 12345678910111213141516func loadIcons() &#123;    icons = map[string]image.Image&#123;        &quot;spades.png&quot;:   loadIcon(&quot;spades.png&quot;),        &quot;hearts.png&quot;:
+          web gin github.com&#x2F;gin-gonic&#x2F;gin   jwt jwt github.com&#x2F;golang-jwt&#x2F;jwt&#x2F;v5   log logrus github.com&#x2F;sirupsen&#x2F;logrus   加密 crypto ​	golang.org&#x2F;x&#x2F;crypto   db orm
         </div>
       </a>
 
@@ -385,8 +381,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-19 15:52" pubdate>
-              2023-03-19
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -404,13 +400,6 @@
   <a href="/categories/go/" class="category-chain-item">go</a>
   
   
-    <span>></span>
-    
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
-  
-  
-
-  
 
       </span>
     
@@ -425,7 +414,7 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+              <a href="/tags/%E6%A1%86%E6%9E%B6/">#框架</a>
             
           </div>
         
@@ -439,15 +428,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/e115a072f817/" target="_self">
-          9.4. 内存同步
+        <a href="/posts/5e7e3343ec32/" target="_self">
+          kafka之cluster.id不匹配
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/e115a072f817/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/5e7e3343ec32/" target="_self">
         <div>
-          在9.2，9.3章节中，我们对Balance方法使用了互斥锁mutex，在此有两方面的考虑。  Balance方法不会在其他操作（如Withdraw）中执行。 更重要的是不单是一堆goroutine的执行顺序问题，而是内存同步问题。  何为内存同步？在现代计算机中可能会有一堆处理器，每一个都会有其本地缓存(local cache)。为了效率，对内存的写入一般会在每一个处理器中缓冲，并在必要时一起f
+          问题机器重启，导致docker中kafka报错： 12345java.lang.RuntimeException: Invalid cluster.id in: /bitnami/kafka/data/meta.properties. Expected _SSSu-QCT2uq8_DDdPLcFA, but read 6Nty0xunRsa1ZpkDRxM2hw        at org.apa
         </div>
       </a>
 
@@ -455,8 +444,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-19 14:52" pubdate>
-              2023-03-19
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -471,15 +460,8 @@
     
       <span class="category-chain">
         
-  <a href="/categories/go/" class="category-chain-item">go</a>
+  <a href="/categories/docker/" class="category-chain-item">docker</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
-  
-  
-
   
 
       </span>
@@ -493,9 +475,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/go/">#go</a>
+              <a href="/tags/docker/">#docker</a>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+              <a href="/tags/kafka/">#kafka</a>
             
           </div>
         
@@ -509,15 +491,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/1294ae8bb0f7/" target="_self">
-          9.3. sync.RWMutex读写锁
+        <a href="/posts/0c6d50d920a2/" target="_self">
+          docker构建本地镜像
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/1294ae8bb0f7/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/0c6d50d920a2/" target="_self">
         <div>
-          允许多个只读操作并发执行，但写操作完全互斥，这样的锁叫多读单写锁（multipe readers, single writer lock）， 在go语言中，sync.RWMutex是这样的锁。 调用了RLock和RUnlock方法来获取和释放一个读取或者共享锁。 RLock只能在临界区共享变量没有任何写入操作可用。不应该在只读函数&#x2F;方法内更新共享变量。 RWMutex只有当获得锁的大部分
+          前言下面以构建本地dtm镜像为例。 步骤 下载dtm可执行文件, 也可以下载源码，在Dockerfile的CMD改成go run main.go即可。  在执行文件同等级目录下创建Dockerfile文件 123456789101112# 设置继承于哪个镜像FROM golang:1.18 as builder# 创建者消息MAINTAINER wer# 工作目录WORKDIR /dtm# 将dt
         </div>
       </a>
 
@@ -525,8 +507,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-19 13:52" pubdate>
-              2023-03-19
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -541,15 +523,8 @@
     
       <span class="category-chain">
         
-  <a href="/categories/go/" class="category-chain-item">go</a>
+  <a href="/categories/docker/" class="category-chain-item">docker</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
-  
-  
-
   
 
       </span>
@@ -563,9 +538,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/go/">#go</a>
+              <a href="/tags/docker/">#docker</a>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+              <a href="/tags/redis/">#redis</a>
             
           </div>
         
@@ -579,15 +554,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/da8e0d3d1c07/" target="_self">
-          9.2. sync.Mutex互斥锁
+        <a href="/posts/6f90a1e74c04/" target="_self">
+          docker安裝elk日志系統
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/da8e0d3d1c07/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/6f90a1e74c04/" target="_self">
         <div>
-          channel互斥在前面例子中，我们用buffered channel来设计sema信号量，来保证至多20个goroutine同时执行http请求。如果使用容量只有1的channel来保证至多1个goroutine同一时刻来访问一个共享变量，这样也能达成互斥。 123456789101112131415161718package bankvar (	sema    = make(chan stru
+          环境 Ubuntu 22.04.1 LTS Docker 26.1.1 bitnami&#x2F;kafka 3.7.1 kibana  8.14.3 elasticsearch 8.14.3 elastic&#x2F;filebeat 8.14.3 wer&#x2F;go-stash v1.0.0 elastic&#x2F;filebeat 8.14.3  前言elk日志系统，是指由elasti
         </div>
       </a>
 
@@ -595,8 +570,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-19 12:52" pubdate>
-              2023-03-19
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -611,15 +586,8 @@
     
       <span class="category-chain">
         
-  <a href="/categories/go/" class="category-chain-item">go</a>
+  <a href="/categories/docker/" class="category-chain-item">docker</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
-  
-  
-
   
 
       </span>
@@ -633,9 +601,15 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/go/">#go</a>
+              <a href="/tags/docker/">#docker</a>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+              <a href="/tags/elk/">#elk</a>
+            
+              <a href="/tags/elasticsearch/">#elasticsearch</a>
+            
+              <a href="/tags/go-stash/">#go-stash</a>
+            
+              <a href="/tags/kibana/">#kibana</a>
             
           </div>
         
@@ -649,15 +623,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/df4edc666b3d/" target="_self">
-          9.1. 竞争条件
+        <a href="/posts/2c12b0f96f56/" target="_self">
+          docker安装redis
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/df4edc666b3d/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/2c12b0f96f56/" target="_self">
         <div>
-          在线性的程序中，即只有一个goroutine，程序的执行顺序由程序逻辑决定。当我们无法确认两个事件之间执行的先后顺序时，说明这两个事件是并发的。 在并发的情况下，函数能够正确并正常运行，那么可以说这个函数是并发安全的。并发安全的函数不需要额外进行同步。同样的，不但适用于函数，还可以适用于类型的函数和方法，如果这个类型是并发安全的，那么类型的方法和函数同样是并发安全的。 导出包级别的函数一般情况下是
+          sudo docker cp f1e7f2c629e0:&#x2F;var&#x2F;log&#x2F;mysqld.log &#x2F;opt&#x2F;mysql_docker&#x2F;logs&#x2F;mysqld.log sudo docker cp f1e7f2c629e0:&#x2F;etc&#x2F;my.cnf &#x2F;opt&#x2F;mysql_docker&#x2F;
         </div>
       </a>
 
@@ -665,8 +639,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-19 11:52" pubdate>
-              2023-03-19
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -681,15 +655,8 @@
     
       <span class="category-chain">
         
-  <a href="/categories/go/" class="category-chain-item">go</a>
+  <a href="/categories/docker/" class="category-chain-item">docker</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
-  
-  
-
   
 
       </span>
@@ -703,9 +670,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/go/">#go</a>
+              <a href="/tags/docker/">#docker</a>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+              <a href="/tags/redis/">#redis</a>
             
           </div>
         
@@ -719,15 +686,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/261f973145a5/" target="_self">
-          第九章 基于共享变量的并发
+        <a href="/posts/f967735ccbf7/" target="_self">
+          docker安装nacos
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/261f973145a5/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/f967735ccbf7/" target="_self">
         <div>
-          在未引入锁机制前，我们可以使用不要用共享数据来通信，使用通信来共享数据，即单独goroutine访问局部变量。本章主要为Go语言的锁机制。 9.1. 竞争条件9.2. sync.Mutex互斥锁9.3. sync.RWMutex读写锁9.4. 内存同步9.5. sync.Once初始化9.6. 竞争条件检测9.7. 并发的非阻塞缓存9.8. Goroutines和线程
+          环境 Ubuntu 22.04.1 LTS Docker 26.1.1 nacos&#x2F;nacos-server 2.3.1 mysql 8.3.0  吐槽一句nacos的安装文档真是一言难尽，在github的Issues中，基本上都在问No datasource set的问题。 巨坑：这里使用外置的数据库，需要进行初始化数据库！！！ 单机模式-mysql安装mysql安装mysql，可以参
         </div>
       </a>
 
@@ -735,8 +702,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-19 10:52" pubdate>
-              2023-03-19
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -751,15 +718,8 @@
     
       <span class="category-chain">
         
-  <a href="/categories/go/" class="category-chain-item">go</a>
+  <a href="/categories/docker/" class="category-chain-item">docker</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
-  
-  
-
   
 
       </span>
@@ -773,9 +733,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/go/">#go</a>
+              <a href="/tags/docker/">#docker</a>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+              <a href="/tags/nacos/">#nacos</a>
             
           </div>
         
@@ -789,15 +749,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/7a3e094c0893/" target="_self">
-          8.10. 示例：聊天服务
+        <a href="/posts/4758492a4529/" target="_self">
+          docker安装kafka
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/7a3e094c0893/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/4758492a4529/" target="_self">
         <div>
-          题目这个程序可以让用户通过服务器向其他用户广播文本信息。 思路该程序可以分解为四个goroutine。  main 主函数goroutine实例，用于创建连接。 broadcaster 用于处理不同类型的的消息。 handleConn 用于处理连接数据。 cientWriter 用于返回客户端信息。  实现mainmain 主要用于处理（listen and accept）从客户端过来的连接。而对
+          环境 Ubuntu 22.04.1 LTS Docker 26.1.1 bitnami&#x2F;kafka 3.7.0  zookeeper  3.9.2  Kafka with Zookeeperdocker-compose.yaml 12345678910111213141516171819202122232425262728293031323334353637383940414243444
         </div>
       </a>
 
@@ -805,8 +765,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 20:52" pubdate>
-              2023-03-18
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -821,15 +781,8 @@
     
       <span class="category-chain">
         
-  <a href="/categories/go/" class="category-chain-item">go</a>
+  <a href="/categories/docker/" class="category-chain-item">docker</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
-  
-  
-
   
 
       </span>
@@ -843,9 +796,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/go/">#go</a>
+              <a href="/tags/docker/">#docker</a>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+              <a href="/tags/kafka/">#kafka</a>
             
           </div>
         
@@ -859,15 +812,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/92d779dbee59/" target="_self">
-          8.9. 并发的退出
+        <a href="/posts/1931388344c2/" target="_self">
+          docker安装harbor
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/92d779dbee59/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/1931388344c2/" target="_self">
         <div>
-          书接上回，话说上章节实现du工具，并做了进一步扩展，在本章节进行进一步的扩展。如果du的文件目录下有很多很大的文件，那么时间就会增加，这时，用户等待到不耐烦了，就想退出但又不想通过kill程序。 思路众所周知，如果我们需要通知正在运行的goroutine停止它手头上的事时，如web服务器端要中断已经和服务器断开连接的客户端，go语言并没有提供这样的方法。换个思路，在先前的章节中，我们有通过往cha
+          环境 Ubuntu 22.04.1 LTS Docker 26.1.1 Harbor v2.10.3  前言Harbor是一个开源可信的云原生注册表项目，用于存储、签名和扫描内容。Harbor扩展了开源Docker发行版，增加了用户通常需要的功能，如安全、身份和管理。拥有一个离构建和运行环境更近的注册表可以提高映像传输效率。Harbor支持在注册中心之间复制映像，还提供高级安全特性，如用户管理、访
         </div>
       </a>
 
@@ -875,8 +828,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 19:52" pubdate>
-              2023-03-18
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -891,15 +844,8 @@
     
       <span class="category-chain">
         
-  <a href="/categories/go/" class="category-chain-item">go</a>
+  <a href="/categories/docker/" class="category-chain-item">docker</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
-  
-  
-
   
 
       </span>
@@ -913,9 +859,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/go/">#go</a>
+              <a href="/tags/docker/">#docker</a>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+              <a href="/tags/harbor/">#harbor</a>
             
           </div>
         
@@ -927,7 +873,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/12/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/#board">11</a><a class="page-number" href="/page/12/#board">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/#board">14</a><a class="page-number" href="/page/15/#board">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/#board">21</a><a class="extend next" rel="next" href="/page/14/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/12/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/#board">11</a><a class="page-number" href="/page/12/#board">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/#board">14</a><a class="page-number" href="/page/15/#board">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/#board">24</a><a class="extend next" rel="next" href="/page/14/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

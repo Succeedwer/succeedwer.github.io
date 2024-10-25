@@ -1,0 +1,938 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言tls协议中常用的证书格式有很多种，这里做简单的介绍。 证书分类一般文件后缀有：  .pem   全称： Privacy Enhanced Mail 用途：常用于安全领域，SSL&#x2F;TLS协议，openssl默认的信息存储方式 Base64编码格式，保存公钥或私钥   DER     全称：Distinguished Encoding Rules 后缀：.der、.cer  用途：表示">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tls的证书们">
+<meta property="og:url" content="https://succeedwer.github.io/posts/71525609c0b2/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:description" content="前言tls协议中常用的证书格式有很多种，这里做简单的介绍。 证书分类一般文件后缀有：  .pem   全称： Privacy Enhanced Mail 用途：常用于安全领域，SSL&#x2F;TLS协议，openssl默认的信息存储方式 Base64编码格式，保存公钥或私钥   DER     全称：Distinguished Encoding Rules 后缀：.der、.cer  用途：表示">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-10-25T14:49:41.056Z">
+<meta property="article:modified_time" content="2024-06-26T09:11:42.662Z">
+<meta property="article:author" content="WER">
+<meta property="article:tag" content="ssl&#x2F;tls">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>tls的证书们 - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="tls的证书们"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        WER
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-10-25 22:49" pubdate>
+          2024年10月25日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="other"
+        id="heading-795f3202b17cb6bc3d4b771d8c6c9eaf" role="tab" data-toggle="collapse" href="#collapse-795f3202b17cb6bc3d4b771d8c6c9eaf"
+        aria-expanded="true"
+      >
+        other
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-795f3202b17cb6bc3d4b771d8c6c9eaf"
+           role="tabpanel" aria-labelledby="heading-795f3202b17cb6bc3d4b771d8c6c9eaf">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/41896dda8047/" title="编译运行命令"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">编译运行命令</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="ssl/tls"
+        id="heading-3bc72fb1f9383f6e3e353b7a024a8a26" role="tab" data-toggle="collapse" href="#collapse-3bc72fb1f9383f6e3e353b7a024a8a26"
+        aria-expanded="true"
+      >
+        ssl/tls
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-3bc72fb1f9383f6e3e353b7a024a8a26"
+           role="tabpanel" aria-labelledby="heading-3bc72fb1f9383f6e3e353b7a024a8a26">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/71525609c0b2/" title="tls的证书们"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">tls的证书们</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/ce3464642284/" title="双向认证证书实践"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">双向认证证书实践</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">tls的证书们</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>tls协议中常用的证书格式有很多种，这里做简单的介绍。</p>
+<h1 id="证书分类"><a href="#证书分类" class="headerlink" title="证书分类"></a>证书分类</h1><p>一般文件后缀有：</p>
+<ul>
+<li><p><strong>.pem</strong> </p>
+<ul>
+<li>全称： Privacy Enhanced Mail</li>
+<li>用途：常用于安全领域，SSL&#x2F;TLS协议，openssl默认的信息存储方式</li>
+<li>Base64编码格式，保存公钥或私钥</li>
+</ul>
+</li>
+<li><p><strong>DER</strong>   </p>
+<ul>
+<li>全称：Distinguished Encoding Rules</li>
+<li>后缀：<code>.der</code>、<code>.cer</code> </li>
+<li>用途：表示X.509证书、CRL(证书吊销列表)和PCK#7等数据结构</li>
+<li>二进制编码格式</li>
+<li>比<code>PEM</code>高效紧凑，但可读性差，需要专业工具才能进行解析和查看</li>
+</ul>
+</li>
+<li><p><strong>CRT和CER</strong> (Certificate和Certificate) </p>
+<ul>
+<li>后缀：<code>.crt</code>、<code>.cer</code></li>
+<li>这两种文件区别并不严格，通常可以互换使用</li>
+<li>用途：常用于存储X.509证书，WIndows平台上，CRT文件用于存储公钥，CER存储包含公钥和私钥</li>
+<li>CRT文件通常使用PEM或DER格式进行编码，CER通常使用DER格式进行编码。</li>
+</ul>
+</li>
+<li><p><strong>.key</strong></p>
+<ul>
+<li>key文件通常存储私钥或公钥</li>
+<li>key文件只包含密钥消息，不包含证书信息。</li>
+<li>使用PEM或DER格式进行编码</li>
+</ul>
+</li>
+<li><p><strong>.csr</strong></p>
+<ul>
+<li>全称：Certificate signing request 证书签名请求</li>
+<li>用途：用于CA签名</li>
+<li>包含证书信息，如：国家，域名，邮件等。</li>
+</ul>
+</li>
+<li><p><strong>.pfx</strong></p>
+<ul>
+<li>全称：Predecessor of PKCS#12</li>
+<li>用途：常用于微软ISS服务器的证书</li>
+<li>证书和私钥存在同一PFX文件</li>
+<li>密码保护</li>
+</ul>
+</li>
+<li><p><strong>.jks</strong></p>
+<ul>
+<li>全称：java key storage</li>
+<li>Java的keytool实现keystore的证书格式</li>
+<li>密码保护</li>
+</ul>
+</li>
+<li><p><strong>pkcs1~pkcs12</strong></p>
+<ul>
+<li>全称：公钥非对称加密的标准 Public Key Cryptography Standards</li>
+<li>后缀：<code>.p[N]</code>,N为版本号，如<code>.p12</code></li>
+<li>密码保护</li>
+</ul>
+</li>
+</ul>
+<p>不同平台，不同机构对应的证书类型，实现方式各有不同。</p>
+<p>当然，证书之间可以进行互相转换。</p>
+<h1 id="TLS相关术语"><a href="#TLS相关术语" class="headerlink" title="TLS相关术语"></a>TLS相关术语</h1><h2 id="keystore-和-truststore"><a href="#keystore-和-truststore" class="headerlink" title="keystore 和 truststore"></a>keystore 和 truststore</h2><p><code>keystore</code>是存储公钥私钥的容器。</p>
+<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><p><code>keystore</code>和<code>truststore</code>本质都是<code>keystore</code>，存储都是密钥文件，只不过根据存储密钥所有者不同进行区分。</p>
+<p><code>keystore</code>存储自己的公钥和私钥，<code>truststore</code>存储自己信任对象的公钥。</p>
+<h3 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h3><p>常用于服务器客户端的单向认证和双向认证。</p>
+<ul>
+<li>单向认证<ul>
+<li>客户端验证服务器端的真伪</li>
+<li>服务器端keystore中的公钥导入到客户端truststore中。</li>
+</ul>
+</li>
+<li>双向认证<ul>
+<li>客户端验证服务器端，服务器端验证客户端</li>
+<li>服务器端keystore中的公钥导入到客户端truststore中。</li>
+<li>客户端keystore中的公钥导入到服务器端truststore中。</li>
+</ul>
+</li>
+</ul>
+<h2 id="CA"><a href="#CA" class="headerlink" title="CA"></a>CA</h2><p>全称：Certificate Authority</p>
+<p>为什么会出现CA?</p>
+<blockquote>
+<p>在<a target="_blank" rel="noopener" href="https://link.segmentfault.com/?enc=DEfKMvz1Syo+6S5HNv101w==.ES06FZ0LJXlsQzR5LfIQehoQs0m9TDTgPCCJax8l9w3AXOLpMmPuHzjy7qVtl90co/WBQyg+IIAOTG81W/qXWg==">密码学</a>和<a target="_blank" rel="noopener" href="https://link.segmentfault.com/?enc=K5rvaMZzPdpVnCtghZ8l3Q==.UGaN4pWUmNM+l1hLCnmo9li4l5rNMfT/iSzaNk5103EvjaO8CoqQlFuSVLJhzo5rBECPFsNyZeWxFk+sWq36GHD0+YSScz8BRHamgimcW2g=">计算机安全</a>领域中，<strong>中间人攻击</strong>（Man-in-the-middle attack，<a target="_blank" rel="noopener" href="https://link.segmentfault.com/?enc=RPut75SzSsC/vnXpr5+eCQ==.okicAIilu/lg0GZ0yCqPFMyL0gizvEfOOLea9la3tmm7ltLT40//967aYKaL2JsXIJTj068d1bYqW+2W0RwAZw==">缩写</a>：MITM）是指攻击者与通讯的两端分别建立独立的联系，并交换其所收到的数据，使通讯的两端认为他们正在通过一个私密的连接与对方直接对话，但事实上整个会话都被攻击者完全控制。在中间人攻击中，攻击者可以拦截通讯双方的通话并插入新的内容。在许多情况下这是很简单的（例如，在一个未加密的<a target="_blank" rel="noopener" href="https://link.segmentfault.com/?enc=mna+u2+6/kdThfxF5X1LIA==.QLbxcqzaITJp8GvwZ3LCrFvuqtFdg4kFmU3axoP+MtEevatsbBrM+xduwnU/mwGU">Wi-Fi</a> <a target="_blank" rel="noopener" href="https://link.segmentfault.com/?enc=DmZzY27ORv/1mPGQCqePnw==.vra3aLsv/oX+rxHUUPlzC2zsORQJCd4C6DFhXZxW/wIniWzanx1JTTNoyX8SGbbPsoDvCmecckuyYKvGPgoD0kFKnurA5kvqrBCD3RobUpE=">无线接入点</a>的接受范围内的中间人攻击者，可以将自己作为一个中间人插入这个网络）。</p>
+</blockquote>
+<p>简单来说，攻击者&#x2F;中间人拦截通讯双方的公钥，并将自己公钥发送的通讯双方，这样就能完全控制通讯双方的通信内容，解密或冒充插入信息。</p>
+<p>而为了解决该问题，引入了公证处，即将通讯双方的数字证书进行数字签名，盖个戳。</p>
+<p>那么这种公证处就是CA，也叫数字证书认证机构。</p>
+<p>这样的话，攻击者就算替换了通讯双方的公钥，也无法替换掉CA的数字签名。</p>
+<p>认证流程：</p>
+<ul>
+<li>数字证书就是申请人将自身的必要信息CSR证书，如公钥、姓名、电子邮件、有效期等，提交给CA</li>
+<li>CA对CSR进行签名，hash加密，形成数字签名，附在证书后面，就得到了数字证书。</li>
+<li>当通信的一方，拿到数字证书时，就会使用CA的公钥解密数字证书的数字签名，再将数字证书中信息进行hash加密，将两者进行比较，如果hash值一致，则证明该数字证书有效且未被篡改。</li>
+</ul>
+<h2 id="X-509"><a href="#X-509" class="headerlink" title="X.509"></a>X.509</h2><p>X.509是公钥基础设施（PKI）的标准格式。PKI： Public Key Infrastructure </p>
+<blockquote>
+<p>在密码学中，X.509是定义公钥证书格式的标准。 [<a target="_blank" rel="noopener" href="https://encyclopedia.thefreedictionary.com/X.509#cite_note-1">1]</a> X.509证书用于许多互联网协议，包括TLS&#x2F;SSL，它是HTTPS的基础， [<a target="_blank" rel="noopener" href="https://encyclopedia.thefreedictionary.com/X.509#cite_note-:0-2">2]</a> 是浏览网页的安全协议。它们也用于离线应用程序，如电子签名。X.509证书包含一个公钥和一个标识(主机名、组织或个人)，由证书颁发机构签名或自签名。当证书由受信任的证书颁发机构签名或通过其他方式进行验证时，持有该证书的人可以依靠它包含的公钥与另一方建立安全通信，或验证由相应私钥数字签名的文档。</p>
+</blockquote>
+<h3 id="证书标准结构"><a href="#证书标准结构" class="headerlink" title="证书标准结构"></a>证书标准结构</h3><p>X.509 v3数字证书的结构如下:</p>
+<ul>
+<li>Certificate 证书<ul>
+<li>Version Number 版本号</li>
+<li>Serial Number 序列号</li>
+<li>Signature Algorithm ID 签名算法ID</li>
+<li>Issuer Name 发行人的名字</li>
+<li>Validity period 有效期<ul>
+<li>Not Before 在此之前</li>
+<li>Not After 不后</li>
+</ul>
+</li>
+<li>Subject name 主题名称</li>
+<li>Subject Public Key Info 主题公钥信息<ul>
+<li>Public Key Algorithm 公钥算法</li>
+<li>Subject Public Key 主题公钥</li>
+</ul>
+</li>
+<li>Issuer Unique Identifier (optional) 发行者唯一标识符(可选)</li>
+<li>Subject Unique Identifier (optional) 主题唯一标识符(可选)</li>
+<li>Extensions (optional) 扩展(可选) <ul>
+<li>…</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Certificate Signature Algorithm 证书签名算法</li>
+<li>Certificate Signature 证书签名</li>
+</ul>
+<h3 id="X-509证书常用的文件名扩展名"><a href="#X-509证书常用的文件名扩展名" class="headerlink" title="X.509证书常用的文件名扩展名"></a>X.509证书常用的文件名扩展名</h3><p>X.509证书有几种常用的文件名扩展名，用于公钥。</p>
+<ul>
+<li><code>.pem</code> – (<a target="_blank" rel="noopener" href="https://encyclopedia.thefreedictionary.com/Privacy-enhanced+Electronic+Mail">Privacy-enhanced Electronic Mail</a>) Base64 encoded <a target="_blank" rel="noopener" href="https://encyclopedia.thefreedictionary.com/Distinguished+Encoding+Rules">DER</a> certificate, enclosed between “—–BEGIN CERTIFICATE—–” and “—–END CERTIFICATE—–”</li>
+<li><code>.cer</code>, <code>.crt</code>, <code>.der</code> – usually in binary <a target="_blank" rel="noopener" href="https://encyclopedia.thefreedictionary.com/Distinguished+Encoding+Rules">DER</a> form, but Base64-encoded certificates are common too (see <code>.pem</code> above)</li>
+<li><code>.p7b</code>, <code>.p7c</code> – PKCS#7 SignedData structure without data, just certificate(s) or CRL(s)</li>
+<li><code>.p12</code> – <a target="_blank" rel="noopener" href="https://encyclopedia.thefreedictionary.com/PKCS12">PKCS#12</a>, may contain certificate(s) (public) and private keys (password protected)</li>
+<li><code>.pfx</code> – PFX, predecessor of PKCS#12 (usually contains data in PKCS#12 format, e.g., with PFX files generated in <a target="_blank" rel="noopener" href="https://encyclopedia.thefreedictionary.com/Internet+Information+Services">IIS</a>)</li>
+</ul>
+<h1 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h1><p><a target="_blank" rel="noopener" href="https://encyclopedia.thefreedictionary.com/X.509">X.509 | encyclopedia article by TheFreeDictionary</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/other/" class="category-chain-item">other</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/other/ssl-tls/" class="category-chain-item">ssl/tls</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/ssl-tls/" class="print-no-link">#ssl/tls</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>tls的证书们</div>
+      <div>https://succeedwer.github.io/posts/71525609c0b2/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WER</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年10月25日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年6月26日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/ce3464642284/" title="双向认证证书实践">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">双向认证证书实践</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/41896dda8047/" title="编译运行命令">
+                        <span class="hidden-mobile">编译运行命令</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

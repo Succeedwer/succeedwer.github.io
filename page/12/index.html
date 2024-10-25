@@ -229,15 +229,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/2b3895c22904/" target="_self">
-          第十一章 测试
+        <a href="/posts/ec4ba27222bf/" target="_self">
+          11.应用场景之秒杀
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/2b3895c22904/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/ec4ba27222bf/" target="_self">
         <div>
-          Go语言的测试技术是相对低级的。它依赖一个go test测试命令和一组按照约定方式编写的测试函数，测试命令可以运行这些测试函数。 11.1. go test 11.2. 测试函数 11.3. 测试覆盖率 11.4. 基准测试 11.5. 剖析 11.6. 示例函数
+          案例商品秒杀，必定会可能在某一时间点并发请求大增，可能导致高并发下部分操作失败等。 而解决秒杀高并发问题无非就是削峰和节流。 这里抛开对服务或数据库的集群、订单分库分表、消息队列削峰等解决方式，只针对核心保证库存和订单数据一致。 遇到的问题一般的情况下，分布式系统秒杀架构中，设计了库存服务、订单服务等。 为了高并发，通常将库存放在Redis中，当收到秒杀订单请求时，在Redis中进行库存扣减。 在
         </div>
       </a>
 
@@ -245,8 +245,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-21 10:52" pubdate>
-              2023-03-21
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -266,8 +266,15 @@
   
     <span>></span>
     
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/dtm/" class="category-chain-item">dtm</a>
+  
+  
+
   
 
   
@@ -285,7 +292,9 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+              <a href="/tags/dtm/">#dtm</a>
+            
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">#分布式事务</a>
             
           </div>
         
@@ -299,15 +308,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/c1eef8565635/" target="_self">
-          10.7. 工具
+        <a href="/posts/5ca0004745c3/" target="_self">
+          10.应用场景之订单系统
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/c1eef8565635/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/5ca0004745c3/" target="_self">
         <div>
-          可以使用go或go help获取内置的帮助文档。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253$ goGo is a tool for managing Go source code.Usage:	go &lt;command&gt; [argume
+          案例订单系统，拆分如下：  订单服务 库存服务 优惠券服务 支付服务 账户服务  场景： 用户提交订单后，系统需要完成的操作如下：  创建订单 扣减库存 扣减优惠券 创建支付单  可能遇到的问题process crash在分布式系统中，进程crash问题是无法避免的，在提交订单后，会导致仅完成部分，还有一部分未完成。 以下几种处理方案：  允许不一致：监测到这种情况，人工处理 消息队列保证至少成功
         </div>
       </a>
 
@@ -315,8 +324,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-20 17:52" pubdate>
-              2023-03-20
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -336,8 +345,15 @@
   
     <span>></span>
     
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/dtm/" class="category-chain-item">dtm</a>
+  
+  
+
   
 
   
@@ -355,7 +371,9 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+              <a href="/tags/dtm/">#dtm</a>
+            
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">#分布式事务</a>
             
           </div>
         
@@ -369,15 +387,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/26ffbeb103e4/" target="_self">
-          10.6. 包的命名
+        <a href="/posts/a4c5fa285453/" target="_self">
+          1.介绍
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/26ffbeb103e4/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/a4c5fa285453/" target="_self">
         <div>
-          包的命名规则：  命名尽量短小 要尽量避免与常用的局部变量重复 尽量使用单数形式 避免与预定义类型冲突，可以复数形式 避免与关键字冲突，可以复数形式 避免包名歧义  当设计一个包时，要考虑包名与方法&#x2F;函数&#x2F;成员变量名配合。 1flag.Int	bytes.Equal		http.Get  也有可能包名与方法、函数和成员名重复。 1rand.Rand 所以，包名要尽量简洁短小。
+          介绍 本系列是对dtm的集成和使用的作简要笔记，更多详情请看官方文档：为什么dtm | DTM开源项目文档  dtm是使用go语言进行开发的一款分布式事务管理器，在众多大厂中广受好评。 分布式事务最大的作用是能够保证数据的一致性，dtm能够跨数据库，跨服务，跨语言栈来保证数据一致性。 一致性，简单来说，就是保证服务在多个节点中，要么全部成功，要么全部失败，避免部分成功而导致数据的一致性问题。 gi
         </div>
       </a>
 
@@ -385,8 +403,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-20 16:52" pubdate>
-              2023-03-20
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -406,8 +424,15 @@
   
     <span>></span>
     
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/dtm/" class="category-chain-item">dtm</a>
+  
+  
+
   
 
   
@@ -425,7 +450,9 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+              <a href="/tags/dtm/">#dtm</a>
+            
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">#分布式事务</a>
             
           </div>
         
@@ -439,15 +466,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/85c6d629ce42/" target="_self">
-          10.5. 包的匿名导入
+        <a href="/posts/96707bd61644/" target="_self">
+          链路追踪
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/85c6d629ce42/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/96707bd61644/" target="_self">
         <div>
-          如果导入一个包而不去使用这个包，那么就会导致编译错误。但是只想使用导入包的而产生的副作用，如“计算包级变量的初始化表达式和执行导入包的init初始化函数”。这时候，需要抑制该编译错误，可以 使用—下划线空白标识符，重命名导入的包。空白标识符表示，不能被访问。 1improt _ &quot;image/png&quot; 这种行为被称为包的匿名导入。它通常是用来实现一个编译时机制，然后通过在mai
+          前言链路追踪在微服务架构中尤为重要，可以清晰了解到请求在各个微服务之间的流转情况。 目前，业内流行的链路追踪的工具有Jaeger、zinpink。 环境 Ubuntu 22.04.1 LTS Docker 26.1.1 elasticsearch 8.14.3 jaegertracing&#x2F;all-in-one 1.59  Jaeger简介版本：1.59 Jaeger的核心组件：  Ope
         </div>
       </a>
 
@@ -455,8 +482,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-20 15:52" pubdate>
-              2023-03-20
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -476,7 +503,7 @@
   
     <span>></span>
     
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  <a href="/categories/go/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
   
   
 
@@ -495,7 +522,7 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">#微服务</a>
             
           </div>
         
@@ -509,15 +536,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/7c1cbb35e653/" target="_self">
-          10.4. 导入声明
+        <a href="/posts/d3d5e2fbb53d/" target="_self">
+          服务监控
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/7c1cbb35e653/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/d3d5e2fbb53d/" target="_self">
         <div>
-          每个导入声明可以单独指定导入路径，也可以通过圆括号同时导入多个导入路径。 1234567import &quot;fmt&quot;import &quot;os&quot;improt (	&quot;fmt&quot;	&quot;os&quot;)  导入的包之间可以通过添加空行来分组。通常将来自不同组织的包进行独立分组。 包的导入顺序无关紧要，但是每个分组中一般会根据字符串顺序排序。（go
+          前言在微服务分布式架构中，服务监控对于维护项目稳定性尤为重要，其中prometheus（普罗米修斯）为业界常用的服务监控框架，还可以使用监控仪表系统grafana对prometheus收集的metrics指标进行归纳、分析、制图、预警等。 环境 Ubuntu 22.04.1 LTS Docker 26.1.1 elasticsearch 8.14.3 prom&#x2F;prometheus 2.
         </div>
       </a>
 
@@ -525,8 +552,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-20 14:52" pubdate>
-              2023-03-20
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -546,7 +573,7 @@
   
     <span>></span>
     
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  <a href="/categories/go/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
   
   
 
@@ -565,7 +592,7 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">#微服务</a>
             
           </div>
         
@@ -579,15 +606,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/376c63460620/" target="_self">
-          10.3. 包声明
+        <a href="/posts/9946974ee399/" target="_self">
+          02.搭建nginx网关
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/376c63460620/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/9946974ee399/" target="_self">
         <div>
-          每个go语言源码文件开头必须是包声明语句。包声明语句的主要目的是确定当前包被其它包导入时默认的标识符（也称为包名）。 如 math&#x2F;rand包的每个源码文件开头都是package rand。 通常来说，默认的包名就是包导入路径名的最后一段，因此即使两个包的导入路径不同，它们依然可能有一个相同的包名。 关于默认包名一般采用导入路径名的最后一段的约定也有三种例外情况。  第一个例外，包对应一
+          安装使用docker安装 下载Nginx镜像1sudo docker pull nginx:latest  运行1sudo docker run --name nginx -p 80:80 -d nginx   --name nginx 指定容器名称 -p 80:80 映射80端口 -d 守护进程运行  创建挂载目录 创建主机挂载目录 123sudo mkdir -p /opt/nginx-doc
         </div>
       </a>
 
@@ -595,8 +622,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-20 13:52" pubdate>
-              2023-03-20
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -616,7 +643,7 @@
   
     <span>></span>
     
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  <a href="/categories/go/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
   
   
 
@@ -635,7 +662,7 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">#微服务</a>
             
           </div>
         
@@ -649,15 +676,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/ce5416f3abff/" target="_self">
-          10.2. 导入路径
+        <a href="/posts/1488c2a06c37/" target="_self">
+          01.搭建项目环境
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/ce5416f3abff/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/1488c2a06c37/" target="_self">
         <div>
-          每个包是由一个全局唯一的字符串所标识的导入路径定位。 import语句中的字符串就是导入路径。 123456789import (    &quot;fmt&quot;    &quot;math/rand&quot;    &quot;encoding/json&quot;    &quot;golang.org/x/net/html&quot;    &quot;github.com/go-s
+          项目简介项目目录结构项目目录结构如下：  app user  order payment product identify   common deploy doc  技术栈 go-zero : 微服务框架  nginx : 网关  mysql : 数据库  redis : 缓存  etcd : 注册中心  kafka : 消息中间件   项目架构图业务架构图
         </div>
       </a>
 
@@ -665,8 +692,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-20 12:52" pubdate>
-              2023-03-20
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -686,7 +713,7 @@
   
     <span>></span>
     
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  <a href="/categories/go/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
   
   
 
@@ -705,7 +732,7 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">#微服务</a>
             
           </div>
         
@@ -719,15 +746,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/a912c21440d0/" target="_self">
-          10.1. 包简介
+        <a href="/posts/7b3354c1c3a1/" target="_self">
+          protoc
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/a912c21440d0/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/7b3354c1c3a1/" target="_self">
         <div>
-          任何包系统的设计目的离不开，抽象，封装和复用。为了简化大型程序的设计和维护工作，通过将一系列相关的特性放入一个独立的单元以理解和更新。在每个单元更新时也同时保持和程序中其它单元的相对独立性。这种模块化的特性允许每个包可以被其它不同的项目共享和重用，在项目范围内，甚至全世界范围内统一分发和复用。 包还通过控制包内名字的可见性和是否导出来实现封装特性。 Go语言的闪电般的编译速度主要得益于三个语言特性
+          安装1go install google.golang.org/protobuf/cmd/protoc-gen-go@latest  引入全局代码找出安装protoc的目录 1which protoc  如果输出usr/local/bin，则在usr/local目录下，创建&#96;&#96;usr&#x2F;local&#x2F;include目录，然后将需要引用的代码复制到该目录即可。如goo
         </div>
       </a>
 
@@ -735,8 +762,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-20 11:52" pubdate>
-              2023-03-20
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -756,8 +783,15 @@
   
     <span>></span>
     
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  <a href="/categories/go/%E5%B7%A5%E5%85%B7/" class="category-chain-item">工具</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E5%B7%A5%E5%85%B7/protoc/" class="category-chain-item">protoc</a>
+  
+  
+
   
 
   
@@ -775,7 +809,7 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+              <a href="/tags/protoc/">#protoc</a>
             
           </div>
         
@@ -789,15 +823,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/94532dfae374/" target="_self">
-          第十章 包和工具
+        <a href="/posts/15186872b145/" target="_self">
+          gorm-gen
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/94532dfae374/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/15186872b145/" target="_self">
         <div>
-          本章主要讲go语言的包及其工具。查询Go语言下的包数量： 12$ go list std | wc -l			240  10.1. 包简介10.2. 导入路径10.3. 包声明10.4. 导入声明10.5. 包的匿名导入10.6. 包和命名10.7. 工具
+          介绍gen是gorm的官方model生成工具，使用gen可以快速生成实例model。 git地址：GitHub - go-gorm&#x2F;gen: Gen: Friendly &amp; Safer GORM powered by Code Generation 官方文档地址：Gen Guides | GORM - The fantastic ORM library for Golang, a
         </div>
       </a>
 
@@ -805,8 +839,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-20 10:52" pubdate>
-              2023-03-20
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -826,8 +860,15 @@
   
     <span>></span>
     
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  <a href="/categories/go/%E5%B7%A5%E5%85%B7/" class="category-chain-item">工具</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E5%B7%A5%E5%85%B7/gorm/" class="category-chain-item">gorm</a>
+  
+  
+
   
 
   
@@ -845,7 +886,7 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+              <a href="/tags/gorm/">#gorm</a>
             
           </div>
         
@@ -859,15 +900,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/85a231e79892/" target="_self">
-          9.8. Goroutine和线程
+        <a href="/posts/9f1730230aa7/" target="_self">
+          air热重载
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/85a231e79892/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/9f1730230aa7/" target="_self">
         <div>
-          本章主要内容：Goroutine和线程的区别。 9.8.1 动态栈每个OS线程都拥有一个固定大小的内存块（一般为2MB）作为栈，该栈用于存储函数调用或挂起（调用其它函数时）的函数内部变量。Goroutine的栈大小并不是固定的，可以根据需要动态伸缩的。 Goroutine会以很小的栈开始生命周期，一般为2KB。 与OS线程一样，Goroutine的栈同样存储其活跃或挂起的函数内部变量。 练习练习
+          前言Air是专门为Go应用开发设计的一款热重载的命令工具，能感知代码的改变进行重载，我们只需要专注于代码既可。 github地址：GitHub - cosmtrek&#x2F;air: ☁️ Live reload for Go apps 安装脚本安装：1234567# binary 文件会是在 $(go env GOPATH)/bin/aircurl -sSfL https://raw.gith
         </div>
       </a>
 
@@ -875,8 +916,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-19 18:52" pubdate>
-              2023-03-19
+            <time datetime="2024-10-25 22:49" pubdate>
+              2024-10-25
             </time>
           </div>
         
@@ -896,8 +937,15 @@
   
     <span>></span>
     
-  <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-chain-item">Go语言圣经</a>
+  <a href="/categories/go/%E5%B7%A5%E5%85%B7/" class="category-chain-item">工具</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E5%B7%A5%E5%85%B7/air/" class="category-chain-item">air</a>
+  
+  
+
   
 
   
@@ -915,7 +963,7 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+              <a href="/tags/air/">#air</a>
             
           </div>
         
@@ -927,7 +975,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/11/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/#board">10</a><a class="page-number" href="/page/11/#board">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/#board">13</a><a class="page-number" href="/page/14/#board">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/#board">21</a><a class="extend next" rel="next" href="/page/13/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/11/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/#board">10</a><a class="page-number" href="/page/11/#board">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/#board">13</a><a class="page-number" href="/page/14/#board">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/#board">24</a><a class="extend next" rel="next" href="/page/13/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

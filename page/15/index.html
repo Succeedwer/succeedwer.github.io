@@ -229,15 +229,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/c380e460aca4/" target="_self">
-          7.14. 示例：基于标记的XML解码
+        <a href="/posts/79be1aaa69b3/" target="_self">
+          11.3. 测试覆盖率
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/c380e460aca4/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/79be1aaa69b3/" target="_self">
         <div>
-          第4.5章节展示了如何使用encoding/json包中的Marshal和Unmarshal函数来将JSON文档转换成Go语言的数据结构。encoding/xml包提供了一个相似的API。encoding/xml包也提供了一个更低层的基于标记的API用于XML解码。在基于标记的样式中，解析器消费输入和产生一个标记流；四个主要的标记类型－StartElement，EndElement，CharDat
+          由测试驱动触发运行到的被测试函数的代码数目称为测试的覆盖率。测试覆盖率并不能量化——甚至连最简单的动态程序也难以精确测量——但是可以启发并帮助我们编写的有效的测试代码。 语句的覆盖率是指在测试中至少被运行一次的代码占总代码数的比例。在本节中，我们使用go test命令中集成的测试覆盖率工具，来度量下面代码的测试覆盖率，帮助我们识别测试和我们期望间的差距。 下面的代码是一个表格驱动的测试，用于测试第
         </div>
       </a>
 
@@ -245,8 +245,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 00:52" pubdate>
-              2023-03-18
+            <time datetime="2023-03-21 13:52" pubdate>
+              2023-03-21
             </time>
           </div>
         
@@ -299,15 +299,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/c4e3ed798cee/" target="_self">
-          7.13. 类型开关
+        <a href="/posts/0bc5b76177c6/" target="_self">
+          11.2. 测试函数
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/c4e3ed798cee/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/0bc5b76177c6/" target="_self">
         <div>
-          接口一般以两种方式使用。  第一个方式中，io.Reader、io.Writer、fmt.Stringer、sort.Interface、http.Handler、和error为例，一个接口的方法表达了实现这个接口的具体类型间的相思性，但是隐藏了代表的细节和这些具体类型本身的操作。重点在于方法上，而不是具体的类型上。 第二个方式利用一个接口值可以持有各种具体类型值的能力并且将这个接口认为是这些类型
+          每个测试函数必须导入test包。测试函数格式如下： 123func TestName(t *testing.T) &#123;	//...&#125;  测试函数必须以Test为前缀，可选的后缀名必须以大写开头。 123func Test(t *testing.T)&#123;...&#125;func TestSin(t *testing.T)&#123;...&#125;func TestCo
         </div>
       </a>
 
@@ -315,8 +315,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 23:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-21 12:52" pubdate>
+              2023-03-21
             </time>
           </div>
         
@@ -369,15 +369,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/b10f700bc1c1/" target="_self">
-          7.12. 通过类型断言询问行为
+        <a href="/posts/84a75b89cf5a/" target="_self">
+          11.1 go test
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/b10f700bc1c1/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/84a75b89cf5a/" target="_self">
         <div>
-          stringWriter下面程序与net/http包中web服务器负责写入HTTP头字段（如：Content-type:text/html）的部分相似。io.Writer接口类型的变量w代表HTTP响应。 123456789func writeHeader(w io.Writer, contentType string) error &#123;	if _, err := w.Write([]by
+          Go语言关于测试的命令为go test。在包目录范围内，所有以_test.go结尾的源代码文件，并非属于go build框架，而是属于go test测试的一部分。 在*_test.go文件中，一共有三种函数：  测试函数 测试函数以Test为前缀，用于测试函数的逻辑是否正确。   基准测试函数 基准测试函数以Benchmark为前缀，用于衡量函数的性能。   示例函数 示例函数以Example为前
         </div>
       </a>
 
@@ -385,8 +385,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 22:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-21 11:52" pubdate>
+              2023-03-21
             </time>
           </div>
         
@@ -439,15 +439,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/179a7331746a/" target="_self">
-          7.11. 基于类型断言区别错误类型
+        <a href="/posts/2b3895c22904/" target="_self">
+          第十一章 测试
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/179a7331746a/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/2b3895c22904/" target="_self">
         <div>
-          os包中文件操作返回的错误集合。I/O可以因为任何数量的原因失败，但是有三种经常的错误必须进行不同的处理：  文件已经存在（对于创建操作）  1os.IsExist(err error) bool 找不到文件（对于读取操作）  1os.IsNotExist(err error) bool 权限拒绝  1os.IsPermission(err error) bool  可能会检测错误信息中是否包含特
+          Go语言的测试技术是相对低级的。它依赖一个go test测试命令和一组按照约定方式编写的测试函数，测试命令可以运行这些测试函数。 11.1. go test 11.2. 测试函数 11.3. 测试覆盖率 11.4. 基准测试 11.5. 剖析 11.6. 示例函数
         </div>
       </a>
 
@@ -455,8 +455,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 21:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-21 10:52" pubdate>
+              2023-03-21
             </time>
           </div>
         
@@ -509,15 +509,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/fcef06327bd8/" target="_self">
-          7.10. 类型断言
+        <a href="/posts/c1eef8565635/" target="_self">
+          10.7. 工具
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/fcef06327bd8/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/c1eef8565635/" target="_self">
         <div>
-          语法类型断言是作用在接口值上的。断言类型语法： 1x.(T) x表示接口类型；T表示类型。一个类型断言检查它操作对象的动态类型是否和断言的类型匹配。 具体类型如果断言的类型T是一个具体类型，然后类型断言检查x的动态类型是否和T相同。如果成功了，类型断言的结果是x的动态值，当然它的类型是T。如果检查失败，接下来这个操作会抛出panic。例如： 12345var w io.Writerw = os.S
+          可以使用go或go help获取内置的帮助文档。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253$ goGo is a tool for managing Go source code.Usage:	go &lt;command&gt; [argume
         </div>
       </a>
 
@@ -525,8 +525,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 20:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-20 17:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -579,15 +579,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/d3aed5deb5f5/" target="_self">
-          7.9. 示例：表达式求值
+        <a href="/posts/26ffbeb103e4/" target="_self">
+          10.6. 包的命名
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/d3aed5deb5f5/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/26ffbeb103e4/" target="_self">
         <div>
-          表达式求值器在本节中，我们会构建一个简单算术表达式的求值器。下面为一些表达式。 123sqrt(A / pi)pow(x, 3) + pow(y, 3)(F - 32) * 5 / 9”  使用一个接口Expr来表示Go语言中任意的表达式。  1type Expr interface&#123;&#125; Var类型表示一个变量。  1type Var string literal类型表示一个浮
+          包的命名规则：  命名尽量短小 要尽量避免与常用的局部变量重复 尽量使用单数形式 避免与预定义类型冲突，可以复数形式 避免与关键字冲突，可以复数形式 避免包名歧义  当设计一个包时，要考虑包名与方法&#x2F;函数&#x2F;成员变量名配合。 1flag.Int	bytes.Equal		http.Get  也有可能包名与方法、函数和成员名重复。 1rand.Rand 所以，包名要尽量简洁短小。
         </div>
       </a>
 
@@ -595,8 +595,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 19:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-20 16:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -649,15 +649,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/21f47e2c8c53/" target="_self">
-          7.8. error接口
+        <a href="/posts/85c6d629ce42/" target="_self">
+          10.5. 包的匿名导入
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/21f47e2c8c53/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/85c6d629ce42/" target="_self">
         <div>
-          error接口error接口是interface类型，这个类型只有一个返回错误信息的方法。 123type error interface &#123;	Error() string&#125; 创建errorerrors.New创建error的最简单方法就是调用errors.New函数。 12345678910111213package errorsfunc New(text string) e
+          如果导入一个包而不去使用这个包，那么就会导致编译错误。但是只想使用导入包的而产生的副作用，如“计算包级变量的初始化表达式和执行导入包的init初始化函数”。这时候，需要抑制该编译错误，可以 使用—下划线空白标识符，重命名导入的包。空白标识符表示，不能被访问。 1improt _ &quot;image/png&quot; 这种行为被称为包的匿名导入。它通常是用来实现一个编译时机制，然后通过在mai
         </div>
       </a>
 
@@ -665,8 +665,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 18:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-20 15:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -719,15 +719,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/fc3145dbfc40/" target="_self">
-          7.7. http.Handler接口
+        <a href="/posts/7c1cbb35e653/" target="_self">
+          10.4. 导入声明
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/fc3145dbfc40/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/7c1cbb35e653/" target="_self">
         <div>
-          Handlerhttp.Handler接口用于实现客户端和服务器。具体接口如下: 123type Handler interface &#123;	ServeHTTP(ResponseWriter, *Request)&#125; 而常与func ListenAndServe(address string, h Handler) error结合使用，该方法需要一个服务器地址和接口分派的Handle
+          每个导入声明可以单独指定导入路径，也可以通过圆括号同时导入多个导入路径。 1234567import &quot;fmt&quot;import &quot;os&quot;improt (	&quot;fmt&quot;	&quot;os&quot;)  导入的包之间可以通过添加空行来分组。通常将来自不同组织的包进行独立分组。 包的导入顺序无关紧要，但是每个分组中一般会根据字符串顺序排序。（go
         </div>
       </a>
 
@@ -735,8 +735,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 17:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-20 14:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -789,15 +789,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/8d8e98ca9007/" target="_self">
-          7.6. sort.Interface接口
+        <a href="/posts/376c63460620/" target="_self">
+          10.3. 包声明
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/8d8e98ca9007/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/376c63460620/" target="_self">
         <div>
-          解析sort包内包含对任何序列进行排序的接口，sort.Interface接口。该接口规定了序列的排序算法和对序列类型之间的约定。排序算法包含了以下三个要点：  序列长度 元素比较的结果 交换元素的方式  三个要点也对应着sort.Interface的三个方法： 12345type Interface interface &#123;	Len() int	Less(i, j int) bool	S
+          每个go语言源码文件开头必须是包声明语句。包声明语句的主要目的是确定当前包被其它包导入时默认的标识符（也称为包名）。 如 math&#x2F;rand包的每个源码文件开头都是package rand。 通常来说，默认的包名就是包导入路径名的最后一段，因此即使两个包的导入路径不同，它们依然可能有一个相同的包名。 关于默认包名一般采用导入路径名的最后一段的约定也有三种例外情况。  第一个例外，包对应一
         </div>
       </a>
 
@@ -805,8 +805,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 16:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-20 13:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -859,15 +859,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/b8be0b651295/" target="_self">
-          7.5 接口值
+        <a href="/posts/ce5416f3abff/" target="_self">
+          10.2. 导入路径
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/b8be0b651295/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/ce5416f3abff/" target="_self">
         <div>
-          基本概念接口值由两部分组成，具体类型和类型的值，也称为动态类型和动态值。如下例子： 1234var w io.Writerw = os.Stdoutw = new(bytes.Buffer)w = nil 4个语句中，变量w得到了3个不同的值。在Go语言中，变量在声明中会被初始化为其类型的零值。对于接口类型，同样会被初始化为零值，一个接口的零值指的是接口的类型和值都是nil。一个接口值基于它的动态
+          每个包是由一个全局唯一的字符串所标识的导入路径定位。 import语句中的字符串就是导入路径。 123456789import (    &quot;fmt&quot;    &quot;math/rand&quot;    &quot;encoding/json&quot;    &quot;golang.org/x/net/html&quot;    &quot;github.com/go-s
         </div>
       </a>
 
@@ -875,8 +875,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 15:52" pubdate>
-              2023-03-17
+            <time datetime="2023-03-20 12:52" pubdate>
+              2023-03-20
             </time>
           </div>
         
@@ -927,7 +927,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/14/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/#board">13</a><a class="page-number" href="/page/14/#board">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/#board">16</a><a class="page-number" href="/page/17/#board">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/#board">21</a><a class="extend next" rel="next" href="/page/16/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/14/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/#board">13</a><a class="page-number" href="/page/14/#board">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/#board">16</a><a class="page-number" href="/page/17/#board">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/#board">24</a><a class="extend next" rel="next" href="/page/16/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
