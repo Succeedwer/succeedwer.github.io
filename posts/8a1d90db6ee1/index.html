@@ -1,0 +1,3296 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="数组和切片1. 数组和切片有何异同?切片本质是对数组的封装，描述一个数组的片段。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3.数据容器">
+<meta property="og:url" content="https://succeedwer.github.io/posts/8a1d90db6ee1/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:description" content="数组和切片1. 数组和切片有何异同?切片本质是对数组的封装，描述一个数组的片段。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://succeedwer.github.io/posts/8a1d90db6ee1/image-20241129200743741.png">
+<meta property="og:image" content="https://succeedwer.github.io/posts/8a1d90db6ee1/image-20241129025006800.png">
+<meta property="og:image" content="https://succeedwer.github.io/posts/8a1d90db6ee1/image-20241130225814848.png">
+<meta property="og:image" content="https://succeedwer.github.io/posts/8a1d90db6ee1/image-20241220012132154.png">
+<meta property="article:published_time" content="2025-02-02T16:24:43.769Z">
+<meta property="article:modified_time" content="2024-12-20T18:52:31.152Z">
+<meta property="article:author" content="WER">
+<meta property="article:tag" content="读书笔记">
+<meta property="article:tag" content="go">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://succeedwer.github.io/posts/8a1d90db6ee1/image-20241129200743741.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>3.数据容器 - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="3.数据容器"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        WER
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-02-03 00:24" pubdate>
+          2025年2月3日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          72 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="go"
+        id="heading-34d1f91fb2e514b8576fab1a75a89a6b" role="tab" data-toggle="collapse" href="#collapse-34d1f91fb2e514b8576fab1a75a89a6b"
+        aria-expanded="true"
+      >
+        go
+        <span class="list-group-count">(182)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-34d1f91fb2e514b8576fab1a75a89a6b"
+           role="tabpanel" aria-labelledby="heading-34d1f91fb2e514b8576fab1a75a89a6b">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/2a11a26948ca/" title="go框架"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go框架</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Go宝典"
+        id="heading-d952b63b3b235fba6a1c68e8df7f65fd" role="tab" data-toggle="collapse" href="#collapse-d952b63b3b235fba6a1c68e8df7f65fd"
+        aria-expanded="true"
+      >
+        Go宝典
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-d952b63b3b235fba6a1c68e8df7f65fd"
+           role="tabpanel" aria-labelledby="heading-d952b63b3b235fba6a1c68e8df7f65fd">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/db04faf3a3a5/" title="1.逃逸分析"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.逃逸分析</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/9d9cec5b7a82/" title="2.延迟语句"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.延迟语句</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8a1d90db6ee1/" title="3.数据容器"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">3.数据容器</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8b6d023447a4/" title="4.通道"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.通道</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Go知识点"
+        id="heading-ec29eb0e47c3d42ef48491438b3281b8" role="tab" data-toggle="collapse" href="#collapse-ec29eb0e47c3d42ef48491438b3281b8"
+        aria-expanded="false"
+      >
+        Go知识点
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-ec29eb0e47c3d42ef48491438b3281b8"
+           role="tabpanel" aria-labelledby="heading-ec29eb0e47c3d42ef48491438b3281b8">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/ba8f9f73b4d8/" title="如何创建Go项目"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">如何创建Go项目</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/3ad92b865baa/" title="导入包"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">导入包</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Go语言圣经"
+        id="heading-33788affbf7997f1ebd563f7aacce3ad" role="tab" data-toggle="collapse" href="#collapse-33788affbf7997f1ebd563f7aacce3ad"
+        aria-expanded="false"
+      >
+        Go语言圣经
+        <span class="list-group-count">(97)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-33788affbf7997f1ebd563f7aacce3ad"
+           role="tabpanel" aria-labelledby="heading-33788affbf7997f1ebd563f7aacce3ad">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/02fc6779c7cd/" title="1.1. Hello, World"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.1. Hello, World</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b7c6dc0a75aa/" title="1.2. 命令行参数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.2. 命令行参数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c749b9e4bafd/" title="1.3. 查找重复的行"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.3. 查找重复的行</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d37e56e6ca24/" title="1.4. GIF动画"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.4. GIF动画</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8855378318a6/" title="1.5. 获取URL"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.5. 获取URL</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c84dc5dd7597/" title="1.6. 并发获取多个URL"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.6. 并发获取多个URL</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/94de4df7cd79/" title="1.7. Web服务"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.7. Web服务</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f529e3c31d9e/" title="1.8. 本章要点"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.8. 本章要点</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a912c21440d0/" title="10.1. 包简介"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10.1. 包简介</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/ce5416f3abff/" title="10.2. 导入路径"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10.2. 导入路径</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/376c63460620/" title="10.3. 包声明"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10.3. 包声明</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/7c1cbb35e653/" title="10.4. 导入声明"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10.4. 导入声明</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/85c6d629ce42/" title="10.5. 包的匿名导入"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10.5. 包的匿名导入</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/26ffbeb103e4/" title="10.6. 包的命名"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10.6. 包的命名</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c1eef8565635/" title="10.7. 工具"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10.7. 工具</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/84a75b89cf5a/" title="11.1 go test"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11.1 go test</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/0bc5b76177c6/" title="11.2. 测试函数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11.2. 测试函数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/79be1aaa69b3/" title="11.3. 测试覆盖率"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11.3. 测试覆盖率</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a1b71dd23f51/" title="11.4. 基准测试"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11.4. 基准测试</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f5ef3e713f2a/" title="11.5. 剖析"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11.5. 剖析</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/feafd476469a/" title="2.1. 命名"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.1. 命名</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/2628b27da087/" title="2.2. 声明"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.2. 声明</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/7095472d910d/" title="2.3.变量"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.3.变量</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/3bab4b966165/" title="2.4. 赋值"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.4. 赋值</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/9f13bfd0f9d8/" title="2.5. 类型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.5. 类型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/4bd2d633ee16/" title="2.6. 包和文件"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.6. 包和文件</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/5b89ef7a41d0/" title="2.7. 作用域"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.7. 作用域</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/2a4f4f65e7ca/" title="3.1. 整型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.1. 整型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/01a5b9d8501c/" title="3.3. 复数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.3. 复数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d98a81de6430/" title="3.4. 布尔型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.4. 布尔型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a309a7c16f6a/" title="3.5. 字符串"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.5. 字符串</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/68c22f5501fb/" title="3.6. 常量"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.6. 常量</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/681582df4225/" title="4.1. 数组"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.1. 数组</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/53445ef771d8/" title="4.2. Slice"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.2. Slice</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/610def108dde/" title="4.3. Map"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.3. Map</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/556653fe988e/" title="4.4. Struct"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.4. Struct</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b184f11121f4/" title="4.5. JSON"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.5. JSON</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/4d1bb1bed6d0/" title="4.6 文本和HTML模版"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.6 文本和HTML模版</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/9ebdd846b6d6/" title="5.1. 函数声明"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.1. 函数声明</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/9b9419099212/" title="5.10. Recover捕获异常"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.10. Recover捕获异常</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/3e816bbb7aaa/" title="5.2. 递归"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.2. 递归</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/3b104e15a027/" title="5.3. 多返回值"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.3. 多返回值</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b269706cb426/" title="5.4. 错误"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.4. 错误</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e0d18dccf0bc/" title="5.5. 函数值"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.5. 函数值</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f29c530bb54f/" title="5.6. 匿名函数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.6. 匿名函数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f16f86776a10/" title="5.7. 可变参数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.7. 可变参数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/6f685641f7fc/" title="5.8. Deferred函数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.8. Deferred函数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b0cbde1e1f43/" title="5.9. Panic异常"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.9. Panic异常</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/627a83e633ba/" title="6.1. 方法声明"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.1. 方法声明</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8633284a6bad/" title="6.2. 基于指针对象的方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.2. 基于指针对象的方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/3d2bce45dc58/" title="6.3. 通过嵌入结构体来扩展类型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.3. 通过嵌入结构体来扩展类型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/4fa1929ae9d9/" title="6.4. 方法值和方法表达式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.4. 方法值和方法表达式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/aaab166a7bb7/" title="6.5. 示例：Bit数组"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.5. 示例：Bit数组</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/387bb90cfe97/" title="6.6. 封装"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.6. 封装</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8e657f0750ec/" title="7.1. 接口约定"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.1. 接口约定</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/fcef06327bd8/" title="7.10. 类型断言"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.10. 类型断言</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/179a7331746a/" title="7.11. 基于类型断言区别错误类型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.11. 基于类型断言区别错误类型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b10f700bc1c1/" title="7.12. 通过类型断言询问行为"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.12. 通过类型断言询问行为</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c4e3ed798cee/" title="7.13. 类型开关"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.13. 类型开关</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c380e460aca4/" title="7.14. 示例：基于标记的XML解码"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.14. 示例：基于标记的XML解码</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8520b52085ef/" title="7.15. 一些建议"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.15. 一些建议</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/55bc49f4b7cc/" title="7.2. 接口类型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.2. 接口类型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/001ff23c523b/" title="7.3 实现接口的条件"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.3 实现接口的条件</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/146b263d555d/" title="7.4 flag.Value接口"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.4 flag.Value接口</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b8be0b651295/" title="7.5 接口值"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.5 接口值</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8d8e98ca9007/" title="7.6. sort.Interface接口"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.6. sort.Interface接口</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/fc3145dbfc40/" title="7.7. http.Handler接口"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.7. http.Handler接口</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/21f47e2c8c53/" title="7.8. error接口"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.8. error接口</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d3aed5deb5f5/" title="7.9. 示例：表达式求值"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.9. 示例：表达式求值</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/dbf6e956aad2/" title="8.1. Goroutines"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.1. Goroutines</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/7a3e094c0893/" title="8.10. 示例：聊天服务"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.10. 示例：聊天服务</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/fca3f5579354/" title="8.2. 示例：并发的Clock服务"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.2. 示例：并发的Clock服务</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/10cf7d1432ab/" title="8.3. 示例：并发的Echo服务器"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.3. 示例：并发的Echo服务器</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e24baaf2eab7/" title="8.4. Channels"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.4. Channels</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/5f0a41aff939/" title="8.5. 并发的循环"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.5. 并发的循环</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/1258766bd2ef/" title="8.6. 示例：并发的Web爬虫"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.6. 示例：并发的Web爬虫</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/866000668cee/" title="8.7. 基于select的多路复用"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.7. 基于select的多路复用</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/dbf617f2750e/" title="8.8. 示例：并发的字典遍历"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.8. 示例：并发的字典遍历</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/92d779dbee59/" title="8.9. 并发的退出"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.9. 并发的退出</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/df4edc666b3d/" title="9.1. 竞争条件"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">9.1. 竞争条件</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/da8e0d3d1c07/" title="9.2. sync.Mutex互斥锁"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">9.2. sync.Mutex互斥锁</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/1294ae8bb0f7/" title="9.3. sync.RWMutex读写锁"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">9.3. sync.RWMutex读写锁</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e115a072f817/" title="9.4. 内存同步"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">9.4. 内存同步</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/76eb94f5fa7d/" title="9.5. sync.Once初始化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">9.5. sync.Once初始化</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d92837fb26ef/" title="9.6. 竞争条件检测"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">9.6. 竞争条件检测</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/582daaba3cd4/" title="9.7. 示例：并发的非阻塞缓存"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">9.7. 示例：并发的非阻塞缓存</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/85a231e79892/" title="9.8. Goroutine和线程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">9.8. Goroutine和线程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b721eb61c1a0/" title="第一章 入门"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">第一章 入门</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f2552a5080b3/" title="第七章 接口"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">第七章 接口</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/0a1ced1a832c/" title="第三章 基础数据类型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">第三章 基础数据类型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/261f973145a5/" title="第九章 基于共享变量的并发"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">第九章 基于共享变量的并发</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/04348d4815af/" title="第二章 程序结构"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">第二章 程序结构</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/160e8baeca27/" title="第八章 Goroutines和Channels"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">第八章 Goroutines和Channels</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b376389fd346/" title="第六章 方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">第六章 方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/2b3895c22904/" title="第十一章 测试"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">第十一章 测试</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/94532dfae374/" title="第十章 包和工具"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">第十章 包和工具</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a27051ca627c/" title="第四章 复合数据类型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">第四章 复合数据类型</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="工具"
+        id="heading-20dce2c6fa909a5cd62526615fe2788a" role="tab" data-toggle="collapse" href="#collapse-20dce2c6fa909a5cd62526615fe2788a"
+        aria-expanded="false"
+      >
+        工具
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-20dce2c6fa909a5cd62526615fe2788a"
+           role="tabpanel" aria-labelledby="heading-20dce2c6fa909a5cd62526615fe2788a">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="air"
+        id="heading-3c4588116394d2164657875b7430907e" role="tab" data-toggle="collapse" href="#collapse-3c4588116394d2164657875b7430907e"
+        aria-expanded="false"
+      >
+        air
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-3c4588116394d2164657875b7430907e"
+           role="tabpanel" aria-labelledby="heading-3c4588116394d2164657875b7430907e">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/1d74c50c2b1e/" title="air热重载"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">air热重载</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="gorm"
+        id="heading-a12fc2584cb0e7f305298c2ae1005bc1" role="tab" data-toggle="collapse" href="#collapse-a12fc2584cb0e7f305298c2ae1005bc1"
+        aria-expanded="false"
+      >
+        gorm
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a12fc2584cb0e7f305298c2ae1005bc1"
+           role="tabpanel" aria-labelledby="heading-a12fc2584cb0e7f305298c2ae1005bc1">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/634d970a6663/" title="gorm-gen"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">gorm-gen</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="protoc"
+        id="heading-ec54e3daa848fc6eceb37e2ccc7c1c74" role="tab" data-toggle="collapse" href="#collapse-ec54e3daa848fc6eceb37e2ccc7c1c74"
+        aria-expanded="false"
+      >
+        protoc
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-ec54e3daa848fc6eceb37e2ccc7c1c74"
+           role="tabpanel" aria-labelledby="heading-ec54e3daa848fc6eceb37e2ccc7c1c74">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/225f2a20da4f/" title="protoc"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">protoc</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="微服务"
+        id="heading-79c287218d34050f6bd19986cd05b499" role="tab" data-toggle="collapse" href="#collapse-79c287218d34050f6bd19986cd05b499"
+        aria-expanded="false"
+      >
+        微服务
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-79c287218d34050f6bd19986cd05b499"
+           role="tabpanel" aria-labelledby="heading-79c287218d34050f6bd19986cd05b499">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/40f5b84c021a/" title="01.搭建项目环境"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">01.搭建项目环境</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8745ecc8f012/" title="02.搭建nginx网关"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">02.搭建nginx网关</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/2b77cc60b1a9/" title="服务监控"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">服务监控</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/645940c215bb/" title="链路追踪"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">链路追踪</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="框架"
+        id="heading-41f1d2b62436eded1a6776504b6895d7" role="tab" data-toggle="collapse" href="#collapse-41f1d2b62436eded1a6776504b6895d7"
+        aria-expanded="false"
+      >
+        框架
+        <span class="list-group-count">(71)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-41f1d2b62436eded1a6776504b6895d7"
+           role="tabpanel" aria-labelledby="heading-41f1d2b62436eded1a6776504b6895d7">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="dtm"
+        id="heading-e7c0596d00d6d1d17e64d6547cd732cf" role="tab" data-toggle="collapse" href="#collapse-e7c0596d00d6d1d17e64d6547cd732cf"
+        aria-expanded="false"
+      >
+        dtm
+        <span class="list-group-count">(11)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-e7c0596d00d6d1d17e64d6547cd732cf"
+           role="tabpanel" aria-labelledby="heading-e7c0596d00d6d1d17e64d6547cd732cf">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/5905b4ca5858/" title="1.介绍"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.介绍</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/23800ea54bc8/" title="10.应用场景之订单系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10.应用场景之订单系统</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d3779ad0b0bc/" title="11.应用场景之秒杀"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11.应用场景之秒杀</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/7d5c39a1cd15/" title="2.saga事务模式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.saga事务模式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/9cd7cd0bbe85/" title="3.二阶段消息事务模式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.二阶段消息事务模式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a6a0cacfca4f/" title="4.tcc事务模式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.tcc事务模式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/4611e4926ae2/" title="5.xa事务模式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.xa事务模式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/15da82a4e995/" title="6.workflow模式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.workflow模式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b6a433b340e3/" title="7.其它事务模式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.其它事务模式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/0cb06ec9c832/" title="8.子事务屏障"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.子事务屏障</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/21e801d7be41/" title="9.自定义请求头"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">9.自定义请求头</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="gin"
+        id="heading-a6c72983f8a0a002155d67b12b345629" role="tab" data-toggle="collapse" href="#collapse-a6c72983f8a0a002155d67b12b345629"
+        aria-expanded="false"
+      >
+        gin
+        <span class="list-group-count">(18)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a6c72983f8a0a002155d67b12b345629"
+           role="tabpanel" aria-labelledby="heading-a6c72983f8a0a002155d67b12b345629">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/68c9106de55e/" title="gin集成logrus"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">gin集成logrus</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/89d6aeb914ba/" title="上传文件"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">上传文件</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/2b604be9ceaf/" title="下载文件"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">下载文件</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e66217f8b52a/" title="中间件"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">中间件</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/42d3c3696cac/" title="参数的原始数据"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">参数的原始数据</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/9e687166d14d/" title="参数绑定Bind"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">参数绑定Bind</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/88354a31d46f/" title="响应"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">响应</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/cca494070b00/" title="快速入门"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">快速入门</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/0ed136ea8589/" title="日志"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">日志</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/7c1598241851/" title="查询参数Query"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">查询参数Query</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d9c64a80176c/" title="表单参数Form"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">表单参数Form</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a17275e6a69d/" title="请求头和响应头"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">请求头和响应头</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/669486e2b43c/" title="路径参数Param"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">路径参数Param</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/4bbcbab156a7/" title="路由分组"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">路由分组</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/92c8bf9ac919/" title="重定向"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">重定向</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/3c7000e4af4a/" title="静态文件服务"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">静态文件服务</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/6b8891f0711d/" title="验证器-基本使用"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">验证器-基本使用</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/304b00fb014e/" title="验证器-自定义"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">验证器-自定义</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="go-micro"
+        id="heading-4ad20ca1a6b5a88a6e50fff0b431cd34" role="tab" data-toggle="collapse" href="#collapse-4ad20ca1a6b5a88a6e50fff0b431cd34"
+        aria-expanded="false"
+      >
+        go-micro
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-4ad20ca1a6b5a88a6e50fff0b431cd34"
+           role="tabpanel" aria-labelledby="heading-4ad20ca1a6b5a88a6e50fff0b431cd34">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/0183a772debd/" title="2.go-micro之介绍"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.go-micro之介绍</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/70735c670699/" title="3.go-micro之protobuf"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.go-micro之protobuf</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/894ec5836293/" title="4.go-micro之auth"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.go-micro之auth</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a89b1e2b3624/" title="5.go-micro之broker"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.go-micro之broker</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="go-zero"
+        id="heading-83fdcc64aab02add29c4974fa58e8dc7" role="tab" data-toggle="collapse" href="#collapse-83fdcc64aab02add29c4974fa58e8dc7"
+        aria-expanded="false"
+      >
+        go-zero
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-83fdcc64aab02add29c4974fa58e8dc7"
+           role="tabpanel" aria-labelledby="heading-83fdcc64aab02add29c4974fa58e8dc7">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/b24ccd142524/" title="1.快速开始"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.快速开始</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8a5b60b7fdc0/" title="2.goctl"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.goctl</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="gorm"
+        id="heading-a12fc2584cb0e7f305298c2ae1005bc1" role="tab" data-toggle="collapse" href="#collapse-a12fc2584cb0e7f305298c2ae1005bc1"
+        aria-expanded="false"
+      >
+        gorm
+        <span class="list-group-count">(6)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a12fc2584cb0e7f305298c2ae1005bc1"
+           role="tabpanel" aria-labelledby="heading-a12fc2584cb0e7f305298c2ae1005bc1">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/686dbb30418e/" title="1.快速入门"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.快速入门</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/26f1360dbe21/" title="2.连接数据库"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.连接数据库</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/ae9375590aa0/" title="3.定义model"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.定义model</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e331e8ec2727/" title="4.创建"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.创建</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/1e4ffd665b0c/" title="5.查询"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.查询</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/1275f1d5eda2/" title="6.高级查询"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.高级查询</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="grpc"
+        id="heading-5d738324e2189d8e9a1c3974d34f5a95" role="tab" data-toggle="collapse" href="#collapse-5d738324e2189d8e9a1c3974d34f5a95"
+        aria-expanded="false"
+      >
+        grpc
+        <span class="list-group-count">(17)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-5d738324e2189d8e9a1c3974d34f5a95"
+           role="tabpanel" aria-labelledby="heading-5d738324e2189d8e9a1c3974d34f5a95">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/124029b4be6e/" title="1.grpc简介"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.grpc简介</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/127ee79b5ba7/" title="10.Deadline"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10.Deadline</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e5f78677fba6/" title="11.Debugging"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11.Debugging</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e5e27ad8476b/" title="12.Encryption"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">12.Encryption</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e4e07f6c6722/" title="13.Error-detail"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">13.Error-detail</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b7ce379adf70/" title="14.flow-control"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">14.flow-control</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/441a7cb9a9ec/" title="15.Health"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">15.Health</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b0b20e7db5ef/" title="16.Interceptor"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">16.Interceptor</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/7826601c01d5/" title="17.Keepalive"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">17.Keepalive</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/3d1dc824344d/" title="2.快速开始"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.快速开始</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e4d9c2061935/" title="3.基础教程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.基础教程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f9f6eb258aea/" title="4.认证"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.认证</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/deb0f5842aed/" title="5.Authorization"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.Authorization</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e63a755172a2/" title="5.特征"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.特征</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d6880b2c131a/" title="7.Authz-rbac"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.Authz-rbac</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/80f86ab40c95/" title="8.Cancellation"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.Cancellation</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c86af0d3e828/" title="9.Compression"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">9.Compression</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="logrus"
+        id="heading-b6c7fa78ba16862c1577434471a612a4" role="tab" data-toggle="collapse" href="#collapse-b6c7fa78ba16862c1577434471a612a4"
+        aria-expanded="false"
+      >
+        logrus
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-b6c7fa78ba16862c1577434471a612a4"
+           role="tabpanel" aria-labelledby="heading-b6c7fa78ba16862c1577434471a612a4">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/5d8875d2becd/" title="1.快速入门"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.快速入门</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8e8c0a7b3c9e/" title="2. 日志格式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2. 日志格式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/56d2f3ddae18/" title="3.控制台颜色"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.控制台颜色</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/962760489be9/" title="4.输出到日志文件"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.输出到日志文件</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/93dd417fa448/" title="5.自定义输出格式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.自定义输出格式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e6ffbfceed60/" title="6.Field"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.Field</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f027c1f3c2fd/" title="6.Hook机制"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.Hook机制</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c37260526a5e/" title="8.Hook应用场景"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.Hook应用场景</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="micro"
+        id="heading-1c21d9b19298645fa2534d9828ee0778" role="tab" data-toggle="collapse" href="#collapse-1c21d9b19298645fa2534d9828ee0778"
+        aria-expanded="false"
+      >
+        micro
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-1c21d9b19298645fa2534d9828ee0778"
+           role="tabpanel" aria-labelledby="heading-1c21d9b19298645fa2534d9828ee0778">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/a285960a1ee9/" title="1.micro的简单使用"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.micro的简单使用</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="rabbitmq"
+        id="heading-aedb75dfc563674e1263316b01879722" role="tab" data-toggle="collapse" href="#collapse-aedb75dfc563674e1263316b01879722"
+        aria-expanded="false"
+      >
+        rabbitmq
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-aedb75dfc563674e1263316b01879722"
+           role="tabpanel" aria-labelledby="heading-aedb75dfc563674e1263316b01879722">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/73117563d197/" title="1.rabbitmq之介绍"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.rabbitmq之介绍</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/da4108775efc/" title="1.rabbitmq之使用"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.rabbitmq之使用</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/30ea3bde0046/" title="3.rabbitmq之死信队列"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.rabbitmq之死信队列</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/5fbccdfc076c/" title="4.rabbitmq之延迟队列"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.rabbitmq之延迟队列</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">3.数据容器</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="数组和切片"><a href="#数组和切片" class="headerlink" title="数组和切片"></a>数组和切片</h1><h2 id="1-数组和切片有何异同"><a href="#1-数组和切片有何异同" class="headerlink" title="1. 数组和切片有何异同?"></a>1. 数组和切片有何异同?</h2><p>切片本质是对数组的封装，描述一个数组的片段。                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </p>
+<ul>
+<li><p>同</p>
+<p>无论切片还是数组，都可以通过下标来访问单个元素。</p>
+</li>
+<li><p>异</p>
+<ul>
+<li>数组是定长的，初始化定义后无法修改；切片可以动态扩容，切片的类型与长度无关。</li>
+<li>数组是一片连续内存；切片实际是一个结构体，包含三个字段：长度、容量、底层数组。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>注意！底层数组可以被多个切片同时指向，因此对一个切片的元素进行操作可能会影响到其它切片。</p>
+</blockquote>
+<h2 id="2-切片如何被截取？"><a href="#2-切片如何被截取？" class="headerlink" title="2. 切片如何被截取？"></a>2. 切片如何被截取？</h2><p>截取是常见的创建slice的方法，在数组或已有的slice直接截取。</p>
+<p>基于已有slice创建新slice对象，被称为reslice。新老slice共用底层数组，新老slice对底层数组的操作都会影响到彼此。</p>
+<p>基于数组创建的新slice，对数组或slice的操作都会影响到彼此。</p>
+<p><strong>值得注意的是，当使用append操作使得新slice或老slice底层数组扩容，将数据进行拷贝移动到新位置，那么两者将不会互相影响。</strong></p>
+<p>截取方式:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go">data := [...]<span class="hljs-type">int</span>&#123;<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>&#125;<br>slice := data[<span class="hljs-number">2</span>:<span class="hljs-number">4</span>:<span class="hljs-number">6</span>] <span class="hljs-comment">// data[low, high, max]</span><br></code></pre></td></tr></table></figure>
+
+<p>low是最低索引值，为闭区间，包含当前索引的元素。</p>
+<p>high是最高索引值，为开区间，不包含当前索引的元素。[low, high)</p>
+<p>max是最大容量的索引，为开区间，而最大容量只能到索引max-1处。如果不写，默认为到数组结尾len(data)-1，即容量为max-low &#x3D; 8。</p>
+<p>注意，low &lt;&#x3D; high &lt;&#x3D; max，且high和max必须要在老数组或老slice的容量（cap）范围内。</p>
+<h2 id="3-切片的容量是怎样增长的？"><a href="#3-切片的容量是怎样增长的？" class="headerlink" title="3. 切片的容量是怎样增长的？"></a>3. 切片的容量是怎样增长的？</h2><p>扩容的起因一般是向slice追加元素（append），由于容量不足，才会引起扩容。</p>
+<blockquote>
+<p>go语言编译器不允许调用了append函数后不使用返回值！</p>
+</blockquote>
+<p>append函数向slice追加元素，实际上是往底层数组对应的位置放置要追加的元素。</p>
+<p>由于数组长度是固定的，所以如果数组已经满了，那么slice就整体迁移到新位置，并且底层数组的长度也会增加。而且扩容后的底层数组会预留一定的长度，以便应对再次发生的append函数。</p>
+<p>那么扩容的规律是怎么样的呢？</p>
+<p>并非2倍，1.25倍，而是与内存分配策略相关。</p>
+<p>在底层代码中，slice调用&#x2F;src&#x2F;runtime&#x2F;slice.go中的growslice函数进行扩容。 </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// src/runtime/slice.go</span><br><span class="hljs-comment">// 参数newLen = oldlLen + num</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">growslice</span><span class="hljs-params">(oldPtr unsafe.Pointer, newLen, oldCap, num <span class="hljs-type">int</span>, et *_type)</span></span> slice &#123;<br>    ...<br>    <span class="hljs-comment">// 初步计算扩容大小 </span><br>    newcap := nextslicecap(newLen, oldCap)<br>    <br>   	...<br>    <span class="hljs-comment">// 节省篇幅，仅列出switch其中一个rounduosize</span><br>    <span class="hljs-comment">// 计算内存对齐后的cap大小</span><br>    capmem = roundupsize(<span class="hljs-type">uintptr</span>(newcap), noscan)<br>   	...<br>    <br>    <span class="hljs-comment">// 申请内存，gc着色，手动清除，并拷贝老slice的数据过去</span><br>    <span class="hljs-keyword">var</span> p unsafe.Pointer<br>	<span class="hljs-keyword">if</span> et.PtrBytes == <span class="hljs-number">0</span> &#123;<br>		p = mallocgc(capmem, <span class="hljs-literal">nil</span>, <span class="hljs-literal">false</span>)<br>		memclrNoHeapPointers(add(p, newlenmem), capmem-newlenmem)<br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		<span class="hljs-comment">// Note: can&#x27;t use rawmem (which avoids zeroing of memory), because then GC can scan uninitialized memory.</span><br>		p = mallocgc(capmem, et, <span class="hljs-literal">true</span>)<br>		<span class="hljs-keyword">if</span> lenmem &gt; <span class="hljs-number">0</span> &amp;&amp; writeBarrier.enabled &#123;<br>			<span class="hljs-comment">// Only shade the pointers in oldPtr since we know the destination slice p</span><br>			<span class="hljs-comment">// only contains nil pointers because it has been cleared during alloc.</span><br>			<span class="hljs-comment">//</span><br>			<span class="hljs-comment">// It&#x27;s safe to pass a type to this function as an optimization because</span><br>			<span class="hljs-comment">// from and to only ever refer to memory representing whole values of</span><br>			<span class="hljs-comment">// type et. See the comment on bulkBarrierPreWrite.</span><br>			bulkBarrierPreWriteSrcOnly(<span class="hljs-type">uintptr</span>(p), <span class="hljs-type">uintptr</span>(oldPtr), lenmem-et.Size_+et.PtrBytes, et)<br>		&#125;<br>	&#125;<br>	memmove(p, oldPtr, lenmem)<br><br>	<span class="hljs-keyword">return</span> slice&#123;p, newLen, newcap&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// src/runtime/slice.go</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">nextslicecap</span><span class="hljs-params">(newLen, oldCap <span class="hljs-type">int</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>	newcap := oldCap<br>	doublecap := newcap + newcap<br>    <span class="hljs-comment">// 判断newLen是否大于原本容量的两倍doubleCap（oldCap*2），如果大于直接使用newLen</span><br>	<span class="hljs-keyword">if</span> newLen &gt; doublecap &#123; <br>		<span class="hljs-keyword">return</span> newLen<br>	&#125;<br><br>    <span class="hljs-comment">// 如果原本slice容量小于256，那么直接使用原本容量的两倍doublecap。</span><br>	<span class="hljs-keyword">const</span> threshold = <span class="hljs-number">256</span><br>	<span class="hljs-keyword">if</span> oldCap &lt; threshold &#123;<br>		<span class="hljs-keyword">return</span> doublecap<br>	&#125;<br>	<span class="hljs-keyword">for</span> &#123;<br>		<span class="hljs-comment">// 小切片容量增加到2倍，大切片容量增加到1.25倍，该表达式可以小切片到大切片平滑过渡</span><br>        <span class="hljs-comment">// 临界值 256 ，越接近256，增加到的倍数越接近2倍，越大于256，增加到的倍数越接近1.25倍 </span><br>		newcap += (newcap + <span class="hljs-number">3</span>*threshold) &gt;&gt; <span class="hljs-number">2</span><br><br>		<span class="hljs-comment">// 检查容量是否够用，如果够用了，跳出循环</span><br>		<span class="hljs-keyword">if</span> <span class="hljs-type">uint</span>(newcap) &gt;= <span class="hljs-type">uint</span>(newLen) &#123;<br>			<span class="hljs-keyword">break</span> <br>		&#125;<br>	&#125;<br><br>	<span class="hljs-comment">// 在计算newcap可能会出现溢出，这个判断是防止溢出，如果溢出了，直接返回newLen</span><br>	<span class="hljs-keyword">if</span> newcap &lt;= <span class="hljs-number">0</span> &#123;<br>		<span class="hljs-keyword">return</span> newLen<br>	&#125;<br>	<span class="hljs-keyword">return</span> newcap<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>进行内存对齐（与内存分配策略相关）才能得新slice的容量，且新slice的容量要大于老slice容量1.25倍或者2倍。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// src/runtime/msize_noallocheaders.go</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">roundupsize</span><span class="hljs-params">(size <span class="hljs-type">uintptr</span>, noscan <span class="hljs-type">bool</span>)</span></span> <span class="hljs-type">uintptr</span> &#123;<br>	<span class="hljs-keyword">if</span> size &lt; _MaxSmallSize &#123;<br>		<span class="hljs-keyword">if</span> size &lt;= smallSizeMax<span class="hljs-number">-8</span> &#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-type">uintptr</span>(class_to_size[size_to_class8[divRoundUp(size, smallSizeDiv)]])<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-type">uintptr</span>(class_to_size[size_to_class128[divRoundUp(size-smallSizeMax, largeSizeDiv)]])<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">if</span> size+_PageSize &lt; size &#123;<br>		<span class="hljs-keyword">return</span> size<br>	&#125;<br>	<span class="hljs-keyword">return</span> alignUp(size, _PageSize)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>下面简述主要的步骤：</p>
+<ol>
+<li>当触发slice扩容时，调用growslice函数。</li>
+<li>调用nextslicecap函数初步计算扩容大小，小切片增长2倍平滑过渡到大切片增长1.25倍，临界值是256。</li>
+<li>根据内存分配策略，调用roundupsize函数进行内存对齐计算。</li>
+<li>最后申请内存，gc着色，手动清理，并拷贝老slice的数据到新内存中。</li>
+</ol>
+<h2 id="4-切片作为函数参数会被改变吗？"><a href="#4-切片作为函数参数会被改变吗？" class="headerlink" title="4. 切片作为函数参数会被改变吗？"></a>4. 切片作为函数参数会被改变吗？</h2><p>切片slice本质是一个结构体，所以在作为函数参数时，主要看怎么传参。</p>
+<p>如果直接传slice，那么实参是形参的一个拷贝，实参并不会被函数中的形参的操作改变；</p>
+<p>如果传的是slice指针，那么就会影响到实参。</p>
+<p><strong>然而，无论传的是slice还是slice指针，因为slice底层数组在slice结构体中是一个指针，所以只要对底层数组进行操作，都将改变底层数组的数据，虽然不会改变slice结构体本身。</strong></p>
+<blockquote>
+<p><strong>Go语言中的函数参数传递，只有值传递，没有引用传递。</strong></p>
+</blockquote>
+<p>所以通过<code>s[i]=10</code>这种操作或通过slice的array字段就能改变slice底层数组元素值。</p>
+<p>那函数参数传slice还是slice指针就没区别么？</p>
+<p>答案是有区别的，与slice扩容机制相关。</p>
+<p>用一个例子说明：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	s := []<span class="hljs-type">int</span>&#123;<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>&#125;<br>	newS := myAppend(s)<br><br>	fmt.Println(<span class="hljs-built_in">cap</span>(s), s)<br>	fmt.Println(<span class="hljs-built_in">cap</span>(newS), newS)<br><br>	s = newS<br>	myAppendPtr(&amp;s)<br>	fmt.Println(<span class="hljs-built_in">cap</span>(s), s)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">myAppendPtr</span><span class="hljs-params">(s *[]<span class="hljs-type">int</span>)</span></span> &#123;<br>	*s = <span class="hljs-built_in">append</span>(*s, <span class="hljs-number">100</span>)<br>	<span class="hljs-keyword">return</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">myAppend</span><span class="hljs-params">(s []<span class="hljs-type">int</span>)</span></span> []<span class="hljs-type">int</span> &#123;<br>	s = <span class="hljs-built_in">append</span>(s, <span class="hljs-number">100</span>)<br>	<span class="hljs-keyword">return</span> s<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">3 [1 1 1]<br>6 [1 1 1 100]<br>6 [1 1 1 100 100]<br></code></pre></td></tr></table></figure>
+
+<p>myAppend函数中，形参是<code>s []int</code>，是一个值传递，所以形参只是实参的一个拷贝，append(s,100)时，发生了扩容机制，cap由原本的3增长到6，并且形参s底层数组发生了拷贝迁移，并未对实参s的底层数组产生修改。也可以说形参s的结构发生了改变，不影响外部实参s。所以第一行输出还是3 [1 1 1]。</p>
+<p>newS为新slice，基于s扩容得到的，容量cap变成s的2倍，长度len增加了1，因此第二行输出是<code>6 [1 1 1 100]</code>。</p>
+<p>而newS赋值给了s，s变成了新切片[1 1 1 100]。</p>
+<p>myAppendPtr函数传入指针s，直接对切片s进行操作了，并且未发生扩容，则第三行输出是<code>6 [1 1 1 100 100]</code>。</p>
+<blockquote>
+<p>注意！myAppendPtr虽然参数是一个指针，但是仍然是值传递，传递的是s的地址，通过地址去操作s。</p>
+</blockquote>
+<h2 id="5-内建函数make和new的区别是什么？"><a href="#5-内建函数make和new的区别是什么？" class="headerlink" title="5. 内建函数make和new的区别是什么？"></a>5. 内建函数make和new的区别是什么？</h2><p>make和new都是Go语言用来分配内存的内置函数。</p>
+<p>但适用类型不同：</p>
+<ul>
+<li>make：slice、map、channel等引用类型，返回一个值。</li>
+<li>new：int、数组、结构体等值类型，返回一个指针。</li>
+</ul>
+<p>make返回初始化之后的类型的引用。</p>
+<p>new会为类型的新值分配已置零的内存空间，并返回指针。</p>
+<p>两者的函数格式：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">make</span><span class="hljs-params">(t Type, size ...IntegerType)</span></span> Type<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">new</span><span class="hljs-params">(Type)</span></span> *Type<br></code></pre></td></tr></table></figure>
+
+<p>其中make函数的参数size，可以传入一个或多个实参。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">s := <span class="hljs-built_in">make</span>([]<span class="hljs-type">int</span>, <span class="hljs-number">0</span>, <span class="hljs-number">10</span>)<br></code></pre></td></tr></table></figure>
+
+<p>该表达式使用make创建了长度为0，容量为10的切片。</p>
+<h1 id="散列表map"><a href="#散列表map" class="headerlink" title="散列表map"></a>散列表map</h1><h2 id="1-map是什么？"><a href="#1-map是什么？" class="headerlink" title="1. map是什么？"></a>1. map是什么？</h2><blockquote>
+<p>维基百科中这样定义map：在计算机科学里，被称为相关数组、map、符号表或者字典，它是由一组&lt;key，value&gt;对组成的抽象数据结构，并且同一个key只会出现一次。</p>
+</blockquote>
+<p>map的相关操作：增删改查</p>
+<p>关键点：由<key-value>组成；key是唯一的。</key-value></p>
+<p>map的设计也被称为<code>The dictionary problem</code>，设计目的：</p>
+<p>设计一种数据结构用来维护一个集合的数据，并且可以<strong>同时</strong>对集合进行增删改查的操作。</p>
+<p>这种数据结构一般有两种：<strong>哈希查找表（Hash table）</strong>、<strong>搜索树（Search tree）</strong></p>
+<p><strong>哈希查找表</strong>：用一个哈希函数将key分配到不同的桶（bucket)；性能高，开销主要在于哈希函数的计算以及数组的常数访问时间。</p>
+<p>缺点：会产生哈希碰撞&#x2F;冲突，即不同的key被哈希到同一个桶。</p>
+<p>解决哈希碰撞：<strong>链表法</strong>、<strong>开放地址法</strong></p>
+<p>链表法：将一个桶实现成链表，落在同一个桶中的key都会插入这个链表。</p>
+<p>开放地址法：在碰撞发生之后，根据一定的规律，在桶的后面挑选空位，用来放置新的key。</p>
+<p><strong>搜索树</strong>：一般采用自平衡搜索树，如：AVL树、红黑树等。</p>
+<p>自平衡搜索树法的最差搜索效率是**O(logN)<strong>，而哈希查找表是</strong>O(N)**。</p>
+<p>哈希查找表的平均查找效率是**O(1)**。</p>
+<p>两者还有一个区别：</p>
+<p>遍历自平衡搜索树，返回key的序列，一般按从小到大的顺序；</p>
+<p>哈希查找表则是乱序的。</p>
+<h2 id="2-map的底层实现原理是什么？"><a href="#2-map的底层实现原理是什么？" class="headerlink" title="2. map的底层实现原理是什么？"></a>2. map的底层实现原理是什么？</h2><p>Go语言中map是采用哈希查找表，并使用链表法解决哈希冲突。</p>
+<h3 id="2-1-map的结构"><a href="#2-1-map的结构" class="headerlink" title="2.1 map的结构"></a>2.1 map的结构</h3><p>go底层源码中，map的结构体是hmap（hashmap）：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">//src/runtime/map.go</span><br><br><span class="hljs-keyword">type</span> hmap <span class="hljs-keyword">struct</span> &#123;<br>	count     <span class="hljs-type">int</span> <span class="hljs-comment">// 元素个数</span><br>	flags     <span class="hljs-type">uint8</span> <span class="hljs-comment">// 标志位 表示当前map的状态</span><br>	B         <span class="hljs-type">uint8</span>  <span class="hljs-comment">// 负载因子 buckets数组长度的log_2，即buckets数组长度为2^B</span><br>	noverflow <span class="hljs-type">uint16</span> <span class="hljs-comment">// overflow buckets的桶数量的近似数</span><br>	hash0     <span class="hljs-type">uint32</span> <span class="hljs-comment">// 哈希种子</span><br><br>	buckets    unsafe.Pointer <span class="hljs-comment">// 指向buckets数组，大小为2^B 当count=0时，为nil</span><br>	oldbuckets unsafe.Pointer <span class="hljs-comment">// 扩容时，buckets的长度是oldbuckets的两倍 </span><br>	nevacuate  <span class="hljs-type">uintptr</span>        <span class="hljs-comment">// 扩容进度指示器，小于该地址的buckets完成迁移</span><br><br>	extra *mapextra <span class="hljs-comment">// 额外字段</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>buckets</code>指针指向一个<code>bmap</code>结构体类型的数组:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">//src/runtime/map.go</span><br><br><span class="hljs-keyword">type</span> bmap <span class="hljs-keyword">struct</span> &#123;<br>	<span class="hljs-comment">// tophash数组只存储每个key的hash值的top字节。</span><br>    <span class="hljs-comment">// 如果tophash[0] &lt; minTophash，那么tophash[0]是桶迁移完成状态</span><br>	tophash [bucketCnt]<span class="hljs-type">uint8</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>编译器会动态创建一个新结构，给bmap“加料”。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> bmap <span class="hljs-keyword">struct</span> &#123;<br>    topbits [<span class="hljs-number">8</span>]<span class="hljs-type">uint8</span><br>    keys [<span class="hljs-number">8</span>]keytype<br>    values [<span class="hljs-number">8</span>]valuetype<br>    pad uinptr<br>    overflow <span class="hljs-type">uintptr</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>bmap就是桶bucket，一个桶只能装8个&lt;key,value&gt;键值对。</p>
+<p>当map的key和value都不是指针时，并且size &lt; 128字节，bmap标记为不含指针，这样可以避免GC时扫描整个hmap，提升效率。</p>
+<p>但实际上，bmap还有一个overflow的指针类型字段，这里巧妙得将overflow移动到hmap的extra字段内。</p>
+<p>当key&#x2F;value都不含指针时，启用overflow和oldoverflow字段。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> mapextra <span class="hljs-keyword">struct</span> &#123;<br>	overflow    *[]*bmap<br>	oldoverflow *[]*bmap<br><br>	<span class="hljs-comment">// 包含空闲的overflow bucket, 即预分配的bucket</span><br>	nextOverflow *bmap<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>bmap的内存存储模型如下：</p>
+<img src="/posts/8a1d90db6ee1/image-20241129200743741.png" srcset="/images/loading.gif" lazyload alt="image-20241129200743741" style="zoom:45%;">
+
+<p>HOB Hash指的是top hash；</p>
+<p>key&#x2F;key&#x2F;…&#x2F;value&#x2F;value&#x2F;…这种模式存储，有利于内存对齐，可以省略padding字段，节省内存空间。</p>
+<p>如果是key&#x2F;value&#x2F;key&#x2F;value&#x2F;…模式存储的话，还需要额外padding7个字节，这样做是为了防止伪共享，需要凑齐8个字节。</p>
+<p>每个bucket被设计成最多能放8个&lt;key, value&gt;键值对，当超过8个时，即第9个键值对被哈希到该桶时，再创建一个bucket，然后通过overflow指针连接起来，这就是链表法。</p>
+<p>map的整体结构如下：</p>
+<p><img src="/posts/8a1d90db6ee1/image-20241129025006800.png" srcset="/images/loading.gif" lazyload alt="image-20241129025006800"></p>
+<h3 id="2-2-map的创建"><a href="#2-2-map的创建" class="headerlink" title="2.2 map的创建"></a>2.2 map的创建</h3><p>创建语法：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go">m := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-type">int</span>)<br><br><span class="hljs-comment">// 指定长度</span><br>m := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-type">int</span>, <span class="hljs-number">8</span>)<br><br><span class="hljs-comment">// m = nil 声明变量m 并不能对m进行添加操作</span><br><span class="hljs-keyword">var</span> m <span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-type">int</span><br></code></pre></td></tr></table></figure>
+
+<p>创建map的底层调用的makemap函数，主要初始化hmap结构体的各种字段，如计算B，设置哈希种子hash0。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">//src/runtime/map.go</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">makemap</span><span class="hljs-params">(t *maptype, hint <span class="hljs-type">int</span>, h *hmap)</span></span> *hmap &#123;<br>	mem, overflow := math.MulUintptr(<span class="hljs-type">uintptr</span>(hint), t.Bucket.Size_)<br>	<span class="hljs-keyword">if</span> overflow || mem &gt; maxAlloc &#123;<br>		hint = <span class="hljs-number">0</span><br>	&#125;<br><br>	<span class="hljs-comment">// initialize Hmap</span><br>	<span class="hljs-keyword">if</span> h == <span class="hljs-literal">nil</span> &#123;<br>		h = <span class="hljs-built_in">new</span>(hmap)<br>	&#125;<br>	h.hash0 = <span class="hljs-type">uint32</span>(rand())<br><br>	<span class="hljs-comment">// Find the size parameter B which will hold the requested # of elements.</span><br>	<span class="hljs-comment">// For hint &lt; 0 overLoadFactor returns false since hint &lt; bucketCnt.</span><br>	B := <span class="hljs-type">uint8</span>(<span class="hljs-number">0</span>)<br>	<span class="hljs-keyword">for</span> overLoadFactor(hint, B) &#123;<br>		B++<br>	&#125;<br>	h.B = B<br><br>	<span class="hljs-comment">// allocate initial hash table</span><br>	<span class="hljs-comment">// if B == 0, the buckets field is allocated lazily later (in mapassign)</span><br>	<span class="hljs-comment">// If hint is large zeroing this memory could take a while.</span><br>	<span class="hljs-keyword">if</span> h.B != <span class="hljs-number">0</span> &#123;<br>		<span class="hljs-keyword">var</span> nextOverflow *bmap<br>		h.buckets, nextOverflow = makeBucketArray(t, h.B, <span class="hljs-literal">nil</span>)<br>		<span class="hljs-keyword">if</span> nextOverflow != <span class="hljs-literal">nil</span> &#123;<br>			h.extra = <span class="hljs-built_in">new</span>(mapextra)<br>			h.extra.nextOverflow = nextOverflow<br>		&#125;<br>	&#125;<br><br>	<span class="hljs-keyword">return</span> h<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>需要注意的是，makemap函数返回的*hmap指针，而创建slice时makeslice函数返回的slice结构体。</p>
+<p>所以当map作为函数的参数时，需要注意函数内部对map的操作会影响map结构体。</p>
+<h3 id="2-3-哈希函数"><a href="#2-3-哈希函数" class="headerlink" title="2.3 哈希函数"></a>2.3 哈希函数</h3><p>在程序启动时，Go会检测CPU是否支持aes，如果支持，则使用<strong>aes hash</strong>，否则使用<strong>memhash</strong>。</p>
+<p>源码路径：<code>src/runtime/alg.go</code>的<code>alginit()</code>函数。</p>
+<p>哈希函数分为<strong>加密型</strong>和<strong>非加密型</strong>。</p>
+<p><strong>加密型</strong>：一般用于加密数据、数字摘要等，如md5、sha1、sha256、aes256。</p>
+<p><strong>非加密型</strong>：一般用于查找，如Murmurhash。</p>
+<h3 id="2-4-key定位过程"><a href="#2-4-key定位过程" class="headerlink" title="2.4 key定位过程"></a>2.4 key定位过程</h3><p>map查找key，调用的<code>mapaccess1</code>函数。</p>
+<ol>
+<li><p>key 经过哈希计算得到哈希值，共64位。（仅讨论64位机）</p>
+</li>
+<li><p>使用初始化hmap时就赋值的B，取哈希值低B位，转成十进制，那么这个十进制数就是该key落在几号桶。</p>
+</li>
+<li><p>取哈希值的高8位，找到该key在bucket中的槽位。</p>
+<blockquote>
+<p>最开始因为bucket里没有key，在遍历完bucket中所有的槽位，包括overflow的槽位后，找不到相同的key时，该key就会被放到第一个槽位。</p>
+</blockquote>
+</li>
+</ol>
+<p>当两个不同的key落在同一个bucket中，也就是发生了<strong>哈希冲突</strong>。</p>
+<p>使用<strong>链表法</strong>来解决冲突：在bucket中，从前往后找到第一个空位，放入新加入的有冲突的key。</p>
+<p><img src="/posts/8a1d90db6ee1/image-20241130225814848.png" srcset="/images/loading.gif" lazyload alt="image-20241130225814848"></p>
+<p>上图中，初始化时B&#x3D;5，那么bucket的数量就是2^5&#x3D;32个。</p>
+<ol>
+<li>首先计算key的哈希值。</li>
+<li>使用低5位00110(低B位)，转换成十进制6，找到第6个bucket。</li>
+<li>使用高8位01111011，转换成十进制123，在第6号bucket中查找tophash值为123的槽位，这里找到了tohash数组的2号槽位。</li>
+<li>找到2号槽位后，那么对应的key应该落在keys[2]的key2，则对应的value就是value[2]的value2。</li>
+</ol>
+<p>如果在bucket中没找到，并且overflow不为空，还要继续去overflow bucket中查找，直到找到或所有槽位都找遍了，仍然没有找到，此时返回key对应类型的零值。</p>
+<p>源码目录：<code>src/runtime/map.go</code>的<code>mapaccess1</code>函数。</p>
+<blockquote>
+<p>tophash是存储该bucket的key的tophash值以及表征该bucket的状态，以下是几个状态：</p>
+<p><em>emptyRest</em>      &#x3D; 0 	&#x2F;&#x2F; 空的cell，初始化时的状态，也表示该cell后续的所有cell都是空的，包括overflow bucket<br><em>emptyOne</em>       &#x3D; 1 	&#x2F;&#x2F; 当前的cell是空的<br><em>evacuatedX</em>     &#x3D; 2 	&#x2F;&#x2F; key,value已经搬迁完毕，但key都在新bucket的前半部分<br><em>evacuatedY</em>     &#x3D; 3 	&#x2F;&#x2F; 同上，key在后半部分<br><em>evacuatedEmpty</em> &#x3D; 4 	&#x2F;&#x2F; 空的cell，且cell已经被搬迁到新的bucket<br><em>minTopHash</em>     &#x3D; 5	 &#x2F;&#x2F; tophash的最小正常值</p>
+<p>当 emptyOne &lt; tophash[0] &lt; minTopHash，即tophash[0]是evacuatedX、evacuatedY、evacuatedEmpty之一时，表示该bucket上的key已经被全部搬迁到新bucket。</p>
+<p>在tophash数组中，为了和正常的哈希值（高8位）区分开，会将所有的key的哈希值加上一个增量minTopHash，这样就可以区分正常的tophash和表示搬迁状态的哈希值了。</p>
+</blockquote>
+<h3 id="2-5-map的赋值过程"><a href="#2-5-map的赋值过程" class="headerlink" title="2.5  map的赋值过程"></a>2.5  map的赋值过程</h3><p>向map插入或修改key，调用的是<code>mapassign</code>函数。</p>
+<p><code>mapassign</code>函数返回的指针就是指向该key所对应的value值所在的内存地址。</p>
+<p>赋值流程如下：</p>
+<ol>
+<li>检查map的标志位flag，是否存在并发写操作。如果存在，程序会直接panic。</li>
+<li>计算key的哈希值，找到落入的bucket。</li>
+<li>检查该bucket是否处于扩容状态。</li>
+<li>如果处于扩容状态，那么进行迁移操作，将老bucket的key分散迁移到2个新bucket上，只有迁移完成后，才能安全地在新bucket里定位key要放置的地址。</li>
+<li>定位key的放置位置，准备2个指针（inserti指向key的hash值在tophash数组所在位置，insertk指向key的位置)，循环遍历bucket的tophash数组（包括overflow bucket）。</li>
+<li>在遍历过程中，如果有空闲的cell，inserti会指向第一个空的tophash槽位，insertk会指向第一个空闲的cell。</li>
+<li>如果遍历完成后，没有找到key的存在，那么意味着插入新的key，而不是更新原有的key，那么最终key的安置位置就是第一次发现的空闲的cell。</li>
+<li>如果没有找到key且该bucket的8个key都放置满了，在跳出循环后，inserti和insertk都为空，那么就需要在最后遍历的bucket后面挂上overflow bucket。当然，这里要检查map的状态，是否需要进行扩容，如果满足扩容条件，主动触发扩容操作，并在扩容完成，重新走一遍查找定位key的过程。</li>
+<li>定位到key之后，计算出value的位置，即key的位置跨过8个长度即可，赋值即可。</li>
+<li>更新map相关值，如果是插入新key，map的字段count值加1；并且将hashWriting写标志位清零。</li>
+</ol>
+<p>那么，如果先后插入两个不同的key，刚好它们的低B位和高8位又刚好相同，map是如何存储这个两个键值对呢？</p>
+<p>低B位相同表示都落在同一个bucket；</p>
+<p>高8位相同表示它们的tophash相同。</p>
+<p>在map的赋值流程中，遍历bucket时，会用一个指针记录第一个空闲的tophash槽位。当插入第一个key时，第一个空闲的槽位被占用了；当插入第二个key时，遍历桶时，发现找到的槽位已被占用，会判断第二个key与改槽位的key是否相同，如果相同则是更新操作，否则会继续查找：</p>
+<ul>
+<li>直到找到相同的key，进行更新操作。</li>
+<li>找到空闲的tophash槽位，并找不到相同key，进行增加操作。</li>
+<li>找不到相同的key，找不到空闲的tophash槽位(即8个槽位已满)，在overflow指针挂载新的overflowbucket，并把key存储载第一个槽位。当然会触发检查扩容条件，并决定是否扩容，如果是，则等待扩容完成后，重新定位key，并执行更新&#x2F;增加操作。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// src/runtime/map.go</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mapassign</span><span class="hljs-params">(t *maptype, h *hmap, key unsafe.Pointer)</span></span> unsafe.Pointer &#123;<br>    <br>    ...<br>    <br>bucketloop:<br>	<span class="hljs-keyword">for</span> &#123;<br>		<span class="hljs-keyword">for</span> i := <span class="hljs-type">uintptr</span>(<span class="hljs-number">0</span>); i &lt; bucketCnt; i++ &#123;<br>			<span class="hljs-keyword">if</span> b.tophash[i] != top &#123;<br>				<span class="hljs-keyword">if</span> isEmpty(b.tophash[i]) &amp;&amp; inserti == <span class="hljs-literal">nil</span> &#123;<br>					inserti = &amp;b.tophash[i]<br>					insertk = add(unsafe.Pointer(b), dataOffset+i*<span class="hljs-type">uintptr</span>(t.KeySize))<br>					elem = add(unsafe.Pointer(b), dataOffset+bucketCnt*<span class="hljs-type">uintptr</span>(t.KeySize)+i*<span class="hljs-type">uintptr</span>(t.ValueSize))<br>				&#125;<br>				<span class="hljs-keyword">if</span> b.tophash[i] == emptyRest &#123;<br>					<span class="hljs-keyword">break</span> bucketloop<br>				&#125;<br>				<span class="hljs-keyword">continue</span><br>			&#125;<br>			k := add(unsafe.Pointer(b), dataOffset+i*<span class="hljs-type">uintptr</span>(t.KeySize))<br>			<span class="hljs-keyword">if</span> t.IndirectKey() &#123;<br>				k = *((*unsafe.Pointer)(k))<br>			&#125;<br>			<span class="hljs-keyword">if</span> !t.Key.Equal(key, k) &#123; <span class="hljs-comment">// 会继续对key进行相等判断</span><br>				<span class="hljs-keyword">continue</span><br>			&#125;<br>			<span class="hljs-comment">// already have a mapping for key. Update it.</span><br>			<span class="hljs-keyword">if</span> t.NeedKeyUpdate() &#123;<br>				typedmemmove(t.Key, k, key)<br>			&#125;<br>			elem = add(unsafe.Pointer(b), dataOffset+bucketCnt*<span class="hljs-type">uintptr</span>(t.KeySize)+i*<span class="hljs-type">uintptr</span>(t.ValueSize))<br>			<span class="hljs-keyword">goto</span> done<br>		&#125;<br>        ...<br>    &#125;<br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>当然，在查找操作时，即使tophash相同也会判断key是否相同。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// src/runtime/map.go</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mapaccess1</span><span class="hljs-params">(t *maptype, h *hmap, key unsafe.Pointer)</span></span> unsafe.Pointer &#123;<br>	...<br>bucketloop:<br>	<span class="hljs-keyword">for</span> ; b != <span class="hljs-literal">nil</span>; b = b.overflow(t) &#123;<br>		<span class="hljs-keyword">for</span> i := <span class="hljs-type">uintptr</span>(<span class="hljs-number">0</span>); i &lt; bucketCnt; i++ &#123;<br>			<span class="hljs-keyword">if</span> b.tophash[i] != top &#123;<br>				<span class="hljs-keyword">if</span> b.tophash[i] == emptyRest &#123;<br>					<span class="hljs-keyword">break</span> bucketloop<br>				&#125;<br>				<span class="hljs-keyword">continue</span><br>			&#125;<br>			k := add(unsafe.Pointer(b), dataOffset+i*<span class="hljs-type">uintptr</span>(t.KeySize))<br>			<span class="hljs-keyword">if</span> t.IndirectKey() &#123;<br>				k = *((*unsafe.Pointer)(k))<br>			&#125;<br>			<span class="hljs-keyword">if</span> t.Key.Equal(key, k) &#123; <span class="hljs-comment">// 判断key是否相同</span><br>				e := add(unsafe.Pointer(b), dataOffset+bucketCnt*<span class="hljs-type">uintptr</span>(t.KeySize)+i*<span class="hljs-type">uintptr</span>(t.ValueSize))<br>				<span class="hljs-keyword">if</span> t.IndirectElem() &#123;<br>					e = *((*unsafe.Pointer)(e))<br>				&#125;<br>				<span class="hljs-keyword">return</span> e<br>			&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> unsafe.Pointer(&amp;zeroVal[<span class="hljs-number">0</span>])<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-6-map的删除过程"><a href="#2-6-map的删除过程" class="headerlink" title="2.6 map的删除过程"></a>2.6 map的删除过程</h3><p>删除操作底层的执行函数是<code>mapdelete</code>。</p>
+<p>删除过程如下：</p>
+<ol>
+<li>检查是否存在并发操作。</li>
+<li>计算key的哈希值，找到落入的bucket。</li>
+<li>设置写标志。</li>
+<li>检查此map是否正在扩容的过程中，如果是则直接触发一次搬迁操作。</li>
+<li>两层循环，核心是找到key的具体位置，定位过程类型，即在bucket中挨个cell寻找。</li>
+<li>找到对应位置后，对key或value进行清零操作。</li>
+<li>将map中的count减1，将对应位置的tophash值改成emptyOne。</li>
+<li>最后，检测该槽位后面是否都是空，若是将tophash改成emptyRest。</li>
+<li>若前一步成功，将此cell之前的tophash值为emptyOne的槽位都改成emptyRest。</li>
+</ol>
+<h3 id="2-7-map的扩容过程"><a href="#2-7-map的扩容过程" class="headerlink" title="2.7 map的扩容过程"></a>2.7 map的扩容过程</h3><p>哈希表的设计目的就是为了快速查找目标key，然而随着向map添加的key越来越多，key发生哈希碰撞的概率将越来越大。</p>
+<p>理想情况：一个bucket只装一个key，能达到O(1)，但空间换时间代价太高了。</p>
+<p>实际情况：一个bucket可以装载8个key，先定位到某个bucket，再定位到具体槽位，即时间换空间。</p>
+<p>无论空间换时间或时间换空间，中间必须有个度，而这个度就是装载因子loadFactor。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">loadFactor := count / (<span class="hljs-number">2</span>^B)<br></code></pre></td></tr></table></figure>
+
+<p>count是map里的元素个数，2^B表示bucket的总数。</p>
+<p>在插入新key时，如果符合以下两个条件，就会触发扩容：</p>
+<ol>
+<li>装载因子超过阈值6.5。</li>
+<li>overflow的bucket数量过多：<ul>
+<li>当B&lt;15，也就是bucket总数2^B小于2^15时，overflow的bucket数量超过2^B;</li>
+<li>当B&gt;&#x3D;15，也就是bucket总数2^B大于等于2^15，overflow的bucket数量超过2^15。</li>
+</ul>
+</li>
+</ol>
+<p>具体解释以上两个扩容条件：</p>
+<ol>
+<li>每个bucket有8个空位，在没有溢出的，且所有桶都装满情况下，装载因子为8。因此当装载因子超过6.5时，表示很多bucket都快满了，对map的操作效率会变低，应该进行扩容。</li>
+<li>在装载因子比较小的时候，map的操作效率也很低。map的元素总数少，但bucket总数多。</li>
+</ol>
+<p>造成条件2的原因在于：不断地插入、删除元素。</p>
+<p>以上两个条件扩容的策略并不相同：</p>
+<ol>
+<li>条件1，元素多，bucket少。策略：将B加上1，bucket总数2^B直接变成原来的2倍。</li>
+<li>条件2，元素少，bucket多。策略：开辟一个新的bucket空间，将老bucket中的元素移动到新bucket，使得同一个bucket的key排列地更加紧密。 即在overflow bucket的元素移动到新bucket，以节省空间，提高bucket利用率，map的操作效率。bucket的数量和之前一样，并不包括overflow bucket。</li>
+</ol>
+<blockquote>
+<p>针对条件2的解决方案，有一种极端情况：如果插入的key的哈希值都一样，就会落到同一个bucket里，超过8个就会产生overflow bucket，结果也会造成overflow bucket过多。</p>
+<p>此时，移动元素无法解决问题，整个哈希表已经退化成了一个链表，操作效率变成了O(n)。</p>
+</blockquote>
+<p><strong>map的扩容采取了一种称为“渐进式”的方式，原有的key不会一次性搬迁完毕，而是每次最多只搬迁2个bucket。</strong></p>
+<blockquote>
+<p>在满足条件1、2时，会先调用hashGrow函数。</p>
+<p>实际上，hashGrow()函数并没有真正地进行搬迁，只是分配好新的bucket，并将老buckets加载到oldbuckets字段上。</p>
+<p>真正进行搬迁bucket是在growWork()函数上，而调用growWork()函数是在mapassign和mapdelete函数中。</p>
+<p>在插入、修改、删除key的时候，都会先检查oldbuckets是否搬迁完毕，即检查oldbuckets是否为nil，再尝试进行搬迁buckets的工作。</p>
+</blockquote>
+<p>具体搬迁流程：</p>
+<ol>
+<li>插入、修改、删除key时，检查oldbuckets是否为nil，非nil则进行下一步搬迁工作。</li>
+<li>调用hashGrow()函数，申请新bucket的空间，处理相关标志位。<ul>
+<li>如果是等量扩容，设置h.flags为sameSizeGrow。</li>
+<li>标志nevacuate被赋值为0，表示当前搬迁进度为0。</li>
+</ul>
+</li>
+<li>调用evacuate()函数进行搬迁，注意evacuate()每次只搬迁一个bucket，当然包括其overflow bucket。</li>
+<li>同样需要两层循环，外层遍历bucket及其overflow bucket，内层遍历bucket的所有cell。</li>
+<li>如果符合条件1，新的buckets数量是之前的2倍；如果符合条件2，新的buckets数量和之前相同。</li>
+<li>对于条件2（等量扩容），从老buckets搬迁到新的buckets上，按照序号进行搬迁，即0号的buckets仍然搬迁到0号的buckets。</li>
+<li>对于条件1，要重新计算key的哈希值，因为B+1，所以要看低B+1位，进行确定key落在哪个bucket。</li>
+<li>确定要搬迁到的目标bucket后，首先将源key&#x2F;value值复制到目的地相应的位置。</li>
+<li>然后设置key在原始buckets的tophash为evacuatedX或是evacuatedY，表示搬迁到了新map的x part或y part。</li>
+<li>最后设置新map的tophash值，key哈希值的高8位。</li>
+</ol>
+<h3 id="2-8-map的遍历过程"><a href="#2-8-map的遍历过程" class="headerlink" title="2.8 map的遍历过程"></a>2.8 map的遍历过程</h3><p>map的遍历过程看起来好像比较简单：遍历所有的bucket及其后面挂的overflow bucket，同时遍历每个bucket中的所有cell即可。</p>
+<p>其实不然，还记得map的扩容不是一个原子操作，每次最多搬运2个bucket。</p>
+<p>所以如果触发了扩容操作，那么map中的有些bucket已经搬迁了，有些还在没搬迁。</p>
+<p>因此，map的遍历如果发生在扩容过程中，那么就需要遍历新老bucket。</p>
+<p>在底层源码中，底层函数调用关系：先调用mapiterinit函数初始化迭代器hiter，然后循环调用mapiternext函数进行map遍历。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// src/runtime/map.go</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mapiterinit</span><span class="hljs-params">(t *maptype, h *hmap, it *hiter)</span></span> &#123;<br>	...<br>    <span class="hljs-comment">// decide where to start</span><br>	r := <span class="hljs-type">uintptr</span>(rand())<br>	it.startBucket = r &amp; bucketMask(h.B)<br>	it.offset = <span class="hljs-type">uint8</span>(r &gt;&gt; h.B &amp; (bucketCnt - <span class="hljs-number">1</span>))<br><br>	<span class="hljs-comment">// iterator state</span><br>	it.bucket = it.startBucket<br><br>	<span class="hljs-comment">// Remember we have an iterator.</span><br>	<span class="hljs-comment">// Can run concurrently with another mapiterinit().</span><br>	<span class="hljs-keyword">if</span> old := h.flags; old&amp;(iterator|oldIterator) != iterator|oldIterator &#123;<br>		atomic.Or8(&amp;h.flags, iterator|oldIterator)<br>	&#125;<br><br>	mapiternext(it)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在mapiterinit中，随机确定一个初始遍历的bucket(it.startBucket)，并随机确定从哪个cell开始遍历。</p>
+<p>那么，mapiternext函数就会从it.startBucket的第it.offset号的cell开始遍历，并从中取出key和value，直到又回到起点bucket，完成遍历过程。</p>
+<p>下面是遍历过程中map的变化过程图：</p>
+<p> 假设如下图所示的map，初始时B&#x3D;1，有2个bucket(左边)，后面触发扩容操作，B变成了2，并且1号的bucket已搬迁到新的bucket，1号裂变成1号和3号；0号bucket暂未搬迁。</p>
+<p>老bucket挂载<code>*oldbuckets</code>指针上，新bucket挂在<code>*buckets</code>指针上。</p>
+<p><img src="/posts/8a1d90db6ee1/image-20241220012132154.png" srcset="/images/loading.gif" lazyload alt="map初始状态"></p>
+<p>此时，对map进行遍历。</p>
+<p>初始化迭代器时，startBucket&#x3D;3，offset&#x3D;2。</p>
+<p>即遍历起点为3号bucket的2号cell。</p>
+<p>bucket遍历顺序：3-0-1-2</p>
+<p><strong>每次都会从一个bucket的固定序号的cell开始遍历！</strong></p>
+<p>如果b.tophash[0]的值在标志值范围内，即[2,4]区间内，说明已经被搬迁了。</p>
+<p>那么老1号bucket已经被搬迁了，所以遍历新的3号bucket。</p>
+<p>遍历3号bucket的cell，找到第一个非空的cell（<code>e</code>），mapiternext函数返回。</p>
+<p>由于返回的key不为空，所以继续调用mapiternext函数，继续从上次遍历到的地方往后遍历，从3号bucket的overflow bucket中找到<code>f</code>和<code>g</code>。</p>
+<p>3号bucket遍历完成后，回到新0号bucket。</p>
+<p>新0号bucket对应的是老0号bucket，发现老0号bucket未搬迁，则先遍历老0号bucket。</p>
+<p>这里要注意的是，遍历老0号bucket并非其全部的key。</p>
+<p>老0号裂变成新0号和新2号bucket，这里只是遍历新0号bucket，所以只需要取出在老0号裂变后分配到新0号的key而已。</p>
+<p>所以，lowbits等于00的key会被遍历，发现了c、b。</p>
+<p>此时遍历结果集：e、f、g、c、b</p>
+<p>继续遍历新1号bucket，发现已经搬迁了，所以只需遍历新1号即可，这里找到了h。</p>
+<p>接着遍历新2号bucket，同样的它来自老0号bucket，所以需要在老0号bucket那些会裂变到新2号的bucket中的key，即lowbits为10的key，发现了a。</p>
+<p>遍历结果集: e、f、g、c、b、h、a</p>
+<p>最后，遍历到新3号bucket，发现所有bucket已经被遍历完毕。</p>
+<blockquote>
+<p>如果遇到key是math.NaN()，处理方式也是类似的，主要是看它被分裂到哪个bucket。</p>
+<p>只不过只用看它tophash的最低位，如果是0，则分配到X part；如果是1，则分配到Y part。</p>
+</blockquote>
+<p>结论：map遍历的核心在于2倍扩容时，老bucket会分配到2个新bucket中去。遍历操作会按照新bucket的序号顺序进行，遇到老bucket未搬迁时，则要在老bucket中找到将来要搬迁到新bucket的key。</p>
+<h2 id="3-map中的key为什么是无序的？"><a href="#3-map中的key为什么是无序的？" class="headerlink" title="3. map中的key为什么是无序的？"></a>3. map中的key为什么是无序的？</h2><p>无序的原因有2个：</p>
+<ol>
+<li>map的扩容会导致key被搬迁。</li>
+<li>map的遍历过程中，每次遍历都会从一个随机序号的bucket开始，并且从该bucket的随机序号的cell开始遍历。</li>
+</ol>
+<h2 id="4-map是线程安全的吗？"><a href="#4-map是线程安全的吗？" class="headerlink" title="4. map是线程安全的吗？"></a>4. map是线程安全的吗？</h2><p>map不是线程安全的。</p>
+<p>在查找、赋值、遍历、删除过程中都会检查写标志（hmap.flags），一旦发现写标志位为1，则直接panic。</p>
+<p>赋值和删除函数会检查完写标志是复位状态（为0）之后，先将写标志位置为1，才会进行接下来的操作。</p>
+<h2 id="5-float类型可以作为map的key吗？"><a href="#5-float类型可以作为map的key吗？" class="headerlink" title="5. float类型可以作为map的key吗？"></a>5. float类型可以作为map的key吗？</h2><p>可以，但当key为math.NaN()，会由于精度问题，导致一些奇怪的问题。</p>
+<p>Go语言中只要是可比较的类型都可以作为key。</p>
+<p>除了slice、map、functions这几个类型外，其它类型都可以作为map的key。</p>
+<p>具体类型有：bool、数字类型、字符串、指针、通道、接口类型、结构体、只包含上述类型的数组。</p>
+<p>可比较的类型是怎么样的？</p>
+<p>可比较即支持<code>==</code>和<code>!=</code>操作符。</p>
+<p>如果key是结构体时，只有哈希后的值相等以及字面值相等，才被认为是相同的key。</p>
+<p><strong>任何类型都可以作为value，包含map类型。</strong></p>
+<p>下面是key为math.NaN()的例子。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;math&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	m := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">float64</span>]<span class="hljs-type">int</span>)<br>	m[<span class="hljs-number">1.4</span>] = <span class="hljs-number">1</span><br>	m[<span class="hljs-number">2.4</span>] = <span class="hljs-number">2</span><br>	m[math.NaN()] = <span class="hljs-number">3</span><br>	m[math.NaN()] = <span class="hljs-number">3</span><br><br>	<span class="hljs-keyword">for</span> k, v := <span class="hljs-keyword">range</span> m &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;[%v, %d]\n&quot;</span>, k, v)<br>	&#125;<br><br>	fmt.Printf(<span class="hljs-string">&quot;k: %v, v: %d\n&quot;</span>, math.NaN(), m[math.NaN()])<br>	fmt.Printf(<span class="hljs-string">&quot;k: %v, v: %d\n&quot;</span>, <span class="hljs-number">2.400000000001</span>, m[<span class="hljs-number">2.400000000001</span>])<br>	fmt.Printf(<span class="hljs-string">&quot;k: %v, v: %d\n&quot;</span>, <span class="hljs-number">2.4000000000000000001</span>, m[<span class="hljs-number">2.4000000000000000001</span>])<br><br>	fmt.Println(math.NaN() == math.NaN())<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sh">[1.4, 1]<br>[2.4, 2]<br>[NaN, 3]<br>[NaN, 3]<br>k: NaN, v: 0<br>k: 2.400000000001, v: 0<br>k: 2.4, v: 2<br><span class="hljs-literal">false</span><br></code></pre></td></tr></table></figure>
+
+<p>首先打印出map的key-value键值对，出现重复的键值对[NaN，3]。</p>
+<p>由于NaN !&#x3D; NaN，在map看来就是两个不同的key，所以会出现两个NaN的key。</p>
+<p>取值NaN，发现不存在；2.400000000001的值也不存在，而2.4000000000000000001却存在值。</p>
+<p>为什么呢？</p>
+<p>从源码可知，当使用float64作为key时，先要将其转成uint64类型，再插入key中。</p>
+<p>具体操作再Float64bits函数中完成：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// src/math/unsafe.go</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Float64bits</span><span class="hljs-params">(f <span class="hljs-type">float64</span>)</span></span> <span class="hljs-type">uint64</span> &#123; <span class="hljs-keyword">return</span> *(*<span class="hljs-type">uint64</span>)(unsafe.Pointer(&amp;f)) &#125;<br></code></pre></td></tr></table></figure>
+
+<p>浮点数表示成IEEE754规定的浮点数格式。</p>
+<p>将float64转换成十六进制：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;math&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	m := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">float64</span>]<span class="hljs-type">int</span>)<br>	m[<span class="hljs-number">2.4</span>] = <span class="hljs-number">2</span><br><br>	fmt.Println(math.Float64bits(<span class="hljs-number">2.4</span>))<br>	fmt.Println(math.Float64bits(<span class="hljs-number">2.400000000001</span>))<br>	fmt.Println(math.Float64bits(<span class="hljs-number">2.4000000000000000001</span>))<br><br>	fmt.Println(<span class="hljs-string">&quot;转换成十六进制&quot;</span>)<br>	fmt.Printf(<span class="hljs-string">&quot;0x%X\n&quot;</span>, math.Float64bits(<span class="hljs-number">2.4</span>))<br>	fmt.Printf(<span class="hljs-string">&quot;0x%X\n&quot;</span>, math.Float64bits(<span class="hljs-number">2.400000000001</span>))<br>	fmt.Printf(<span class="hljs-string">&quot;0x%X\n&quot;</span>, math.Float64bits(<span class="hljs-number">2.4000000000000000001</span>))<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sh">4612586738352862003<br>4612586738352864255<br>4612586738352862003<br>转换成十六进制<br>0x4003333333333333<br>0x4003333333333BFF<br>0x4003333333333333<br></code></pre></td></tr></table></figure>
+
+<p>很明显看出，2.4和2.4000000000000000001经过转换后的结果一致，则在map中就是同一个key。</p>
+<p><strong>结论：float类型作为key时，由于精度问题，可能出现不同key的字面值，但却是相同的key。</strong></p>
+<p>第二个问题，为什么map取不出NaN的值呢？</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// src/math/bits.go</span><br><br><span class="hljs-comment">// NaN returns an IEEE 754 “not-a-number” value.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NaN</span><span class="hljs-params">()</span></span> <span class="hljs-type">float64</span> &#123; <span class="hljs-keyword">return</span> Float64frombits(uvnan) &#125;<br></code></pre></td></tr></table></figure>
+
+<p>函数Float64frombits如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Float64frombits</span><span class="hljs-params">(b <span class="hljs-type">uint64</span>)</span></span> <span class="hljs-type">float64</span> &#123; <span class="hljs-keyword">return</span> *(*<span class="hljs-type">float64</span>)(unsafe.Pointer(&amp;b)) &#125;<br></code></pre></td></tr></table></figure>
+
+<p>uvan的定义如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">uvnan    = <span class="hljs-number">0x7FF8000000000001</span><br></code></pre></td></tr></table></figure>
+
+<p>可以看出，NaN()直接调用Float64frombits，而其参数是常量0x7FF8000000000001，就能得到NAN型值。</p>
+<p>既然NAN是常量解析而来的，为什么插入map后，会被认为是不同的key?</p>
+<p>别忘记了，map的赋值过程中，需要对key进行hash，而float64类型的哈希函数如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// src/runtime/alg.go</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f64hash</span><span class="hljs-params">(p unsafe.Pointer, h <span class="hljs-type">uintptr</span>)</span></span> <span class="hljs-type">uintptr</span> &#123;<br>	f := *(*<span class="hljs-type">float64</span>)(p)<br>	<span class="hljs-keyword">switch</span> &#123;<br>	<span class="hljs-keyword">case</span> f == <span class="hljs-number">0</span>:<br>		<span class="hljs-keyword">return</span> c1 * (c0 ^ h) <span class="hljs-comment">// +0, -0</span><br>	<span class="hljs-keyword">case</span> f != f:<br>		<span class="hljs-keyword">return</span> c1 * (c0 ^ h ^ <span class="hljs-type">uintptr</span>(rand())) <span class="hljs-comment">// any kind of NaN</span><br>	<span class="hljs-keyword">default</span>:<br>		<span class="hljs-keyword">return</span> memhash(p, h, <span class="hljs-number">8</span>)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>第二个case，f !&#x3D; f 就是针对NAN，添加了随机数，所以NAN每次hash都会出现不同值。</p>
+<p>那么NAN特性得证：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go">NaN != NaN<br>hash(NaN) != hash(NaN)<br></code></pre></td></tr></table></figure>
+
+<p>所以在map中查找key为NaN时，每次都查不到；而每次添加NaN时，都会添加NaN，遍历也会遍历出多个NaN。</p>
+<h2 id="6-map如何实现两种get操作？"><a href="#6-map如何实现两种get操作？" class="headerlink" title="6. map如何实现两种get操作？"></a>6. map如何实现两种get操作？</h2><p>读取map有两种语法：带comma和不带comma。</p>
+<p>带comma：返回一个bool变量提示key是否在map中和值。</p>
+<p>不带comma：只返回一个值。</p>
+<p>格式如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 不带comma</span><br>n := m[<span class="hljs-string">&quot;one&quot;</span>]<br><span class="hljs-comment">// 带comma</span><br>n, ok := m[<span class="hljs-string">&quot;one&quot;</span>]<br></code></pre></td></tr></table></figure>
+
+<p>Go语言不支持重载，为什么同样的赋值语句会有两种不同类型的返回值呢？</p>
+<p>编译器在分析用户代码后，会将这两种语法分别对应到runtime两个不同的函数。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// src/runtime/map.go</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mapaccess1</span><span class="hljs-params">(t *maptype, h *hmap, key unsafe.Pointer)</span></span> unsafe.Pointer <br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mapaccess2</span><span class="hljs-params">(t *maptype, h *hmap, key unsafe.Pointer)</span></span> (unsafe.Pointer, <span class="hljs-type">bool</span>)<br></code></pre></td></tr></table></figure>
+
+<p>类似的，根据key的类型，编译器还会将查找、插入、删除的函数使用更具体的函数替换，以提高效率。</p>
+<h2 id="7-如何比较两个map是否相等？"><a href="#7-如何比较两个map是否相等？" class="headerlink" title="7. 如何比较两个map是否相等？"></a>7. 如何比较两个map是否相等？</h2><p>两个map深度相等的条件如下：</p>
+<ol>
+<li>都为nil。</li>
+<li>非空、长度相等，指向同一个map实体对象。</li>
+<li>对应的key指向的value也是深度相等。</li>
+</ol>
+<p>三个条件任意一条满足，则认为两个map相等。</p>
+<p><strong>注意：直接使用map1 &#x3D;&#x3D; map2是错误的且无法通过编译，&#x3D;&#x3D;只能比较map是否为nil，而不能比较两个map是否相等。</strong></p>
+<p>只能通过遍历map的每个元素，比较元素是否都是深度相等。</p>
+<h2 id="8-可以对map的元素取地址吗？"><a href="#8-可以对map的元素取地址吗？" class="headerlink" title="8. 可以对map的元素取地址吗？"></a>8. 可以对map的元素取地址吗？</h2><p>无法对map的key或value进行取址操作。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs &m[" one"]```是无法通过编译的。"><br>当然，可以通过unsafe.Pointer获取到key或value的地址，但无法长期持有，因为当map发生扩容时，key和value的位置将发生改变，之前的地址也就失效了。<br><br>## 9. 可以边遍历边删除map吗？<br><br>可以，但不建议。<br><br>map并不是线程安全的数据结构。<br><br>同时读写一个map，如果被检测到，会直接panic。<br><br>上面情况是发生在多个线程同时读写同一个map。如果同一个协程内边遍历边删除，并不会检测到同时读写，理论是成立的。<br><br>官方文档例子：<br><br>```go<br>for key := range m &#123;<br>    if key.expired() &#123;<br>        delete(m, key)<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>当然，map的迭代顺序无法确定，所以如果在迭代过程中删除了尚未访问的map键值对，则不会进行迭代该迭代值。</p>
+<p>如果在迭代过程中创建了新的键值对，那么该键值对可能会被跳过，或被迭代。</p>
+<p>而上面的例子，只是删除当前迭代的key。</p>
+<p>如果需要并发读写，可以使用sync.Map。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/Go%E5%AE%9D%E5%85%B8/" class="category-chain-item">Go宝典</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="print-no-link">#读书笔记</a>
+      
+        <a href="/tags/go/" class="print-no-link">#go</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>3.数据容器</div>
+      <div>https://succeedwer.github.io/posts/8a1d90db6ee1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WER</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年2月3日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年12月21日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/8b6d023447a4/" title="4.通道">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">4.通道</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/9d9cec5b7a82/" title="2.延迟语句">
+                        <span class="hidden-mobile">2.延迟语句</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -229,15 +229,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/4262d45f9f49/" target="_self">
-          2.连接数据库
+        <a href="/posts/ae9375590aa0/" target="_self">
+          3.定义model
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/4262d45f9f49/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/ae9375590aa0/" target="_self">
         <div>
-          基本使用当前数据库用的是mysql。 123456dsn := &quot;root:1234@tcp(192.168.31.109:3306)/practice?charset=utf8mb4&amp;parseTime=True&amp;loc=Local&quot;_, err := gorm.Open(mysql.Open(dsn), &amp;gorm.Config&#123;&#125
+          基本格式go中是使用struct进行编写model，由下几种数据类型组成：  go的基本数据类型 实现Scanner、Valuer接口的自定义类型及其指针或别名  1234567891011type User struct &#123;  ID           uint				// 主键  Name         string			// 单数字符串字段  Email        *stri
         </div>
       </a>
 
@@ -245,8 +245,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-10-25 22:49" pubdate>
-              2024-10-25
+            <time datetime="2025-02-03 00:24" pubdate>
+              2025-02-03
             </time>
           </div>
         
@@ -306,13 +306,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/a12af0b2377f/" target="_self">
+        <a href="/posts/686dbb30418e/" target="_self">
           1.快速入门
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/a12af0b2377f/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/686dbb30418e/" target="_self">
         <div>
           特性 全功能ORM 关联 (Has One，Has Many，Belongs To，Many To Many，多态，单表继承) Create，Save，Update，Delete，Find 中钩子方法 支持 Preload、Joins 的预加载 事务，嵌套事务，Save Point，Rollback To Saved Point Context、预编译模式、DryRun 模式 批量插入，FindI
         </div>
@@ -322,8 +322,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-10-25 22:49" pubdate>
-              2024-10-25
+            <time datetime="2025-02-03 00:24" pubdate>
+              2025-02-03
             </time>
           </div>
         
@@ -383,13 +383,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/7a5d2553ddfd/" target="_self">
+        <a href="/posts/8a5b60b7fdc0/" target="_self">
           2.goctl
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/7a5d2553ddfd/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/8a5b60b7fdc0/" target="_self">
         <div>
           指令概览 文件命名风格格式化符号表   格式化符号 格式化后的字符串 说明    gozero welcometogozero lower case   goZero welcomeToGoZero camel case   go_zero welcome_to_go_zero snake case   Go#zero Welcome#to#go#zero 自定义分隔符，如分割符 #   GOZE
         </div>
@@ -399,8 +399,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-10-25 22:49" pubdate>
-              2024-10-25
+            <time datetime="2025-02-03 00:24" pubdate>
+              2025-02-03
             </time>
           </div>
         
@@ -460,13 +460,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/4122328ac10c/" target="_self">
+        <a href="/posts/b24ccd142524/" target="_self">
           1.快速开始
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/4122328ac10c/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/b24ccd142524/" target="_self">
         <div>
           概述下面通过短链微服务来演示通过go-zero快速创建微服务的过程。 什么是短链服务？ 短链服务就是将长的URL网址，通过程序计算方式，转换成简短的网址字符串。 架构图 逻辑分层 API Gateway   RPC   model    准备工作docker安装etcd12345678910sudo docker pull etcd:latestsudo mkdir -p /opt/etcd_do
         </div>
@@ -476,8 +476,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-10-25 22:49" pubdate>
-              2024-10-25
+            <time datetime="2025-02-03 00:24" pubdate>
+              2025-02-03
             </time>
           </div>
         
@@ -537,13 +537,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/ab5451f55640/" target="_self">
+        <a href="/posts/304b00fb014e/" target="_self">
           验证器-自定义
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/ab5451f55640/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/304b00fb014e/" target="_self">
         <div>
           自定义错误信息123456789101112131415161718192021222324252627282930313233343536373839404142434445464748package mainimport (	&quot;github.com/gin-gonic/gin&quot;	&quot;github.com/go-playground/validator/v10&quo
         </div>
@@ -553,8 +553,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-10-25 22:49" pubdate>
-              2024-10-25
+            <time datetime="2025-02-03 00:24" pubdate>
+              2025-02-03
             </time>
           </div>
         
@@ -614,13 +614,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/6908e7756e17/" target="_self">
+        <a href="/posts/6b8891f0711d/" target="_self">
           验证器-基本使用
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/6908e7756e17/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/6b8891f0711d/" target="_self">
         <div>
           介绍Gin中对Bind数据进行验证，是用了github.com&#x2F;go-playground&#x2F;validator&#x2F;v10进行验证。 使用1234type Login struct &#123;	User     string `binding:&quot;required&quot;`	Password string `binding:&quot;required&qu
         </div>
@@ -630,8 +630,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-10-25 22:49" pubdate>
-              2024-10-25
+            <time datetime="2025-02-03 00:24" pubdate>
+              2025-02-03
             </time>
           </div>
         
@@ -691,13 +691,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/c9d33a2f35b9/" target="_self">
+        <a href="/posts/3c7000e4af4a/" target="_self">
           静态文件服务
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/c9d33a2f35b9/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/3c7000e4af4a/" target="_self">
         <div>
           12345678910111213141516171819package mainimport (	&quot;github.com/gin-gonic/gin&quot;	&quot;net/http&quot;)func main() &#123;	r := gin.Default()	r.Static(&quot;/assert&quot;, &quot;assert&quot;)	// 文
         </div>
@@ -707,8 +707,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-10-25 22:49" pubdate>
-              2024-10-25
+            <time datetime="2025-02-03 00:24" pubdate>
+              2025-02-03
             </time>
           </div>
         
@@ -768,13 +768,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/f83c7a6e6a89/" target="_self">
+        <a href="/posts/92c8bf9ac919/" target="_self">
           重定向
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/f83c7a6e6a89/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/92c8bf9ac919/" target="_self">
         <div>
           123456789101112131415161718192021222324252627282930func main() &#123;	r := gin.Default()	// 301 永久重定向	r.GET(&quot;/redirect1&quot;, func(c *gin.Context) &#123;		c.Redirect(http.StatusMovedPermanently,
         </div>
@@ -784,8 +784,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-10-25 22:49" pubdate>
-              2024-10-25
+            <time datetime="2025-02-03 00:24" pubdate>
+              2025-02-03
             </time>
           </div>
         
@@ -845,90 +845,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/fe4d9639231e/" target="_self">
-          路由分组
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/fe4d9639231e/" target="_self">
-        <div>
-          路由分组1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798991001011
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-10-25 22:49" pubdate>
-              2024-10-25
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/go/" class="category-chain-item">go</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/gin/" class="category-chain-item">gin</a>
-  
-  
-
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/go/">#go</a>
-            
-              <a href="/tags/gin/">#gin</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/posts/be50a9d2f431/" target="_self">
+        <a href="/posts/669486e2b43c/" target="_self">
           路径参数Param
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/be50a9d2f431/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/669486e2b43c/" target="_self">
         <div>
           动态参数Param，即url的path上获取参数。 1http://path/to/[参数值]  12345678910func main() &#123;	r := gin.Default()	// http://127.0.0.1:8080/userInfo/123456	r.POST(&quot;/userInfo/:id&quot;, func(c *gin.Context) &#123;
         </div>
@@ -938,8 +861,85 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-10-25 22:49" pubdate>
-              2024-10-25
+            <time datetime="2025-02-03 00:24" pubdate>
+              2025-02-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/gin/" class="category-chain-item">gin</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/gin/">#gin</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/posts/4bbcbab156a7/" target="_self">
+          路由分组
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/4bbcbab156a7/" target="_self">
+        <div>
+          路由分组1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798991001011
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-02-03 00:24" pubdate>
+              2025-02-03
             </time>
           </div>
         

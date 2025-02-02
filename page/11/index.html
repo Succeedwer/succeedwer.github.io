@@ -229,13 +229,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/eb51fe391893/" target="_self">
+        <a href="/posts/89d6aeb914ba/" target="_self">
           上传文件
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/eb51fe391893/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/89d6aeb914ba/" target="_self">
         <div>
           单文件123456789101112131415161718192021222324252627282930func main() &#123;	r := gin.Default()	// 为multipart forms设置内存限制，默认为32Mib	r.MaxMultipartMemory = 8 &lt;&lt; 20 // 8 Mib	r.POST(&quot;/upload&quot;,
         </div>
@@ -245,8 +245,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-10-25 22:49" pubdate>
-              2024-10-25
+            <time datetime="2025-02-03 00:24" pubdate>
+              2025-02-03
             </time>
           </div>
         
@@ -306,13 +306,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/943089d7a88a/" target="_self">
+        <a href="/posts/68c9106de55e/" target="_self">
           gin集成logrus
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/943089d7a88a/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/68c9106de55e/" target="_self">
         <div>
           导包1go get github.com/sirupsen/logrus  头脑风暴为何要集成logrus? gin的日志框架有一定的局限性，而logrus得益于hook机制及结构化日志记录。 如何集成？  导包  1go get github.com/sirupsen/logrus  首先gin里的请求日志需要替换成logrus，而全局日志（如log.Info()）和请求日志又不一样，即Form
         </div>
@@ -322,8 +322,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-10-25 22:49" pubdate>
-              2024-10-25
+            <time datetime="2025-02-03 00:24" pubdate>
+              2025-02-03
             </time>
           </div>
         
@@ -383,13 +383,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/c86feaa02c5a/" target="_self">
+        <a href="/posts/21e801d7be41/" target="_self">
           9.自定义请求头
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/c86feaa02c5a/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/21e801d7be41/" target="_self">
         <div>
           HTTP12345678910111213gid := shortuuid.New()req := &amp;data.ReqHTTP&#123;Amount: 30&#125;saga := dtmcli.NewSaga(server.DtmHTTPServer, gid).	Add(server.HttpUrl+&quot;/TransOutHeader&quot;,		server.Http
         </div>
@@ -399,8 +399,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-10-25 22:49" pubdate>
-              2024-10-25
+            <time datetime="2025-02-03 00:24" pubdate>
+              2025-02-03
             </time>
           </div>
         
@@ -462,13 +462,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/84f53ed10101/" target="_self">
+        <a href="/posts/0cb06ec9c832/" target="_self">
           8.子事务屏障
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/84f53ed10101/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/0cb06ec9c832/" target="_self">
         <div>
           介绍子事务屏障是dtm首先提出来的一种解决分布式系统事务中常遇到异常情况的技术。 异常分布式系统遇到的异常可概括为NPC，(Network Delay,Process Pause,Clock Drift)。  Network Delay：网络延迟 TCP只保证了传输顺序和不会丢失，但无法解决网络延迟。   Process Pause:  进程暂停 导致进程暂停的原因：编程语言的GC垃圾回收机制；暂
         </div>
@@ -478,8 +478,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-10-25 22:49" pubdate>
-              2024-10-25
+            <time datetime="2025-02-03 00:24" pubdate>
+              2025-02-03
             </time>
           </div>
         
@@ -541,13 +541,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/c8ed39c45305/" target="_self">
+        <a href="/posts/b6a433b340e3/" target="_self">
           7.其它事务模式
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/c8ed39c45305/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/b6a433b340e3/" target="_self">
         <div>
           前言dtm实现了四种事务模式：  SAGA 二阶段消息 TCC XA  其它事务消息本地消息表大致流程如下：  最大的特点是：将写本地表消息和业务操作放在一个事务里，保证了业务和发消息的原子性。 容错机制：  扣减余额事务 失败时，事务直接回滚，无后续步骤 轮序生产消息失败， 增加余额事务失败都会进行重试  本地消息表的特点：  长事务仅需要分拆成多个任务，使用简单 生产者需要额外的创建消息表 每
         </div>
@@ -557,8 +557,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-10-25 22:49" pubdate>
-              2024-10-25
+            <time datetime="2025-02-03 00:24" pubdate>
+              2025-02-03
             </time>
           </div>
         
@@ -620,13 +620,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/d6f91c302229/" target="_self">
+        <a href="/posts/15da82a4e995/" target="_self">
           6.workflow模式
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/d6f91c302229/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/15da82a4e995/" target="_self">
         <div>
           介绍workflow模式是dtm首创模式。简单来说，就是混合使用XA、SAGA、TCC事务模式，还可以混用Http、GRPC、本地操作。 该模式有着极大灵活性，给予开发人员极大的定制内容。 使用简单使用以saga模式简述workflow事务的实现流程。 需要使用混合协议进行事务，有三个步骤。  初始化SDK  HTTP 1workflow.InitHTTP(server.DtmHTTPServer
         </div>
@@ -636,8 +636,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-10-25 22:49" pubdate>
-              2024-10-25
+            <time datetime="2025-02-03 00:24" pubdate>
+              2025-02-03
             </time>
           </div>
         
@@ -699,13 +699,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/4fa2124d9de5/" target="_self">
+        <a href="/posts/4611e4926ae2/" target="_self">
           5.xa事务模式
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/4fa2124d9de5/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/4611e4926ae2/" target="_self">
         <div>
           介绍 XA是由X&#x2F;Open组织提出的分布式事务的规范，XA规范主要定义了(全局)事务管理器(TM)和(局部)资源管理器(RM)之间的接口。本地的数据库如mysql在XA中扮演的是RM角色  使用简单使用12345678gid := shortuuid.New()err := dtmcli.XaGlobalTransaction(server.DtmHTTPServer, gid, fun
         </div>
@@ -715,8 +715,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-10-25 22:49" pubdate>
-              2024-10-25
+            <time datetime="2025-02-03 00:24" pubdate>
+              2025-02-03
             </time>
           </div>
         
@@ -778,13 +778,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/37280144c6b8/" target="_self">
+        <a href="/posts/a6a0cacfca4f/" target="_self">
           4.tcc事务模式
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/37280144c6b8/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/a6a0cacfca4f/" target="_self">
         <div>
           介绍什么是TCC? Try、Confirm、Cancel的首字母缩写。 最早是由 Pat Helland 于 2007 年发表的一篇名为《Life beyond Distributed Transactions:an Apostate’s Opinion》的论文提出。 使用简单使用12345678910111213141516gid := shortuuid.New()err := dtmcli.
         </div>
@@ -794,8 +794,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-10-25 22:49" pubdate>
-              2024-10-25
+            <time datetime="2025-02-03 00:24" pubdate>
+              2025-02-03
             </time>
           </div>
         
@@ -857,13 +857,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/a4c33b0c4044/" target="_self">
+        <a href="/posts/9cd7cd0bbe85/" target="_self">
           3.二阶段消息事务模式
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/a4c33b0c4044/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/9cd7cd0bbe85/" target="_self">
         <div>
           介绍二阶段消息是dtm首创的事务模式，用于替换本地事务表和事务消息这两种现有的方案。它能够保证本地事务的提交和全局事务提交是“原子的”，适合解决不需要回滚的分布式事务场景。下面我们来看看二阶段消息，如何解决这个业务场景的问题。 业务场景介绍如下： 我们需要跨行从A转给B 30元，我们先进行可能失败的转出操作TransOut，即进行A扣减30元。 如果A因余额不足扣减失败，那么转账直接失败，返回错误
         </div>
@@ -873,8 +873,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-10-25 22:49" pubdate>
-              2024-10-25
+            <time datetime="2025-02-03 00:24" pubdate>
+              2025-02-03
             </time>
           </div>
         
@@ -936,13 +936,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/posts/c056f4c7a680/" target="_self">
+        <a href="/posts/7d5c39a1cd15/" target="_self">
           2.saga事务模式
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/c056f4c7a680/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/7d5c39a1cd15/" target="_self">
         <div>
           介绍saga事务模式的核心思想是将长事务拆分为多个短事务，由sage事务协调器协调，如果每个短事务都成功提交完成，那么全局事务就正常完成，如果某个步骤失败，则根据相反顺序依次调用补偿操作。 使用docker 安装安装dtm 12docker pull yedf/dtm:latestdocker run -td --name dtm -p 36789:36789 -p 36790:36790 yed
         </div>
@@ -952,8 +952,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-10-25 22:49" pubdate>
-              2024-10-25
+            <time datetime="2025-02-03 00:24" pubdate>
+              2025-02-03
             </time>
           </div>
         
