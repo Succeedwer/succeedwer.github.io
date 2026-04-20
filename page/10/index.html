@@ -63,7 +63,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -98,7 +98,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -133,7 +133,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -182,6 +182,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -191,7 +294,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="think twice before coding"></span>
+            <span id="subtitle" data-typed-text="Think twice before coding"></span>
           
         </div>
 
@@ -206,6 +309,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -222,91 +327,13 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
+<h1 style="display: none">Bug Terminator</h1>
 
   <div class="row mx-auto index-card">
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
-        
-        
-        <a href="/posts/244c79b2c1c9/" target="_self">
-          2.快速开始
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/244c79b2c1c9/" target="_self">
-        <div>
-          准备   下载protobuf解压把bin中的文件复制到GOPATH/bin下   Protocol buffer compiler (protoc v.3) 安装编译器 12$ go install google.golang.org/protobuf/cmd/protoc-gen-go@latest$ go install google.golang.org/grpc/cmd/protoc-g
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-06-11 00:55" pubdate>
-              2025-06-11
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/go/" class="category-chain-item">go</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/grpc/" class="category-chain-item">grpc</a>
-  
-  
-
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/go/">#go</a>
-            
-              <a href="/tags/grpc/">#grpc</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
         
         <a href="/posts/ad80b49a5331/" target="_self">
           14.flow-control
@@ -385,85 +412,6 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        
-        <a href="/posts/2d199938c61e/" target="_self">
-          11.Debugging
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/2d199938c61e/" target="_self">
-        <div>
-          概述 grpc提供debug工具Channelz，该工具提供了有关连接的全部运行时信息。 它的目的时帮助实时调试程序，可以快速定位grpc调用出现问题的原因。 使用 客户端和服务器都要进行注册channelz服务。 客户端： 客户端需要单独启动服务器，用于注册channelz服务。 1234567891011// 创建搭载channelz服务的服务器lis, err := net.Listen(&
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-06-11 00:55" pubdate>
-              2025-06-11
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/go/" class="category-chain-item">go</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/grpc/" class="category-chain-item">grpc</a>
-  
-  
-
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/go/">#go</a>
-            
-              <a href="/tags/grpc/">#grpc</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        
         <a href="/posts/c8179a93017f/" target="_self">
           12.Encryption
         </a>
@@ -540,7 +488,6 @@
     
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
-        
         
         <a href="/posts/b8b65293ce07/" target="_self">
           13.Error-detail
@@ -619,16 +566,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        
-        <a href="/posts/1623316a431a/" target="_self">
-          1.grpc简介
+        <a href="/posts/2d199938c61e/" target="_self">
+          11.Debugging
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/1623316a431a/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/2d199938c61e/" target="_self">
         <div>
-          概述 grpc基于服务的思想，指定可以使用其参数远程调用的方法以及返回值。 客户端应用程序可以直接调用服务器应用程序上的方法。 虽然调用对象在另一台机器上，grpc可以使得像调用本地对象一样。  Protocol 默认情况下，grpc是使用Protocol协议进行服务之间的数据交换。 protocol作为grpc默认的接口定义语言(IDL)，用于描述服务接口和有效负载学习的结构。 虽然grpc默认
+          概述 grpc提供debug工具Channelz，该工具提供了有关连接的全部运行时信息。 它的目的时帮助实时调试程序，可以快速定位grpc调用出现问题的原因。 使用 客户端和服务器都要进行注册channelz服务。 客户端： 客户端需要单独启动服务器，用于注册channelz服务。 1234567891011// 创建搭载channelz服务的服务器lis, err := net.Listen(&
         </div>
       </a>
 
@@ -696,7 +642,6 @@
     
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
-        
         
         <a href="/posts/d993ed58aea0/" target="_self">
           10.Deadline
@@ -775,16 +720,92 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        
-        <a href="/posts/e2367d6e0bde/" target="_self">
-          3.定义model
+        <a href="/posts/1623316a431a/" target="_self">
+          1.grpc简介
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/e2367d6e0bde/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/1623316a431a/" target="_self">
         <div>
-          基本格式 go中是使用struct进行编写model，由下几种数据类型组成：  go的基本数据类型 实现Scanner、Valuer接口的自定义类型及其指针或别名  1234567891011type User struct &#123;  ID           uint				// 主键  Name         string			// 单数字符串字段  Email        *str
+          概述 grpc基于服务的思想，指定可以使用其参数远程调用的方法以及返回值。 客户端应用程序可以直接调用服务器应用程序上的方法。 虽然调用对象在另一台机器上，grpc可以使得像调用本地对象一样。  Protocol 默认情况下，grpc是使用Protocol协议进行服务之间的数据交换。 protocol作为grpc默认的接口定义语言(IDL)，用于描述服务接口和有效负载学习的结构。 虽然grpc默认
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-06-11 00:55" pubdate>
+              2025-06-11
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/grpc/" class="category-chain-item">grpc</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/grpc/">#grpc</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/posts/cadae650c102/" target="_self">
+          2.连接数据库
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/cadae650c102/" target="_self">
+        <div>
+          基本使用 当前数据库用的是mysql。 123456dsn := &quot;root:1234@tcp(192.168.31.109:3306)/practice?charset=utf8mb4&amp;parseTime=True&amp;loc=Local&quot;_, err := gorm.Open(mysql.Open(dsn), &amp;gorm.Config&#123;&#12
         </div>
       </a>
 
@@ -852,7 +873,6 @@
     
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
-        
         
         <a href="/posts/083fd7faa9df/" target="_self">
           1.快速入门
@@ -931,7 +951,6 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        
         <a href="/posts/efb05d3639a3/" target="_self">
           4.创建
         </a>
@@ -941,6 +960,83 @@
       <a class="index-excerpt index-excerpt__noimg" href="/posts/efb05d3639a3/" target="_self">
         <div>
           创建记录 1234567891011121314birthday, _ := time.Parse(&quot;2006-01-02&quot;, &quot;1993-12-15&quot;)user := User&#123;	Name:     &quot;WER&quot;,	Age:      18,	Birthday: &amp;birthday,&#125;// 创建记录 成功后会回
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-06-11 00:55" pubdate>
+              2025-06-11
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/gorm/" class="category-chain-item">gorm</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/gorm/">#gorm</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/posts/e2367d6e0bde/" target="_self">
+          3.定义model
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/e2367d6e0bde/" target="_self">
+        <div>
+          基本格式 go中是使用struct进行编写model，由下几种数据类型组成：  go的基本数据类型 实现Scanner、Valuer接口的自定义类型及其指针或别名  1234567891011type User struct &#123;  ID           uint				// 主键  Name         string			// 单数字符串字段  Email        *str
         </div>
       </a>
 
@@ -1077,10 +1173,11 @@
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>

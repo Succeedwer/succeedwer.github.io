@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -110,7 +110,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -145,7 +145,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -194,6 +194,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -231,7 +334,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.5k 字
+          14k 字
         
       </span>
     
@@ -242,20 +345,12 @@
         
         
         
-          21 分钟
+          120 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -267,6 +362,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -2523,7 +2620,7 @@
             
               <div class="markdown-body">
                 
-                <h1>基础教程</h1>
+                <h1 id="基础教程">基础教程</h1>
 <p>通过演练该示例，可以了解到：</p>
 <ul>
 <li>在<code>.proto</code>文件中定义服务。</li>
@@ -2535,7 +2632,7 @@
 <li>proto3</li>
 <li>grpc</li>
 </ul>
-<h1>设置</h1>
+<h1 id="设置">设置</h1>
 <ol>
 <li>
 <p>下载[protobuf](<a target="_blank" rel="noopener" href="https://github.com/protocolbuffers/protobuf/releases/tag/v26.1">Release Protocol Buffers v26.1 · protocolbuffers/protobuf (github.com)</a>)解压把<code>bin</code>中的文件复制到<code>GOPATH</code>/bin下</p>
@@ -2553,13 +2650,13 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh">$ go mod init<br>$ go get google.golang.org/grpc <br></code></pre></td></tr></table></figure>
 </li>
 </ol>
-<h1>定义服务</h1>
+<h1 id="定义服务">定义服务</h1>
 <p>定义服务<code>RouteGuide</code>，并定义好rpc方法。</p>
 <p>创建<code>.proto</code>文件，并写入代码，如下：</p>
 <p>gr</p>
 <p>pc-learn/route_guide/routeguide/route_guide.proto</p>
 <figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><code class="hljs protobuf"><span class="hljs-comment">// 定义语法版本 默认是proto2</span><br>syntax = <span class="hljs-string">&quot;proto3&quot;</span>;<br><br><span class="hljs-keyword">option</span> go_package = <span class="hljs-string">&quot;grpc-learn/route_guide/routeguide&quot;</span>;<br><br><span class="hljs-keyword">package</span> routeguide;<br><br><span class="hljs-comment">// 定义服务</span><br><span class="hljs-keyword">service </span><span class="hljs-title class_">RouteGuide</span> &#123;<br><br>  <span class="hljs-comment">// 一元rpc</span><br>  <span class="hljs-function"><span class="hljs-keyword">rpc</span> GetFeature(Point) <span class="hljs-keyword">returns</span> (Feature) </span>&#123;&#125;<br><br>  <span class="hljs-comment">// 服务器流式rpc</span><br>  <span class="hljs-function"><span class="hljs-keyword">rpc</span> ListFeatures(Rectangle) <span class="hljs-keyword">returns</span> (stream Feature) </span>&#123;&#125;<br><br>  <span class="hljs-comment">// 客户端流式rpc</span><br>  <span class="hljs-function"><span class="hljs-keyword">rpc</span> RecordRoute(stream Point) <span class="hljs-keyword">returns</span> (RouteSummary) </span>&#123;&#125;<br><br>  <span class="hljs-comment">// 双向流式rpc</span><br>  <span class="hljs-function"><span class="hljs-keyword">rpc</span> RouteChat(stream RouteNote) <span class="hljs-keyword">returns</span> (stream RouteNote) </span>&#123;&#125;<br>&#125;<br><br><span class="hljs-comment">// 定义protobuf消息类型</span><br><span class="hljs-comment">// 点</span><br><span class="hljs-keyword">message </span><span class="hljs-title class_">Point</span> &#123;<br>  <span class="hljs-comment">// 类型 字段名 = 该消息中的唯一编号</span><br>  <span class="hljs-comment">// 纬度</span><br>  <span class="hljs-type">int32</span> latitude = <span class="hljs-number">1</span>;<br>  <span class="hljs-comment">// 经度</span><br>  <span class="hljs-type">int32</span> longitude = <span class="hljs-number">2</span>;<br>&#125;<br><br><span class="hljs-comment">// 经纬矩形</span><br><span class="hljs-keyword">message </span><span class="hljs-title class_">Rectangle</span> &#123;<br>  <span class="hljs-comment">// 矩形的一角</span><br>  Point lo = <span class="hljs-number">1</span>;<br>  <span class="hljs-comment">// 矩形的另一角</span><br>  Point hi = <span class="hljs-number">2</span>;<br>&#125;<br><br><span class="hljs-comment">// 特征</span><br><span class="hljs-keyword">message </span><span class="hljs-title class_">Feature</span> &#123;<br>  <span class="hljs-comment">// 特征名</span><br>  <span class="hljs-type">string</span> name = <span class="hljs-number">1</span>;<br>  <span class="hljs-comment">// 检测特征所在点</span><br>  Point location =<span class="hljs-number">2</span>;<br>&#125;<br><br><span class="hljs-comment">// 发送点的消息</span><br><span class="hljs-keyword">message </span><span class="hljs-title class_">RouteNote</span> &#123;<br>  <span class="hljs-comment">// 发送消息的位置</span><br>  Point location = <span class="hljs-number">1</span>;<br>  <span class="hljs-comment">// 消息</span><br>  <span class="hljs-type">string</span> message = <span class="hljs-number">2</span>;<br>&#125;<br><br><span class="hljs-comment">// rpc RecordRoute 的响应结构体</span><br><span class="hljs-keyword">message </span><span class="hljs-title class_">RouteSummary</span> &#123;<br>  <span class="hljs-comment">// 接收到的点的数量</span><br>  <span class="hljs-type">int32</span> point_count = <span class="hljs-number">1</span>;<br>  <span class="hljs-comment">// 遍历路径时通过的已知的特征数</span><br>  <span class="hljs-type">int32</span> feature_count = <span class="hljs-number">2</span>;<br>  <span class="hljs-comment">// 以米为单位的距离</span><br>  <span class="hljs-type">int32</span> distance = <span class="hljs-number">3</span>;<br>  <span class="hljs-comment">// 遍历的持续时间（以秒为单位）</span><br>  <span class="hljs-type">int32</span> elapsed_time = <span class="hljs-number">4</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>生成客户端和服务端代码</h1>
+<h1 id="生成客户端和服务端代码">生成客户端和服务端代码</h1>
 <p>在目录<code>grpc-learn/route_guide/routeguide/</code>下，输入命令生成go代码：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh">$ protoc --go_out=. --go_opt=paths=source_relative \<br>    --go-grpc_out=. --go-grpc_opt=paths=source_relative \<br>    route_guide.proto<br></code></pre></td></tr></table></figure>
 <p>生成两个go文件：</p>
@@ -2572,7 +2669,7 @@
 </ul>
 </li>
 </ul>
-<h1>创建服务器</h1>
+<h1 id="创建服务器">创建服务器</h1>
 <p>创建服务器整体上可分为两部分：</p>
 <ul>
 <li>实现服务接口，即<code>route_guide_grpc.pb.go</code>中的<code>interface RouterGuideServer</code>。</li>
@@ -2612,7 +2709,7 @@
 </ol>
 <p>其中可以加入tls认证，代码如下：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	flag.Parse()<br>	<span class="hljs-comment">// 1.监听端口</span><br>	listen, err := net.Listen(<span class="hljs-string">&quot;tcp&quot;</span>, fmt.Sprintf(<span class="hljs-string">&quot;localhost:%d&quot;</span>, *port))<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatalf(<span class="hljs-string">&quot;failed to listen: %v&quot;</span>, err)<br>	&#125;<br><br>	<span class="hljs-keyword">var</span> opts []grpc.ServerOption<br>	<span class="hljs-keyword">if</span> *tls &#123;<br>		<span class="hljs-keyword">if</span> *certFile == <span class="hljs-string">&quot;&quot;</span> &#123;<br>			*certFile = data.Path(<span class="hljs-string">&quot;x509/server_cert.pem&quot;</span>)<br>		&#125;<br>		<span class="hljs-keyword">if</span> *keyFile == <span class="hljs-string">&quot;&quot;</span> &#123;<br>			*keyFile = data.Path(<span class="hljs-string">&quot;x509/server_key.pem&quot;</span>)<br>		&#125;<br>		creds, err := credentials.NewServerTLSFromFile(*certFile, *keyFile)<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			log.Fatalf(<span class="hljs-string">&quot;Failed to generate credentials: %v&quot;</span>, err)<br>		&#125;<br>		opts = []grpc.ServerOption&#123;grpc.Creds(creds)&#125;<br>	&#125;<br><br>	<span class="hljs-comment">// 2.创建grpc服务器</span><br>	grpcServer := grpc.NewServer(opts...)<br>	<span class="hljs-comment">// 3.注册服务</span><br>	pb.RegisterRouteGuideServer(grpcServer, newServer())<br>	<span class="hljs-comment">// 4.启动服务器</span><br>	err = grpcServer.Serve(listen)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatalf(<span class="hljs-string">&quot;Failed to serve: %v&quot;</span>, err)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">newServer</span><span class="hljs-params">()</span></span> *routeGuideServer &#123;<br>	s := &amp;routeGuideServer&#123;routeNotes: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>][]*pb.RouteNote)&#125;<br>	s.loadFeatures(*jsonDBFile)<br>	<span class="hljs-keyword">return</span> s<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *routeGuideServer)</span></span> loadFeatures(filePath <span class="hljs-type">string</span>) &#123;<br>	<span class="hljs-keyword">var</span> data []<span class="hljs-type">byte</span><br>	<span class="hljs-keyword">if</span> filePath != <span class="hljs-string">&quot;&quot;</span> &#123;<br>		<span class="hljs-keyword">var</span> err <span class="hljs-type">error</span><br>		data, err = os.ReadFile(filePath)<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			log.Fatalf(<span class="hljs-string">&quot;Failed to load default features: %v&quot;</span>, err)<br>		&#125;<br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		data = exampleData<br>	&#125;<br>	<span class="hljs-keyword">if</span> err := json.Unmarshal(data, &amp;s.savedFeatures); err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatalf(<span class="hljs-string">&quot;Failed to load default features: %v&quot;</span>, err)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>创建客户端RPC</h1>
+<h1 id="创建客户端rpc">创建客户端RPC</h1>
 <p>创建go文件<code>grpc-learn/route_guide/server/client.go</code>。</p>
 <p>简单可分为三步：</p>
 <ol>
@@ -2631,7 +2728,7 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// runRecordRoute sends a sequence of points to server and expects to get a RouteSummary from server.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">runRecordRoute</span><span class="hljs-params">(client pb.RouteGuideClient)</span></span> &#123;<br>	<span class="hljs-comment">// 创建随机数量的points</span><br>	<span class="hljs-comment">// 创建一个随机数</span><br>	r := rand.New(rand.NewSource(time.Now().UnixNano()))<br>	pointCount := <span class="hljs-type">int</span>(r.Int31n(<span class="hljs-number">100</span>)) + <span class="hljs-number">2</span> <span class="hljs-comment">// 至少2个点</span><br>	<span class="hljs-keyword">var</span> points []*pb.Point<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; pointCount; i++ &#123;<br>		points = <span class="hljs-built_in">append</span>(points, randomPoint(r))<br>	&#125;<br>	log.Printf(<span class="hljs-string">&quot;Traversing %d points.&quot;</span>, <span class="hljs-built_in">len</span>(points))<br><br>	ctx, cancel := context.WithTimeout(context.Background(), <span class="hljs-number">10</span>*time.Hour)<br>	<span class="hljs-keyword">defer</span> cancel()<br><br>	<span class="hljs-comment">// 发送遍历数据 客户端流式rpc</span><br>	stream, err := client.RecordRoute(ctx)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatalf(<span class="hljs-string">&quot;client.RecordRoute failed: %v&quot;</span>, err)<br>	&#125;<br><br>	<span class="hljs-comment">// 遍历发送数据</span><br>	<span class="hljs-keyword">for</span> _, point := <span class="hljs-keyword">range</span> points &#123;<br>		<span class="hljs-keyword">if</span> err := stream.Send(point); err != <span class="hljs-literal">nil</span> &#123;<br>			log.Fatalf(<span class="hljs-string">&quot;client.RecordRoute: stream.Send(%v) failed: %v&quot;</span>, point, err)<br>		&#125;<br>	&#125;<br>	reply, err := stream.CloseAndRecv()<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatalf(<span class="hljs-string">&quot;client.RecordRoute failed: %v&quot;</span>, err)<br>	&#125;<br>	log.Printf(<span class="hljs-string">&quot;Route summary: %v&quot;</span>, reply)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">randomPoint</span><span class="hljs-params">(r *rand.Rand)</span></span> *pb.Point &#123;<br>	lat := (r.Int31n(<span class="hljs-number">180</span>) - <span class="hljs-number">90</span>) * <span class="hljs-number">1e7</span><br>	long := (r.Int31n(<span class="hljs-number">360</span>) - <span class="hljs-number">180</span>) * <span class="hljs-number">1e7</span><br>	<span class="hljs-keyword">return</span> &amp;pb.Point&#123;Latitude: lat, Longitude: long&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h3 id="双向流式RPC-v2"><a class="header-anchor" href="#双向流式RPC-v2">¶</a>双向流式RPC</h3>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// runRouteChat receives a sequence of route notes, while sending notes for various locations.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">runRouteChat</span><span class="hljs-params">(client pb.RouteGuideClient)</span></span> &#123;<br>	notes := []*pb.RouteNote&#123;<br>		&#123;Location: &amp;pb.Point&#123;Latitude: <span class="hljs-number">0</span>, Longitude: <span class="hljs-number">1</span>&#125;, Message: <span class="hljs-string">&quot;First message&quot;</span>&#125;,<br>		&#123;Location: &amp;pb.Point&#123;Latitude: <span class="hljs-number">0</span>, Longitude: <span class="hljs-number">2</span>&#125;, Message: <span class="hljs-string">&quot;Second message&quot;</span>&#125;,<br>		&#123;Location: &amp;pb.Point&#123;Latitude: <span class="hljs-number">0</span>, Longitude: <span class="hljs-number">3</span>&#125;, Message: <span class="hljs-string">&quot;Third message&quot;</span>&#125;,<br>		&#123;Location: &amp;pb.Point&#123;Latitude: <span class="hljs-number">0</span>, Longitude: <span class="hljs-number">1</span>&#125;, Message: <span class="hljs-string">&quot;Fourth message&quot;</span>&#125;,<br>		&#123;Location: &amp;pb.Point&#123;Latitude: <span class="hljs-number">0</span>, Longitude: <span class="hljs-number">2</span>&#125;, Message: <span class="hljs-string">&quot;Fifth message&quot;</span>&#125;,<br>		&#123;Location: &amp;pb.Point&#123;Latitude: <span class="hljs-number">0</span>, Longitude: <span class="hljs-number">3</span>&#125;, Message: <span class="hljs-string">&quot;Sixth message&quot;</span>&#125;,<br>	&#125;<br><br>	ctx, cancel := context.WithTimeout(context.Background(), <span class="hljs-number">10</span>*time.Second)<br>	<span class="hljs-keyword">defer</span> cancel()<br><br>	<span class="hljs-comment">// 连接服务器</span><br>	stream, err := client.RouteChat(ctx)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatalf(<span class="hljs-string">&quot;client.RouteChat failed: %v&quot;</span>, err)<br>	&#125;<br><br>	<span class="hljs-comment">// 启动协程获取返回数据</span><br>	waitc := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>&#123;&#125;)<br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">for</span> &#123;<br>			in, err := stream.Recv()<br>			<span class="hljs-keyword">if</span> err == io.EOF &#123;<br>				<span class="hljs-built_in">close</span>(waitc)<br>				<span class="hljs-keyword">return</span><br>			&#125;<br>			<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>				log.Fatalf(<span class="hljs-string">&quot;client.RouteChat failed: %v&quot;</span>, err)<br>			&#125;<br>			log.Printf(<span class="hljs-string">&quot;Got message %s at point(%d, %d)&quot;</span>, in.Message, in.Location.Latitude, in.Location.Longitude)<br>		&#125;<br>	&#125;()<br><br>	<span class="hljs-comment">// 发送数据</span><br>	<span class="hljs-keyword">for</span> _, note := <span class="hljs-keyword">range</span> notes &#123;<br>		<span class="hljs-keyword">if</span> err := stream.Send(note); err != <span class="hljs-literal">nil</span> &#123;<br>			log.Fatalf(<span class="hljs-string">&quot;client.RouteChat: stream.Send(%v) failed: %v&quot;</span>, note, err)<br>		&#125;<br>	&#125;<br>	stream.CloseSend()<br>	&lt;-waitc<br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>GRPC, 启动！</h1>
+<h1 id="grpc,-启动！">GRPC, 启动！</h1>
 <ol>
 <li>
 <p>启动服务器</p>
@@ -2644,7 +2741,7 @@
 </ol>
 <p>客户端输出：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs sh">2023/04/01 10:44:32 Getting feature <span class="hljs-keyword">for</span> point (409146138, -746188906)<br>2023/04/01 10:44:32 name:<span class="hljs-string">&quot;Berkshire Valley Management Area Trail, Jefferson, NJ, USA&quot;</span>  location:&#123;latitude:409146138  longitude:-746188906&#125;<br>2023/04/01 10:44:32 Getting feature <span class="hljs-keyword">for</span> point (0, 0)<br>2023/04/01 10:44:32 location:&#123;&#125;<br>2023/04/01 10:44:32 Looking <span class="hljs-keyword">for</span> features within lo:&#123;latitude:400000000  longitude:-750000000&#125;  hi:&#123;latitude:420000000  longitude:-730000000&#125;<br>2023/04/01 10:44:32 Feature: name: <span class="hljs-string">&quot;Patriots Path, Mendham, NJ 07945, USA&quot;</span>, point:(407838351, -746143763)<br>2023/04/01 10:44:32 Feature: name: <span class="hljs-string">&quot;101 New Jersey 10, Whippany, NJ 07981, USA&quot;</span>, point:(408122808, -743999179)<br>2023/04/01 10:44:32 Feature: name: <span class="hljs-string">&quot;U.S. 6, Shohola, PA 18458, USA&quot;</span>, point:(413628156, -749015468)<br>2023/04/01 10:44:32 Feature: name: <span class="hljs-string">&quot;5 Conners Road, Kingston, NY 12401, USA&quot;</span>, point:(419999544, -740371136)<br>2023/04/01 10:44:32 Feature: name: <span class="hljs-string">&quot;Mid Hudson Psychiatric Center, New Hampton, NY 10958, USA&quot;</span>, point:(414008389, -743951297)<br>2023/04/01 10:44:32 Feature: name: <span class="hljs-string">&quot;287 Flugertown Road, Livingston Manor, NY 12758, USA&quot;</span>, point:(419611318, -746524769)<br>2023/04/01 10:44:32 Feature: name: <span class="hljs-string">&quot;4001 Tremley Point Road, Linden, NJ 07036, USA&quot;</span>, point:(406109563, -742186778)<br>2023/04/01 10:44:32 Feature: name: <span class="hljs-string">&quot;352 South Mountain Road, Wallkill, NY 12589, USA&quot;</span>, point:<br>...<br></code></pre></td></tr></table></figure>
-<h1>引用</h1>
+<h1 id="引用">引用</h1>
 <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://grpc.p2hp.com/docs/languages/go/basics/index.html">GRPC 文档</a>
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
@@ -2736,9 +2833,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -2757,9 +2866,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/93f46a078700/" title="4.认证">
+                      <a href="/posts/a68fb238e99a/" title="5.Authorization">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">4.认证</span>
+                        <span class="hidden-mobile">5.Authorization</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -2767,8 +2876,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/5f2b243c0084/" title="16.Interceptor">
-                        <span class="hidden-mobile">16.Interceptor</span>
+                      <a href="/posts/93f46a078700/" title="4.认证">
+                        <span class="hidden-mobile">4.认证</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -2891,10 +3000,11 @@
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -2954,7 +3064,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -2965,10 +3131,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -2980,6 +3152,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -2993,7 +3167,7 @@
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

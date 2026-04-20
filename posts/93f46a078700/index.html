@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -110,7 +110,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -145,7 +145,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -194,6 +194,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -231,7 +334,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          8.2k 字
         
       </span>
     
@@ -242,20 +345,12 @@
         
         
         
-          11 分钟
+          69 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -267,6 +362,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -2523,10 +2620,10 @@
             
               <div class="markdown-body">
                 
-                <h1>前言</h1>
+                <h1 id="前言">前言</h1>
 <p>grpc旨在与各种身份验证机制配合使用，使得易于安全地使用grpc与其它系统通信。</p>
 <p>可以使用gprc支持的<code>SSL/TLS</code>，或基于Google令牌的身份验证，再或者扩展代码插入自定义的身份验证系统。</p>
-<h1>支持的身份认证方式</h1>
+<h1 id="支持的身份认证方式">支持的身份认证方式</h1>
 <ul>
 <li><code>SSL/TLS（基于http2协议）</code>: grpc推荐使用<code>SSL/TLS</code>进行身份验证，并加密客户端与服务器之间交换的所有数据，还有确保数据在传输中不被改变。</li>
 <li><code>ALTS</code>: 如果应用式用在谷歌云平台（GCP）上的，可以使用ALTS。</li>
@@ -2535,7 +2632,7 @@
 <li><code>无认证</code>： 默认采用http1, 不安全连接。</li>
 <li><code>自定义身份认证</code></li>
 </ul>
-<h1>认证API</h1>
+<h1 id="认证api">认证API</h1>
 <p>grpc提供了一个简单的身份验证API<code>Credential</code>，可以在创建grpc channel时使用。</p>
 <h2 id="类型"><a class="header-anchor" href="#类型">¶</a>类型</h2>
 <p><code>Credential</code>有两种类型：</p>
@@ -2545,7 +2642,7 @@
 </ul>
 <p>可以将<code>Channel credentials</code>和<code>Call credentials</code>组合在一起使用。</p>
 <p>例如，<code>SslCredentials</code>和<code>AccessTokenCredentials</code>组合创建<code>ChannelCredentials</code>。即每当该<code>Channel</code>上调用时，都需要发送<code>Access Token</code>。</p>
-<h1>实现</h1>
+<h1 id="实现">实现</h1>
 <h2 id="没有加密或认证"><a class="header-anchor" href="#没有加密或认证">¶</a>没有加密或认证</h2>
 <p>Client:</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go">conn, _ := grpc.Dial(<span class="hljs-string">&quot;localhost:50051&quot;</span>, grpc.WithTransportCredentials(insecure.NewCredentials()))<br><span class="hljs-comment">// error handling omitted</span><br>client := pb.NewGreeterClient(conn)<br></code></pre></td></tr></table></figure>
@@ -2581,7 +2678,7 @@
 <li>
 <p>server.go</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;context&quot;</span><br>	<span class="hljs-string">&quot;errors&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;github.com/golang-jwt/jwt/v5&quot;</span><br>	<span class="hljs-string">&quot;google.golang.org/grpc&quot;</span><br>	<span class="hljs-string">&quot;google.golang.org/grpc/codes&quot;</span><br>	<span class="hljs-string">&quot;google.golang.org/grpc/credentials&quot;</span><br>	<span class="hljs-string">&quot;google.golang.org/grpc/metadata&quot;</span><br>	<span class="hljs-string">&quot;google.golang.org/grpc/status&quot;</span><br>	pb <span class="hljs-string">&quot;grpc-learn/customauth/customauth&quot;</span><br>	<span class="hljs-string">&quot;grpc-learn/data&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;net&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-keyword">const</span> (<br>	Address = <span class="hljs-string">&quot;localhost:50052&quot;</span><br>	Jwtkey  = <span class="hljs-string">&quot;123456&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> GreeterServer <span class="hljs-keyword">struct</span> &#123;<br>	pb.UnimplementedGreeterServer<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(g *GreeterServer)</span></span> Login(ctx context.Context, request *pb.LoginRequest) (*pb.LoginReply, <span class="hljs-type">error</span>) &#123;<br>	<span class="hljs-keyword">if</span> request.Username == <span class="hljs-string">&quot;wer&quot;</span> &amp;&amp; request.Password == <span class="hljs-string">&quot;123456&quot;</span> &#123;<br>		token, err := GetToken(request.Username, <span class="hljs-string">&quot;grpc&quot;</span>)<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, status.Errorf(codes.InvalidArgument, <span class="hljs-string">&quot;Invalid Argument&quot;</span>)<br>		&#125;<br>		<span class="hljs-keyword">return</span> &amp;pb.LoginReply&#123;Status: <span class="hljs-string">&quot;200&quot;</span>, Token: token&#125;, <span class="hljs-literal">nil</span><br>	&#125;<br>	<span class="hljs-keyword">return</span> &amp;pb.LoginReply&#123;Status: <span class="hljs-string">&quot;500&quot;</span>&#125;, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(g *GreeterServer)</span></span> SayHello(ctx context.Context, request *pb.HelloRequest) (*pb.HelloReply, <span class="hljs-type">error</span>) &#123;<br>	<span class="hljs-comment">// 认证metadata中的信息</span><br>	md, ok := metadata.FromIncomingContext(ctx)<br>	<span class="hljs-keyword">if</span> !ok &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, status.Errorf(codes.Unauthenticated, <span class="hljs-string">&quot;no token&quot;</span>)<br>	&#125;<br><br>	<span class="hljs-keyword">var</span> token <span class="hljs-type">string</span><br>	<span class="hljs-keyword">if</span> val, ok := md[<span class="hljs-string">&quot;authorization&quot;</span>]; ok &#123;<br>		token = val[<span class="hljs-number">0</span>]<br>	&#125;<br><br>	claims, err := ParseToken(token)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, status.Errorf(codes.Unauthenticated, <span class="hljs-string">&quot;token invalid: %v&quot;</span>, err)<br>	&#125;<br><br>	log.Println(claims.ID)<br>	<span class="hljs-keyword">return</span> &amp;pb.HelloReply&#123;Message: fmt.Sprintf(<span class="hljs-string">&quot;Hello，%v&quot;</span>, request.Name)&#125;, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-comment">// ParseToken 解析token</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ParseToken</span><span class="hljs-params">(tokenString <span class="hljs-type">string</span>)</span></span> (*jwt.RegisteredClaims, <span class="hljs-type">error</span>) &#123;<br>	token, err := jwt.ParseWithClaims(tokenString, &amp;jwt.RegisteredClaims&#123;&#125;, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(token *jwt.Token)</span></span> (<span class="hljs-keyword">interface</span>&#123;&#125;, <span class="hljs-type">error</span>) &#123;<br>		<span class="hljs-keyword">return</span> []<span class="hljs-type">byte</span>(Jwtkey), <span class="hljs-literal">nil</span><br>	&#125;)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err<br>	&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> claim, ok := token.Claims.(*jwt.RegisteredClaims); ok &#123;<br>		<span class="hljs-keyword">return</span> claim, <span class="hljs-literal">nil</span><br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, errors.New(<span class="hljs-string">&quot;invalid token&quot;</span>)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">GetToken</span><span class="hljs-params">(id <span class="hljs-type">string</span>, aud ...<span class="hljs-type">string</span>)</span></span> (<span class="hljs-type">string</span>, <span class="hljs-type">error</span>) &#123;<br>	claims := jwt.RegisteredClaims&#123;<br>		Issuer:    <span class="hljs-string">&quot;WER&quot;</span>,                                         <span class="hljs-comment">// 签发人</span><br>		Subject:   <span class="hljs-string">&quot;access&quot;</span>,                                      <span class="hljs-comment">// 主题</span><br>		Audience:  aud,                                           <span class="hljs-comment">// 受众</span><br>		ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour)), <span class="hljs-comment">// 过期时间</span><br>		NotBefore: <span class="hljs-literal">nil</span>,                                           <span class="hljs-comment">// 生效时间</span><br>		IssuedAt:  jwt.NewNumericDate(time.Now()),                <span class="hljs-comment">// 签发时间</span><br>		ID:        id,<br>	&#125;<br>	token := jwt.NewWithClaims(jwt.SigningMethodHS256, &amp;claims)<br>	<span class="hljs-keyword">return</span> token.SignedString([]<span class="hljs-type">byte</span>(Jwtkey))<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// 1. 创建连接</span><br>	listen, err := net.Listen(<span class="hljs-string">&quot;tcp&quot;</span>, Address)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatalf(<span class="hljs-string">&quot;Failed to listen: %v&quot;</span>, err)<br>	&#125;<br><br>	<span class="hljs-comment">// 2. 创建服务器</span><br>	<span class="hljs-comment">// 2.1 开启tls认证</span><br>	<span class="hljs-keyword">var</span> opts []grpc.ServerOption<br>	certFile := data.Path(<span class="hljs-string">&quot;x509/server_cert.pem&quot;</span>)<br>	keyFile := data.Path(<span class="hljs-string">&quot;x509/server_key.pem&quot;</span>)<br>	creds, err := credentials.NewServerTLSFromFile(certFile, keyFile)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatalf(<span class="hljs-string">&quot;Failed to get credentials: %v&quot;</span>, err)<br>	&#125;<br>	opts = []grpc.ServerOption&#123;grpc.Creds(creds)&#125;<br><br>	server := grpc.NewServer(opts...)<br><br>	<span class="hljs-comment">// 3. 注册服务</span><br>	pb.RegisterGreeterServer(server, &amp;GreeterServer&#123;&#125;)<br><br>	<span class="hljs-comment">// 4. 启动服务器</span><br>	err = server.Serve(listen)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatalf(<span class="hljs-string">&quot;Failed to serve: %v&quot;</span>, err)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>引用</h1>
+<h1 id="引用">引用</h1>
 <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>[GRPC 文档](<a target="_blank" rel="noopener" href="https://grpc.p2hp.com/docs/guides/auth/index.html">Authentication | gRPC (p2hp.com)</a>)
 </span></span></li>
 </ol>
@@ -2676,9 +2773,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -2697,9 +2806,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/31e11d13f39d/" title="5.特征">
+                      <a href="/posts/12b48a574667/" title="3.基础教程">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">5.特征</span>
+                        <span class="hidden-mobile">3.基础教程</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -2707,8 +2816,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/12b48a574667/" title="3.基础教程">
-                        <span class="hidden-mobile">3.基础教程</span>
+                      <a href="/posts/31e11d13f39d/" title="5.特征">
+                        <span class="hidden-mobile">5.特征</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -2831,10 +2940,11 @@
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -2894,7 +3004,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -2905,10 +3071,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -2920,6 +3092,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -2933,7 +3107,7 @@
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

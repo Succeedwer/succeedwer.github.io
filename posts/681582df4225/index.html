@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -110,7 +110,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -145,7 +145,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -194,6 +194,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -231,7 +334,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.7k 字
+          4.2k 字
         
       </span>
     
@@ -242,20 +345,12 @@
         
         
         
-          14 分钟
+          36 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -267,6 +362,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -2524,11 +2621,11 @@
               <div class="markdown-body">
                 
                 <p>数组是一个由固定长度的特定类型元素组成的序列。</p>
-<h1>声明</h1>
+<h1 id="声明">声明</h1>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> a [<span class="hljs-number">3</span>]<span class="hljs-type">int</span><br>fmt.Println(a) <span class="hljs-comment">// [0 0 0]</span><br></code></pre></td></tr></table></figure>
 <p>Go语言声明变量，会默认初始化。<br>
 默认情况下，数组每个元素都被初始化为元素类型对应的零值。</p>
-<h1>初始化</h1>
+<h1 id="初始化">初始化</h1>
 <p>可以通过声明数组，也可以直接使用数组字面值初始化。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> q [<span class="hljs-number">3</span>]<span class="hljs-type">int</span> = [<span class="hljs-number">3</span>]<span class="hljs-type">int</span>&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>&#125;<br><span class="hljs-keyword">var</span> r [<span class="hljs-number">3</span>]<span class="hljs-type">int</span> = [<span class="hljs-number">3</span>]<span class="hljs-type">int</span>&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>&#125;<br>fmt.Println(r[<span class="hljs-number">2</span>]) <span class="hljs-comment">// 0</span><br></code></pre></td></tr></table></figure>
 <p>当使用数组字面值时，值的数量与数组长度不一致，那么没有数组字面值的元素被赋值为元素类型的零值。</p>
@@ -2542,15 +2639,15 @@
 <p>在这种形式的数组字面值形式中，初始化索引的顺序是无关紧要的，而没用到的索引可以省略，未指定初始化值的元素将用零值初始化。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">r := [...]<span class="hljs-type">int</span>&#123;<span class="hljs-number">99</span>:<span class="hljs-number">-1</span>&#125;<br></code></pre></td></tr></table></figure>
 <p>定义了一个含有100个元素的数组r，最后一个元素被初始化为-1，其它元素都是用0初始化。</p>
-<h1>访问</h1>
+<h1 id="访问">访问</h1>
 <p>数组的每个元素可以通过索引下标来访问，索引下标的范围从0开始到数组长度减1的。<br>
 内置len函数将返回数组中的元素个数。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> a [<span class="hljs-number">3</span>]<span class="hljs-type">int</span><br>fmt.Println(a[<span class="hljs-number">0</span>])<br>fmt.Println(<span class="hljs-built_in">len</span>(a)) <span class="hljs-comment">// 3</span><br></code></pre></td></tr></table></figure>
 <p><code>a[index]</code>可以访问数组的元素。</p>
-<h1>遍历</h1>
+<h1 id="遍历">遍历</h1>
 <p>使用for…range遍历数组:</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">for</span> i, v := <span class="hljs-keyword">range</span> a &#123;<br>	fmt.Printf(<span class="hljs-string">&quot;%d %d\n&quot;</span>, i, v)<br>&#125;<br>	<br><span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> a &#123;<br>	fmt.Printf(<span class="hljs-string">&quot;%d\n&quot;</span>, v)<br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>比较</h1>
+<h1 id="比较">比较</h1>
 <p>如果数组的元素类型是可以相互比较的，那么数组类型也是可以相互比较的。<br>
 可以使用<code>==</code>比较运算符比较两个数组，只有当两个数组的所有元素都是相等的时候数组才是相等的。<br>
 不相等比较运算符<code>!=</code>遵循同样的规则。</p>
@@ -2558,7 +2655,7 @@
 <p>crypto/sha256包的Sum256函数对一个任意的字节slice类型的数据生成一个对应的消息摘要。消息摘要有256bit大小，因此对应[32]byte数组类型。如果两个消息摘要是相同的，那么可以认为两个消息本身也是相同（译注：理论上有HASH码碰撞的情况，但是实际应用可以基本忽略）；如果消息摘要不同，那么消息本身必然也是不同的。下面的例子用SHA256算法分别生成“x”和“X”两个信息的摘要：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;crypto/sha256&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	c1 := sha256.Sum256([]<span class="hljs-type">byte</span>(<span class="hljs-string">&quot;x&quot;</span>))<br>	c2 := sha256.Sum256([]<span class="hljs-type">byte</span>(<span class="hljs-string">&quot;x&quot;</span>))<br>	fmt.Printf(<span class="hljs-string">&quot;%x\n%x\n%t\n%T\n&quot;</span>, c1, c2, c1 == c2, c1)<br>	<span class="hljs-comment">// Output</span><br>	<span class="hljs-comment">/*</span><br><span class="hljs-comment">		2d711642b726b04401627ca9fbac32f5c8530fb1903cc4db02258717921a4881</span><br><span class="hljs-comment">		4b68ab3847feda7d6c62c1fbcbeebfa35eab7351ed5e78f4ddadea5df64b8015</span><br><span class="hljs-comment">		true</span><br><span class="hljs-comment">		[32]uint8</span><br><span class="hljs-comment">	*/</span><br>&#125;<br></code></pre></td></tr></table></figure>
 <p>上面例子中，虽然只有一个字符的差异，但生成的消息摘要相同。</p>
-<h1>数组作为函数入参</h1>
+<h1 id="数组作为函数入参">数组作为函数入参</h1>
 <p>当调用函数时，函数的每个调用参数将会被赋值给函数内部的参数变量。<br>
 函数参数变量接受的是一个复制的副本，并不是原始调用的变量。<br>
 函数参数传递的机制导致传递大的数组类型将是低效的，并且对数组参数的任何的修改都是发生在复制的数组上，并非直接修改调用时的原始的数组变量。<br>
@@ -2573,7 +2670,7 @@ Go语言对待数组的方式和其它很多编程语言不同，其它编程语
 <p>虽然通过指针传递数组参数是高效的，而且也允许在函数内部修改数组元素的值，但是数组类型规定了固定的长度信息，决定了数组是不够便捷的类型。<br>
 如<code>zero</code>函数并不能接受指向[16]byte类型数组的指针，而且也没有任何添加或删除数组元素的方法。<br>
 由于这些原因，除了像SHA256这类需要处理特定大小数组的特例外，数组很少用于函数参数，一般使用slice来替代数组。</p>
-<h1>练习</h1>
+<h1 id="练习">练习</h1>
 <p><strong>练习 4.1：</strong> 编写一个函数，计算两个SHA256哈希码中不同bit的数目。（参考2.6.2节的PopCount函数。)<br>
 解：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;crypto/sha256&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	c1 := sha256.Sum256([]<span class="hljs-type">byte</span>(<span class="hljs-string">&quot;x&quot;</span>))<br>	c2 := sha256.Sum256([]<span class="hljs-type">byte</span>(<span class="hljs-string">&quot;X&quot;</span>))<br>	fmt.Println(sha256DiffBitCount(c1, c2))<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">sha256DiffBitCount</span><span class="hljs-params">(c1, c2 [32]<span class="hljs-type">byte</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>	count := <span class="hljs-number">0</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">32</span>; i++ &#123;<br>		count += diffBitCount(c1[i], c2[i])<br>	&#125;<br>	<span class="hljs-keyword">return</span> count<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">diffBitCount</span><span class="hljs-params">(b1, b2 <span class="hljs-type">byte</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>	count := <span class="hljs-number">0</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-type">uint</span>(<span class="hljs-number">0</span>); i &lt; <span class="hljs-number">8</span>; i++ &#123;<br>		mask := <span class="hljs-type">byte</span>(<span class="hljs-number">1</span> &lt;&lt; i)<br>		<span class="hljs-keyword">if</span> b1&amp;mask != b2&amp;mask &#123;<br>			count++<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> count<br>&#125;<br><br></code></pre></td></tr></table></figure>
@@ -2662,9 +2759,21 @@ Go语言对待数组的方式和其它很多编程语言不同，其它编程语
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -2817,10 +2926,11 @@ Go语言对待数组的方式和其它很多编程语言不同，其它编程语
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -2880,7 +2990,63 @@ Go语言对待数组的方式和其它很多编程语言不同，其它编程语
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -2891,10 +3057,16 @@ Go语言对待数组的方式和其它很多编程语言不同，其它编程语
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -2906,6 +3078,8 @@ Go语言对待数组的方式和其它很多编程语言不同，其它编程语
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -2919,7 +3093,7 @@ Go语言对待数组的方式和其它很多编程语言不同，其它编程语
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

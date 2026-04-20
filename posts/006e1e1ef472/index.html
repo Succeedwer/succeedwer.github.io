@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -110,7 +110,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -145,7 +145,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -194,6 +194,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -231,7 +334,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          7.6k 字
         
       </span>
     
@@ -242,20 +345,12 @@
         
         
         
-          13 分钟
+          63 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -267,6 +362,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -2523,11 +2620,11 @@
             
               <div class="markdown-body">
                 
-                <h1>概述</h1>
+                <h1 id="概述">概述</h1>
 <p>grpc可以实现对发送的数据进行压缩，已达到减少通信时的带宽。</p>
 <p>还可以根据消息的级别和调用，启用和禁用压缩。</p>
 <p>可以对通道进行不同的压缩设置，以及支持不同算法，和自定义压缩器。</p>
-<h1>非对称的压缩</h1>
+<h1 id="非对称的压缩">非对称的压缩</h1>
 <p>grpc允许非对称的通信，如：响应不被压缩，而请求进行压缩。</p>
 <p>响应还可以使用与请求不同的压缩方法。</p>
 <p>如果客户端的请求消息被服务器不支持的算法压缩，那么服务器将导致<code>UNIMPLEMENTED</code>的错误码。</p>
@@ -2536,7 +2633,7 @@
 <p>如<code>server.go</code>源码所示：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// If cp is set, use it.  Otherwise, attempt to compress the response using</span><br><span class="hljs-comment">// the incoming message compression method.</span><br><span class="hljs-comment">//</span><br><span class="hljs-comment">// <span class="hljs-doctag">NOTE:</span> this needs to be ahead of all handling, https://github.com/grpc/grpc-go/issues/686.</span><br><span class="hljs-comment">// s.opts.cp 已被弃用，即之前可以使用grpc.RPCCompressor()指定服务器压缩器</span><br><span class="hljs-keyword">if</span> s.opts.cp != <span class="hljs-literal">nil</span> &#123;<br>	ss.cp = s.opts.cp<br>	ss.sendCompressorName = s.opts.cp.Type()<br>    <span class="hljs-comment">// 当前版本只能从请求头中读取报头`grpc-accept-encoding`指定的压缩算法</span><br>&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> rc := stream.RecvCompress(); rc != <span class="hljs-string">&quot;&quot;</span> &amp;&amp; rc != encoding.Identity &#123;<br>	<span class="hljs-comment">// Legacy compressor not specified; attempt to respond with same encoding.</span><br>	ss.comp = encoding.GetCompressor(rc)<br>	<span class="hljs-keyword">if</span> ss.comp != <span class="hljs-literal">nil</span> &#123;<br>		ss.sendCompressorName = rc<br>	&#125;<br>&#125;<br><br><span class="hljs-keyword">if</span> ss.sendCompressorName != <span class="hljs-string">&quot;&quot;</span> &#123;<br>	<span class="hljs-keyword">if</span> err := stream.SetSendCompress(ss.sendCompressorName); err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> status.Errorf(codes.Internal, <span class="hljs-string">&quot;grpc: failed to set send compressor: %v&quot;</span>, err)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>服务器的解压缩算法，都是可以由来自客户端的请求头中<code>grpc-accept-encoding</code>指定的解压缩算法，前提是服务器有提前注册好，<code>encoding.RegisterCompressor()</code>。</p>
-<h1>用法</h1>
+<h1 id="用法">用法</h1>
 <p>grpc自带<code>gzip</code>压缩算法。</p>
 <p>在客户端使用<code>calloption</code>设置压缩器，指定压缩算法。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">grpc.UseCompressor(gzip.Name)<br></code></pre></td></tr></table></figure>
@@ -2549,14 +2646,14 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">const</span> (<br>   	<span class="hljs-comment">// 不压缩</span><br>	NoCompression      = flate.NoCompression<br>	<span class="hljs-comment">// 最快速度	</span><br>    BestSpeed          = flate.BestSpeed<br>	<span class="hljs-comment">// 最好的压缩</span><br>    BestCompression    = flate.BestCompression<br>	<span class="hljs-comment">// 默认的压缩</span><br>    DefaultCompression = flate.DefaultCompression<br>	<span class="hljs-comment">//  哈夫曼算法 gizp不支持</span><br>    HuffmanOnly        = flate.HuffmanOnly<br>)<br></code></pre></td></tr></table></figure>
 <p>可以在服务器端，获取请求头，查看客户端指定使用的压缩算法。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(e echoServer)</span></span> UnaryEcho(ctx context.Context, in *pb.EchoRequest) (*pb.EchoResponse, <span class="hljs-type">error</span>) &#123;<br>	md, ok := metadata.FromIncomingContext(ctx)<br>	<span class="hljs-keyword">if</span> !ok &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, status.Error(codes.InvalidArgument, <span class="hljs-string">&quot;miss metadata&quot;</span>)<br>	&#125;<br>	<span class="hljs-keyword">var</span> codec <span class="hljs-type">string</span><br>	<span class="hljs-keyword">if</span> codecs, ok := md[<span class="hljs-string">&quot;grpc-accept-encoding&quot;</span>]; ok &#123;<br>		codec = codecs[<span class="hljs-number">0</span>]<br>	&#125;<br>	log.Println(codec) <span class="hljs-comment">// gzip</span><br><br>	fmt.Printf(<span class="hljs-string">&quot;UnaryEcho called with message %q\n&quot;</span>, in.GetMessage())<br>	<span class="hljs-keyword">return</span> &amp;pb.EchoResponse&#123;Message: in.Message&#125;, <span class="hljs-literal">nil</span><br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>实现</h1>
+<h1 id="实现">实现</h1>
 <p><code>echo.proto</code></p>
 <figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs protobuf">syntax = <span class="hljs-string">&quot;proto3&quot;</span>;<br><br><span class="hljs-keyword">option</span> go_package = <span class="hljs-string">&quot;grpc-learn/feature/proto/echo&quot;</span>;<br><br><span class="hljs-keyword">package</span> echo;<br><br><span class="hljs-comment">// 请求</span><br><span class="hljs-keyword">message </span><span class="hljs-title class_">EchoRequest</span> &#123;<br>  <span class="hljs-type">string</span> message = <span class="hljs-number">1</span>;<br>&#125;<br><br><span class="hljs-comment">// 响应</span><br><span class="hljs-keyword">message </span><span class="hljs-title class_">EchoResponse</span> &#123;<br>  <span class="hljs-type">string</span> message = <span class="hljs-number">1</span>;<br>&#125;<br><br><span class="hljs-comment">// Echo 服务</span><br><span class="hljs-keyword">service </span><span class="hljs-title class_">Echo</span> &#123;<br>  <span class="hljs-comment">// 一元rpc</span><br>  <span class="hljs-function"><span class="hljs-keyword">rpc</span> UnaryEcho(EchoRequest) <span class="hljs-keyword">returns</span> (EchoResponse) </span>&#123;&#125;<br><br>  <span class="hljs-comment">// 服务器流式rpc</span><br>  <span class="hljs-function"><span class="hljs-keyword">rpc</span> ServerStreamingEcho(EchoRequest) <span class="hljs-keyword">returns</span> (stream EchoResponse) </span>&#123;&#125;<br><br>  <span class="hljs-comment">// 客户端流式rpc</span><br>  <span class="hljs-function"><span class="hljs-keyword">rpc</span> ClientStreamingEcho(stream EchoRequest) <span class="hljs-keyword">returns</span> (EchoResponse) </span>&#123;&#125;<br><br>  <span class="hljs-comment">// 双向流式rpc</span><br>  <span class="hljs-function"><span class="hljs-keyword">rpc</span> BidirectionalStreamingEcho(stream EchoRequest) <span class="hljs-keyword">returns</span> (stream EchoResponse) </span>&#123;&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>server.go</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;context&quot;</span><br>	<span class="hljs-string">&quot;flag&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;google.golang.org/grpc&quot;</span><br>	_ <span class="hljs-string">&quot;google.golang.org/grpc/encoding/gzip&quot;</span> <span class="hljs-comment">// 在init函数中已经初始化gzip compressor</span><br>	pb <span class="hljs-string">&quot;grpc-learn/feature/proto/echo&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;net&quot;</span><br>)<br><br><span class="hljs-keyword">var</span> port = flag.Int(<span class="hljs-string">&quot;port&quot;</span>, <span class="hljs-number">50051</span>, <span class="hljs-string">&quot;the port to serve on&quot;</span>)<br><br><span class="hljs-keyword">type</span> echoServer <span class="hljs-keyword">struct</span> &#123;<br>	pb.UnimplementedEchoServer<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(e echoServer)</span></span> UnaryEcho(ctx context.Context, in *pb.EchoRequest) (*pb.EchoResponse, <span class="hljs-type">error</span>) &#123;<br>	fmt.Printf(<span class="hljs-string">&quot;UnaryEcho called with message %q\n&quot;</span>, in.GetMessage())<br>	<span class="hljs-keyword">return</span> &amp;pb.EchoResponse&#123;Message: in.Message&#125;, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	flag.Parse()<br><br>	lis, err := net.Listen(<span class="hljs-string">&quot;tcp&quot;</span>, fmt.Sprintf(<span class="hljs-string">&quot;:%d&quot;</span>, *port))<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatalf(<span class="hljs-string">&quot;failed to listen: %v&quot;</span>, err)<br>	&#125;<br>	fmt.Printf(<span class="hljs-string">&quot;server listening at %v\n&quot;</span>, lis.Addr())<br>	s := grpc.NewServer()<br>	pb.RegisterEchoServer(s, &amp;echoServer&#123;&#125;)<br>	s.Serve(lis)<br><br>&#125;<br></code></pre></td></tr></table></figure>
 <p>client.go</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;context&quot;</span><br>	<span class="hljs-string">&quot;flag&quot;</span><br>	<span class="hljs-string">&quot;google.golang.org/grpc&quot;</span><br>	<span class="hljs-string">&quot;google.golang.org/grpc/credentials/insecure&quot;</span><br>	<span class="hljs-string">&quot;google.golang.org/grpc/encoding/gzip&quot;</span><br>	pb <span class="hljs-string">&quot;grpc-learn/feature/proto/echo&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-keyword">var</span> addr = flag.String(<span class="hljs-string">&quot;addr&quot;</span>, <span class="hljs-string">&quot;localhost:50051&quot;</span>, <span class="hljs-string">&quot;the address to connect to&quot;</span>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	flag.Parse()<br><br>	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()))<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatalf(<span class="hljs-string">&quot;failed to connect server: %v&quot;</span>, err)<br>	&#125;<br>	<span class="hljs-keyword">defer</span> conn.Close()<br><br>	client := pb.NewEchoClient(conn)<br><br>	ctx, cancelFunc := context.WithTimeout(context.Background(), <span class="hljs-number">10</span>*time.Second)<br>	<span class="hljs-keyword">defer</span> cancelFunc()<br>    <span class="hljs-comment">// 使用calloption实现压缩请求信息</span><br>	res, err := client.UnaryEcho(ctx, &amp;pb.EchoRequest&#123;Message: <span class="hljs-string">&quot;compress&quot;</span>&#125;, grpc.UseCompressor(gzip.Name))<br>	log.Printf(<span class="hljs-string">&quot;UnaryEcho call returned %q, %v\n&quot;</span>, res.GetMessage(), err)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatalf(<span class="hljs-string">&quot;Message=%q, err=%v; want Message=%q, err=&lt;nil&gt;&quot;</span>, res.GetMessage(), err, <span class="hljs-string">&quot;compress&quot;</span>)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>自定义压缩器</h1>
+<h1 id="自定义压缩器">自定义压缩器</h1>
 <p>在<code>gzip</code>的源码中，不难看出，自定义压缩器需要实现<code>encoding.Compressor</code>接口。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Compressor <span class="hljs-keyword">interface</span> &#123;<br>	<span class="hljs-comment">// Compress writes the data written to wc to w after compressing it.  If an</span><br>	<span class="hljs-comment">// error occurs while initializing the compressor, that error is returned</span><br>	<span class="hljs-comment">// instead.</span><br>	Compress(w io.Writer) (io.WriteCloser, <span class="hljs-type">error</span>)<br>	<span class="hljs-comment">// Decompress reads data from r, decompresses it, and provides the</span><br>	<span class="hljs-comment">// uncompressed data via the returned io.Reader.  If an error occurs while</span><br>	<span class="hljs-comment">// initializing the decompressor, that error is returned instead.</span><br>	Decompress(r io.Reader) (io.Reader, <span class="hljs-type">error</span>)<br>	<span class="hljs-comment">// Name is the name of the compression codec and is used to set the content</span><br>	<span class="hljs-comment">// coding header.  The result must be static; the result cannot change</span><br>	<span class="hljs-comment">// between calls.</span><br>	Name() <span class="hljs-type">string</span><br>&#125;<br></code></pre></td></tr></table></figure>
 <p>所以，创建一个算法，实现该接口即可。</p>
@@ -2573,7 +2670,7 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">appoint codec: gzip,acom<br></code></pre></td></tr></table></figure>
 <p>表明客户端支持的压缩算法：gzip和acom</p>
 <p>只要服务器有注册这两个算法即可，可以解压缩请求，压缩响应。</p>
-<h1>引用</h1>
+<h1 id="引用">引用</h1>
 <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://grpc.p2hp.com/docs/guides/compression/index.html">GRPC </a>
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
@@ -2665,9 +2762,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -2686,9 +2795,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/e87f2b2f1b93/" title="2. 日志格式">
+                      <a href="/posts/8c30e6c2733a/" title="3.控制台颜色">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">2. 日志格式</span>
+                        <span class="hidden-mobile">3.控制台颜色</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -2696,8 +2805,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/5293a05010ad/" title="7.Authz-rbac">
-                        <span class="hidden-mobile">7.Authz-rbac</span>
+                      <a href="/posts/70ab7268f3f8/" title="1.快速入门">
+                        <span class="hidden-mobile">1.快速入门</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -2820,10 +2929,11 @@
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -2883,7 +2993,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -2894,10 +3060,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -2909,6 +3081,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -2922,7 +3096,7 @@
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

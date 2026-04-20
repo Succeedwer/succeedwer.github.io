@@ -77,7 +77,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -112,7 +112,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -147,7 +147,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -196,6 +196,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -233,7 +336,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          752 字
+          2.4k 字
         
       </span>
     
@@ -244,20 +347,12 @@
         
         
         
-          7 分钟
+          20 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -269,6 +364,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -2525,9 +2622,9 @@
             
               <div class="markdown-body">
                 
-                <h1>指令概览</h1>
-<p><img src="/posts/a9f11f629522/goctl-6fcfe4bce2787b1122816329e94db82a.png" srcset="/images/loading.gif" lazyload alt="img"></p>
-<h1>文件命名风格</h1>
+                <h1 id="指令概览">指令概览</h1>
+<p><img src="/posts/a9f11f629522/goctl-6fcfe4bce2787b1122816329e94db82a.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h1 id="文件命名风格">文件命名风格</h1>
 <h2 id="格式化符号表"><a class="header-anchor" href="#格式化符号表">¶</a>格式化符号表</h2>
 <table>
 <thead>
@@ -2572,12 +2669,12 @@
 </table>
 <h2 id="使用"><a class="header-anchor" href="#使用">¶</a>使用</h2>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 生成 lower case 文件和目录示例</span><br>$ goctl api new demo --style gozero<br><span class="hljs-comment"># 生成 snake case 文件和目录示例</span><br>$ goctl api new demo --style go_zero<br><span class="hljs-comment"># 生成 camel case 文件和目录示例</span><br>$ goctl api new demo --style goZero<br></code></pre></td></tr></table></figure>
-<h1>goctl api</h1>
+<h1 id="goctl-api">goctl api</h1>
 <h2 id="快速生成-Go-HTTP-服务"><a class="header-anchor" href="#快速生成-Go-HTTP-服务">¶</a>快速生成 Go HTTP 服务</h2>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">goctl api new 服务名<br></code></pre></td></tr></table></figure>
 <h2 id="根据-api-文件生成-Go-HTTP-代码"><a class="header-anchor" href="#根据-api-文件生成-Go-HTTP-代码">¶</a>根据 api 文件生成 Go HTTP 代码</h2>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">goctl api go --api 文件名.api --<span class="hljs-built_in">dir</span> .<br></code></pre></td></tr></table></figure>
-<h1>goctl rpc</h1>
+<h1 id="goctl-rpc">goctl rpc</h1>
 <h2 id="生成proto文件"><a class="header-anchor" href="#生成proto文件">¶</a>生成proto文件</h2>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">goctl rpc --o 文件名.proto<br></code></pre></td></tr></table></figure>
 <h2 id="生成rpc服务代码"><a class="header-anchor" href="#生成rpc服务代码">¶</a>生成rpc服务代码</h2>
@@ -2585,17 +2682,17 @@
 <h2 id="根据proto文件生成rpc服务代码"><a class="header-anchor" href="#根据proto文件生成rpc服务代码">¶</a>根据proto文件生成rpc服务代码</h2>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">goctl rpc protoc 文件名.proto --go_out=. --go-grpc_out=. --zrpc_out=.<br></code></pre></td></tr></table></figure>
 <p>其中<code>-m</code>可以表示是否生成多个rpc服务，根据proto文件中的service的数量生成对应数量的rpc服务。</p>
-<h1>goctl model</h1>
+<h1 id="goctl-model">goctl model</h1>
 <h2 id="mysql"><a class="header-anchor" href="#mysql">¶</a>mysql</h2>
 <h3 id="从sql文件生成model"><a class="header-anchor" href="#从sql文件生成model">¶</a>从sql文件生成model</h3>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">goctl model mysql ddl -c --src sql文件名.sql --<span class="hljs-built_in">dir</span> 生成代码的目录<br></code></pre></td></tr></table></figure>
 <p><code>-c</code>是否生成带缓存的代码</p>
 <h3 id="从数据库连接生成model"><a class="header-anchor" href="#从数据库连接生成model">¶</a>从数据库连接生成model</h3>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">gotcl model mysql datasource --url 数据库连接 -t 表名 --<span class="hljs-built_in">dir</span> 生成代码的目录<br></code></pre></td></tr></table></figure>
-<h1>goctl docker</h1>
+<h1 id="goctl-docker">goctl docker</h1>
 <h2 id="生成Dockerfile文件"><a class="header-anchor" href="#生成Dockerfile文件">¶</a>生成Dockerfile文件</h2>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">goctl docker --go 主函数文件名.go --exe 主函数文件名<br></code></pre></td></tr></table></figure>
-<h1>goctl env</h1>
+<h1 id="goctl-env">goctl env</h1>
 <h2 id="查看goctl环境变量"><a class="header-anchor" href="#查看goctl环境变量">¶</a>查看goctl环境变量</h2>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">goctl <span class="hljs-built_in">env</span><br></code></pre></td></tr></table></figure>
 <p>输出：</p>
@@ -2606,7 +2703,7 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">goctl <span class="hljs-built_in">env</span> check --verbose --install<br></code></pre></td></tr></table></figure>
 <p>或</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">goctl <span class="hljs-built_in">env</span> install<br></code></pre></td></tr></table></figure>
-<h1>goctl kube</h1>
+<h1 id="goctl-kube">goctl kube</h1>
 <h2 id="快速生成k8s配置文件"><a class="header-anchor" href="#快速生成k8s配置文件">¶</a>快速生成k8s配置文件</h2>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">$ goctl kube deploy -name deployment名称 -namespace k8s域名空间 -image 镜像名称 -o yaml文件名称 -port 监听端口<br></code></pre></td></tr></table></figure>
 <p>具体参数表格如下：</p>
@@ -2770,7 +2867,7 @@
 </tr>
 </tbody>
 </table>
-<h1>goctl quickstart</h1>
+<h1 id="goctl-quickstart">goctl quickstart</h1>
 <h2 id="快速生成单体或微服务"><a class="header-anchor" href="#快速生成单体或微服务">¶</a>快速生成单体或微服务</h2>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh">$ <span class="hljs-built_in">mkdir</span> quickstart &amp;&amp; <span class="hljs-built_in">cd</span> quickstart<br>$ goctl quickstart --service-type 服务类型<br></code></pre></td></tr></table></figure>
 <table>
@@ -2793,7 +2890,7 @@
 </tr>
 </tbody>
 </table>
-<h1>引用</h1>
+<h1 id="引用">引用</h1>
 <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://go-zero.dev/docs/tutorials/cli/overview">指令概览 | go-zero Documentation</a>
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
@@ -2885,9 +2982,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -2916,8 +3025,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/a77442a26c87/" title="验证器-自定义">
-                        <span class="hidden-mobile">验证器-自定义</span>
+                      <a href="/posts/c80da2c229a4/" title="1.快速开始">
+                        <span class="hidden-mobile">1.快速开始</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -3040,10 +3149,11 @@
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -3103,7 +3213,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -3114,10 +3280,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -3129,6 +3301,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -3142,7 +3316,7 @@
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

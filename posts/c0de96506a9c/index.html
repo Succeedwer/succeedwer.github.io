@@ -78,7 +78,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -113,7 +113,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -148,7 +148,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -197,6 +197,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -234,7 +337,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          10k 字
         
       </span>
     
@@ -245,20 +348,12 @@
         
         
         
-          13 分钟
+          88 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -270,6 +365,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -2526,17 +2623,17 @@
             
               <div class="markdown-body">
                 
-                <h1>前言</h1>
+                <h1 id="前言">前言</h1>
 <p>链路追踪在微服务架构中尤为重要，可以清晰了解到请求在各个微服务之间的流转情况。</p>
 <p>目前，业内流行的链路追踪的工具有<code>Jaeger</code>、<code>zinpink</code>。</p>
-<h1>环境</h1>
+<h1 id="环境">环境</h1>
 <ul>
 <li>Ubuntu 22.04.1 LTS</li>
 <li>Docker 26.1.1</li>
 <li>elasticsearch 8.14.3</li>
 <li>jaegertracing/all-in-one 1.59</li>
 </ul>
-<h1>Jaeger</h1>
+<h1 id="jaeger">Jaeger</h1>
 <h2 id="简介"><a class="header-anchor" href="#简介">¶</a>简介</h2>
 <p>版本：1.59</p>
 <p><code>Jaeger</code>的核心组件：</p>
@@ -2547,13 +2644,13 @@
 <li><strong>Ingester</strong>: 用于从<code>Kafka</code>读取追踪数据并写入存储器。</li>
 </ul>
 <p>github仓库地址：<a target="_blank" rel="noopener" href="https://github.com/jaegertracing/jaeger">jaegertracing/jaeger: CNCF Jaeger, a Distributed Tracing Platform (github.com)</a></p>
-<p><img src="/posts/c0de96506a9c/image-20240728001739813.png" srcset="/images/loading.gif" lazyload alt="image-20240728001739813"></p>
-<h1>部署</h1>
+<p><img src="/posts/c0de96506a9c/image-20240728001739813.png" srcset="/img/loading.gif" lazyload alt="image-20240728001739813"></p>
+<h1 id="部署">部署</h1>
 <p><code>docker-compose.yml</code></p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">services:</span><br>  <span class="hljs-attr">jaeger:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">jaegertracing/all-in-one:latest</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;5775:5775/udp&quot;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;6831:6831/udp&quot;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;6832:6832/udp&quot;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;5778:5778&quot;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;16686:16686&quot;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;14250:14250&quot;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;14268:14268&quot;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;14269:14269&quot;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;4317:4317&quot;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;4318:4318&quot;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;9411:9411&quot;</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">certs:/usr/local/share/certs</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">LOG_LEVEL=debug</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">ES_TAGS_AS_FIELDS_ALL=true</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">SPAN_STORAGE_TYPE=elasticsearch</span> <span class="hljs-comment"># es存储数据</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">ES_SERVER_URLS=https://es01:9200</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">ES_USERNAME=elastic</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">ES_PASSWORD=123456</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">ES_TLS_ENABLED=true</span> <span class="hljs-comment"># 开启tls</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">ES_TLS_SKIP_HOST_VERIFY=true</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">ES_TLS_CA=/usr/local/share/certs/ca/ca.crt</span><br>    <span class="hljs-attr">depends_on:</span><br>      <span class="hljs-attr">es01:</span><br>        <span class="hljs-attr">condition:</span> <span class="hljs-string">service_healthy</span><br><br>  <span class="hljs-comment"># 测试demo</span><br>  <span class="hljs-attr">greet-rpc:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">wer/greet-rpc:v1.0.0</span><br><br>  <span class="hljs-attr">greet-api:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">wer/greet-api:v1.0.0</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;8888:8888&quot;</span><br>    <span class="hljs-attr">depends_on:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">greet-rpc</span><br><br>  <span class="hljs-attr">setup:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">docker.elastic.co/elasticsearch/elasticsearch:$&#123;STACK_VERSION&#125;</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">certs:/usr/share/elasticsearch/config/certs</span><br>    <span class="hljs-attr">user:</span> <span class="hljs-string">&quot;0&quot;</span><br>    <span class="hljs-attr">command:</span> <span class="hljs-string">&gt;</span><br><span class="hljs-string">      bash -c &#x27;</span><br><span class="hljs-string">        if [ x$&#123;ELASTIC_PASSWORD&#125; == x ]; then</span><br><span class="hljs-string">          echo &quot;Set the ELASTIC_PASSWORD environment variable in the .env file&quot;;</span><br><span class="hljs-string">          exit 1;</span><br><span class="hljs-string">        elif [ x$&#123;KIBANA_PASSWORD&#125; == x ]; then</span><br><span class="hljs-string">          echo &quot;Set the KIBANA_PASSWORD environment variable in the .env file&quot;;</span><br><span class="hljs-string">          exit 1;</span><br><span class="hljs-string">        fi;</span><br><span class="hljs-string">        if [ ! -f config/certs/ca.zip ]; then</span><br><span class="hljs-string">          echo &quot;Creating CA&quot;;</span><br><span class="hljs-string">          bin/elasticsearch-certutil ca --silent --pem -out config/certs/ca.zip;</span><br><span class="hljs-string">          unzip config/certs/ca.zip -d config/certs;</span><br><span class="hljs-string">        fi;</span><br><span class="hljs-string">        if [ ! -f config/certs/certs.zip ]; then</span><br><span class="hljs-string">          echo &quot;Creating certs&quot;;</span><br><span class="hljs-string">          echo -ne \</span><br><span class="hljs-string">          &quot;instances:\n&quot;\</span><br><span class="hljs-string">          &quot;  - name: es01\n&quot;\</span><br><span class="hljs-string">          &quot;    dns:\n&quot;\</span><br><span class="hljs-string">          &quot;      - es01\n&quot;\</span><br><span class="hljs-string">          &quot;      - localhost\n&quot;\</span><br><span class="hljs-string">          &quot;    ip:\n&quot;\</span><br><span class="hljs-string">          &quot;      - 127.0.0.1\n&quot;\</span><br><span class="hljs-string">          &quot;  - name: es02\n&quot;\</span><br><span class="hljs-string">          &quot;    dns:\n&quot;\</span><br><span class="hljs-string">          &quot;      - es02\n&quot;\</span><br><span class="hljs-string">          &quot;      - localhost\n&quot;\</span><br><span class="hljs-string">          &quot;    ip:\n&quot;\</span><br><span class="hljs-string">          &quot;      - 127.0.0.1\n&quot;\</span><br><span class="hljs-string">          &quot;  - name: es03\n&quot;\</span><br><span class="hljs-string">          &quot;    dns:\n&quot;\</span><br><span class="hljs-string">          &quot;      - es03\n&quot;\</span><br><span class="hljs-string">          &quot;      - localhost\n&quot;\</span><br><span class="hljs-string">          &quot;    ip:\n&quot;\</span><br><span class="hljs-string">          &quot;      - 127.0.0.1\n&quot;\</span><br><span class="hljs-string">          &gt; config/certs/instances.yml;</span><br><span class="hljs-string">          bin/elasticsearch-certutil cert --silent --pem -out config/certs/certs.zip --in config/certs/instances.yml --ca-cert config/certs/ca/ca.crt --ca-key config/certs/ca/ca.key;</span><br><span class="hljs-string">          unzip config/certs/certs.zip -d config/certs;</span><br><span class="hljs-string">        fi;</span><br><span class="hljs-string">        echo &quot;Setting file permissions&quot;</span><br><span class="hljs-string">        chown -R root:root config/certs;</span><br><span class="hljs-string">        find . -type d -exec chmod 750 \&#123;\&#125; \;;</span><br><span class="hljs-string">        find . -type f -exec chmod 640 \&#123;\&#125; \;;</span><br><span class="hljs-string">        echo &quot;Waiting for Elasticsearch availability&quot;;</span><br><span class="hljs-string">        until curl -s --cacert config/certs/ca/ca.crt https://es01:9200 | grep -q &quot;missing authentication credentials&quot;; do sleep 30; done;</span><br><span class="hljs-string">        echo &quot;Setting kibana_system password&quot;;</span><br><span class="hljs-string">        until curl -s -X POST --cacert config/certs/ca/ca.crt -u &quot;elastic:$&#123;ELASTIC_PASSWORD&#125;&quot; -H &quot;Content-Type: application/json&quot; https://es01:9200/_security/user/kibana_system/_password -d &quot;&#123;\&quot;password\&quot;:\&quot;$&#123;KIBANA_PASSWORD&#125;\&quot;&#125;&quot; | grep -q &quot;^&#123;&#125;&quot;; do sleep 10; done;</span><br><span class="hljs-string">        echo &quot;All done!&quot;;</span><br><span class="hljs-string">      &#x27;</span><br><span class="hljs-string"></span>    <span class="hljs-attr">healthcheck:</span><br>      <span class="hljs-attr">test:</span> [ <span class="hljs-string">&quot;CMD-SHELL&quot;</span>, <span class="hljs-string">&quot;[ -f config/certs/es01/es01.crt ]&quot;</span> ]<br>      <span class="hljs-attr">interval:</span> <span class="hljs-string">1s</span><br>      <span class="hljs-attr">timeout:</span> <span class="hljs-string">5s</span><br>      <span class="hljs-attr">retries:</span> <span class="hljs-number">120</span><br><br>  <span class="hljs-attr">es01:</span><br>    <span class="hljs-attr">depends_on:</span><br>      <span class="hljs-attr">setup:</span><br>        <span class="hljs-attr">condition:</span> <span class="hljs-string">service_healthy</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">docker.elastic.co/elasticsearch/elasticsearch:$&#123;STACK_VERSION&#125;</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">certs:/usr/share/elasticsearch/config/certs</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">esdata01_vol:/usr/share/elasticsearch/data</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">$&#123;ES_PORT&#125;:9200</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">TZ=Asia/Shanghai</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">node.name=es01</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">cluster.name=$&#123;CLUSTER_NAME&#125;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">cluster.initial_master_nodes=es01,es02,es03</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">discovery.seed_hosts=es02,es03</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">ELASTIC_PASSWORD=$&#123;ELASTIC_PASSWORD&#125;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">bootstrap.memory_lock=true</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.enabled=true</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.http.ssl.enabled=true</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.http.ssl.key=certs/es01/es01.key</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.http.ssl.certificate=certs/es01/es01.crt</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.http.ssl.certificate_authorities=certs/ca/ca.crt</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.transport.ssl.enabled=true</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.transport.ssl.key=certs/es01/es01.key</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.transport.ssl.certificate=certs/es01/es01.crt</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.transport.ssl.certificate_authorities=certs/ca/ca.crt</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.transport.ssl.verification_mode=certificate</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.license.self_generated.type=$&#123;LICENSE&#125;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;ES_JAVA_OPTS=-Xms512m -Xmx512m&quot;</span><br>    <span class="hljs-attr">mem_limit:</span> <span class="hljs-string">$&#123;MEM_LIMIT&#125;</span><br>    <span class="hljs-attr">ulimits:</span><br>      <span class="hljs-attr">memlock:</span><br>        <span class="hljs-attr">soft:</span> <span class="hljs-number">-1</span><br>        <span class="hljs-attr">hard:</span> <span class="hljs-number">-1</span><br>    <span class="hljs-attr">healthcheck:</span><br>      <span class="hljs-attr">test:</span><br>        [<br>          <span class="hljs-string">&quot;CMD-SHELL&quot;</span>,<br>          <span class="hljs-string">&quot;curl -s --cacert config/certs/ca/ca.crt https://localhost:9200 | grep -q &#x27;missing authentication credentials&#x27;&quot;</span>,<br>        ]<br>      <span class="hljs-attr">interval:</span> <span class="hljs-string">10s</span><br>      <span class="hljs-attr">timeout:</span> <span class="hljs-string">10s</span><br>      <span class="hljs-attr">retries:</span> <span class="hljs-number">120</span><br><br>  <span class="hljs-attr">es02:</span><br>    <span class="hljs-attr">depends_on:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">es01</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">docker.elastic.co/elasticsearch/elasticsearch:$&#123;STACK_VERSION&#125;</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">certs:/usr/share/elasticsearch/config/certs</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">esdata02_vol:/usr/share/elasticsearch/data</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">TZ=Asia/Shanghai</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">node.name=es02</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">cluster.name=$&#123;CLUSTER_NAME&#125;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">cluster.initial_master_nodes=es01,es02,es03</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">discovery.seed_hosts=es01,es03</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">bootstrap.memory_lock=true</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.enabled=true</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.http.ssl.enabled=true</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.http.ssl.key=certs/es02/es02.key</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.http.ssl.certificate=certs/es02/es02.crt</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.http.ssl.certificate_authorities=certs/ca/ca.crt</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.transport.ssl.enabled=true</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.transport.ssl.key=certs/es02/es02.key</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.transport.ssl.certificate=certs/es02/es02.crt</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.transport.ssl.certificate_authorities=certs/ca/ca.crt</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.transport.ssl.verification_mode=certificate</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.license.self_generated.type=$&#123;LICENSE&#125;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;ES_JAVA_OPTS=-Xms512m -Xmx512m&quot;</span><br>    <span class="hljs-attr">mem_limit:</span> <span class="hljs-string">$&#123;MEM_LIMIT&#125;</span><br>    <span class="hljs-attr">ulimits:</span><br>      <span class="hljs-attr">memlock:</span><br>        <span class="hljs-attr">soft:</span> <span class="hljs-number">-1</span><br>        <span class="hljs-attr">hard:</span> <span class="hljs-number">-1</span><br>    <span class="hljs-attr">healthcheck:</span><br>      <span class="hljs-attr">test:</span><br>        [<br>          <span class="hljs-string">&quot;CMD-SHELL&quot;</span>,<br>          <span class="hljs-string">&quot;curl -s --cacert config/certs/ca/ca.crt https://localhost:9200 | grep -q &#x27;missing authentication credentials&#x27;&quot;</span>,<br>        ]<br>      <span class="hljs-attr">interval:</span> <span class="hljs-string">10s</span><br>      <span class="hljs-attr">timeout:</span> <span class="hljs-string">10s</span><br>      <span class="hljs-attr">retries:</span> <span class="hljs-number">120</span><br><br>  <span class="hljs-attr">es03:</span><br>    <span class="hljs-attr">depends_on:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">es02</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">docker.elastic.co/elasticsearch/elasticsearch:$&#123;STACK_VERSION&#125;</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">certs:/usr/share/elasticsearch/config/certs</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">esdata03_vol:/usr/share/elasticsearch/data</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">TZ=Asia/Shanghai</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">node.name=es03</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">cluster.name=$&#123;CLUSTER_NAME&#125;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">cluster.initial_master_nodes=es01,es02,es03</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">discovery.seed_hosts=es01,es02</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">bootstrap.memory_lock=true</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.enabled=true</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.http.ssl.enabled=true</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.http.ssl.key=certs/es03/es03.key</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.http.ssl.certificate=certs/es03/es03.crt</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.http.ssl.certificate_authorities=certs/ca/ca.crt</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.transport.ssl.enabled=true</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.transport.ssl.key=certs/es03/es03.key</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.transport.ssl.certificate=certs/es03/es03.crt</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.transport.ssl.certificate_authorities=certs/ca/ca.crt</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.security.transport.ssl.verification_mode=certificate</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xpack.license.self_generated.type=$&#123;LICENSE&#125;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;ES_JAVA_OPTS=-Xms512m -Xmx512m&quot;</span><br>    <span class="hljs-attr">mem_limit:</span> <span class="hljs-string">$&#123;MEM_LIMIT&#125;</span><br>    <span class="hljs-attr">ulimits:</span><br>      <span class="hljs-attr">memlock:</span><br>        <span class="hljs-attr">soft:</span> <span class="hljs-number">-1</span><br>        <span class="hljs-attr">hard:</span> <span class="hljs-number">-1</span><br>    <span class="hljs-attr">healthcheck:</span><br>      <span class="hljs-attr">test:</span><br>        [<br>          <span class="hljs-string">&quot;CMD-SHELL&quot;</span>,<br>          <span class="hljs-string">&quot;curl -s --cacert config/certs/ca/ca.crt https://localhost:9200 | grep -q &#x27;missing authentication credentials&#x27;&quot;</span>,<br>        ]<br>      <span class="hljs-attr">interval:</span> <span class="hljs-string">10s</span><br>      <span class="hljs-attr">timeout:</span> <span class="hljs-string">10s</span><br>      <span class="hljs-attr">retries:</span> <span class="hljs-number">120</span><br><br><span class="hljs-attr">volumes:</span><br>  <span class="hljs-attr">certs:</span><br>    <span class="hljs-attr">driver:</span> <span class="hljs-string">local</span><br>  <span class="hljs-attr">esdata01_vol:</span><br>    <span class="hljs-attr">driver:</span> <span class="hljs-string">local</span><br>  <span class="hljs-attr">esdata02_vol:</span><br>    <span class="hljs-attr">driver:</span> <span class="hljs-string">local</span><br>  <span class="hljs-attr">esdata03_vol:</span><br>    <span class="hljs-attr">driver:</span> <span class="hljs-string">local</span><br></code></pre></td></tr></table></figure>
 <p><code>.env</code></p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-comment"># Password for the &#x27;elastic&#x27; user (at least 6 characters)</span><br><span class="hljs-attr">ELASTIC_PASSWORD</span>=<span class="hljs-number">123456</span><br><br><span class="hljs-comment"># Password for the &#x27;kibana_system&#x27; user (at least 6 characters)</span><br><span class="hljs-attr">KIBANA_PASSWORD</span>=<span class="hljs-number">123456</span><br><br><span class="hljs-comment"># Version of Elastic products</span><br><span class="hljs-attr">STACK_VERSION</span>=<span class="hljs-number">8.14</span>.<span class="hljs-number">3</span><br><br><span class="hljs-comment"># Set the cluster name</span><br><span class="hljs-attr">CLUSTER_NAME</span>=es-cluster<br><br><span class="hljs-comment"># Set to &#x27;basic&#x27; or &#x27;trial&#x27; to automatically start the 30-day trial</span><br><span class="hljs-attr">LICENSE</span>=basic<br><span class="hljs-comment">#LICENSE=trial</span><br><br><span class="hljs-comment"># Port to expose Elasticsearch HT TP API to the host</span><br><span class="hljs-attr">ES_PORT</span>=<span class="hljs-number">9200</span><br><span class="hljs-comment">#ES_PORT=127.0.0.1:9200</span><br><br><span class="hljs-comment"># Port to expose Kibana to the host</span><br><span class="hljs-attr">KIBANA_PORT</span>=<span class="hljs-number">5601</span><br><span class="hljs-comment">#KIBANA_PORT=80</span><br><br><span class="hljs-comment"># Increase or decrease based on the available host memory (in bytes)</span><br><span class="hljs-attr">MEM_LIMIT</span>=<span class="hljs-number">1073741824</span><br><br><span class="hljs-comment"># Project namespace (defaults to the current folder name if not set)</span><br><span class="hljs-comment">#COMPOSE_PROJECT_NAME=lt</span><br></code></pre></td></tr></table></figure>
-<h1>go-zero集成</h1>
+<h1 id="go-zero集成">go-zero集成</h1>
 <p>go-zero已经集成了jaeger-agent，源码如下：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// SetUp sets up the service.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(sc ServiceConf)</span></span> SetUp() <span class="hljs-type">error</span> &#123;<br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(sc.Log.ServiceName) == <span class="hljs-number">0</span> &#123;<br>		sc.Log.ServiceName = sc.Name<br>	&#125;<br>	<span class="hljs-keyword">if</span> err := logx.SetUp(sc.Log); err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> err<br>	&#125;<br><br>	sc.initMode()<br>	prometheus.StartAgent(sc.Prometheus)<br><br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(sc.Telemetry.Name) == <span class="hljs-number">0</span> &#123;<br>		sc.Telemetry.Name = sc.Name<br>	&#125;<br>	trace.StartAgent(sc.Telemetry)<br>	proc.AddShutdownListener(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		trace.StopAgent()<br>	&#125;)<br><br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(sc.MetricsUrl) &gt; <span class="hljs-number">0</span> &#123;<br>		stat.SetReportWriter(stat.NewRemoteWriter(sc.MetricsUrl))<br>	&#125;<br>	devserver.StartAgent(sc.DevServer)<br><br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br></code></pre></td></tr></table></figure>
 <p>上述代码集成了日志，链路追踪以及服务监控。</p>
@@ -2564,15 +2661,15 @@
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># Link Tracking</span><br><span class="hljs-attr">Telemetry:</span><br>  <span class="hljs-attr">Name:</span> <span class="hljs-string">greet-rpc</span><br>  <span class="hljs-attr">Endpoint:</span> <span class="hljs-string">http://jaeger:14268/api/traces</span><br>  <span class="hljs-attr">Sampler:</span> <span class="hljs-number">1.0</span><br>  <span class="hljs-attr">Batcher:</span> <span class="hljs-string">jaeger</span><br></code></pre></td></tr></table></figure>
 <p>**注意：**在go-zero创建rpc client时，需要注意是否开启trace。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewServiceContext</span><span class="hljs-params">(c config.Config)</span></span> *ServiceContext &#123;<br>	client := zrpc.MustNewClient(zrpc.RpcClientConf&#123;<br>		Target: <span class="hljs-string">&quot;greet-rpc:8889&quot;</span>,<br>		<span class="hljs-comment">//Target: &quot;127.0.0.1:8889&quot;,</span><br>		Middlewares: zrpc.ClientMiddlewaresConf&#123;<br>			Trace:      <span class="hljs-literal">true</span>, # <span class="hljs-literal">true</span>表示开启链路追踪<br>			Duration:   <span class="hljs-literal">true</span>,<br>			Prometheus: <span class="hljs-literal">true</span>,<br>			Breaker:    <span class="hljs-literal">true</span>,<br>			Timeout:    <span class="hljs-literal">true</span>,<br>		&#125;,<br>	&#125;)<br>	<span class="hljs-keyword">return</span> &amp;ServiceContext&#123;<br>		Config:   c,<br>		GreetRpc: greet.NewGreet(client),<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>使用</h1>
+<h1 id="使用">使用</h1>
 <p>构建greet镜像</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">创建Dockerfile</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">在greet-api的根目录下</span><br>goctl docker --go greet.go --exe greet<br><span class="hljs-meta prompt_"># </span><span class="language-bash">在greet-rpc的根目录下</span><br>goctl docker --go greet.go --exe greet<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">在项目根目录下 构建镜像</span><br>docker build -f Dockerfile -t wer/greet-api:v1.0.0 .<br>docker build -f Dockerfile -t wer/greet-rpc:v1.0.0 .<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">运行</span><br>docker-compose -f docker-compose.yml -p lt up -d<br></code></pre></td></tr></table></figure>
 <p>测试用例ping</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">curl 127.0.0.1:8888/ping<br></code></pre></td></tr></table></figure>
 <p>打开jaeger web， <code>http://ip:16686/search</code>，ip为部署机器ip。</p>
-<p><img src="/posts/c0de96506a9c/image-20240802002025987.png" srcset="/images/loading.gif" lazyload alt="image-20240802002025987"></p>
+<p><img src="/posts/c0de96506a9c/image-20240802002025987.png" srcset="/img/loading.gif" lazyload alt="image-20240802002025987"></p>
 <p>可以直观看出该请求的调用路径以及耗时。</p>
-<h1>引用</h1>
+<h1 id="引用">引用</h1>
 <p><a target="_blank" rel="noopener" href="https://www.jaegertracing.io/docs/1.59/deployment/">Deployment — Jaeger documentation (jaegertracing.io)</a></p>
 
                 
@@ -2657,9 +2754,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -2812,10 +2921,11 @@
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -2875,7 +2985,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -2886,10 +3052,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -2901,6 +3073,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -2914,7 +3088,7 @@
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

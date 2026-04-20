@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -110,7 +110,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -145,7 +145,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -194,6 +194,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -231,7 +334,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          8k 字
         
       </span>
     
@@ -242,20 +345,12 @@
         
         
         
-          13 分钟
+          67 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -267,6 +362,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -2523,7 +2620,7 @@
             
               <div class="markdown-body">
                 
-                <h1>题目</h1>
+                <h1 id="题目">题目</h1>
 <p>创建一个程序来统计指定目录下的硬盘使用报告，即文件大小，与linux中的du命令类似。</p>
 <h2 id="思路"><a class="header-anchor" href="#思路">¶</a>思路</h2>
 <p>毫无疑问，这道题要使用递归去解决。</p>
@@ -2533,7 +2630,7 @@
 <li>使用<code>fileSize channel</code>去接受发送文件大小。</li>
 <li>接收<code>fileSize channel</code>去累加文件大小。</li>
 </ul>
-<h1>第一个版本</h1>
+<h1 id="第一个版本">第一个版本</h1>
 <p>该版本比较直白，下面是它的步骤。</p>
 <ol>
 <li>创建<code>flag</code>获取文件目录（可能是多个目录），并检查初始化目录。</li>
@@ -2544,7 +2641,7 @@
 <p>很明显，该例子需要耗费更多时间才能统计完成。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ go build -o du1 main.go <br>$ sudo ./du1 /usr /bin /etc<br>68755 files, 6.3GB<br></code></pre></td></tr></table></figure>
 <p>注意是否有权限去读取文件，必要时使用<code>sudo</code>。</p>
-<h1>第二个版本</h1>
+<h1 id="第二个版本">第二个版本</h1>
 <p>在第一个版本的基础上，加上统计进度，就更直白，而不至于程序运行时间过长，而导致以为程序卡。<br>
 第二个版本会间歇性打印内容，而且只在于使用了<code>-v</code>的flag才会显示程序进度信息。</p>
 <h2 id="思路-v2"><a class="header-anchor" href="#思路-v2">¶</a>思路</h2>
@@ -2554,7 +2651,7 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;flag&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;path/filepath&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-keyword">var</span> verbose = flag.Bool(<span class="hljs-string">&quot;v&quot;</span>, <span class="hljs-literal">false</span>, <span class="hljs-string">&quot;show verbose progress massage.&quot;</span>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// Determine the initial directory.</span><br>	flag.Parse()<br>	roots := flag.Args()<br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(roots) == <span class="hljs-number">0</span> &#123;<br>		roots = []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;.&quot;</span>&#125;<br>	&#125;<br><br>	<span class="hljs-comment">// Traverse the file tree.</span><br>	fileSizes := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int64</span>)<br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">for</span> _, root := <span class="hljs-keyword">range</span> roots &#123;<br>			walkDir(root, fileSizes)<br>		&#125;<br>		<span class="hljs-built_in">close</span>(fileSizes)<br>	&#125;()<br><br>	<span class="hljs-comment">// Prints the result periodically.</span><br>	<span class="hljs-keyword">var</span> ticker *time.Ticker<br>	<span class="hljs-keyword">var</span> tick &lt;-<span class="hljs-keyword">chan</span> time.Time<br>	<span class="hljs-keyword">if</span> *verbose &#123;<br>		ticker = time.NewTicker(<span class="hljs-number">500</span> * time.Millisecond)<br>		tick = ticker.C<br>	&#125;<br>	<span class="hljs-keyword">var</span> nfiles, nbytes <span class="hljs-type">int64</span><br>loop:<br>	<span class="hljs-keyword">for</span> &#123;<br>		<span class="hljs-keyword">select</span> &#123;<br>		<span class="hljs-keyword">case</span> &lt;-tick:<br>			printDiskUage(nfiles, nbytes)<br>		<span class="hljs-keyword">case</span> size, ok := &lt;-fileSizes:<br>			<span class="hljs-keyword">if</span> !ok &#123;<br>				<span class="hljs-keyword">break</span> loop<br>			&#125;<br>			nfiles++<br>			nbytes += size<br>		&#125;<br>	&#125;<br>	printDiskUage(nfiles, nbytes)<br>	<span class="hljs-keyword">if</span> *verbose &#123;<br>		ticker.Stop()<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">printDiskUage</span><span class="hljs-params">(nfiles, nbytes <span class="hljs-type">int64</span>)</span></span> &#123;<br>	fmt.Printf(<span class="hljs-string">&quot;%d files, %.1f GB\n&quot;</span>, nfiles, <span class="hljs-type">float64</span>(nbytes)/<span class="hljs-number">1e9</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">walkDir</span><span class="hljs-params">(dir <span class="hljs-type">string</span>, fileSizes <span class="hljs-keyword">chan</span>&lt;- <span class="hljs-type">int64</span>)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> _, entry := <span class="hljs-keyword">range</span> dirents(dir) &#123;<br>		<span class="hljs-keyword">if</span> entry.IsDir() &#123;<br>			subDir := filepath.Join(dir, entry.Name())<br>			walkDir(subDir, fileSizes)<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			fileInfo, err := entry.Info()<br>			<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>				fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;du1: %v\n&quot;</span>, err)<br>				<span class="hljs-keyword">return</span><br>			&#125;<br>			fileSizes &lt;- fileInfo.Size()<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">dirents</span><span class="hljs-params">(dir <span class="hljs-type">string</span>)</span></span> []os.DirEntry &#123;<br>	entries, err := os.ReadDir(dir)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;du1: %v\n&quot;</span>, err)<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>	&#125;<br>	<span class="hljs-keyword">return</span> entries<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>下面是运行结果：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go build -o du2 main.go</span> <br><span class="hljs-meta prompt_">$ </span><span class="language-bash">sudo ./du2 -v /usr /bin /etc</span><br>6507 files, 1.0 GB<br>18019 files, 1.2 GB<br>27294 files, 1.8 GB<br>37819 files, 2.3 GB<br>44133 files, 3.2 GB<br>51914 files, 3.5 GB<br>60538 files, 5.9 GB<br>68755 files, 6.3 GB<br></code></pre></td></tr></table></figure>
-<h1>第三个版本</h1>
+<h1 id="第三个版本">第三个版本</h1>
 <p>虽然有了进度信息，但是统计速度太慢了，第三个版本将使用<code>goroutine</code>并行统计文件大小。</p>
 <h2 id="思路-v3"><a class="header-anchor" href="#思路-v3">¶</a>思路</h2>
 <p>统计慢，无非在于<code>walkDir</code>函数并不是并行的，那么可以创建<code>goroutine</code>来调用<code>walkDir</code>。<br>
@@ -2562,7 +2659,7 @@
 <h2 id="实现-v2"><a class="header-anchor" href="#实现-v2">¶</a>实现</h2>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;flag&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;path/filepath&quot;</span><br>	<span class="hljs-string">&quot;sync&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-keyword">var</span> verbose = flag.Bool(<span class="hljs-string">&quot;v&quot;</span>, <span class="hljs-literal">false</span>, <span class="hljs-string">&quot;show verbose progress massage.&quot;</span>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// Determine the initial directory.</span><br>	flag.Parse()<br>	roots := flag.Args()<br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(roots) == <span class="hljs-number">0</span> &#123;<br>		roots = []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;.&quot;</span>&#125;<br>	&#125;<br><br>	<span class="hljs-comment">// Traverse the file tree.</span><br>	fileSizes := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int64</span>)<br>	<span class="hljs-keyword">var</span> n sync.WaitGroup<br>	<span class="hljs-keyword">for</span> _, root := <span class="hljs-keyword">range</span> roots &#123;<br>		n.Add(<span class="hljs-number">1</span>)<br>		<span class="hljs-keyword">go</span> walkDir(root, &amp;n, fileSizes)<br>	&#125;<br><br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		n.Wait()<br>		<span class="hljs-built_in">close</span>(fileSizes)<br>	&#125;()<br><br>	<span class="hljs-comment">// Prints the result periodically.</span><br>	<span class="hljs-keyword">var</span> ticker *time.Ticker<br>	<span class="hljs-keyword">var</span> tick &lt;-<span class="hljs-keyword">chan</span> time.Time<br>	<span class="hljs-keyword">if</span> *verbose &#123;<br>		ticker = time.NewTicker(<span class="hljs-number">500</span> * time.Millisecond)<br>		tick = ticker.C<br>	&#125;<br>	<span class="hljs-keyword">var</span> nfiles, nbytes <span class="hljs-type">int64</span><br>loop:<br>	<span class="hljs-keyword">for</span> &#123;<br>		<span class="hljs-keyword">select</span> &#123;<br>		<span class="hljs-keyword">case</span> &lt;-tick:<br>			printDiskUage(nfiles, nbytes)<br>		<span class="hljs-keyword">case</span> size, ok := &lt;-fileSizes:<br>			<span class="hljs-keyword">if</span> !ok &#123;<br>				<span class="hljs-keyword">break</span> loop<br>			&#125;<br>			nfiles++<br>			nbytes += size<br>		&#125;<br>	&#125;<br>	printDiskUage(nfiles, nbytes)<br>	<span class="hljs-keyword">if</span> *verbose &#123;<br>		ticker.Stop()<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">printDiskUage</span><span class="hljs-params">(nfiles, nbytes <span class="hljs-type">int64</span>)</span></span> &#123;<br>	fmt.Printf(<span class="hljs-string">&quot;%d files, %.1f GB.\n&quot;</span>, nfiles, <span class="hljs-type">float64</span>(nbytes)/<span class="hljs-number">1e9</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">walkDir</span><span class="hljs-params">(dir <span class="hljs-type">string</span>, n *sync.WaitGroup, fileSizes <span class="hljs-keyword">chan</span>&lt;- <span class="hljs-type">int64</span>)</span></span> &#123;<br>	<span class="hljs-keyword">defer</span> n.Done()<br>	<span class="hljs-keyword">for</span> _, entry := <span class="hljs-keyword">range</span> dirents(dir) &#123;<br>		<span class="hljs-keyword">if</span> entry.IsDir() &#123;<br>			n.Add(<span class="hljs-number">1</span>)<br>			subDir := filepath.Join(dir, entry.Name())<br>			<span class="hljs-keyword">go</span> walkDir(subDir, n, fileSizes)<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			fileInfo, err := entry.Info()<br>			<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>				fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;du3: %v\n&quot;</span>, err)<br>				<span class="hljs-keyword">return</span><br>			&#125;<br>			fileSizes &lt;- fileInfo.Size()<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-keyword">var</span> sema = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>&#123;&#125;, <span class="hljs-number">20</span>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">dirents</span><span class="hljs-params">(dir <span class="hljs-type">string</span>)</span></span> []os.DirEntry &#123;<br>	<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123; &lt;-sema &#125;()<br>	sema &lt;- <span class="hljs-keyword">struct</span>&#123;&#125;&#123;&#125;<br>	entries, err := os.ReadDir(dir)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;du3: %v\n&quot;</span>, err)<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>	&#125;<br>	<span class="hljs-keyword">return</span> entries<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <p>如果文件过多，程序会创建成千上万个<code>goroutine</code>，过于并行也不是一件好事情，那么可以使用带缓存的<code>sema channel</code>来对<code>dirents</code>函数进行限制，代码中同时存在的<code>goroutine</code>为20个。</p>
-<h1>练习</h1>
+<h1 id="练习">练习</h1>
 <p><strong>练习 8.9：</strong> 编写一个du工具，每隔一段时间将root目录下的目录大小计算并显示出来。<br>
 解：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;path/filepath&quot;</span><br>	<span class="hljs-string">&quot;sync&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> dir <span class="hljs-keyword">struct</span> &#123;<br>	id   <span class="hljs-type">int</span><br>	size <span class="hljs-type">int64</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// Determine the initial directory.</span><br>	roots := os.Args[<span class="hljs-number">1</span>:]<br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(roots) == <span class="hljs-number">0</span> &#123;<br>		roots = []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;.&quot;</span>&#125;<br>	&#125;<br><br>	<span class="hljs-comment">// Traverse the file tree.</span><br>	fileSizes := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> dir)<br>	<span class="hljs-keyword">var</span> n sync.WaitGroup<br>	<span class="hljs-keyword">for</span> id, root := <span class="hljs-keyword">range</span> roots &#123;<br>		n.Add(<span class="hljs-number">1</span>)<br>		<span class="hljs-keyword">go</span> walkDir(root, id, &amp;n, fileSizes)<br>	&#125;<br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		n.Wait()<br>		<span class="hljs-built_in">close</span>(fileSizes)<br>	&#125;()<br><br>	<span class="hljs-comment">// Print the result periodically.</span><br>	ticker := time.NewTicker(<span class="hljs-number">500</span> * time.Millisecond)<br>	nfiles := <span class="hljs-built_in">make</span>([]<span class="hljs-type">int64</span>, <span class="hljs-built_in">len</span>(roots))<br>	nbytes := <span class="hljs-built_in">make</span>([]<span class="hljs-type">int64</span>, <span class="hljs-built_in">len</span>(roots))<br>loop:<br>	<span class="hljs-keyword">for</span> &#123;<br>		<span class="hljs-keyword">select</span> &#123;<br>		<span class="hljs-keyword">case</span> &lt;-ticker.C:<br>			printDiskUsage(roots, nfiles, nbytes)<br>		<span class="hljs-keyword">case</span> dir, ok := &lt;-fileSizes:<br>			<span class="hljs-keyword">if</span> !ok &#123;<br>				<span class="hljs-keyword">break</span> loop<br>			&#125;<br>			nfiles[dir.id]++<br>			nbytes[dir.id] += dir.size<br>		&#125;<br>	&#125;<br>	printDiskUsage(roots, nfiles, nbytes)<br>	ticker.Stop()<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">printDiskUsage</span><span class="hljs-params">(roots []<span class="hljs-type">string</span>, nfiles, nbytes []<span class="hljs-type">int64</span>)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> id, root := <span class="hljs-keyword">range</span> roots &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;%d files, %.1fGB in %s.\n&quot;</span>, nfiles[id], <span class="hljs-type">float64</span>(nbytes[id])/<span class="hljs-number">1e9</span>, root)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">walkDir</span><span class="hljs-params">(d <span class="hljs-type">string</span>, id <span class="hljs-type">int</span>, n *sync.WaitGroup, fileSizes <span class="hljs-keyword">chan</span>&lt;- dir)</span></span> &#123;<br>	<span class="hljs-keyword">defer</span> n.Done()<br>	<span class="hljs-keyword">for</span> _, entry := <span class="hljs-keyword">range</span> dirents(d) &#123;<br>		<span class="hljs-keyword">if</span> entry.IsDir() &#123;<br>			n.Add(<span class="hljs-number">1</span>)<br>			subDir := filepath.Join(d, entry.Name())<br>			<span class="hljs-keyword">go</span> walkDir(subDir, id, n, fileSizes)<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			fileInfo, err := entry.Info()<br>			<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>				fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;du: %v&quot;</span>, err)<br>				<span class="hljs-keyword">return</span><br>			&#125;<br>			fileSizes &lt;- dir&#123;id, fileInfo.Size()&#125;<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">// sema is a counting semaphore for limiting concurrency in dirents.</span><br><span class="hljs-keyword">var</span> sema = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>&#123;&#125;, <span class="hljs-number">20</span>)<br><br><span class="hljs-comment">// dirents returns the entries of directory dir.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">dirents</span><span class="hljs-params">(dir <span class="hljs-type">string</span>)</span></span> []os.DirEntry &#123;<br>	<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123; &lt;-sema &#125;()<br>	sema &lt;- <span class="hljs-keyword">struct</span>&#123;&#125;&#123;&#125;<br>	entries, err := os.ReadDir(dir)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;du: %v\n&quot;</span>, err)<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>	&#125;<br>	<span class="hljs-keyword">return</span> entries<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -2648,9 +2745,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -2803,10 +2912,11 @@
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -2866,7 +2976,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -2877,10 +3043,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -2892,6 +3064,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -2905,7 +3079,7 @@
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

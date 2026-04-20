@@ -63,7 +63,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -98,7 +98,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -133,7 +133,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -182,6 +182,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -207,6 +310,8 @@
   </div>
 </div>
 
+
+
 </div>
 
   </header>
@@ -223,7 +328,7 @@
                 
 
 <div class="text-center tagcloud">
-  <a href="/tags/Elasticsearch/" style="font-size: 15px; color: #bbe">Elasticsearch</a> <a href="/tags/JVM/" style="font-size: 16.15px; color: #b1b6ea">JVM</a> <a href="/tags/Kibana/" style="font-size: 15px; color: #bbe">Kibana</a> <a href="/tags/Spring/" style="font-size: 15px; color: #bbe">Spring</a> <a href="/tags/ai/" style="font-size: 15px; color: #bbe">ai</a> <a href="/tags/air/" style="font-size: 15px; color: #bbe">air</a> <a href="/tags/algorithm/" style="font-size: 20.77px; color: #87a2d9">algorithm</a> <a href="/tags/apt/" style="font-size: 15px; color: #bbe">apt</a> <a href="/tags/docker/" style="font-size: 21.92px; color: #7c9dd5">docker</a> <a href="/tags/dtm/" style="font-size: 24.23px; color: #6793cc">dtm</a> <a href="/tags/elasticsearch/" style="font-size: 15px; color: #bbe">elasticsearch</a> <a href="/tags/elk/" style="font-size: 15px; color: #bbe">elk</a> <a href="/tags/gin/" style="font-size: 26.54px; color: #5289c4">gin</a> <a href="/tags/go/" style="font-size: 30px; color: #337ab7">go</a> <a href="/tags/go-micro/" style="font-size: 18.46px; color: #9cace1">go-micro</a> <a href="/tags/go-stash/" style="font-size: 15px; color: #bbe">go-stash</a> <a href="/tags/go-zero/" style="font-size: 16.15px; color: #b1b6ea">go-zero</a> <a href="/tags/gorm/" style="font-size: 20.77px; color: #87a2d9">gorm</a> <a href="/tags/grpc/" style="font-size: 25.38px; color: #5d8ec8">grpc</a> <a href="/tags/harbor/" style="font-size: 15px; color: #bbe">harbor</a> <a href="/tags/http/" style="font-size: 15px; color: #bbe">http</a> <a href="/tags/java/" style="font-size: 27.69px; color: #4884bf">java</a> <a href="/tags/java%EF%BC%8CRedis/" style="font-size: 15px; color: #bbe">java，Redis</a> <a href="/tags/java%EF%BC%8Cjava%E5%9F%BA%E7%A1%80/" style="font-size: 15px; color: #bbe">java，java基础</a> <a href="/tags/java%EF%BC%8Cspring-boot/" style="font-size: 15px; color: #bbe">java，spring boot</a> <a href="/tags/java%EF%BC%8Cspring-cloud/" style="font-size: 21.92px; color: #7c9dd5">java，spring cloud</a> <a href="/tags/java%EF%BC%8C%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 15px; color: #bbe">java，多线程</a> <a href="/tags/k8s/" style="font-size: 20.77px; color: #87a2d9">k8s</a> <a href="/tags/kafka/" style="font-size: 17.31px; color: #a6b1e6">kafka</a> <a href="/tags/kibana/" style="font-size: 15px; color: #bbe">kibana</a> <a href="/tags/logrus/" style="font-size: 23.08px; color: #7298d0">logrus</a> <a href="/tags/mapstruct/" style="font-size: 15px; color: #bbe">mapstruct</a> <a href="/tags/micro/" style="font-size: 15px; color: #bbe">micro</a> <a href="/tags/mysql/" style="font-size: 16.15px; color: #b1b6ea">mysql</a> <a href="/tags/nacos/" style="font-size: 15px; color: #bbe">nacos</a> <a href="/tags/nfs/" style="font-size: 15px; color: #bbe">nfs</a> <a href="/tags/other/" style="font-size: 15px; color: #bbe">other</a> <a href="/tags/protobuf/" style="font-size: 15px; color: #bbe">protobuf</a> <a href="/tags/protoc/" style="font-size: 15px; color: #bbe">protoc</a> <a href="/tags/rabbitmq/" style="font-size: 18.46px; color: #9cace1">rabbitmq</a> <a href="/tags/redis/" style="font-size: 19.62px; color: #91a7dd">redis</a> <a href="/tags/spring-test/" style="font-size: 15px; color: #bbe">spring test</a> <a href="/tags/ssl-tls/" style="font-size: 15px; color: #bbe">ssl/tls</a> <a href="/tags/%E3%80%90java%E3%80%91/" style="font-size: 17.31px; color: #a6b1e6">【java】</a> <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" style="font-size: 24.23px; color: #6793cc">分布式事务</a> <a href="/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" style="font-size: 15px; color: #bbe">单元测试</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 18.46px; color: #9cace1">微服务</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" style="font-size: 15px; color: #bbe">构建开发环境</a> <a href="/tags/%E6%A1%86%E6%9E%B6/" style="font-size: 15px; color: #bbe">框架</a> <a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 16.15px; color: #b1b6ea">缓存</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 28.85px; color: #3d7fbb">读书笔记</a>
+  <a href="/tags/Elasticsearch/" style="font-size: 15px; color: #bbe">Elasticsearch</a> <a href="/tags/JVM/" style="font-size: 15px; color: #bbe">JVM</a> <a href="/tags/Kibana/" style="font-size: 15px; color: #bbe">Kibana</a> <a href="/tags/Spring/" style="font-size: 15px; color: #bbe">Spring</a> <a href="/tags/ai/" style="font-size: 15px; color: #bbe">ai</a> <a href="/tags/air/" style="font-size: 15px; color: #bbe">air</a> <a href="/tags/algorithm/" style="font-size: 20.77px; color: #87a2d9">algorithm</a> <a href="/tags/apt/" style="font-size: 15px; color: #bbe">apt</a> <a href="/tags/docker/" style="font-size: 21.92px; color: #7c9dd5">docker</a> <a href="/tags/dtm/" style="font-size: 24.23px; color: #6793cc">dtm</a> <a href="/tags/elasticsearch/" style="font-size: 15px; color: #bbe">elasticsearch</a> <a href="/tags/elk/" style="font-size: 15px; color: #bbe">elk</a> <a href="/tags/gin/" style="font-size: 26.54px; color: #5289c4">gin</a> <a href="/tags/go/" style="font-size: 30px; color: #337ab7">go</a> <a href="/tags/go-micro/" style="font-size: 18.46px; color: #9cace1">go-micro</a> <a href="/tags/go-stash/" style="font-size: 15px; color: #bbe">go-stash</a> <a href="/tags/go-zero/" style="font-size: 16.15px; color: #b1b6ea">go-zero</a> <a href="/tags/gorm/" style="font-size: 20.77px; color: #87a2d9">gorm</a> <a href="/tags/grpc/" style="font-size: 25.38px; color: #5d8ec8">grpc</a> <a href="/tags/harbor/" style="font-size: 15px; color: #bbe">harbor</a> <a href="/tags/http/" style="font-size: 15px; color: #bbe">http</a> <a href="/tags/java/" style="font-size: 27.69px; color: #4884bf">java</a> <a href="/tags/java%EF%BC%8CRedis/" style="font-size: 15px; color: #bbe">java，Redis</a> <a href="/tags/java%EF%BC%8Cjava%E5%9F%BA%E7%A1%80/" style="font-size: 15px; color: #bbe">java，java基础</a> <a href="/tags/java%EF%BC%8Cspring-boot/" style="font-size: 15px; color: #bbe">java，spring boot</a> <a href="/tags/java%EF%BC%8Cspring-cloud/" style="font-size: 21.92px; color: #7c9dd5">java，spring cloud</a> <a href="/tags/java%EF%BC%8C%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 15px; color: #bbe">java，多线程</a> <a href="/tags/k8s/" style="font-size: 20.77px; color: #87a2d9">k8s</a> <a href="/tags/kafka/" style="font-size: 17.31px; color: #a6b1e6">kafka</a> <a href="/tags/kibana/" style="font-size: 15px; color: #bbe">kibana</a> <a href="/tags/logrus/" style="font-size: 23.08px; color: #7298d0">logrus</a> <a href="/tags/mapstruct/" style="font-size: 15px; color: #bbe">mapstruct</a> <a href="/tags/micro/" style="font-size: 15px; color: #bbe">micro</a> <a href="/tags/mysql/" style="font-size: 16.15px; color: #b1b6ea">mysql</a> <a href="/tags/nacos/" style="font-size: 15px; color: #bbe">nacos</a> <a href="/tags/nfs/" style="font-size: 15px; color: #bbe">nfs</a> <a href="/tags/other/" style="font-size: 15px; color: #bbe">other</a> <a href="/tags/protobuf/" style="font-size: 15px; color: #bbe">protobuf</a> <a href="/tags/protoc/" style="font-size: 15px; color: #bbe">protoc</a> <a href="/tags/rabbitmq/" style="font-size: 18.46px; color: #9cace1">rabbitmq</a> <a href="/tags/redis/" style="font-size: 19.62px; color: #91a7dd">redis</a> <a href="/tags/spring-test/" style="font-size: 15px; color: #bbe">spring test</a> <a href="/tags/ssl-tls/" style="font-size: 15px; color: #bbe">ssl/tls</a> <a href="/tags/%E3%80%90java%E3%80%91/" style="font-size: 17.31px; color: #a6b1e6">【java】</a> <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" style="font-size: 24.23px; color: #6793cc">分布式事务</a> <a href="/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" style="font-size: 15px; color: #bbe">单元测试</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 18.46px; color: #9cace1">微服务</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" style="font-size: 15px; color: #bbe">构建开发环境</a> <a href="/tags/%E6%A1%86%E6%9E%B6/" style="font-size: 15px; color: #bbe">框架</a> <a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 16.15px; color: #b1b6ea">缓存</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 28.85px; color: #3d7fbb">读书笔记</a>
 </div>
 
               </div>
@@ -290,10 +395,11 @@
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>

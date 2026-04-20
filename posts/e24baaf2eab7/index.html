@@ -77,7 +77,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -112,7 +112,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -147,7 +147,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -196,6 +196,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -233,7 +336,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.3k 字
+          8.2k 字
         
       </span>
     
@@ -244,20 +347,12 @@
         
         
         
-          28 分钟
+          69 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -269,6 +364,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -2525,7 +2622,7 @@
             
               <div class="markdown-body">
                 
-                <h1>基本信息</h1>
+                <h1 id="基本信息">基本信息</h1>
 <h2 id="定义"><a class="header-anchor" href="#定义">¶</a>定义</h2>
 <p>如果说<code>goroutine</code>是go语言的并发体，那么<code>Channels</code>是它们之间的通信机制。<br>
 一个<code>goroutine</code>可以通过<code>Channels</code>发送信息给另一个<code>goroutine</code>。<br>
@@ -2564,7 +2661,7 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">ch := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>, <span class="hljs-number">0</span>) <span class="hljs-comment">// unbuffered channel</span><br></code></pre></td></tr></table></figure>
 <p>如果容量大于0，则是带缓存<code>channel</code>。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">ch := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>, <span class="hljs-number">3</span>) <span class="hljs-comment">// buffered channel with capacity 3</span><br></code></pre></td></tr></table></figure>
-<h1>8.4.1. 不带缓存的Channels</h1>
+<h1 id="8.4.1.-不带缓存的channels">8.4.1. 不带缓存的Channels</h1>
 <p>无缓存<code>channel</code>的发送操作会导致发送者<code>goroutine</code>阻塞，直到另一个<code>goroutine</code>在相同的<code>channel</code>上执行接收操作，并且发送的值通过<code>channel</code>成功传输之后，两个<code>goroutine</code>可以继续执行后面的语句。<br>
 反之，如果接收操作先发生，那么接收者<code>goroutine</code>也将阻塞，直到另一个<code>goroutine</code>在相同的<code>channel</code>上执行发送操作。</p>
 <p>无缓存<code>channel</code>的发送和接收操作会导致两个<code>goroutine</code>做一次同步操作，因此无缓存<code>channel</code>也被称为<code>同步channel</code></p>
@@ -2579,7 +2676,7 @@
 <p><strong>练习 8.3：</strong> 在netcat3例子中，conn虽然是一个interface类型的值，但是其底层真实类型是<code>*net.TCPConn</code>，代表一个TCP链接。一个TCP链接有读和写两个部分，可以使用CloseRead和CloseWrite方法分别关闭它们。修改netcat3的主goroutine代码，只关闭网络链接中写的部分，这样的话后台goroutine可以在标准输入被关闭后继续打印从reverb1服务器传回的数据。（要在reverb2服务器也完成同样的功能是比较困难的；参考练习 8.4。）<br>
 解：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;io&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;net&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	conn, err := net.Dial(<span class="hljs-string">&quot;tcp&quot;</span>, <span class="hljs-string">&quot;localhost:8000&quot;</span>)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br><br>	tcpConn := conn.(*net.TCPConn)<br>	done := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>&#123;&#125;)<br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		io.Copy(os.Stdout, conn)<br>		log.Println(<span class="hljs-string">&quot;done&quot;</span>)<br>		done &lt;- <span class="hljs-keyword">struct</span>&#123;&#125;&#123;&#125;<br>	&#125;()<br><br>	mustCopy(conn, os.Stdin)<br><br>	tcpConn.CloseWrite()<br>	&lt;-done<br>	tcpConn.CloseRead()<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mustCopy</span><span class="hljs-params">(dst io.Writer, src io.Reader)</span></span> &#123;<br>	<span class="hljs-keyword">if</span> _, err := io.Copy(dst, src); err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>8.4.2. 串联的Channels(Pipeline)</h1>
+<h1 id="8.4.2.-串联的channels(pipeline)">8.4.2. 串联的Channels(Pipeline)</h1>
 <p><code>Channels</code>也可以用于将多个<code>goroutine</code>链接在一起，一个<code>Channels</code>的输出作为下一个<code>Channels</code>的输入。这种串联的<code>Channels</code>就是所谓的管道（<code>pipeline</code>）。<br>
 下面的程序用两个channels将三个goroutine串联起来:</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	natruals := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>)<br>	squares := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>)<br><br>	<span class="hljs-comment">// Counter</span><br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">for</span> x := <span class="hljs-number">0</span>; ; x++ &#123;<br>			natruals &lt;- x<br>		&#125;<br>	&#125;()<br><br>	<span class="hljs-comment">// Squarer</span><br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">for</span> &#123;<br>			x := &lt;-natruals<br>			squares &lt;- x * x<br>		&#125;<br>	&#125;()<br><br>	<span class="hljs-comment">// Printer (in main goroutine)</span><br>	<span class="hljs-keyword">for</span> &#123;<br>		fmt.Println(&lt;-squares)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -2602,7 +2699,7 @@
 与关闭已打开文件的操作不同，文件在不使用时都要调用其close方法进行关闭。</p>
 <p><strong>重复关闭同一个channel都会导致panic异常。</strong><br>
 <strong>关闭nil值的channel都会导致panic异常。</strong></p>
-<h1>8.4.3. 单方向的Channel</h1>
+<h1 id="8.4.3.-单方向的channel">8.4.3. 单方向的Channel</h1>
 <p>将上述例子中的三个<code>goroutine</code>拆分成三个小函数，使用两个<code>channel</code>连接。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">counter</span><span class="hljs-params">(out <span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>)</span></span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">squarer</span><span class="hljs-params">(out, in <span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>)</span></span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">printer</span><span class="hljs-params">(in <span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>)</span></span>”<br></code></pre></td></tr></table></figure>
 <p>每个函数都有相同类型的参数<code>chan int</code>，但是为了函数的健壮性，<code>out</code>只输出，<code>in</code>只输入。<br>
@@ -2618,7 +2715,7 @@ Go语言的类型系统提供了单方向的<code>channel</code>类型，分别�
 调用<code>printer(squares)</code>也会进行相似的隐式转换，这一次是转换为<code>&lt;-chan int</code>类型只接收型的<code>channel</code>。<br>
 <strong>任何双向<code>channel</code>向单向<code>channel</code>变量的赋值操作都将导致该隐式转换。</strong><br>
 <strong>注意得是，并没有单向<code>channel</code>(如 chan&lt;-int)转换成双向类型的<code>channel</code>(chan int).</strong></p>
-<h1>8.4.4. 带缓存的Channels</h1>
+<h1 id="8.4.4.-带缓存的channels">8.4.4. 带缓存的Channels</h1>
 <p>带缓存的<code>channel</code>内部持有一个队列。<br>
 队列的最大容量是定义<code>channel</code>时的第二个参数：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">ch = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">string</span>, <span class="hljs-number">3</span>)<br></code></pre></td></tr></table></figure>
@@ -2633,7 +2730,7 @@ Go语言的类型系统提供了单方向的<code>channel</code>类型，分别�
 <p>此时，缓存队列不是满的，也不是空的，<code>channel</code>也不阻塞，可以进行发送或接收操作。<br>
 也就是说，有缓存<code>channel</code>实际上是解耦了<code>发送</code>和<code>接收</code>操作。<br>
 示意图如下：<br>
-<img src="./images/1695570577915.png" srcset="/images/loading.gif" lazyload alt="有缓存channel的发送和接收操作"></p>
+<img src="./images/1695570577915.png" srcset="/img/loading.gif" lazyload alt="有缓存channel的发送和接收操作"></p>
 <p>channel内部缓存容量：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">fmt.Println(<span class="hljs-built_in">cap</span>(ch)) <span class="hljs-comment">// &quot;3”</span><br></code></pre></td></tr></table></figure>
 <p>channel内部缓存队列中有效元素的个数:</p>
@@ -2644,7 +2741,7 @@ Go语言的类型系统提供了单方向的<code>channel</code>类型，分别�
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mirroredQuery</span><span class="hljs-params">()</span></span> <span class="hljs-type">string</span> &#123;<br>    responses := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">string</span>, <span class="hljs-number">3</span>)<br>    <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123; responses &lt;- request(<span class="hljs-string">&quot;asia.gopl.io&quot;</span>) &#125;()<br>    <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123; responses &lt;- request(<span class="hljs-string">&quot;europe.gopl.io&quot;</span>) &#125;()<br>    <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123; responses &lt;- request(<span class="hljs-string">&quot;americas.gopl.io&quot;</span>) &#125;()<br>    <span class="hljs-keyword">return</span> &lt;-responses <span class="hljs-comment">// return the quickest response</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">request</span><span class="hljs-params">(hostname <span class="hljs-type">string</span>)</span></span> (response <span class="hljs-type">string</span>) &#123; <span class="hljs-comment">/* ... */</span> &#125;<br></code></pre></td></tr></table></figure>
 <p>如果使用了无缓存的<code>channel</code>，那么两个慢的<code>goroutine</code>将会因没有接收者而永远阻塞，这种情况称为<code>goroutine泄露</code>。<br>
 与垃圾回收机制不同，泄露的<code>goroutine</code>并不会被自动回收，因此确保每个不再需要的<code>gotoutinr</code>能正常退出是很重要的。</p>
-<h1>无缓存和带缓存的channel的选择</h1>
+<h1 id="无缓存和带缓存的channel的选择">无缓存和带缓存的channel的选择</h1>
 <p>无缓存和带缓存的channel选择其实也是带缓存<code>channel</code>容量大小的选择。</p>
 <p>无缓存channel能保证每个发送操作与相应的接收操作同步。<br>
 带缓存channel中，发送和接收操作是解耦的。</p>
@@ -2735,9 +2832,21 @@ Go语言的类型系统提供了单方向的<code>channel</code>类型，分别�
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -2890,10 +2999,11 @@ Go语言的类型系统提供了单方向的<code>channel</code>类型，分别�
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -2953,7 +3063,63 @@ Go语言的类型系统提供了单方向的<code>channel</code>类型，分别�
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -2964,10 +3130,16 @@ Go语言的类型系统提供了单方向的<code>channel</code>类型，分别�
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -2979,6 +3151,8 @@ Go语言的类型系统提供了单方向的<code>channel</code>类型，分别�
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -2992,7 +3166,7 @@ Go语言的类型系统提供了单方向的<code>channel</code>类型，分别�
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

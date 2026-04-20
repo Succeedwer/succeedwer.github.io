@@ -82,7 +82,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -117,7 +117,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -152,7 +152,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -201,6 +201,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -238,7 +341,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.4k 字
+          12k 字
         
       </span>
     
@@ -249,20 +352,12 @@
         
         
         
-          54 分钟
+          99 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -274,6 +369,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -307,7 +404,7 @@
         aria-expanded="true"
       >
         java
-        <span class="list-group-count">(42)</span>
+        <span class="list-group-count">(41)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -322,19 +419,10 @@
     
       
       
-        <a href="/posts/1646708a3955/" title="JVM哪些事儿：OOM解毒大全"
+        <a href="/posts/5ff5abe6abf1/" title="JVM哪些事儿：OOM解毒大全"
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">JVM哪些事儿：OOM解毒大全</span>
-        </a>
-      
-    
-      
-      
-        <a href="/posts/582a9cc5bfc6/" title="JVM哪些事儿：起始"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">JVM哪些事儿：起始</span>
         </a>
       
     
@@ -366,7 +454,7 @@
     
       
       
-        <a href="/posts/14b3d3a44bab/" title="Mapstruct大法：从凹到凸"
+        <a href="/posts/7b085037866b/" title="Mapstruct大法：从凹到凸"
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">Mapstruct大法：从凹到凸</span>
@@ -1034,7 +1122,7 @@
             
               <div class="markdown-body">
                 
-                <h1>1. 问题：Vector和ArrayList区别？</h1>
+                <h1 id="1.-问题：vector和arraylist区别？">1. 问题：Vector和ArrayList区别？</h1>
 <ul>
 <li>相同点
 <ul>
@@ -1049,7 +1137,7 @@
 </ul>
 </li>
 </ul>
-<h1>2. 问题：ArrayList和LinkedList区别？</h1>
+<h1 id="2.-问题：arraylist和linkedlist区别？">2. 问题：ArrayList和LinkedList区别？</h1>
 <ul>
 <li>相同点
 <ul>
@@ -1078,15 +1166,15 @@
 </ul>
 </li>
 </ul>
-<h1>3. 问题：ArrayList如何进行实现自动增长(扩容)？</h1>
+<h1 id="3.-问题：arraylist如何进行实现自动增长(扩容)？">3. 问题：ArrayList如何进行实现自动增长(扩容)？</h1>
 <ol>
 <li>ArrayList扩容的实质是进行数组拷贝，将原本的数组元素拷贝到新的数组中。<br>
-<img src="/posts/2c488b803b42/1620719761060.png" srcset="/images/loading.gif" lazyload alt="1620719761060.png"></li>
+<img src="/posts/2c488b803b42/1620719761060.png" srcset="/img/loading.gif" lazyload alt="1620719761060.png"></li>
 <li>每次进行扩容时，新数组的容量是原本的1.5倍。<br>
-<img src="/posts/2c488b803b42/1620719549286.png" srcset="/images/loading.gif" lazyload alt="1620719549286.png"><br>
+<img src="/posts/2c488b803b42/1620719549286.png" srcset="/img/loading.gif" lazyload alt="1620719549286.png"><br>
 ps: 使用ArrayList应该避免数组扩容影响性能，可以创建时指定容量，以避免发生扩容。默认容量是10。</li>
 </ol>
-<h1>4. 问题：使用Araarys.asList()进行数组转集合，有什么需要注意的？</h1>
+<h1 id="4.-问题：使用araarys.aslist()进行数组转集合，有什么需要注意的？">4. 问题：使用Araarys.asList()进行数组转集合，有什么需要注意的？</h1>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">String[] arr = &#123;<span class="hljs-string">&quot;A&quot;</span>, <span class="hljs-string">&quot;B&quot;</span>, <span class="hljs-string">&quot;C&quot;</span>&#125;;<br><span class="hljs-type">List</span> <span class="hljs-variable">list</span> <span class="hljs-operator">=</span> Arrays.asList(arr);<br>list.add(<span class="hljs-string">&quot;D&quot;</span>);<br>System.out.println(list); <span class="hljs-comment">//java.lang.UnsupportedOperationException</span><br>System.out.println(list.get(<span class="hljs-number">1</span>));<br></code></pre></td></tr></table></figure>
 <ol>
 <li>
@@ -1099,7 +1187,7 @@ ps: 使用ArrayList应该避免数组扩容影响性能，可以创建时指定�
  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">int</span>[] arr1 = &#123;<span class="hljs-number">11</span>, <span class="hljs-number">22</span>, <span class="hljs-number">33</span>, <span class="hljs-number">44</span>&#125;;<br><span class="hljs-type">List</span> <span class="hljs-variable">list1</span> <span class="hljs-operator">=</span> Arrays.asList(arr1);<br>System.out.println(list1);<span class="hljs-comment">//[[I@e2534b2a]</span><br></code></pre></td></tr></table></figure>
 </li>
 </ol>
-<h1>5. 问题： HashMap和Hashtable的区别？</h1>
+<h1 id="5.-问题：-hashmap和hashtable的区别？">5. 问题： HashMap和Hashtable的区别？</h1>
 <ul>
 <li>相同点：
 <ul>
@@ -1114,14 +1202,14 @@ ps: 使用ArrayList应该避免数组扩容影响性能，可以创建时指定�
 </ul>
 </li>
 </ul>
-<h1>6. 问题：HashMap的原理？</h1>
+<h1 id="6.-问题：hashmap的原理？">6. 问题：HashMap的原理？</h1>
 <ol>
 <li>数据结构<br>
 HashMap是双列集合，内部是数组加链表(或红黑树)，1.7时只是数组加链表。<br>
 1.8中，链表节点数大于8，链表就会转换成红黑树，当红黑树节点数少于6，红黑树就会转变成链表。</li>
 <li>插入原理<br>
 流程图如下<br>
-<img src="/posts/2c488b803b42/1620828997797.png" srcset="/images/loading.gif" lazyload alt="1620828997797.png"><br>
+<img src="/posts/2c488b803b42/1620828997797.png" srcset="/img/loading.gif" lazyload alt="1620828997797.png"><br>
 a. 一开始对数组是否为空进行判断，为空就初始化数组。<br>
 b. 通过<code>(n-1)&amp;hash</code>计算存储位置，<code>n</code>为数组长度，<code>hash</code>为录入键值对的<code>key</code>的<code>hash</code>值。<br>
 c. 得出指定位置，判断指定位置是否有数据，如果没有，直接创建节点存储数据。<br>
@@ -1130,7 +1218,7 @@ e. 如果不相同，判断当前节点类型是否为红黑树节点，如果�
 f. 如果不是红黑树节点，遍历当前链表，判断<code>key</code>值，<code>hash</code>值是否与存在的节点的<code>key</code>值，<code>hash</code>值相同；如果相同，替换旧值并替换，如果不相同，创建普通节点并加入链表。<br>
 g. 插入完成后，判断当前总节点数是否大于阈值，如果大于，对数组进行扩容到<code>n*2</code>的大小，即原本数组容量的2倍。</li>
 </ol>
-<h1>7. 问题：1.8后对HashMap进行怎么样的优化，为什么？</h1>
+<h1 id="7.-问题：1.8后对hashmap进行怎么样的优化，为什么？">7. 问题：1.8后对HashMap进行怎么样的优化，为什么？</h1>
 <p>优化：</p>
 <ol>
 <li>数组+链表改成数组+链表(或红黑树)。</li>
@@ -1147,13 +1235,13 @@ g. 插入完成后，判断当前总节点数是否大于阈值，如果大于�
 <li>因为1.7先扩容后插入，会导致链表反转，甚至产生<code>环</code>;而先插入，再扩容，则能避免。</li>
 <li>移位和异或（扰动）做多了，边际效用不大，降低次数能提高效率。</li>
 </ol>
-<h1>8. 问题： HashMap初始化时如何设定初始容量大小？</h1>
+<h1 id="8.-问题：-hashmap初始化时如何设定初始容量大小？">8. 问题： HashMap初始化时如何设定初始容量大小？</h1>
 <p>HashMap默认初始化时，默认容量大小是<code>16</code>，负载因子是<code>0.75</code>，如果手动输入初始容量大小，如10，那么就会进行如下操作：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-title function_">tableSizeFor</span><span class="hljs-params">(<span class="hljs-type">int</span> cap)</span> &#123;<br>	<span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> -<span class="hljs-number">1</span> &gt;&gt;&gt; Integer.numberOfLeadingZeros(cap - <span class="hljs-number">1</span>); <span class="hljs-comment">//对-1进行无符号右移二进制0开头的个数 </span><br>	<span class="hljs-keyword">return</span> (n &lt; <span class="hljs-number">0</span>) ? <span class="hljs-number">1</span> : (n &gt;= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>相当于返回16，那么16就是初始化容量大小，呈16，32，64，128…等比数列规律。</p>
 <p>将<code>-1</code>进行无符号位移，<code>9</code>（10-1）的二进制0开头的个数，得出<code>15</code>，进行<code>+1</code>得到<code>16</code>。而此算法的出的初始容量，必定是2的整数幂。</p>
 <p>为什么这么设计呢？在计算数组下标位置时，<code>(n-1)&amp;hash</code>时，<code>（n-1）</code>刚好是一个低位掩码，<code>&amp;</code>与运算后，高位全部归零，只保留了低位值，其实就相当于取余<code>%</code>运算，但是位运算<code>&amp;</code>更高效。保留下来的低位值必定是数组容量<code>n-1</code>内的值了。</p>
-<h1>9. 问题：HashMap的哈希函数式怎么设计的？</h1>
+<h1 id="9.-问题：hashmap的哈希函数式怎么设计的？">9. 问题：HashMap的哈希函数式怎么设计的？</h1>
 <p>源码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-title function_">hash</span><span class="hljs-params">(Object key)</span> &#123;<br>        <span class="hljs-type">int</span> h;<br>        <span class="hljs-keyword">return</span> (key == <span class="hljs-literal">null</span>) ? <span class="hljs-number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="hljs-number">16</span>);<br>    &#125;<br></code></pre></td></tr></table></figure>
 <p>HashMap的<code>hash函数</code>是使用了<code>扰动函数</code>。原因有二：</p>
@@ -1166,7 +1254,7 @@ g. 插入完成后，判断当前总节点数是否大于阈值，如果大于�
 <p>已经知道对<code>key</code>进行<code>hashCode()</code>返回的结果是<code>int</code>类型散列值，<code>int</code>值范围为-232 ~ 231-1，显然40多亿映射空间，很难出现<code>hash碰撞</code>，但是内存也放不下，所以要对它进行取余运算，即<code>&amp;</code>运算，即<code>(n-1)&amp;hash</code>，得到的结果作为下标才能去访问数组。</p>
 <p>HashMap的数组长度必定是2的整数幂，因此进行<code>&amp;</code>与运算时，就能截取出<code>hash</code>的低位值。问题来了，就算散列值分布再分散，只截取后几位，配置可谓是相当严重。如何解决呢？</p>
 <p><code>扰动函数</code>(hash函数)，将<code>key.hashCode()</code>的值无符号向右移动<code>16</code>位再异或，相当于将高半区和低半区做异或<code>^</code>运算。那么就能混合哈希码的高位和地位，以此来加大低位的随机性，而混合后的低位掺杂了高位的部分特征，这样高位的信息也被变相保留下来。</p>
-<h1>10. 问题：HashMap是线程安全的么？</h1>
+<h1 id="10.-问题：hashmap是线程安全的么？">10. 问题：HashMap是线程安全的么？</h1>
 <p>HashMap并非线程安全的，在多线程情况下，1.7会产生死循环，数据丢失以及数据覆盖的问题。1.8中会有数据覆盖的问题。</p>
 <p>解决以下几种方法：</p>
 <ol>
@@ -1177,7 +1265,7 @@ Collection.synchronizedMap是使用Collections集合工具的内部类，通过�
 <li>ConcurrentHashMap<br>
 ConcurrentHashMap使用分段锁，降低锁粒度，让并发度大大提升。</li>
 </ol>
-<h1>11. 问题：ConcurrentHashMap的分段锁实现原理？</h1>
+<h1 id="11.-问题：concurrenthashmap的分段锁实现原理？">11. 问题：ConcurrentHashMap的分段锁实现原理？</h1>
 <p>ConcurrentHashMap成员变量使用<code>volatile</code>关键字修饰，免除了指令重排序，同时保证内存可见性，另外使用<code>CAS操作</code>和<code>synchronized</code>结合实现赋值操作，多线程操作只会锁住当前操作索引的节点。</p>
 <p>如：线程A锁住A节点锁住链表，线程B锁住B节点所在链表，操作互不干涉。</p>
 <ol>
@@ -1187,7 +1275,7 @@ ConcurrentHashMap使用分段锁，降低锁粒度，让并发度大大提升。
 <li>1.7 中使用分段锁<code>ReentrantLock + Segment</code>，相当于一个HashMap分成多段，每一段有一把锁，这样支持多线程访问。锁粒度：基于<code>Segment</code>，包含多个<code>HashEntry</code>。</li>
 <li>1.8中使用<code>CAS + synchronized</code>，锁粒度大大降低，为<code>Node节点</code>。</li>
 </ol>
-<h1>12. 问题：List、Set、Map三个接口的区别以及其常用实现类？</h1>
+<h1 id="12.-问题：list、set、map三个接口的区别以及其常用实现类？">12. 问题：List、Set、Map三个接口的区别以及其常用实现类？</h1>
 <ol>
 <li>List、Set、Map都是Collection结构中的接口类。</li>
 <li>List、Set是单列集合，Map是双列集合。</li>
@@ -1197,7 +1285,7 @@ ConcurrentHashMap使用分段锁，降低锁粒度，让并发度大大提升。
 <li>Set常用实现类为<code>HashSet</code>和<code>TreeSet</code>。</li>
 <li>Map常用实现类为<code>HashMap</code>，<code>TreeMap</code>以及<code>HashMap</code>的子类<code>LinkedHashMap</code>。</li>
 </ol>
-<h1>13. 问题：抽象类与接口的区别？</h1>
+<h1 id="13.-问题：抽象类与接口的区别？">13. 问题：抽象类与接口的区别？</h1>
 <ol>
 <li>抽象类是用于捕捉子类的通用特征的，而接口则是抽象方法的结合。</li>
 <li>抽象类不能实例化，只能作为子类的超类，是被用于创建继承层级里子类的模板，而接口只是一种形式，更像一种约定，无法做任何事。</li>
@@ -1206,7 +1294,7 @@ ConcurrentHashMap使用分段锁，降低锁粒度，让并发度大大提升。
 <li>接口只能有常量(<code>public static final修饰(可省略)</code>)，抽象方法，默认方法(1.8)，静态方法(1.8)，私有方法（1.9），私有静态方法（1.9）。没有构造器。</li>
 <li>一个类只能继承一个抽象类，但能实现多个接口。</li>
 </ol>
-<h1>14. 问题：Java的代理是怎么样的？</h1>
+<h1 id="14.-问题：java的代理是怎么样的？">14. 问题：Java的代理是怎么样的？</h1>
 <p>代理涉及到代理模式，什么是代理模式呢？</p>
 <p><code>代理模式</code>：A给B提供服务(协议)，并由A来控制对B的访问，称作A对B进行代理。代理模式是一种结构型设计模式。</p>
 <p>代理模式角色分为三种：</p>
@@ -1254,7 +1342,7 @@ CGLib动态代理：基于ASM机制实现，通过生成目标对象的子类作
 </ul>
 </li>
 </ol>
-<h1>15. 问题：堆和栈的区别？</h1>
+<h1 id="15.-问题：堆和栈的区别？">15. 问题：堆和栈的区别？</h1>
 <ol>
 <li>数据结构，堆和栈是指数据结构。
 <ul>
@@ -1291,15 +1379,15 @@ CGLib动态代理：基于ASM机制实现，通过生成目标对象的子类作
 </ul>
 </li>
 </ol>
-<h1>16. 问题： 常用的数据结构有什么？</h1>
-<p><img src="/posts/2c488b803b42/1620910771269-1710861431583.png" srcset="/images/loading.gif" lazyload alt="1620910771269.png"></p>
+<h1 id="16.-问题：-常用的数据结构有什么？">16. 问题： 常用的数据结构有什么？</h1>
+<p><img src="/posts/2c488b803b42/1620910771269-1710861431583.png" srcset="/img/loading.gif" lazyload alt="1620910771269.png"></p>
 <p>还有其他的 如串，静态链表等。</p>
-<h1>17. 问题：Java的数据类型有哪些？</h1>
-<p><img src="/posts/2c488b803b42/1620909999864.png" srcset="/images/loading.gif" lazyload alt="1620909999864.png"></p>
+<h1 id="17.-问题：java的数据类型有哪些？">17. 问题：Java的数据类型有哪些？</h1>
+<p><img src="/posts/2c488b803b42/1620909999864.png" srcset="/img/loading.gif" lazyload alt="1620909999864.png"></p>
 <p>enter description here</p>
-<h1>18. 问题：Java常用的设计模式有哪些？</h1>
+<h1 id="18.-问题：java常用的设计模式有哪些？">18. 问题：Java常用的设计模式有哪些？</h1>
 <p>Java设计模式共有23种设计模式。</p>
-<p><img src="/posts/2c488b803b42/1620912198666.png" srcset="/images/loading.gif" lazyload alt="1620912198666.png"></p>
+<p><img src="/posts/2c488b803b42/1620912198666.png" srcset="/img/loading.gif" lazyload alt="1620912198666.png"></p>
 <p>常用的有8种</p>
 <ul>
 <li>单例模式(Singleton)：某个类只能生成一个实例，该类提供了一个全局访问点供外部获取该实例，其拓展是有限多例模式。</li>
@@ -1311,7 +1399,7 @@ CGLib动态代理：基于ASM机制实现，通过生成目标对象的子类作
 <li>装饰者模式(Decorator)：动态的给对象增加一些职责，即增加其额外的功能。</li>
 <li>代理模式(Proxy)：为某对象提供一种代理以控制对该对象的访问。即客户端通过代理间接地访问该对象，从而限制、增强或修改该对象的一些特性。</li>
 </ul>
-<h1>19. 问题：设计模式的六大原则有哪些？</h1>
+<h1 id="19.-问题：设计模式的六大原则有哪些？">19. 问题：设计模式的六大原则有哪些？</h1>
 <ul>
 <li><code>单一职责原则</code>(Single Responsibility Principle)
 <ul>
@@ -1345,7 +1433,7 @@ CGLib动态代理：基于ASM机制实现，通过生成目标对象的子类作
 </ul>
 </li>
 </ul>
-<h1>20. 问题：讲一下单例模式？</h1>
+<h1 id="20.-问题：讲一下单例模式？">20. 问题：讲一下单例模式？</h1>
 <p>单例模式有5种写法，饿汉式，懒汉式，双重检查锁，静态内部类法，枚举法(推荐)。</p>
 <blockquote>
 <p>四大原则：</p>
@@ -1383,8 +1471,8 @@ volatile 有两层语义：可见性 和禁止指令重排序<br>
 因此，Effective Java 推荐尽可能地使用枚举来实现单例。<br>
 <strong>注意：</strong> 除了枚举法之外，都需要额外的工作 (Serializable、transient、readResolve()) 来实现序列化，否则每次反序列化一个序列化对象实例时都会创建一个新的实例。而且还可以使用反射来破坏单例，需要对构造器进行修改，使得创建第二个实例时抛异常。而枚举法除了线程安全，防止反射强行调用构造器，还提供了自动序列化机制。</li>
 </ol>
-<h1>21. 问题：排序算法有哪些？</h1>
-<p><img src="/posts/2c488b803b42/1620920417775.png" srcset="/images/loading.gif" lazyload alt="1620920417775.png"></p>
+<h1 id="21.-问题：排序算法有哪些？">21. 问题：排序算法有哪些？</h1>
+<p><img src="/posts/2c488b803b42/1620920417775.png" srcset="/img/loading.gif" lazyload alt="1620920417775.png"></p>
 <ol>
 <li>
 <p>冒泡算法 时间复杂度O(n2) 空间复杂度O(1)</p>
@@ -1484,9 +1572,21 @@ volatile 有两层语义：可见性 和禁止指令重排序<br>
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -1639,10 +1739,11 @@ volatile 有两层语义：可见性 和禁止指令重排序<br>
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -1702,7 +1803,63 @@ volatile 有两层语义：可见性 和禁止指令重排序<br>
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -1713,10 +1870,16 @@ volatile 有两层语义：可见性 和禁止指令重排序<br>
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -1728,6 +1891,8 @@ volatile 有两层语义：可见性 和禁止指令重排序<br>
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -1741,7 +1906,7 @@ volatile 有两层语义：可见性 和禁止指令重排序<br>
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

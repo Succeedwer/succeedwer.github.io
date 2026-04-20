@@ -81,7 +81,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -116,7 +116,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -151,7 +151,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -200,6 +200,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -237,7 +340,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          616 字
+          3.2k 字
         
       </span>
     
@@ -248,20 +351,12 @@
         
         
         
-          6 分钟
+          27 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -273,6 +368,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -2529,9 +2626,9 @@
             
               <div class="markdown-body">
                 
-                <h1>前言</h1>
+                <h1 id="前言">前言</h1>
 <p>在微服务分布式架构中，服务监控对于维护项目稳定性尤为重要，其中<code>prometheus</code>（普罗米修斯）为业界常用的服务监控框架，还可以使用监控仪表系统<code>grafana</code>对<code>prometheus</code>收集的<code>metrics</code>指标进行归纳、分析、制图、预警等。</p>
-<h1>环境</h1>
+<h1 id="环境">环境</h1>
 <ul>
 <li>Ubuntu 22.04.1 LTS</li>
 <li>Docker 26.1.1</li>
@@ -2539,13 +2636,13 @@
 <li>prom/prometheus 2.53.1</li>
 <li>grafana/grafana 11.1.3</li>
 </ul>
-<h1>部署</h1>
+<h1 id="部署">部署</h1>
 <p><code>docker-compose.yml</code></p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">services:</span><br>  <span class="hljs-attr">prometheus:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">prom/prometheus:latest</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">TZ=Asia/Shanghai</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">/opt/prometheus_docker/conf/prometheus.yml:/etc/prometheus/prometheus.yml</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">prometheus_vol:/prometheus</span><br>    <span class="hljs-attr">command:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;--config.file=/etc/prometheus/prometheus.yml&#x27;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;--storage.tsdb.path=/prometheus&#x27;</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br>    <span class="hljs-attr">user:</span> <span class="hljs-string">root</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-number">9090</span><span class="hljs-string">:9090</span><br><br>  <span class="hljs-attr">grafana:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">grafana/grafana:latest</span><br>    <span class="hljs-attr">hostname:</span> <span class="hljs-string">grafana</span><br>    <span class="hljs-attr">user:</span> <span class="hljs-string">root</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">TZ=Asia/Shanghai</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">grafana_vol:/var/lib/grafana</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;3001:3000&quot;</span><br><br>  <span class="hljs-attr">greet-api:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">wer/greet-api:v1.0.0</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-number">8888</span><span class="hljs-string">:8888</span><br>    <span class="hljs-attr">depends_on:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">greet-rpc</span><br><br>  <span class="hljs-attr">greet-rpc:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">wer/greet-rpc:v1.0.0</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br><br><span class="hljs-attr">volumes:</span><br>  <span class="hljs-attr">prometheus_vol:</span><br>    <span class="hljs-attr">driver:</span> <span class="hljs-string">local</span><br>  <span class="hljs-attr">grafana_vol:</span><br>    <span class="hljs-attr">driver:</span> <span class="hljs-string">local</span><br></code></pre></td></tr></table></figure>
 <p><code>prometheus.yml</code>配置文件：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">global:</span><br>  <span class="hljs-attr">scrape_interval:</span><br>  <span class="hljs-attr">external_labels:</span><br>    <span class="hljs-attr">monitor:</span> <span class="hljs-string">&#x27;codelab-monitor&#x27;</span><br><br><span class="hljs-attr">scrape_configs:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">job_name:</span> <span class="hljs-string">&#x27;prometheus&#x27;</span><br>    <span class="hljs-attr">scrape_interval:</span> <span class="hljs-string">5s</span>  <span class="hljs-comment">#global catch time</span><br>    <span class="hljs-attr">static_configs:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">targets:</span> [<span class="hljs-string">&#x27;127.0.0.1:9090&#x27;</span>]<br><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">job_name:</span> <span class="hljs-string">&#x27;greet-api&#x27;</span><br>    <span class="hljs-attr">static_configs:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">targets:</span> [ <span class="hljs-string">&#x27;greet-api:9101&#x27;</span> ] <span class="hljs-comment"># 注意： 这里是项目的metrics接口的端口</span><br>        <span class="hljs-attr">labels:</span><br>          <span class="hljs-attr">job:</span> <span class="hljs-string">greet-api</span><br>          <span class="hljs-attr">app:</span> <span class="hljs-string">greet-api</span><br>          <span class="hljs-attr">env:</span> <span class="hljs-string">dev</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">job_name:</span> <span class="hljs-string">&#x27;greet-rpc&#x27;</span><br>    <span class="hljs-attr">static_configs:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">targets:</span> [ <span class="hljs-string">&#x27;greet-rpc:9101&#x27;</span> ]<br>        <span class="hljs-attr">labels:</span><br>          <span class="hljs-attr">job:</span> <span class="hljs-string">greet-rpc</span><br>          <span class="hljs-attr">app:</span> <span class="hljs-string">greet-rpc</span><br>          <span class="hljs-attr">env:</span> <span class="hljs-string">dev</span><br></code></pre></td></tr></table></figure>
 <p>其中<code>greet-api</code>和<code>greet-rpc</code>是测试的demo。</p>
-<h1>go-zero集成</h1>
+<h1 id="go-zero集成">go-zero集成</h1>
 <p>go-zero已经集成了jaeger-agent，源码如下：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// SetUp sets up the service.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(sc ServiceConf)</span></span> SetUp() <span class="hljs-type">error</span> &#123;<br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(sc.Log.ServiceName) == <span class="hljs-number">0</span> &#123;<br>		sc.Log.ServiceName = sc.Name<br>	&#125;<br>	<span class="hljs-keyword">if</span> err := logx.SetUp(sc.Log); err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> err<br>	&#125;<br><br>	sc.initMode()<br>	prometheus.StartAgent(sc.Prometheus)<br><br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(sc.Telemetry.Name) == <span class="hljs-number">0</span> &#123;<br>		sc.Telemetry.Name = sc.Name<br>	&#125;<br>	trace.StartAgent(sc.Telemetry)<br>	proc.AddShutdownListener(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		trace.StopAgent()<br>	&#125;)<br><br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(sc.MetricsUrl) &gt; <span class="hljs-number">0</span> &#123;<br>		stat.SetReportWriter(stat.NewRemoteWriter(sc.MetricsUrl))<br>	&#125;<br>	devserver.StartAgent(sc.DevServer)<br><br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-comment">// StartAgent starts a prometheus agent.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">StartAgent</span><span class="hljs-params">(c Config)</span></span> &#123;<br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(c.Host) == <span class="hljs-number">0</span> &#123;<br>		<span class="hljs-keyword">return</span><br>	&#125;<br><br>	once.Do(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		enabled.Set(<span class="hljs-literal">true</span>)<br>		threading.GoSafe(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>			http.Handle(c.Path, promhttp.Handler())<br>			addr := fmt.Sprintf(<span class="hljs-string">&quot;%s:%d&quot;</span>, c.Host, c.Port)<br>			logx.Infof(<span class="hljs-string">&quot;Starting prometheus agent at %s&quot;</span>, addr)<br>			<span class="hljs-keyword">if</span> err := http.ListenAndServe(addr, <span class="hljs-literal">nil</span>); err != <span class="hljs-literal">nil</span> &#123;<br>				logx.Error(err)<br>			&#125;<br>		&#125;)<br>	&#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>可以看出go-zero源码中，创建了一个<code>http</code>的<code>hanlder</code>, 并监听配置文件中的端口。</p>
@@ -2553,10 +2650,10 @@
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment">#Monitoring</span><br><span class="hljs-attr">Prometheus:</span><br>  <span class="hljs-attr">Host:</span> <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span><br>  <span class="hljs-attr">Port:</span> <span class="hljs-number">9101</span><br>  <span class="hljs-attr">Path:</span> <span class="hljs-string">/metrics</span><br></code></pre></td></tr></table></figure>
 <p><code>greet-rpc.yml</code></p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment">#Monitoring</span><br><span class="hljs-attr">Prometheus:</span><br>  <span class="hljs-attr">Host:</span> <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span><br>  <span class="hljs-attr">Port:</span> <span class="hljs-number">9101</span><br>  <span class="hljs-attr">Path:</span> <span class="hljs-string">/metrics</span><br></code></pre></td></tr></table></figure>
-<h1>使用</h1>
+<h1 id="使用">使用</h1>
 <p><code>prometheus</code>的本地web地址：<a target="_blank" rel="noopener" href="http://ip:9090/%EF%BC%8Cip%E4%B8%BA%E9%83%A8%E7%BD%B2%E6%9C%BA%E5%99%A8ip%E3%80%82">http://ip:9090/，ip为部署机器ip。</a></p>
 <p><code>Status</code>=&gt;<code>Targets</code></p>
-<p><img src="/posts/e2cefb55238b/image-20240802005958438.png" srcset="/images/loading.gif" lazyload alt="image-20240802005958438"></p>
+<p><img src="/posts/e2cefb55238b/image-20240802005958438.png" srcset="/img/loading.gif" lazyload alt="image-20240802005958438"></p>
 <p>可以直观看出各个服务的状态。</p>
 <p><code>grafana</code>地址为：<code>http://ip:3001</code>，ip为部署机器ip。</p>
 <p>默认账号密码都是：admin</p>
@@ -2564,16 +2661,16 @@
 <ul>
 <li>prometheus server url：如果在docker中，可以之间使用容器名</li>
 </ul>
-<p><img src="/posts/e2cefb55238b/image-20240802010520057.png" srcset="/images/loading.gif" lazyload alt="image-20240802010520057"></p>
+<p><img src="/posts/e2cefb55238b/image-20240802010520057.png" srcset="/img/loading.gif" lazyload alt="image-20240802010520057"></p>
 <p>配置<code>Dashboards</code>指示版</p>
 <p>这里只是监测cpu信息，如果需要监测其它的信息，可以修改字段。</p>
-<p><img src="/posts/e2cefb55238b/image-20240802011137817.png" srcset="/images/loading.gif" lazyload alt="image-20240802011137817"></p>
+<p><img src="/posts/e2cefb55238b/image-20240802011137817.png" srcset="/img/loading.gif" lazyload alt="image-20240802011137817"></p>
 <p>保存<code>Dashboards</code>后，可以设置预警<code>alerting</code>。</p>
 <p>也可以直接使用自动创建的指示图。</p>
-<p><img src="/posts/e2cefb55238b/image-20240802014021312.png" srcset="/images/loading.gif" lazyload alt="image-20240802014021312"></p>
+<p><img src="/posts/e2cefb55238b/image-20240802014021312.png" srcset="/img/loading.gif" lazyload alt="image-20240802014021312"></p>
 <p>添加数据源，和筛选条件。</p>
-<p><img src="/posts/e2cefb55238b/image-20240802014051126.png" srcset="/images/loading.gif" lazyload alt="image-20240802014051126"></p>
-<h1>引用</h1>
+<p><img src="/posts/e2cefb55238b/image-20240802014051126.png" srcset="/img/loading.gif" lazyload alt="image-20240802014051126"></p>
+<h1 id="引用">引用</h1>
 <p><a target="_blank" rel="noopener" href="https://prometheus.io/docs/guides/cadvisor/#monitoring-docker-container-metrics-using-cadvisor">Monitoring Docker container metrics using cAdvisor | Prometheus</a></p>
 <p><a target="_blank" rel="noopener" href="https://grafana.com/docs/grafana/latest/setup-grafana/installation/docker/">Run Grafana Docker image | Grafana documentation</a></p>
 
@@ -2659,9 +2756,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -2814,10 +2923,11 @@
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -2877,7 +2987,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -2888,10 +3054,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -2903,6 +3075,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -2916,7 +3090,7 @@
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -110,7 +110,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -145,7 +145,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -194,6 +194,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -231,7 +334,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2k 字
+          11k 字
         
       </span>
     
@@ -242,20 +345,12 @@
         
         
         
-          17 分钟
+          92 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -267,6 +362,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -429,14 +526,14 @@
             
               <div class="markdown-body">
                 
-                <h1>环境</h1>
+                <h1 id="环境">环境</h1>
 <ul>
 <li>Ubuntu 22.04.1 LTS</li>
 <li>Docker 26.1.1</li>
 <li>bitnami/kafka 3.7.0</li>
 <li>zookeeper  3.9.2</li>
 </ul>
-<h1>Kafka with Zookeeper</h1>
+<h1 id="kafka-with-zookeeper">Kafka with Zookeeper</h1>
 <p><code>docker-compose.yaml</code></p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">services:</span><br>  <span class="hljs-attr">zookeeper:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">zookeeper:3.9.2</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">zookeeper</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;2181:2181&quot;</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;zookeeper_vol:/data&quot;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;zookeeper_vol:/datalog&quot;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;zookeeper_vol:/logs&quot;</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">ALLOW_ANONYMOUS_LOGIN=yes</span> <span class="hljs-comment"># 是否允许匿名登录</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br><br>  <span class="hljs-attr">kafka:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">bitnami/kafka:3.7.0</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">kafka</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;9092:9092&quot;</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;kafka_vol:/bitnami&quot;</span>  <br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">TZ=CST-8</span> <span class="hljs-comment"># 设置时区</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">KAFKA_CFG_BROKER_ID=0</span> <span class="hljs-comment"># 设置broker id</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">KAFKA_CFG_ADVERTISED_HOST_NAME=kafka</span> <span class="hljs-comment"># 设置域名 可以设置容器名</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181</span> <span class="hljs-comment"># 关联zookeeper</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">KAFKA_CFG_LISTENERS=INTERNAL://:9093,EXTERNAL://:9092</span> <span class="hljs-comment"># 设置监听器 内部访问：9093 外部访问：9092</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">KAFKA_CFG_ADVERTISED_LISTENERS=INTERNAL://kafka:9093,EXTERNAL://172.31.201.147:9092</span> <span class="hljs-comment"># 配置公开监听器</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT</span> <span class="hljs-comment"># 配置监听器协议</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">KAFKA_INTER_BROKER_LISTENER_NAME=INTERNAL</span> <span class="hljs-comment"># 内部访问/集群访问的方式</span><br>    <span class="hljs-attr">depends_on:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">zookeeper</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br><br>  <span class="hljs-attr">kafka-ui:</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">kafka-ui</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">provectuslabs/kafka-ui:latest</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;8080:8080&quot;</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;kafkaui_vol:/etc/kafkaui&quot;</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">DYNAMIC_CONFIG_ENABLED=true</span><br>    <span class="hljs-attr">depends_on:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">kafka</span><br><br><span class="hljs-attr">volumes:</span><br>  <span class="hljs-attr">zookeeper_vol:</span><br>    <span class="hljs-attr">driver:</span> <span class="hljs-string">local</span><br>  <span class="hljs-attr">kafka_vol:</span><br>    <span class="hljs-attr">driver:</span> <span class="hljs-string">local</span><br>  <span class="hljs-attr">kafkaui_vol:</span><br>    <span class="hljs-attr">driver:</span> <span class="hljs-string">local</span><br></code></pre></td></tr></table></figure>
 <p>这里添加了可视化管理<code>kafka-ui</code>。</p>
@@ -480,7 +577,7 @@
 <blockquote>
 <p>Note: You <strong>must</strong> also use your own certificates for SSL. You can mount your Java Key Stores (<code>zookeeper.keystore.jks</code> and <code>zookeeper.truststore.jks</code>) or PEM files (<code>zookeeper.keystore.pem</code>, <code>zookeeper.keystore.key</code> and <code>zookeeper.truststore.pem</code>) into <code>/opt/bitnami/kafka/conf/certs</code>. If client authentication is <code>none</code> or <code>want</code> in Zookeeper, the cert files are optional.</p>
 </blockquote>
-<h1>Kafka with KRaft</h1>
+<h1 id="kafka-with-kraft">Kafka with KRaft</h1>
 <p>在Kafka 2.8之后，引入了基于Raft协议的KRaft模式，支持取消对Zookeeper的依赖。</p>
 <p>Kafka不再依赖外部的zookeeper，能够独立运行。</p>
 <p>不需要从zookeeper读取数据，因此性能得到进一步提升，对于集群的扩展尤为明显。</p>
@@ -526,7 +623,7 @@
 <blockquote>
 <p>目前不支持为listener单独设置SASL/SSL证书。</p>
 </blockquote>
-<h1>Kafka Cluster</h1>
+<h1 id="kafka-cluster">Kafka Cluster</h1>
 <blockquote>
 <p>该配置文件未开放外部端口，如果需要请为每个节点都暴露同一个端口。如19092：9092，29092：9092，注意同步修改KAFKA_CFG_ADVERTISED_LISTENERS。</p>
 </blockquote>
@@ -564,12 +661,12 @@
 <blockquote>
 <p>注意：当使用KRaft模式时，只有第一对user:password生效，因为KRaft还没支持SCRAM机制。</p>
 </blockquote>
-<h1>安装到docker</h1>
+<h1 id="安装到docker">安装到docker</h1>
 <p>执行命令</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 进入该文件目录 一般为项目根目录</span><br>$ <span class="hljs-built_in">cd</span> [project-dir]<br><br><span class="hljs-comment"># 停止容器 如果有启动的话</span><br>$ docker-compose stop<br><br><span class="hljs-comment"># 运行 </span><br><span class="hljs-comment"># -p 项目名，可以指定项目名称，docker用于隔离volume/容器名(如果设置container_name，则container_name为准)</span><br><span class="hljs-comment"># -f 指定docekr-compose.yaml文件，默认时当前目录下的docekr-compose.yaml文件</span><br>$ docker-compose -p [project-name] up -d<br></code></pre></td></tr></table></figure>
-<h1>测试</h1>
+<h1 id="测试">测试</h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">进入容器</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker <span class="hljs-built_in">exec</span> -it kafka /bin/bash</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">进入到脚本目录</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">cd</span> /opt/bitnami/kafka/bin/</span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">创建topic</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">./kafka-topics.sh --create --topic quickstart-events --bootstrap-server localhost:9092</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">输出</span><br>Created topic quickstart-events.<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">查看topic</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">./kafka-topics.sh --describe --topic quickstart-events --bootstrap-server localhost:9092</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">输出</span><br>Topic: quickstart-events        TopicId: GAZca6RUS7a8PvXwCQG-hw PartitionCount: 1       ReplicationFactor: 1    Configs:<br><br>        Topic: quickstart-events        Partition: 0    Leader: 1       Replicas: 1     Isr: 1<br>        <br><span class="hljs-meta prompt_"># </span><span class="language-bash">发送消息</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">./kafka-console-producer.sh --topic quickstart-events --bootstrap-server localhost:9092</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">输入消息</span><br><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">This is my first event</span><br><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">This is my second event</span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">打开另一个窗口</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">接收消息</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">./kafka-console-consumer.sh --topic quickstart-events --from-beginning --bootstrap-server localhost:9092</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">输出</span><br>This is my first event<br>This is my second event<br></code></pre></td></tr></table></figure>
-<h1>引用</h1>
+<h1 id="引用">引用</h1>
 <p><a target="_blank" rel="noopener" href="https://github.com/bitnami/containers/blob/main/bitnami/kafka/README.md">containers/bitnami/kafka/README.md at main · bitnami/containers (github.com)</a></p>
 
                 
@@ -647,9 +744,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -802,10 +911,11 @@
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -865,7 +975,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -876,10 +1042,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -891,6 +1063,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -904,7 +1078,7 @@
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

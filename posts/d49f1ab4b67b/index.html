@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -110,7 +110,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -145,7 +145,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -194,6 +194,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -231,7 +334,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.8k 字
+          17k 字
         
       </span>
     
@@ -242,20 +345,12 @@
         
         
         
-          24 分钟
+          144 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -267,6 +362,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -2523,7 +2620,7 @@
             
               <div class="markdown-body">
                 
-                <h1>检索单个对象</h1>
+                <h1 id="检索单个对象">检索单个对象</h1>
 <h2 id="First"><a class="header-anchor" href="#First">¶</a>First</h2>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 获取第一条记录（主键升序）</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestFirst</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	<span class="hljs-keyword">var</span> user User<br>	db.First(&amp;user)<br>	<span class="hljs-comment">// SELECT * FROM `tb_user` WHERE `tb_user`.`deleted_at` IS NULL ORDER BY `tb_user`.`id` LIMIT 1</span><br>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="Take"><a class="header-anchor" href="#Take">¶</a>Take</h2>
@@ -2548,9 +2645,9 @@
 <blockquote>
 <p>如果model包含gorm的特定字段类型，如<code>gorm.DeletedAt</code>，则会在查询中加上查询条件<code>deleted_at IS NULL </code>。</p>
 </blockquote>
-<h1>检索全部对象</h1>
+<h1 id="检索全部对象">检索全部对象</h1>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> users []User<br>db.Find(&amp;users)<br></code></pre></td></tr></table></figure>
-<h1>条件</h1>
+<h1 id="条件">条件</h1>
 <h2 id="String-条件"><a class="header-anchor" href="#String-条件">¶</a>String 条件</h2>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// String 条件</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestSelectByString</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	<span class="hljs-keyword">var</span> user User<br>	<span class="hljs-keyword">var</span> users []User<br><br>	<span class="hljs-comment">// =</span><br>	db.Where(<span class="hljs-string">&quot;name = ?&quot;</span>, <span class="hljs-string">&quot;zhansan&quot;</span>).First(&amp;user)<br>	<span class="hljs-comment">// SELECT * FROM `tb_user` WHERE name = &#x27;zhansan&#x27; AND `tb_user`.`deleted_at` IS NULL ORDER BY `tb_user`.`id` LIMIT 1</span><br><br>	<span class="hljs-comment">// &lt;&gt; 不等于</span><br>	db.Where(<span class="hljs-string">&quot;name &lt;&gt; ?&quot;</span>, <span class="hljs-string">&quot;zhansan&quot;</span>).Find(&amp;users)<br>	<span class="hljs-comment">// SELECT * FROM `tb_user` WHERE name &lt;&gt; &#x27;zhansan&#x27; AND `tb_user`.`deleted_at` IS NULL</span><br><br>	<span class="hljs-comment">// IN</span><br>	db.Where(<span class="hljs-string">&quot;name IN ?&quot;</span>, []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;zhansan&quot;</span>, <span class="hljs-string">&quot;lisi&quot;</span>&#125;).Find(&amp;users)<br>	<span class="hljs-comment">// SELECT * FROM `tb_user` WHERE name IN (&#x27;zhansan&#x27;,&#x27;lisi&#x27;) AND `tb_user`.`deleted_at` IS NULL</span><br><br>	<span class="hljs-comment">// LIKE</span><br>	db.Where(<span class="hljs-string">&quot;name LIKE ?&quot;</span>, <span class="hljs-string">&quot;%zhansan%&quot;</span>).Find(&amp;users)<br>	<span class="hljs-comment">// SELECT * FROM `tb_user` WHERE name LIKE &#x27;%zhansan%&#x27; AND `tb_user`.`deleted_at` IS NULL</span><br><br>	<span class="hljs-comment">// AND</span><br>	db.Where(<span class="hljs-string">&quot;name = ? AND age &gt;= ?&quot;</span>, <span class="hljs-string">&quot;zhansan&quot;</span>, <span class="hljs-number">22</span>).Find(&amp;users)<br>	<span class="hljs-comment">// SELECT * FROM `tb_user` WHERE (name = &#x27;zhansan&#x27; AND age &gt;= 22) AND `tb_user`.`deleted_at` IS NULL</span><br><br>	<span class="hljs-comment">// Time</span><br>	db.Where(<span class="hljs-string">&quot;updated_at &gt; ?&quot;</span>, time.Now().AddDate(<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>)).Find(&amp;users)<br>	<span class="hljs-comment">// SELECT * FROM `tb_user` WHERE updated_at &gt; &#x27;2023-05-01 13:40:43.356&#x27; AND `tb_user`.`deleted_at` IS NULL</span><br><br>	<span class="hljs-comment">// BETWEEN</span><br>	db.Where(<span class="hljs-string">&quot;created_at BETWEEN ? AND ?&quot;</span>, time.Now().AddDate(<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>), time.Now()).Find(&amp;users)<br>	<span class="hljs-comment">// SELECT * FROM `tb_user` WHERE (created_at BETWEEN &#x27;2023-05-01 13:40:43.357&#x27; AND &#x27;2024-03-29 13:40:43.357&#x27;) AND `tb_user`.`deleted_at` IS NULL</span><br><br>	<span class="hljs-comment">// 如果对象设置了主键，条件查询将不会覆盖主键的值，而是AND</span><br>	<span class="hljs-keyword">var</span> user1 = User&#123;Model: gorm.Model&#123;ID: <span class="hljs-number">1</span>&#125;&#125;<br>	db.Where(<span class="hljs-string">&quot;id = ?&quot;</span>, <span class="hljs-number">2</span>).First(&amp;user1)<br>	<span class="hljs-comment">// SELECT * FROM `tb_user` WHERE id = 2 AND `tb_user`.`deleted_at` IS NULL AND `tb_user`.`id` = 1 ORDER BY `tb_user`.`id` LIMIT 1</span><br>	<span class="hljs-comment">// record not found 的错误，所以要注意数据模型的id在查询前要设置为nil。</span><br>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="Struct-Map-条件"><a class="header-anchor" href="#Struct-Map-条件">¶</a>Struct &amp; Map 条件</h2>
@@ -2563,28 +2660,28 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Not条件</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestNot</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	<span class="hljs-keyword">var</span> user User<br>	<span class="hljs-keyword">var</span> users []User<br><br>	<span class="hljs-comment">// Not</span><br>	db.Not(<span class="hljs-string">&quot;name = ?&quot;</span>, <span class="hljs-string">&quot;zhansan&quot;</span>).First(&amp;user)<br>	<span class="hljs-comment">// SELECT * FROM `tb_user` WHERE NOT name = &#x27;zhansan&#x27; AND</span><br>	<span class="hljs-comment">//`tb_user`.`deleted_at` IS NULL ORDER BY `tb_user`.`id` LIMIT 1</span><br><br>	<span class="hljs-comment">// Not In</span><br>	db.Not(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-keyword">interface</span>&#123;&#125;&#123;<span class="hljs-string">&quot;name&quot;</span>: []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;zhansan&quot;</span>, <span class="hljs-string">&quot;lisi&quot;</span>&#125;&#125;).Find(&amp;users)<br>	<span class="hljs-comment">// SELECT * FROM `tb_user` WHERE `name` NOT IN (&#x27;zhansan&#x27;,&#x27;lisi&#x27;)</span><br>	<span class="hljs-comment">//AND `tb_user`.`deleted_at` IS NULL</span><br><br>	<span class="hljs-comment">// Struct</span><br>	db.Not(User&#123;Name: <span class="hljs-string">&quot;zhansan&quot;</span>, Age: <span class="hljs-number">20</span>&#125;).First(&amp;user)<br>	<span class="hljs-comment">// SELECT * FROM `tb_user` WHERE (`tb_user`.`name` &lt;&gt; &#x27;zhansan&#x27; AND `tb_user`.`age` &lt;&gt; 20)</span><br>	<span class="hljs-comment">//AND `tb_user`.`deleted_at` IS NULL AND `tb_user`.`id` = 1 ORDER BY `tb_user`.`id` LIMIT 1</span><br><br>	<span class="hljs-comment">// Not In slice of primary keys</span><br>	db.Not([]<span class="hljs-type">int64</span>&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>&#125;).First(&amp;user)<br>	<span class="hljs-comment">// SELECT * FROM `tb_user` WHERE `tb_user`.`id` NOT IN (1,2,3)</span><br>	<span class="hljs-comment">//	AND `tb_user`.`deleted_at` IS NULL AND `tb_user`.`id` = 1 ORDER BY `tb_user`.`id` LIMIT 1</span><br>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="Or-条件"><a class="header-anchor" href="#Or-条件">¶</a>Or 条件</h2>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestOr</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	<span class="hljs-keyword">var</span> users []User<br><br>	db.Where(<span class="hljs-string">&quot;name = ?&quot;</span>, <span class="hljs-string">&quot;zhansan&quot;</span>).Or(<span class="hljs-string">&quot;name = ?&quot;</span>, <span class="hljs-string">&quot;lisi&quot;</span>).Find(&amp;users)<br>	<span class="hljs-comment">// SELECT * FROM `tb_user` WHERE (name = &#x27;zhansan&#x27; OR name = &#x27;lisi&#x27;) AND `tb_user`.`deleted_at` IS NULL</span><br><br>	<span class="hljs-comment">// struct</span><br>	db.Where(User&#123;Name: <span class="hljs-string">&quot;zhansan&quot;</span>&#125;).Or(User&#123;Name: <span class="hljs-string">&quot;lisi&quot;</span>, Age: <span class="hljs-number">22</span>&#125;).Find(&amp;users)<br>	<span class="hljs-comment">// SELECT * FROM `tb_user` WHERE (`tb_user`.`name` = &#x27;zhansan&#x27;</span><br>	<span class="hljs-comment">// OR (`tb_user`.`name` = &#x27;lisi&#x27; AND `tb_user`.`age` = 22)) AND `tb_user`.`deleted_at` IS NULL</span><br><br>	<span class="hljs-comment">// Map</span><br>	db.Where(<span class="hljs-string">&quot;name = &#x27;zhansan&#x27;&quot;</span>).Or(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-keyword">interface</span>&#123;&#125;&#123;<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;zhansan&quot;</span>, <span class="hljs-string">&quot;age&quot;</span>: <span class="hljs-number">20</span>&#125;).Find(&amp;users)<br>	<span class="hljs-comment">// SELECT * FROM `tb_user` WHERE (name = &#x27;zhansan&#x27;</span><br>	<span class="hljs-comment">//	OR (`age` = 20 AND `name` = &#x27;zhansan&#x27;)) AND `tb_user`.`deleted_at` IS NULL</span><br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>查询特定字段</h1>
+<h1 id="查询特定字段">查询特定字段</h1>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 查询特定字段</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestSelect</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	<span class="hljs-keyword">var</span> users []User<br><br>	db.Select(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;age&quot;</span>).Find(&amp;users)<br>	<span class="hljs-comment">// SELECT `name`,`age` FROM `tb_user` WHERE `tb_user`.`deleted_at` IS NULL</span><br><br>	<span class="hljs-comment">// slice</span><br>	db.Select([]<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;age&quot;</span>&#125;).Find(&amp;users)<br>	<span class="hljs-comment">// SELECT `name`,`age` FROM `tb_user` WHERE `tb_user`.`deleted_at` IS NULL</span><br><br>	<span class="hljs-comment">// sql</span><br>	<span class="hljs-comment">// COALESCE 返回参数中第一个非空数据，如果都是NULL,则返回NULL</span><br>	db.Table(<span class="hljs-string">&quot;tb_user&quot;</span>).Select(<span class="hljs-string">&quot;COALESCE(age,?) AS age&quot;</span>, <span class="hljs-number">42</span>).Find(&amp;users)<br>	<span class="hljs-comment">// SELECT COALESCE(age,42) AS age FROM `tb_user` WHERE `tb_user`.`deleted_at` IS NULL</span><br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>排序</h1>
+<h1 id="排序">排序</h1>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 排序</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestOrder</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	<span class="hljs-keyword">var</span> users []User<br><br>	db.Order(<span class="hljs-string">&quot;age desc, name&quot;</span>).Find(&amp;users)<br>	<span class="hljs-comment">// SELECT * FROM `tb_user` WHERE `tb_user`.`deleted_at` IS NULL ORDER BY age desc, name</span><br><br>	<span class="hljs-comment">// 多个排序</span><br>	db.Order(<span class="hljs-string">&quot;age desc&quot;</span>).Order(<span class="hljs-string">&quot;name&quot;</span>).Find(&amp;users)<br>	<span class="hljs-comment">// SELECT * FROM `tb_user` WHERE `tb_user`.`deleted_at` IS NULL ORDER BY age desc,name</span><br><br>	<span class="hljs-comment">// clause sql排序</span><br>	db.Clauses(clause.OrderBy&#123;<br>		Expression: clause.Expr&#123;<br>			SQL:                <span class="hljs-string">&quot;FIELD(id,?)&quot;</span>,<br>			Vars:               []<span class="hljs-keyword">interface</span>&#123;&#125;&#123;[]<span class="hljs-type">int</span>&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>&#125;&#125;,<br>			WithoutParentheses: <span class="hljs-literal">true</span>,<br>		&#125;&#125;).Find(&amp;users)<br>	<span class="hljs-comment">// SELECT * FROM `tb_user` WHERE `tb_user`.`deleted_at` IS NULL ORDER BY FIELD(id,1,2,3)</span><br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>Limit &amp; Offset</h1>
+<h1 id="limit-amp;-offset">Limit &amp; Offset</h1>
 <p><code>Limit</code> 指定要查询的记录数<br>
 <code>Offset</code> 指的是返回记录之前要跳过的记录数</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestLimitAndOffset</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	<span class="hljs-keyword">var</span> users []User<br>	db.Limit(<span class="hljs-number">3</span>).Find(&amp;users)<br>	<span class="hljs-comment">// SELECT * FROM `tb_user` WHERE `tb_user`.`deleted_at` IS NULL LIMIT 3</span><br><br>	<span class="hljs-comment">// Limit(-1) 无效查询条件 即没有限制</span><br>	<span class="hljs-keyword">var</span> users1, users2 []User<br>	db.Limit(<span class="hljs-number">2</span>).Find(&amp;users1).Limit(<span class="hljs-number">-1</span>).Find(&amp;users2)<br>	<span class="hljs-comment">// SELECT * FROM `tb_user` WHERE `tb_user`.`deleted_at` IS NULL LIMIT 5</span><br>	<span class="hljs-comment">// SELECT * FROM `tb_user` WHERE `tb_user`.`deleted_at` IS NULL</span><br><br>	<span class="hljs-comment">// mysql中offset与limit一起使用。</span><br>	db.Offset(<span class="hljs-number">3</span>).Limit(<span class="hljs-number">10</span>).Find(&amp;users)<br>	<span class="hljs-comment">// SELECT * FROM `tb_user` WHERE `tb_user`.`deleted_at` IS NULL LIMIT 10 OFFSET 3</span><br><br>	<span class="hljs-comment">// limit 查询条件穿透 offset(-1)取消offset查询条件</span><br>	db.Offset(<span class="hljs-number">2</span>).Limit(<span class="hljs-number">10</span>).Find(&amp;users1).Offset(<span class="hljs-number">-1</span>).Find(&amp;users2)<br>	<span class="hljs-comment">// SELECT * FROM `tb_user` WHERE `tb_user`.`deleted_at` IS NULL LIMIT 10 OFFSET 2</span><br>	<span class="hljs-comment">// SELECT * FROM `tb_user` WHERE `tb_user`.`deleted_at` IS NULL LIMIT 10</span><br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>Group By &amp; Having</h1>
+<h1 id="group-by-amp;-having">Group By &amp; Having</h1>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestGroupByAndHaving</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	<span class="hljs-keyword">type</span> Result <span class="hljs-keyword">struct</span> &#123;<br>		Date  time.Time<br>		Total <span class="hljs-type">int</span><br>	&#125;<br><br>	<span class="hljs-keyword">var</span> result1 Result<br><br>	db.Model(&amp;User&#123;&#125;).<br>		Select(<span class="hljs-string">&quot;name, sum(age) as total&quot;</span>).<br>		Where(<span class="hljs-string">&quot;name LIKE ?&quot;</span>, <span class="hljs-string">&quot;zhansan%&quot;</span>).<br>		Group(<span class="hljs-string">&quot;name&quot;</span>).<br>		Find(&amp;result1)<br>	<span class="hljs-comment">// SELECT name, sum(age) as total FROM `tb_user`</span><br>	<span class="hljs-comment">//WHERE name LIKE &#x27;zhansan%&#x27; AND `tb_user`.`deleted_at` IS NULL GROUP BY `name`</span><br><br>	<span class="hljs-comment">// having 该语句等价于上面的sql</span><br>	db.Model(&amp;User&#123;&#125;).<br>		Select(<span class="hljs-string">&quot;name, sum(age) as total&quot;</span>).<br>		Group(<span class="hljs-string">&quot;name&quot;</span>).<br>		Having(<span class="hljs-string">&quot;name LIKE ?&quot;</span>, <span class="hljs-string">&quot;zhansan%&quot;</span>).<br>		Find(&amp;result1)<br>	<span class="hljs-comment">//  SELECT name, sum(age) as total FROM `tb_user`</span><br>	<span class="hljs-comment">// WHERE `tb_user`.`deleted_at` IS NULL GROUP BY `name` HAVING name LIKE &#x27;zhansan%&#x27;</span><br><br>	<span class="hljs-keyword">type</span> Order <span class="hljs-keyword">struct</span> &#123;<br>		gorm.Model<br>		Amount <span class="hljs-type">int64</span><br>	&#125;<br>	db.Set(<span class="hljs-string">&quot;gorm:table_options&quot;</span>, <span class="hljs-string">&quot;ENGINE=InnoDB&quot;</span>).AutoMigrate(&amp;Order&#123;&#125;)<br><br>	db.Create([]Order&#123;&#123;Amount: <span class="hljs-number">10</span>&#125;, &#123;Amount: <span class="hljs-number">20</span>&#125;, &#123;Amount: <span class="hljs-number">30</span>&#125;&#125;)<br><br>	rows, err := db.Table(<span class="hljs-string">&quot;tb_order&quot;</span>).<br>		Select(<span class="hljs-string">&quot;date(created_at) as date, sum(amount) as total&quot;</span>).<br>		Group(<span class="hljs-string">&quot;date(created_at)&quot;</span>).<br>		Rows()<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		fmt.Errorf(err.Error())<br>	&#125;<br>	<span class="hljs-keyword">defer</span> rows.Close()<br>	<span class="hljs-keyword">for</span> rows.Next() &#123;<br>		<span class="hljs-keyword">var</span> date time.Time<br>		<span class="hljs-keyword">var</span> amount <span class="hljs-type">int</span><br>		err := rows.Scan(&amp;date, &amp;amount)<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			fmt.Errorf(err.Error())<br>		&#125;<br>		fmt.Println(date, amount)<br>	&#125;<br>	<span class="hljs-comment">// SELECT date(created_at) as date, sum(amount) as total FROM `tb_order` GROUP BY date(created_at)</span><br><br>	rows, _ = db.Table(<span class="hljs-string">&quot;tb_order&quot;</span>).<br>		Select(<span class="hljs-string">&quot;date(created_at) as date, sum(amount) as total&quot;</span>).<br>		Group(<span class="hljs-string">&quot;date(created_at)&quot;</span>).<br>		Having(<span class="hljs-string">&quot;sum(amount) &gt; ?&quot;</span>, <span class="hljs-number">100</span>).<br>		Rows()<br>	<span class="hljs-keyword">defer</span> rows.Close()<br>	<span class="hljs-keyword">for</span> rows.Next() &#123;<br>		<span class="hljs-keyword">var</span> date time.Time<br>		<span class="hljs-keyword">var</span> amount <span class="hljs-type">int</span><br>		err := rows.Scan(&amp;date, &amp;amount)<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			fmt.Errorf(err.Error())<br>		&#125;<br>		fmt.Println(date, amount)<br>	&#125;<br>	<span class="hljs-comment">// SELECT date(created_at) as date, sum(amount) as total FROM `tb_order`</span><br>	<span class="hljs-comment">// GROUP BY date(created_at) HAVING sum(amount) &gt; 100</span><br><br>	<span class="hljs-keyword">var</span> results []Result<br>	db.Table(<span class="hljs-string">&quot;tb_order&quot;</span>).<br>		Select(<span class="hljs-string">&quot;date(created_at) as date, sum(amount) as total&quot;</span>).<br>		Group(<span class="hljs-string">&quot;date(created_at)&quot;</span>).<br>		Having(<span class="hljs-string">&quot;sum(amount) &gt; ?&quot;</span>, <span class="hljs-number">100</span>).<br>		Scan(&amp;results)<br>	<span class="hljs-comment">// SELECT date(created_at) as date, sum(amount) as total FROM `tb_order`</span><br>	<span class="hljs-comment">//GROUP BY date(created_at) HAVING sum(amount) &gt; 100</span><br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>Distinct</h1>
+<h1 id="distinct">Distinct</h1>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 返回不重复记录</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestDistinct</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	<span class="hljs-keyword">var</span> users []User<br>	db.Distinct(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;age&quot;</span>).Order(<span class="hljs-string">&quot;name, age desc&quot;</span>).Find(&amp;users)<br>	<span class="hljs-comment">// SELECT DISTINCT `name`,`age` FROM `tb_user` WHERE `tb_user`.`deleted_at` IS NULL ORDER BY name, age desc</span><br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>Joins</h1>
+<h1 id="joins">Joins</h1>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestJoins</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	<span class="hljs-keyword">type</span> email <span class="hljs-keyword">struct</span> &#123;<br>		gorm.Model<br>		Email  <span class="hljs-type">string</span><br>		UserId <span class="hljs-type">int64</span><br>	&#125;<br>	db.AutoMigrate(&amp;email&#123;&#125;)<br><br>	<span class="hljs-keyword">type</span> result <span class="hljs-keyword">struct</span> &#123;<br>		Name  <span class="hljs-type">string</span><br>		Email <span class="hljs-type">string</span><br>	&#125;<br>	<span class="hljs-keyword">var</span> results []result<br>	db.Model(&amp;User&#123;&#125;).<br>		Select(<span class="hljs-string">&quot;tb_user.name, tb_email.email&quot;</span>).<br>		Joins(<span class="hljs-string">&quot;left join tb_email on tb_email.user_id = tb_user.id&quot;</span>).<br>		Scan(&amp;results)<br>	<span class="hljs-comment">// SELECT tb_user.name, tb_email.email FROM `tb_user`</span><br>	<span class="hljs-comment">// left join tb_email on tb_email.user_id = tb_user.id WHERE `tb_user`.`deleted_at` IS NULL</span><br><br>	rows, _ := db.Table(<span class="hljs-string">&quot;tb_user&quot;</span>).<br>		Select(<span class="hljs-string">&quot;tb_user.name, tb_email.email&quot;</span>).<br>		Joins(<span class="hljs-string">&quot;left join tb_email on tb_user.id = tb_email.user_id&quot;</span>).<br>		Rows()<br>	<span class="hljs-keyword">for</span> rows.Next() &#123;<br>		<span class="hljs-keyword">var</span> name, email <span class="hljs-type">string</span><br>		rows.Scan(&amp;name, &amp;email)<br>		fmt.Println(name, email)<br>	&#125;<br><br>	<span class="hljs-keyword">type</span> creditCard <span class="hljs-keyword">struct</span> &#123;<br>		gorm.Model<br>		UserId <span class="hljs-type">int64</span><br>		Number <span class="hljs-type">string</span><br>	&#125;<br>	db.AutoMigrate(&amp;creditCard&#123;&#125;)<br><br>	<span class="hljs-keyword">var</span> user User<br>	db.Joins(<span class="hljs-string">&quot;JOIN tb_email ON tb_email.user_id = tb_user.id AND tb_email.email = ?&quot;</span>, <span class="hljs-string">&quot;wer@xyz.com&quot;</span>).<br>		Joins(<span class="hljs-string">&quot;JOIN tb_credit_card ON tb_credit_card.user_id = tb_user.id&quot;</span>).<br>		Where(<span class="hljs-string">&quot;tb_credit_card.number = ?&quot;</span>, <span class="hljs-string">&quot;111111111&quot;</span>).<br>		Find(&amp;user)<br>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="Joins-预加载"><a class="header-anchor" href="#Joins-预加载">¶</a>Joins 预加载</h2>
 <p>预加载前提是表之间是外键关联。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestEagerLoading</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	<span class="hljs-keyword">type</span> company <span class="hljs-keyword">struct</span> &#123;<br>		gorm.Model<br>		CompanyName <span class="hljs-type">string</span><br>	&#125;<br>	db.AutoMigrate(&amp;company&#123;&#125;)<br><br>	<span class="hljs-keyword">var</span> user User<br>	db.Joins(<span class="hljs-string">&quot;company&quot;</span>).Find(&amp;user)<br><br>	db.InnerJoins(<span class="hljs-string">&quot;company&quot;</span>).Find(&amp;user)<br>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="Joins-衍生表"><a class="header-anchor" href="#Joins-衍生表">¶</a>Joins 衍生表</h2>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestDerivedTable</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	<span class="hljs-keyword">type</span> User <span class="hljs-keyword">struct</span> &#123;<br>		Id  <span class="hljs-type">int</span><br>		Age <span class="hljs-type">int</span><br>	&#125;<br><br>	<span class="hljs-keyword">type</span> Order <span class="hljs-keyword">struct</span> &#123;<br>		UserId     <span class="hljs-type">int</span><br>		FinishedAt *time.Time<br>	&#125;<br>	db.AutoMigrate(&amp;Order&#123;&#125;)<br><br>	<span class="hljs-keyword">type</span> result <span class="hljs-keyword">struct</span> &#123;<br>		UserId     <span class="hljs-type">int</span><br>		FinishedAt time.Time<br>	&#125;<br>	<span class="hljs-keyword">var</span> results []result<br>	query := db.Table(<span class="hljs-string">&quot;tb_order&quot;</span>).<br>		Select(<span class="hljs-string">&quot;MAX(tb_order.finished_at) as latest&quot;</span>).<br>		Joins(<span class="hljs-string">&quot;left join tb_user user on tb_order.user_id = user.id&quot;</span>).<br>		Where(<span class="hljs-string">&quot;user.age &gt; ?&quot;</span>, <span class="hljs-number">18</span>).<br>		Group(<span class="hljs-string">&quot;tb_order.user_id&quot;</span>)<br>	db.Model(&amp;Order&#123;&#125;).Joins(<span class="hljs-string">&quot;join (?) q on tb_order.finished_at = q.latest&quot;</span>, query).Scan(&amp;results)<br>	fmt.Println(results)<br>	<span class="hljs-comment">// SELECT `tb_order`.`user_id`,`tb_order`.`finished_at` FROM `tb_order`</span><br>	<span class="hljs-comment">//join (SELECT MAX(tb_order.finished_at) as latest FROM `tb_order`</span><br>	<span class="hljs-comment">//left join tb_user user on tb_order.user_id = user.id</span><br>	<span class="hljs-comment">//WHERE user.age &gt; 18 GROUP BY `tb_order`.`user_id`) q on tb_order.finished_at = q.latest</span><br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>Scan</h1>
+<h1 id="scan">Scan</h1>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestScan</span><span class="hljs-params">(t *testing.T)</span></span> &#123; <br>	<span class="hljs-keyword">type</span> Result <span class="hljs-keyword">struct</span> &#123;<br>		Name <span class="hljs-type">string</span><br>		Age  <span class="hljs-type">int</span><br>	&#125;<br><br>	<span class="hljs-keyword">var</span> result Result<br>	db.Table(<span class="hljs-string">&quot;users&quot;</span>).Select(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;age&quot;</span>).Where(<span class="hljs-string">&quot;name = ?&quot;</span>, <span class="hljs-string">&quot;zhansan&quot;</span>).Scan(&amp;result)<br><br>	<span class="hljs-comment">// Raw SQL</span><br>	db.Raw(<span class="hljs-string">&quot;SELECT name, age FROM users WHERE name = ?&quot;</span>, <span class="hljs-string">&quot;zhansan&quot;</span>).Scan(&amp;result)<br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>引用</h1>
+<h1 id="引用">引用</h1>
 <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://gorm.io/docs/">GORM 文档</a>
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
@@ -2676,9 +2773,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -2697,9 +2806,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/cadae650c102/" title="2.连接数据库">
+                      <a href="/posts/e2367d6e0bde/" title="3.定义model">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">2.连接数据库</span>
+                        <span class="hidden-mobile">3.定义model</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -2831,10 +2940,11 @@
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -2894,7 +3004,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -2905,10 +3071,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -2920,6 +3092,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -2933,7 +3107,7 @@
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

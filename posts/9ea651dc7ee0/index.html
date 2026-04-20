@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -110,7 +110,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -145,7 +145,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -194,6 +194,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -231,7 +334,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          119 字
+          992 字
         
       </span>
     
@@ -242,20 +345,12 @@
         
         
         
-          1 分钟
+          9 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -267,6 +362,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -2523,35 +2620,35 @@
             
               <div class="markdown-body">
                 
-                <h1>web</h1>
+                <h1 id="web">web</h1>
 <ul>
 <li>
 <p>gin</p>
 <p><a target="_blank" rel="noopener" href="http://github.com/gin-gonic/gin">github.com/gin-gonic/gin</a></p>
 </li>
 </ul>
-<h1>jwt</h1>
+<h1 id="jwt">jwt</h1>
 <ul>
 <li>
 <p>jwt</p>
 <p><a target="_blank" rel="noopener" href="http://github.com/golang-jwt/jwt/v5">github.com/golang-jwt/jwt/v5</a></p>
 </li>
 </ul>
-<h1>log</h1>
+<h1 id="log">log</h1>
 <ul>
 <li>
 <p>logrus</p>
 <p><a target="_blank" rel="noopener" href="http://github.com/sirupsen/logrus">github.com/sirupsen/logrus</a></p>
 </li>
 </ul>
-<h1>加密</h1>
+<h1 id="加密">加密</h1>
 <ul>
 <li>
 <p>crypto</p>
 <p>​	<a target="_blank" rel="noopener" href="http://golang.org/x/crypto">golang.org/x/crypto</a></p>
 </li>
 </ul>
-<h1>db orm</h1>
+<h1 id="db-orm">db orm</h1>
 <ul>
 <li>
 <p>gorm</p>
@@ -2560,7 +2657,7 @@
 <p><a target="_blank" rel="noopener" href="http://gorm.io/gen">gorm.io/gen</a> model生成工具</p>
 </li>
 </ul>
-<h1>工具</h1>
+<h1 id="工具">工具</h1>
 <ul>
 <li>vegeta 压测<br>
 <a target="_blank" rel="noopener" href="http://github.com/tsenart/vegeta">github.com/tsenart/vegeta</a><br>
@@ -2570,19 +2667,19 @@ echo “<a target="_blank" rel="noopener" href="http://localhost:8888">http://lo
 <li>grpcurl</li>
 <li>grpcui</li>
 </ul>
-<h1>rpc</h1>
+<h1 id="rpc">rpc</h1>
 <ul>
 <li>
 <p>grpc</p>
 <p><a target="_blank" rel="noopener" href="http://google.golang.org/grpc">google.golang.org/grpc</a></p>
 </li>
 </ul>
-<h1>微服务</h1>
+<h1 id="微服务">微服务</h1>
 <ul>
 <li>go-zero<br>
 <a target="_blank" rel="noopener" href="http://github.com/zeromicro/go-zero">github.com/zeromicro/go-zero</a></li>
 </ul>
-<h1>拷贝</h1>
+<h1 id="拷贝">拷贝</h1>
 <ul>
 <li>copier
 <ul>
@@ -2590,7 +2687,7 @@ echo “<a target="_blank" rel="noopener" href="http://localhost:8888">http://lo
 </ul>
 </li>
 </ul>
-<h1>kafka client</h1>
+<h1 id="kafka-client">kafka client</h1>
 <ul>
 <li>
 <p>kafka-go</p>
@@ -2613,13 +2710,13 @@ echo “<a target="_blank" rel="noopener" href="http://localhost:8888">http://lo
 <p><a target="_blank" rel="noopener" href="https://github.com/lovoo/goka">lovoo/goka: Goka is a compact yet powerful distributed stream processing library for Apache Kafka written in Go. (github.com)</a></p>
 </li>
 </ul>
-<h1>网关</h1>
+<h1 id="网关">网关</h1>
 <ul>
 <li>nginx</li>
 <li>kong</li>
 <li>apisix</li>
 </ul>
-<h1>链路追踪</h1>
+<h1 id="链路追踪">链路追踪</h1>
 <ul>
 <li>jaeger</li>
 <li>zinpink</li>
@@ -2700,9 +2797,21 @@ echo “<a target="_blank" rel="noopener" href="http://localhost:8888">http://lo
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -2721,9 +2830,9 @@ echo “<a target="_blank" rel="noopener" href="http://localhost:8888">http://lo
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/7cd3afb4f00a/" title="导入包">
+                      <a href="/posts/ca9538243073/" title="泛型">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">导入包</span>
+                        <span class="hidden-mobile">泛型</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -2731,8 +2840,8 @@ echo “<a target="_blank" rel="noopener" href="http://localhost:8888">http://lo
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/41f72ccc8d86/" title="4.通道">
-                        <span class="hidden-mobile">4.通道</span>
+                      <a href="/posts/3ffaea570eb4/" title="如何创建Go项目">
+                        <span class="hidden-mobile">如何创建Go项目</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -2855,10 +2964,11 @@ echo “<a target="_blank" rel="noopener" href="http://localhost:8888">http://lo
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -2918,7 +3028,63 @@ echo “<a target="_blank" rel="noopener" href="http://localhost:8888">http://lo
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -2929,10 +3095,16 @@ echo “<a target="_blank" rel="noopener" href="http://localhost:8888">http://lo
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -2944,6 +3116,8 @@ echo “<a target="_blank" rel="noopener" href="http://localhost:8888">http://lo
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -2957,7 +3131,7 @@ echo “<a target="_blank" rel="noopener" href="http://localhost:8888">http://lo
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

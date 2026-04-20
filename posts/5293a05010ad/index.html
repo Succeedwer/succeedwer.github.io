@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -110,7 +110,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -145,7 +145,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -194,6 +194,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -231,7 +334,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k 字
+          11k 字
         
       </span>
     
@@ -242,20 +345,12 @@
         
         
         
-          14 分钟
+          89 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -267,6 +362,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -2523,10 +2620,10 @@
             
               <div class="markdown-body">
                 
-                <h1>前言</h1>
+                <h1 id="前言">前言</h1>
 <p>grpc提供了包<code>authz</code>，用于<code>RBAC</code>模型的权限控制。</p>
 <p><code>authz</code>本质上是提供了拦截器<code>interceptor</code>，对来自客户端的请求进行拦截解析。</p>
-<h1>思路</h1>
+<h1 id="思路">思路</h1>
 <p>分成客户端和服务器两个方面：</p>
 <ul>
 <li>客户端
@@ -2545,14 +2642,14 @@
 </ul>
 </li>
 </ul>
-<h1>实现</h1>
+<h1 id="实现">实现</h1>
 <p>同样是使用<code>echo.proto</code>文件。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs go">syntax = <span class="hljs-string">&quot;proto3&quot;</span>;<br><br>option go_package = <span class="hljs-string">&quot;grpc-learn/feature/proto/echo&quot;</span>;<br><br><span class="hljs-keyword">package</span> echo;<br><br><span class="hljs-comment">// 请求</span><br>message EchoRequest &#123;<br>  <span class="hljs-type">string</span> message = <span class="hljs-number">1</span>;<br>&#125;<br><br><span class="hljs-comment">// 响应</span><br>message EchoResponse &#123;<br>  <span class="hljs-type">string</span> message = <span class="hljs-number">1</span>;<br>&#125;<br><br><span class="hljs-comment">// Echo 服务</span><br>service Echo &#123;<br>  <span class="hljs-comment">// 一元rpc</span><br>  rpc UnaryEcho(EchoRequest) returns (EchoResponse) &#123;&#125;<br><br>  <span class="hljs-comment">// 服务器流式rpc</span><br>  rpc ServerStreamingEcho(EchoRequest) returns (stream EchoResponse) &#123;&#125;<br><br>  <span class="hljs-comment">// 客户端流式rpc</span><br>  rpc ClientStreamingEcho(stream EchoRequest) returns (EchoResponse) &#123;&#125;<br><br>  <span class="hljs-comment">// 双向流式rpc</span><br>  rpc BidirectionalStreamingEcho(stream EchoRequest) returns (stream EchoResponse) &#123;&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>server.go</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;context&quot;</span><br>	<span class="hljs-string">&quot;errors&quot;</span><br>	<span class="hljs-string">&quot;flag&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;google.golang.org/grpc&quot;</span><br>	<span class="hljs-string">&quot;google.golang.org/grpc/authz&quot;</span><br>	<span class="hljs-string">&quot;google.golang.org/grpc/codes&quot;</span><br>	<span class="hljs-string">&quot;google.golang.org/grpc/credentials&quot;</span><br>	<span class="hljs-string">&quot;google.golang.org/grpc/metadata&quot;</span><br>	<span class="hljs-string">&quot;google.golang.org/grpc/status&quot;</span><br>	<span class="hljs-string">&quot;grpc-learn/data&quot;</span><br>	pb <span class="hljs-string">&quot;grpc-learn/feature/proto/echo&quot;</span><br>	<span class="hljs-string">&quot;grpc-learn/jwt&quot;</span><br>	<span class="hljs-string">&quot;io&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;net&quot;</span><br>	<span class="hljs-string">&quot;strings&quot;</span><br>)<br><br><span class="hljs-comment">// RBAC（Role-Based Access Control）权限控制</span><br><span class="hljs-keyword">const</span> (<br>	unaryEchoWriterRole      = <span class="hljs-string">&quot;UNARY_ECHO:W&quot;</span><br>	streamEchoReadWriterRole = <span class="hljs-string">&quot;STREAM_ECHO:RW&quot;</span><br>	authzPolicy              = <span class="hljs-string">`</span><br><span class="hljs-string">	&#123;</span><br><span class="hljs-string">		&quot;name&quot;: &quot;authz&quot;,</span><br><span class="hljs-string">		&quot;allow_rules&quot;: [</span><br><span class="hljs-string">			&#123;</span><br><span class="hljs-string">				&quot;name&quot;: &quot;allow_UnaryEcho&quot;,</span><br><span class="hljs-string">				&quot;request&quot;: &#123;</span><br><span class="hljs-string">					&quot;paths&quot;: [&quot;/echo.Echo/UnaryEcho&quot;],</span><br><span class="hljs-string">					&quot;headers&quot;: [</span><br><span class="hljs-string">						&#123;</span><br><span class="hljs-string">							&quot;key&quot;: &quot;UNARY_ECHO:W&quot;,</span><br><span class="hljs-string">							&quot;values&quot;: [&quot;true&quot;]</span><br><span class="hljs-string">						&#125;</span><br><span class="hljs-string">					]</span><br><span class="hljs-string">				&#125;</span><br><span class="hljs-string">			&#125;,</span><br><span class="hljs-string">			&#123;</span><br><span class="hljs-string">				&quot;name&quot;: &quot;allow_BidirectionalStreamingEcho&quot;,</span><br><span class="hljs-string">				&quot;request&quot;: &#123;</span><br><span class="hljs-string">					&quot;paths&quot;: [&quot;/echo.Echo/BidirectionalStreamingEcho&quot;],</span><br><span class="hljs-string">					&quot;headers&quot;: [</span><br><span class="hljs-string">						&#123;</span><br><span class="hljs-string">							&quot;key&quot;: &quot;STREAM_ECHO:RW&quot;,</span><br><span class="hljs-string">							&quot;values&quot;: [&quot;true&quot;]</span><br><span class="hljs-string">						&#125;</span><br><span class="hljs-string">					]</span><br><span class="hljs-string">				&#125;</span><br><span class="hljs-string">			&#125;</span><br><span class="hljs-string">		],</span><br><span class="hljs-string">		&quot;deny_rules&quot;: []</span><br><span class="hljs-string">	&#125;</span><br><span class="hljs-string">	`</span><br>)<br><br><span class="hljs-keyword">var</span> (<br>	port = flag.Int(<span class="hljs-string">&quot;port&quot;</span>, <span class="hljs-number">50051</span>, <span class="hljs-string">&quot;the port to serve on&quot;</span>)<br>)<br><br><span class="hljs-comment">// 实现echo服务器</span><br><span class="hljs-keyword">type</span> echoServer <span class="hljs-keyword">struct</span> &#123;<br>	pb.UnimplementedEchoServer<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(e *echoServer)</span></span> UnaryEcho(ctx context.Context, request *pb.EchoRequest) (*pb.EchoResponse, <span class="hljs-type">error</span>) &#123;<br>	log.Printf(<span class="hljs-string">&quot;unary echoing message: %v\n&quot;</span>, request.Message)<br>	<span class="hljs-keyword">return</span> &amp;pb.EchoResponse&#123;Message: request.Message&#125;, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(e *echoServer)</span></span> BidirectionalStreamingEcho(stream pb.Echo_BidirectionalStreamingEchoServer) <span class="hljs-type">error</span> &#123;<br>	<span class="hljs-keyword">for</span> &#123;<br>		recv, err := stream.Recv()<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-keyword">if</span> err == io.EOF &#123;<br>				<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>			&#125;<br>			log.Fatalf(<span class="hljs-string">&quot;failed to receiving message form stream: %v&quot;</span>, err)<br>			<span class="hljs-keyword">return</span> err<br>		&#125;<br>		log.Printf(<span class="hljs-string">&quot;bidirectional echoing message: %v\n&quot;</span>, recv.Message)<br>		err = stream.Send(&amp;pb.EchoResponse&#123;Message: recv.Message&#125;)<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			log.Fatalf(<span class="hljs-string">&quot;failed to send message: %v&quot;</span>, err)<br>			<span class="hljs-keyword">return</span> err<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">// authUnaryInterceptor 认证 一元拦截器 验证token 以及获取用户和分发权限</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">authUnaryInterceptor</span><span class="hljs-params">(ctx context.Context, req any, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler)</span></span> (resp any, err <span class="hljs-type">error</span>) &#123;<br>	<span class="hljs-comment">// 从metadata读取token</span><br>	md, ok := metadata.FromIncomingContext(ctx)<br>	<span class="hljs-keyword">if</span> !ok &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, status.Error(codes.InvalidArgument, <span class="hljs-string">&quot;miss metadata&quot;</span>)<br>	&#125;<br>	<span class="hljs-comment">// 验证token 并取出username</span><br>	username, err := isAuthenticated(md[<span class="hljs-string">&quot;authorization&quot;</span>])<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, status.Error(codes.Unauthenticated, err.Error())<br>	&#125;<br><br>	<span class="hljs-comment">// 分发角色到context</span><br>	ctx = newContextWithRoles(ctx, username)<br>	<span class="hljs-keyword">return</span> handler(ctx, req)<br>&#125;<br><br><span class="hljs-comment">// newContextWithRoles 通过用户名分发角色权限</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">newContextWithRoles</span><span class="hljs-params">(ctx context.Context, username <span class="hljs-type">string</span>)</span></span> context.Context &#123;<br>	md := metadata.MD&#123;&#125;<br>	<span class="hljs-comment">// 赋予角色及权限 这里是简单判断</span><br>	<span class="hljs-keyword">if</span> username == <span class="hljs-string">&quot;super-user&quot;</span> &#123;<br>		md.Set(unaryEchoWriterRole, <span class="hljs-string">&quot;true&quot;</span>)<br>		md.Set(streamEchoReadWriterRole, <span class="hljs-string">&quot;true&quot;</span>)<br>	&#125;<br>	<span class="hljs-keyword">return</span> metadata.NewIncomingContext(ctx, md)<br>&#125;<br><br><span class="hljs-comment">// 读取并验证token，取出username</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">isAuthenticated</span><span class="hljs-params">(authorization []<span class="hljs-type">string</span>)</span></span> (<span class="hljs-type">string</span>, <span class="hljs-type">error</span>) &#123;<br>	<span class="hljs-comment">// 验证authorization长度</span><br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(authorization) &lt; <span class="hljs-number">1</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>, errors.New(<span class="hljs-string">&quot;received empty authorization token form client&quot;</span>)<br>	&#125;<br><br>	<span class="hljs-comment">// 截取token</span><br>	token := strings.TrimPrefix(authorization[<span class="hljs-number">0</span>], <span class="hljs-string">&quot;Bearer &quot;</span>)<br><br>	<span class="hljs-comment">// jwt解析token</span><br>	claims, err := jwt.ParseAuthToken(token)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>, err<br>	&#125;<br>	<span class="hljs-keyword">return</span> claims.Username, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-comment">// authStreamInterceptor 认证流拦截器 验证token 以及获取用户和分发权限</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">authStreamInterceptor</span><span class="hljs-params">(srv any, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler)</span></span> <span class="hljs-type">error</span> &#123;<br>	<span class="hljs-comment">// 读取流的metadata</span><br>	md, ok := metadata.FromIncomingContext(ss.Context())<br>	<span class="hljs-keyword">if</span> !ok &#123;<br>		<span class="hljs-keyword">return</span> status.Error(codes.InvalidArgument, <span class="hljs-string">&quot;miss metadata&quot;</span>)<br>	&#125;<br><br>	<span class="hljs-comment">// 验证token</span><br>	username, err := isAuthenticated(md[<span class="hljs-string">&quot;authorization&quot;</span>])<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> status.Error(codes.Unauthenticated, err.Error())<br>	&#125;<br><br>	<span class="hljs-comment">// 分发角色权限</span><br>	ctx := newContextWithRoles(ss.Context(), username)<br><br>	<span class="hljs-comment">// 封装 ctx到流中</span><br>	ss = &amp;wrappedStream&#123;<br>		ServerStream: ss,<br>		ctx:          ctx,<br>	&#125;<br><br>	<span class="hljs-keyword">return</span> handler(srv, ss)<br><br>&#125;<br><br><span class="hljs-keyword">type</span> wrappedStream <span class="hljs-keyword">struct</span> &#123;<br>	grpc.ServerStream<br>	ctx context.Context<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(w *wrappedStream)</span></span> Context() context.Context &#123;<br>	<span class="hljs-keyword">return</span> w.ctx<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	flag.Parse()<br><br>	<span class="hljs-comment">// 1. 监听端口</span><br>	lis, err := net.Listen(<span class="hljs-string">&quot;tcp&quot;</span>, fmt.Sprintf(<span class="hljs-string">&quot;:%d&quot;</span>, *port))<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatalf(<span class="hljs-string">&quot;failed to listen port %q: %v&quot;</span>, *port, err)<br>	&#125;<br><br>	<span class="hljs-comment">// 创建tls凭证</span><br>	creds, err := credentials.NewServerTLSFromFile(data.Path(<span class="hljs-string">&quot;x509/server_cert.pem&quot;</span>), data.Path(<span class="hljs-string">&quot;x509/server_key.pem&quot;</span>))<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatalf(<span class="hljs-string">&quot;failed to loading credentials: %v&quot;</span>, err)<br>	&#125;<br><br>	<span class="hljs-comment">// 创建认证拦截器</span><br>	staticInterceptor, err := authz.NewStatic(authzPolicy)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatalf(<span class="hljs-string">&quot;failed to create authz interceptor&quot;</span>)<br>	&#125;<br><br>	<span class="hljs-keyword">var</span> opts = []grpc.ServerOption&#123;<br>		<span class="hljs-comment">// 一元rpc拦截器</span><br>		grpc.ChainUnaryInterceptor(authUnaryInterceptor, staticInterceptor.UnaryInterceptor),<br>		<span class="hljs-comment">// 流拦截器</span><br>		grpc.ChainStreamInterceptor(authStreamInterceptor, staticInterceptor.StreamInterceptor),<br>		<span class="hljs-comment">// tls</span><br>		grpc.Creds(creds),<br>	&#125;<br><br>	<span class="hljs-comment">// 2. 创建服务器</span><br>	s := grpc.NewServer(opts...)<br><br>	<span class="hljs-comment">// 3. 注册服务</span><br>	pb.RegisterEchoServer(s, &amp;echoServer&#123;&#125;)<br><br>	<span class="hljs-comment">// 4. 启动服务</span><br>	<span class="hljs-keyword">if</span> err := s.Serve(lis); err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatalf(<span class="hljs-string">&quot;Failed to serve: %v&quot;</span>, err)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>client.go</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;context&quot;</span><br>	<span class="hljs-string">&quot;flag&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;golang.org/x/oauth2&quot;</span><br>	<span class="hljs-string">&quot;google.golang.org/grpc&quot;</span><br>	<span class="hljs-string">&quot;google.golang.org/grpc/credentials&quot;</span><br>	<span class="hljs-string">&quot;google.golang.org/grpc/credentials/oauth&quot;</span><br>	<span class="hljs-string">&quot;google.golang.org/grpc/status&quot;</span><br>	<span class="hljs-string">&quot;grpc-learn/data&quot;</span><br>	pb <span class="hljs-string">&quot;grpc-learn/feature/proto/echo&quot;</span><br>	<span class="hljs-string">&quot;grpc-learn/jwt&quot;</span><br>	<span class="hljs-string">&quot;io&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-keyword">var</span> (<br>	address = flag.String(<span class="hljs-string">&quot;addr&quot;</span>, <span class="hljs-string">&quot;localhost:50051&quot;</span>, <span class="hljs-string">&quot;the address to connect to&quot;</span>)<br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">callUnaryEcho</span><span class="hljs-params">(ctx context.Context, client pb.EchoClient, message <span class="hljs-type">string</span>, opts ...grpc.CallOption)</span></span> <span class="hljs-type">error</span> &#123;<br>	resp, err := client.UnaryEcho(ctx, &amp;pb.EchoRequest&#123;Message: message&#125;, opts...)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> status.Errorf(status.Code(err), <span class="hljs-string">&quot;UnaryEcho RPC failed: %v&quot;</span>, err)<br>	&#125;<br>	log.Println(<span class="hljs-string">&quot;UnaryEcho: &quot;</span>, resp.Message)<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">callBidiStreamUnaryEcho</span><span class="hljs-params">(ctx context.Context, client pb.EchoClient, opts ...grpc.CallOption)</span></span> <span class="hljs-type">error</span> &#123;<br>	<span class="hljs-comment">// 建立连接</span><br>	c, err := client.BidirectionalStreamingEcho(ctx, opts...)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> status.Errorf(status.Code(err), <span class="hljs-string">&quot;BidirectionalStreamingEcho RPC failed: %v&quot;</span>, err)<br>	&#125;<br><br>	<span class="hljs-comment">// 用于等待接收数据</span><br>	waitCh := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>&#123;&#125;)<br>	<span class="hljs-comment">// 接收数据</span><br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">for</span> &#123;<br>			recv, err := c.Recv()<br>			<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>				<span class="hljs-keyword">if</span> err == io.EOF &#123;<br>					<span class="hljs-comment">// 接收完毕 关闭channel</span><br>					<span class="hljs-built_in">close</span>(waitCh)<br>					<span class="hljs-keyword">break</span><br>				&#125;<br>				log.Printf(<span class="hljs-string">&quot;failed to receive form server: %v&quot;</span>, err)<br>				<span class="hljs-built_in">close</span>(waitCh)<br>				<span class="hljs-keyword">break</span><br>			&#125;<br>			log.Println(<span class="hljs-string">&quot;BidiStreaming Echo: &quot;</span>, recv.Message)<br>		&#125;<br>	&#125;()<br><br>	<span class="hljs-comment">// 发送数据</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++ &#123;<br>		err := c.Send(&amp;pb.EchoRequest&#123;Message: fmt.Sprintf(<span class="hljs-string">&quot;Request %d&quot;</span>, i)&#125;)<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-keyword">return</span> status.Errorf(status.Code(err), <span class="hljs-string">&quot;sending StreamingEcho message: %v&quot;</span>, err)<br>		&#125;<br>	&#125;<br>	<span class="hljs-comment">// 发送EOF</span><br>	c.CloseSend()<br>	&lt;-waitCh<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-comment">// 创建调用可选项 设置token</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">newCredentialsCallOption</span><span class="hljs-params">(username <span class="hljs-type">string</span>)</span></span> grpc.CallOption &#123;<br>	token, err := jwt.GetAuthToken(username, <span class="hljs-string">&quot;grpc&quot;</span>)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatalf(<span class="hljs-string">&quot;failed to get token: %v&quot;</span>, err)<br>	&#125;<br>	oauth2Token := oauth2.Token&#123;AccessToken: token&#125;<br>	tokenSource := oauth2.StaticTokenSource(&amp;oauth2Token)<br>	<span class="hljs-keyword">return</span> grpc.PerRPCCredentials(oauth.TokenSource&#123;TokenSource: tokenSource&#125;)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br><br>	<span class="hljs-comment">// tls</span><br>	creds, err := credentials.NewClientTLSFromFile(data.Path(<span class="hljs-string">&quot;x509/server_cert.pem&quot;</span>), <span class="hljs-string">&quot;x.test.example.com&quot;</span>)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatalf(<span class="hljs-string">&quot;failed to load credentials: %v&quot;</span>, err)<br>	&#125;<br><br>	<span class="hljs-keyword">var</span> opts = []grpc.DialOption&#123;<br>		grpc.WithTransportCredentials(creds),<br>	&#125;<br><br>	<span class="hljs-comment">// 1. 连接服务器</span><br>	conn, err := grpc.Dial(*address, opts...)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatalf(<span class="hljs-string">&quot;failed to connect: %v&quot;</span>, err)<br>	&#125;<br>	<span class="hljs-keyword">defer</span> conn.Close()<br><br>	<span class="hljs-comment">// 2. 创建客户端</span><br>	client := pb.NewEchoClient(conn)<br><br>	<span class="hljs-comment">// 3.rpc调用</span><br>	<span class="hljs-comment">// 设置超时时间</span><br>	ctx, cancelFunc := context.WithTimeout(context.Background(), <span class="hljs-number">10</span>*time.Second)<br>	<span class="hljs-keyword">defer</span> cancelFunc()<br><br>	<span class="hljs-comment">// 能通过验证的rpc调用</span><br>	authorisedUserTokenCallOption := newCredentialsCallOption(<span class="hljs-string">&quot;super-user&quot;</span>)<br>	<span class="hljs-keyword">if</span> err := callUnaryEcho(ctx, client, <span class="hljs-string">&quot;hello world&quot;</span>, authorisedUserTokenCallOption); err != <span class="hljs-literal">nil</span> &#123;<br>		log.Printf(<span class="hljs-string">&quot;failed to call UnaryEcho by authorized user: %v&quot;</span>, err)<br>	&#125;<br>	<span class="hljs-keyword">if</span> err := callBidiStreamUnaryEcho(ctx, client, authorisedUserTokenCallOption); err != <span class="hljs-literal">nil</span> &#123;<br>		log.Printf(<span class="hljs-string">&quot;failed to call BidiStreamUnaryEcho by authorized user: %v&quot;</span>, err)<br>	&#125;<br><br>	<span class="hljs-comment">// 不能通过认证的rpc调用</span><br>	unAuthorisedUserTokenCallOption := newCredentialsCallOption(<span class="hljs-string">&quot;hacker&quot;</span>)<br>	<span class="hljs-keyword">if</span> err := callUnaryEcho(ctx, client, <span class="hljs-string">&quot;hello world&quot;</span>, unAuthorisedUserTokenCallOption); err != <span class="hljs-literal">nil</span> &#123;<br>		log.Printf(<span class="hljs-string">&quot;failed to call UnaryEcho by unauthorized user: %v\n&quot;</span>, err)<br>	&#125;<br>	<span class="hljs-keyword">if</span> err := callBidiStreamUnaryEcho(ctx, client, unAuthorisedUserTokenCallOption); err != <span class="hljs-literal">nil</span> &#123;<br>		log.Printf(<span class="hljs-string">&quot;failed to call BidiStreamUnaryEcho by unauthorized user: %v&quot;</span>, err)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>引用</h1>
+<h1 id="引用">引用</h1>
 <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>[GRPC ](<a target="_blank" rel="noopener" href="https://github.com/grpc/grpc-go/tree/master/examples/features/authz">grpc-go/examples/features/authz at master · grpc/grpc-go (github.com)</a>)
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
@@ -2644,9 +2741,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -2665,9 +2774,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/006e1e1ef472/" title="9.Compression">
+                      <a href="/posts/e87f2b2f1b93/" title="2. 日志格式">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">9.Compression</span>
+                        <span class="hidden-mobile">2. 日志格式</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -2799,10 +2908,11 @@
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -2862,7 +2972,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -2873,10 +3039,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -2888,6 +3060,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -2901,7 +3075,7 @@
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

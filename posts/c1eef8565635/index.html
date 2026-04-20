@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -110,7 +110,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -145,7 +145,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -194,6 +194,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -231,7 +334,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.7k 字
+          17k 字
         
       </span>
     
@@ -242,20 +345,12 @@
         
         
         
-          31 分钟
+          142 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -267,6 +362,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -2525,7 +2622,7 @@
                 
                 <p>可以使用<code>go</code>或<code>go help</code>获取内置的帮助文档。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go</span><br>Go is a tool for managing Go source code.<br><br>Usage:<br><br>	go &lt;command&gt; [arguments]<br><br>The commands are:<br><br>	bug         start a bug report<br>	build       compile packages and dependencies<br>	clean       remove object files and cached files<br>	doc         show documentation for package or symbol<br>	env         print Go environment information<br>	fix         update packages to use new APIs<br>	fmt         gofmt (reformat) package sources<br>	generate    generate Go files by processing source<br>	get         download and install packages and dependencies<br>	install     compile and install packages and dependencies<br>	list        list packages or modules<br>	mod         module maintenance<br>	work        workspace maintenance<br>	run         compile and run Go program<br>	test        test packages<br>	tool        run specified go tool<br>	version     print Go version<br>	vet         report likely mistakes in packages<br><br>Use &quot;go help &lt;command&gt;&quot; for more information about a command.<br><br>Additional help topics:<br><br>	buildconstraint build constraints<br>	buildmode       build modes<br>	c               calling between Go and C<br>	cache           build and test caching<br>	environment     environment variables<br>	filetype        file types<br>	go.mod          the go.mod file<br>	gopath          GOPATH environment variable<br>	gopath-get      legacy GOPATH go get<br>	goproxy         module proxy protocol<br>	importpath      import path syntax<br>	modules         modules, module versions, and more<br>	module-get      module-aware go get<br>	module-auth     module authentication using go.sum<br>	packages        package lists and patterns<br>	private         configuration for downloading non-public code<br>	testflag        testing flags<br>	testfunc        testing functions<br>	vcs             controlling version control with GOVCS<br><br>Use &quot;go help &lt;topic&gt;&quot; for more information about that topic.<br></code></pre></td></tr></table></figure>
-<h1>GOPATH</h1>
+<h1 id="gopath">GOPATH</h1>
 <p><code>GOPATH</code>: 指定工作区目录的环境变量。<br>
 设置命令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">export</span> GOPATH=<span class="hljs-variable">$HOME</span>/gobook</span><br></code></pre></td></tr></table></figure>
@@ -2535,19 +2632,19 @@
 <code>src</code>目录用于存储源码。<br>
 <code>pkg</code>目录用于保存编译后的包的目标文件。<br>
 <code>bin</code>目录是保存编译后的可执行文件。</p>
-<h1>GOROOT</h1>
+<h1 id="goroot">GOROOT</h1>
 <p>环境变量<code>GOROOT</code>:用来指定Go的安装目录，还有它自带的标准库包的位置。<br>
 GOROOT的目录结构和GOPATH类似，因此存放fmt包的源代码对应目录应该为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mi>O</mi><mi>R</mi><mi>O</mi><mi>O</mi><mi>T</mi><mi mathvariant="normal">/</mi><mi>s</mi><mi>r</mi><mi>c</mi><mi mathvariant="normal">/</mi><mi>f</mi><mi>m</mi><mi>t</mi><mtext>。</mtext></mrow><annotation encoding="application/x-tex">GOROOT/src/fmt。</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0278em;">GO</span><span class="mord mathnormal" style="margin-right:0.0077em;">R</span><span class="mord mathnormal" style="margin-right:0.0278em;">O</span><span class="mord mathnormal" style="margin-right:0.0278em;">O</span><span class="mord mathnormal" style="margin-right:0.1389em;">T</span><span class="mord">/</span><span class="mord mathnormal" style="margin-right:0.0278em;">sr</span><span class="mord mathnormal">c</span><span class="mord">/</span><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="mord mathnormal">m</span><span class="mord mathnormal">t</span><span class="mord cjk_fallback">。</span></span></span></span>用户一般不需要设置GOROOT，默认情况下Go语言安装工具会将其设置为安装的目录路径。</p>
-<h1>GOOS</h1>
+<h1 id="goos">GOOS</h1>
 <p>环境变量<code>GOOS</code>: 指定目标的操作系统。<br>
 android、linux、darwin和windows。</p>
-<h1>GOARCH</h1>
+<h1 id="goarch">GOARCH</h1>
 <p>环境变量<code>GOARCH</code>：用于指定处理器类型。<br>
 amd64、386或arm。</p>
-<h1>go env 命令</h1>
+<h1 id="go-env-命令">go env 命令</h1>
 <p><code>go env</code>:  用于查看Go语言工具索涉及的所有环境变量，包括未设置环境变量的默认值。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go <span class="hljs-built_in">env</span></span><br>GO111MODULE=&quot;off&quot;<br>GOARCH=&quot;amd64&quot;<br>GOBIN=&quot;&quot;<br>GOCACHE=&quot;/Users/***/Library/Caches/go-build&quot;<br>GOENV=&quot;/Users/***/Library/Application Support/go/env&quot;<br>GOEXE=&quot;&quot;<br>GOEXPERIMENT=&quot;&quot;<br>GOFLAGS=&quot;-buildvcs=true&quot;<br>GOHOSTARCH=&quot;amd64&quot;<br>GOHOSTOS=&quot;darwin&quot;<br>GOINSECURE=&quot;**.com&quot;<br>GOMODCACHE=&quot;/Users/***/go/pkg/mod&quot;<br>GONOPROXY=&quot;&quot;<br>GONOSUMDB=&quot;&quot;<br>GOOS=&quot;darwin&quot;<br>GOPATH=&quot;/Users/***/go&quot;<br>GOPRIVATE=&quot;&quot;<br>GOPROXY=&quot;https://goproxy.cn,direct&quot;<br>GOROOT=&quot;/usr/local/go&quot;<br>GOSUMDB=&quot;sum.golang.org&quot;<br>GOTMPDIR=&quot;&quot;<br>GOTOOLDIR=&quot;/usr/local/go/pkg/tool/darwin_amd64&quot;<br>GOVCS=&quot;&quot;<br>GOVERSION=&quot;go1.19.2&quot;<br>GCCGO=&quot;gccgo&quot;<br>GOAMD64=&quot;v1&quot;<br>AR=&quot;ar&quot;<br>CC=&quot;clang&quot;<br>CXX=&quot;clang++&quot;<br>CGO_ENABLED=&quot;1&quot;<br>GOMOD=&quot;&quot;<br>GOWORK=&quot;&quot;<br>CGO_CFLAGS=&quot;-g -O2&quot;<br>CGO_CPPFLAGS=&quot;&quot;<br>CGO_CXXFLAGS=&quot;-g -O2&quot;<br>CGO_FFLAGS=&quot;-g -O2&quot;<br>CGO_LDFLAGS=&quot;-g -O2&quot;<br>PKG_CONFIG=&quot;pkg-config&quot;<br>GOGCCFLAGS=&quot;-fPIC -arch x86_64 -m64 -pthread -fno-caret-diagnostics -Qunused-arguments -fmessage-length=0 -fdebug-prefix-map=/var/folders/mp/zjw7t9hn7zg7ntbghwqk7f1r0000gn/T/go-build1417725864=/tmp/go-build -gno-record-gcc-switches -fno-common&quot;<br></code></pre></td></tr></table></figure>
-<h1>go get</h1>
+<h1 id="go-get">go get</h1>
 <p><code>go get</code>：下载一个单一的包或者用…下载整个子目录里面的每个包。<br>
 使用<code>go get</code>命令下载<code>golint</code>包。<br>
 <code>golint</code>包是用于检测Go语言源码编程风格是否有问题。</p>
@@ -2569,7 +2666,7 @@ amd64、386或arm。</p>
 <p><strong>练习 10.3:</strong> 从 <a target="_blank" rel="noopener" href="http://gopl.io/ch1/helloworld?go-get=1">http://gopl.io/ch1/helloworld?go-get=1</a> 获取内容，查看本书的代码的真实托管的网址（go get请求HTML页面时包含了go-get参数，以区别普通的浏览器请求）。<br>
 解：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">/*</span><br><span class="hljs-comment">./fetch http://gopl.io/ch1/helloworld?go-get=1 | grep go-import</span><br><span class="hljs-comment">&lt;meta name=&quot;go-import&quot; content=&quot;gopl.io git https://github.com/adonovan/gopl.io&quot;&gt;</span><br><span class="hljs-comment">*/</span><br><br><span class="hljs-comment">// real git address: https://github.com/adonovan/gopl.io</span><br></code></pre></td></tr></table></figure>
-<h1>go build</h1>
+<h1 id="go-build">go build</h1>
 <p><code>go build</code>命令编译命令行参数指定的每个包。<br>
 如果包是一个库，则忽略输出结果；这可以用于检测包的可以正确编译的。<br>
 如果包的名字是main，go build将调用连接器在当前目录创建一个可执行程序；<br>
@@ -2578,10 +2675,10 @@ amd64、386或arm。</p>
 例如用于提供Go文档服务的<code>golang.org/x/tools/cmd/godoc</code>命令就是放在cmd子目录。</p>
 <p>默认情况下，<code>go build</code>命令构建指定的包和它依赖的包，然后丢弃除了最后的可执行文件之外所有的中间编译结果。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">cat</span> quoteargs.go</span><br>package main<br><br>import (<br>    &quot;fmt&quot;<br>    &quot;os&quot;<br>)<br><br>func main() &#123;<br>    fmt.Printf(&quot;%q\n&quot;, os.Args[1:])<br>&#125;<br><span class="hljs-meta prompt_">$ </span><span class="language-bash">go build quoteargs.go</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">./quoteargs one <span class="hljs-string">&quot;two three&quot;</span> four\ five</span><br>[&quot;one&quot; &quot;two three&quot; &quot;four five&quot;]<br></code></pre></td></tr></table></figure>
-<h1>go run</h1>
+<h1 id="go-run">go run</h1>
 <p><code>go run</code>命令实际上是结合了构建和运行的两个步骤。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">cat</span> quoteargs.go</span><br>package main<br><br>import (<br>    &quot;fmt&quot;<br>    &quot;os&quot;<br>)<br><br>func main() &#123;<br>    fmt.Printf(&quot;%q\n&quot;, os.Args[1:])<br>&#125;<br><span class="hljs-meta prompt_">$ </span><span class="language-bash">go run quoteargs.go one <span class="hljs-string">&quot;two three&quot;</span> four\ five</span><br>[&quot;one&quot; &quot;two three&quot; &quot;four five&quot;]<br></code></pre></td></tr></table></figure>
-<h1>go install</h1>
+<h1 id="go-install">go install</h1>
 <p><code>go install</code>和<code>go build</code>命令类似，但是<code>go install</code>会保存所有包的编译结果，而不是丢弃。<br>
 被编译的包会被保存到<code>$GOPATH/pkg</code>目录下，目录路径和<code>src</code>目录路径对应，可执行程序被保存到<code>$GOPATH/bin</code>目录。</p>
 <p><code>go install</code>命令和<code>go build</code>命令都不会重新编译没有发生变化的包，这可以使后续构建更快捷。为了方便编译依赖的包，<code>go build -i</code>命令将安装每个目标所依赖的包。</p>
@@ -2597,7 +2694,7 @@ amd64、386或arm。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// +build ignore</span><br></code></pre></td></tr></table></figure>
 <p>详细细节参考go/build包的构建约束部分的文档。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go doc go/build</span><br></code></pre></td></tr></table></figure>
-<h1>包文档</h1>
+<h1 id="包文档">包文档</h1>
 <p>包的第一行，应该是包的摘要说明，紧接着应该是包的声明。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Copyright 2018 The Go Authors. All rights reserved.</span><br><span class="hljs-comment">// Use of this source code is governed by a BSD-style</span><br><span class="hljs-comment">// license that can be found in the LICENSE file.</span><br><br><span class="hljs-keyword">package</span> fmt<br></code></pre></td></tr></table></figure>
 <p>这里是fmt包的其中一个注释，第一个是版权说明，接下来是包注释。</p>
@@ -2624,7 +2721,7 @@ amd64、386或arm。</p>
 可以在自己的工作区目录运行godoc服务。运行下面的命令，然后在浏览器查看 <a target="_blank" rel="noopener" href="http://localhost:8000/pkg">http://localhost:8000/pkg</a> 页面：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">godoc -http :8000</span><br></code></pre></td></tr></table></figure>
 <p><code>-analysis=type</code>和<code>-analysis=pointer</code>命令行标志参数用于打开文档和代码中关于静态分析的结果。</p>
-<h1>内部包</h1>
+<h1 id="内部包">内部包</h1>
 <p>我们已知，没有导出标志符的只能在包内访问，有导出标志符的对任意可见。<br>
 但是，中间状态也是很有用的，即可见又不可见，对信任的包可见，对其它不可见。<br>
 例如，将包拆分成大小不一更容易维护的子包，不想暴露所有的子包，又想子包内共享通用的处理包。<br>
@@ -2633,7 +2730,7 @@ amd64、386或arm。</p>
 <code>internal</code>包只能被和<code>internal</code>包共同父目录的包所导入。<br>
 例如，net/http/internal/chunked内部包只能被net/http/httputil或net/http包导入，但是不能被net/url包导入。不过net/url包却可以导入net/http/httputil包。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go">net/http<br>net/http/internal/chunked<br>net/http/httputil<br>net/url<br></code></pre></td></tr></table></figure>
-<h1>go list</h1>
+<h1 id="go-list">go list</h1>
 <p><code>go list</code>命令可以查询可用包的信息。<br>
 最简单的用法是验证包是否在工作区：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go list github.com/go-sql-driver/mysql</span><br>github.com/go-sql-driver/mysql<br></code></pre></td></tr></table></figure>
@@ -2655,7 +2752,7 @@ amd64、386或arm。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go list -f <span class="hljs-string">&#x27;&#123;&#123;.ImportPath&#125;&#125; -&gt; &#123;&#123;join .Imports &quot; &quot;&#125;&#125;&#x27;</span> compress/...</span><br>compress/bzip2 -&gt; bufio io sort<br>compress/flate -&gt; bufio errors fmt io math math/bits sort strconv sync<br>compress/gzip -&gt; bufio compress/flate encoding/binary errors fmt hash/crc32 io time<br>compress/lzw -&gt; bufio errors fmt io<br>compress/zlib -&gt; bufio compress/flate encoding/binary errors fmt hash hash/adler32 io<br></code></pre></td></tr></table></figure>
 <p>同样的，在windows下，增加转义字符：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go list -f <span class="hljs-string">&quot;&#123;&#123;.ImportPath&#125;&#125; -&gt; &#123;&#123;join .Imports \&quot; \&quot;&#125;&#125;&quot;</span> compress/...</span><br></code></pre></td></tr></table></figure>
-<h1>练习</h1>
+<h1 id="练习">练习</h1>
 <p><strong>练习 10.4：</strong> 创建一个工具，根据命令行指定的参数，报告工作区所有依赖指定包的其它包集合。提示：你需要运行go list命令两次，一次用于初始化包，一次用于所有包。你可能需要用encoding/json（§4.5）包来分析输出的JSON格式的信息。<br>
 解：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;bytes&quot;</span><br>	<span class="hljs-string">&quot;encoding/json&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;io&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;os/exec&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> pkg <span class="hljs-keyword">struct</span> &#123;<br>	ImportPath <span class="hljs-type">string</span><br>	Deps       []<span class="hljs-type">string</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">pkgs</span><span class="hljs-params">(args []<span class="hljs-type">string</span>)</span></span> ([]pkg, <span class="hljs-type">error</span>) &#123;<br>	output, err := exec.Command(<span class="hljs-string">&quot;go&quot;</span>, <span class="hljs-built_in">append</span>([]<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;list&quot;</span>, <span class="hljs-string">&quot;-json&quot;</span>&#125;, args...)...).Output()<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err<br>	&#125;<br>	<span class="hljs-keyword">var</span> pkgs []pkg<br>	dec := json.NewDecoder(bytes.NewReader(output))<br>	<span class="hljs-keyword">for</span> &#123;<br>		<span class="hljs-keyword">var</span> pkg pkg<br>		<span class="hljs-keyword">if</span> err := dec.Decode(&amp;pkg); err == io.EOF &#123;<br>			<span class="hljs-keyword">break</span><br>		&#125;<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err<br>		&#125;<br>		pkgs = <span class="hljs-built_in">append</span>(pkgs, pkg)<br>	&#125;<br>	<span class="hljs-keyword">return</span> pkgs, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	ips, err := pkgs(os.Args[<span class="hljs-number">1</span>:])<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br>	deps, err := pkgs([]<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;all&quot;</span>&#125;)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br>	<span class="hljs-keyword">for</span> _, dep := <span class="hljs-keyword">range</span> deps &#123;<br>		<span class="hljs-keyword">for</span> _, depip := <span class="hljs-keyword">range</span> dep.Deps &#123;<br>			<span class="hljs-keyword">for</span> _, ip := <span class="hljs-keyword">range</span> ips &#123;<br>				<span class="hljs-keyword">if</span> ip.ImportPath == depip &#123;<br>					fmt.Println(dep.ImportPath)<br>				&#125;<br>			&#125;<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -2742,9 +2839,21 @@ amd64、386或arm。</p>
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -2897,10 +3006,11 @@ amd64、386或arm。</p>
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -2960,7 +3070,63 @@ amd64、386或arm。</p>
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -2971,10 +3137,16 @@ amd64、386或arm。</p>
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -2986,6 +3158,8 @@ amd64、386或arm。</p>
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -2999,7 +3173,7 @@ amd64、386或arm。</p>
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

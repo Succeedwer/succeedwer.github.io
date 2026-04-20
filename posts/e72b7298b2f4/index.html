@@ -80,7 +80,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -115,7 +115,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -150,7 +150,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -199,6 +199,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -236,7 +339,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          4.8k 字
         
       </span>
     
@@ -247,20 +350,12 @@
         
         
         
-          12 分钟
+          41 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -272,6 +367,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -2528,11 +2625,11 @@
             
               <div class="markdown-body">
                 
-                <h1>介绍</h1>
+                <h1 id="介绍">介绍</h1>
 <p>什么是<code>TCC</code>?</p>
 <p><code>Try</code>、<code>Confirm</code>、<code>Cancel</code>的首字母缩写。</p>
 <p>最早是由 Pat Helland 于 2007 年发表的一篇名为《Life beyond Distributed Transactions:an Apostate’s Opinion》的论文提出。</p>
-<h1>使用</h1>
+<h1 id="使用">使用</h1>
 <h2 id="简单使用"><a class="header-anchor" href="#简单使用">¶</a>简单使用</h2>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go">gid := shortuuid.New()<br>err := dtmcli.TccGlobalTransaction(server.DtmHTTPServer, gid, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(tcc *dtmcli.Tcc)</span></span> (*resty.Response, <span class="hljs-type">error</span>) &#123;<br>	<span class="hljs-comment">// 转出</span><br>	resp, err := tcc.CallBranch(&amp;gin.H&#123;<span class="hljs-string">&quot;amount&quot;</span>: <span class="hljs-number">30</span>&#125;,<br>	server.HttpUrl+<span class="hljs-string">&quot;/TransOut&quot;</span>,<br>	server.HttpUrl+<span class="hljs-string">&quot;/TransOutConfirm&quot;</span>,<br>	server.HttpUrl+<span class="hljs-string">&quot;/TransOutRevert&quot;</span>)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> resp, <span class="hljs-literal">nil</span><br>	&#125;<br>	<span class="hljs-comment">// 转入</span><br>	<span class="hljs-keyword">return</span> tcc.CallBranch(&amp;gin.H&#123;<span class="hljs-string">&quot;amount&quot;</span>: <span class="hljs-number">30</span>&#125;,<br>		server.HttpUrl+<span class="hljs-string">&quot;/TransIn&quot;</span>,<br>		server.HttpUrl+<span class="hljs-string">&quot;/TransInConfirm&quot;</span>,<br>		server.HttpUrl+<span class="hljs-string">&quot;/TransInRevert&quot;</span>)<br>&#125;)<br></code></pre></td></tr></table></figure>
 <p><code>func TccGlobalTransaction(dtm string, gid string, tccFunc TccGlobalFunc) (rerr error)</code></p>
@@ -2575,7 +2672,7 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs go">req := gin.H&#123;&#125;<br>err := c.ShouldBindJSON(&amp;req)<br>logger.FatalIfError(err)<br>amount := req[<span class="hljs-string">&quot;amount&quot;</span>].(<span class="hljs-type">float64</span>)<br>result, _ := req[<span class="hljs-string">&quot;TransIn&quot;</span>].(<span class="hljs-type">string</span>)<br><span class="hljs-keyword">if</span> result != <span class="hljs-string">&quot;&quot;</span> &#123;<br>	<span class="hljs-keyword">return</span> string2DtmError(result)<br>&#125;<br><br>barrier := MustBarrierFormGin(c)<br>db := data.GetDB(data.DBConf).ToSqlDB()<br><span class="hljs-keyword">return</span> barrier.CallWithDB(db, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(tx *sql.Tx)</span></span> <span class="hljs-type">error</span> &#123;<br>	<span class="hljs-keyword">return</span> data.TccAdjustTrading(tx, data.TransInUID, amount)<br>&#125;)<br><br>...<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">MustBarrierFormGin</span><span class="hljs-params">(c *gin.Context)</span></span> *dtmcli.BranchBarrier &#123;<br>	ti, err := dtmcli.BarrierFromQuery(c.Request.URL.Query())<br>	logger.FatalIfError(err)<br>	<span class="hljs-keyword">return</span> ti<br>&#125;<br></code></pre></td></tr></table></figure>
 </li>
 </ol>
-<h1>理论</h1>
+<h1 id="理论">理论</h1>
 <h2 id="组成"><a class="header-anchor" href="#组成">¶</a>组成</h2>
 <p><code>tcc</code>分为3个阶段。</p>
 <ul>
@@ -2584,9 +2681,9 @@
 <li><code>Cancel</code>：如果任意一个<code>Try</code>失败，则进行<code>Cancel</code>阶段，释放<code>Try</code>预留的业务资源。</li>
 </ul>
 <p>银行跨行转账<code>tcc</code>事务成功时序图：</p>
-<p><img src="/posts/e72b7298b2f4/tcc_normal.dea14fb3.jpg" srcset="/images/loading.gif" lazyload alt="tcc_normal"></p>
+<p><img src="/posts/e72b7298b2f4/tcc_normal.dea14fb3.jpg" srcset="/img/loading.gif" lazyload alt="tcc_normal"></p>
 <p><code>tcc</code>失败的时序图：</p>
-<p><img src="/posts/e72b7298b2f4/tcc_rollback.f28601d7.jpg" srcset="/images/loading.gif" lazyload alt="tcc_rollback"></p>
+<p><img src="/posts/e72b7298b2f4/tcc_rollback.f28601d7.jpg" srcset="/img/loading.gif" lazyload alt="tcc_rollback"></p>
 <h2 id="Confirm-Cancel操作异常"><a class="header-anchor" href="#Confirm-Cancel操作异常">¶</a>Confirm/Cancel操作异常</h2>
 <p>如果<code>Confirm/Cancel</code>操作如果失败了会怎么样呢？</p>
 <p>根据<code>tcc协议</code>规定，<code>Confirm/Cancel</code>操作时要求最终成功，如果失败，也是临时故障或bug。</p>
@@ -2616,10 +2713,10 @@
 </blockquote>
 <h2 id="嵌套的tcc"><a class="header-anchor" href="#嵌套的tcc">¶</a>嵌套的tcc</h2>
 <p><code>dtm</code>的<code>tcc</code>事务模式，支持子事务嵌套，流程图如下：</p>
-<p><img src="/posts/e72b7298b2f4/nested_trans.23261beb.jpg" srcset="/images/loading.gif" lazyload alt="nested_trans"></p>
+<p><img src="/posts/e72b7298b2f4/nested_trans.23261beb.jpg" srcset="/img/loading.gif" lazyload alt="nested_trans"></p>
 <p>可以看出，Order服务担任RM和AP两个角色，不但管理订单相关的数据修改，还管理一个嵌套的子事务，管理库存。</p>
 <p>不难实现，在父事务的<code>Try</code>阶段中，即接口实现时，再管理(<code>CallBranch</code>)一个子事务。详情看上面的使用。</p>
-<h1>引用</h1>
+<h1 id="引用">引用</h1>
 <p><a target="_blank" rel="noopener" href="https://dtm.pub/practice/tcc.html">TCC事务模式 | DTM开源项目文档</a></p>
 
                 
@@ -2713,9 +2810,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -2868,10 +2977,11 @@
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -2931,7 +3041,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -2942,10 +3108,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -2957,6 +3129,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -2970,7 +3144,7 @@
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -110,7 +110,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -145,7 +145,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -194,6 +194,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -231,7 +334,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.1k 字
+          15k 字
         
       </span>
     
@@ -242,20 +345,12 @@
         
         
         
-          26 分钟
+          128 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -267,6 +362,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -2523,11 +2620,11 @@
             
               <div class="markdown-body">
                 
-                <h1>定义</h1>
+                <h1 id="定义">定义</h1>
 <p>JSON（JavaScript Object Notation）是基于JavaScript语言的轻量级的数据交换格式，也常用于发送和接收结构化信息的标准协议。<br>
 还有类似的协议，如XML、ASN.1和Google的Protocol Buffers。</p>
 <p>Go语言对于这些标准格式的编码和解码都有良好的支持，标准库中对应的包有<code>encoding/json</code>、<code>encoding/xml</code>、<code>encoding/asn1</code>。“Protocol Buffers的支持由 <a target="_blank" rel="noopener" href="http://github.com/golang/protobuf">github.com/golang/protobuf</a> 包提供）。</p>
-<h1>JSON支持的类型</h1>
+<h1 id="json支持的类型">JSON支持的类型</h1>
 <p>JSON是对JavaScript中各种类型的Unicode文本编码。<br>
 JSON类型如下：</p>
 <ul>
@@ -2549,7 +2646,7 @@ true或false</li>
 </ul>
 <p>下面程序负责收集各种电影评论并提供反馈功能。它的Movie数据类型和一个典型的表示电影的值列表如下所示:</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">type</span> Movie <span class="hljs-keyword">struct</span> &#123;<br>	Title  <span class="hljs-type">string</span><br>	Year   <span class="hljs-type">int</span>  <span class="hljs-string">`json:&quot;released&quot;`</span><br>	Color  <span class="hljs-type">bool</span> <span class="hljs-string">`json:&quot;color,omitempty&quot;`</span><br>	Actors []<span class="hljs-type">string</span><br>&#125;<br><br><span class="hljs-keyword">var</span> movies = []Movie&#123;<br>	&#123;Title: <span class="hljs-string">&quot;Casablanca&quot;</span>, Year: <span class="hljs-number">1942</span>, Color: <span class="hljs-literal">false</span>, Actors: []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;Humphrey Bogart&quot;</span>, <span class="hljs-string">&quot;Ingrid Bergman&quot;</span>&#125;&#125;,<br>	&#123;Title: <span class="hljs-string">&quot;Cool Hand Luke&quot;</span>, Year: <span class="hljs-number">1967</span>, Color: <span class="hljs-literal">true</span>, Actors: []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;Paul Newman&quot;</span>&#125;&#125;,<br>	&#123;Title: <span class="hljs-string">&quot;Bullitt&quot;</span>, Year: <span class="hljs-number">1968</span>, Color: <span class="hljs-literal">true</span>, Actors: []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;Steve McQueen&quot;</span>, <span class="hljs-string">&quot;Jacqueline Bisset&quot;</span>&#125;&#125;,<br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>JSON的编码与解码</h1>
+<h1 id="json的编码与解码">JSON的编码与解码</h1>
 <h2 id="编码"><a class="header-anchor" href="#编码">¶</a>编码</h2>
 <p>将一个Go语言中类似movies的结构体slice转为JSON的过程叫编码（marshaling）。<br>
 通过<code>json.Marshall</code>函数完成：</p>
@@ -2570,7 +2667,7 @@ Color成员的Tag还带了一个额外的omitempty选项，表示当Go语言结�
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> titles []<span class="hljs-keyword">struct</span>&#123; Title <span class="hljs-type">string</span> &#125;<br><span class="hljs-keyword">if</span> err := json.Unmarshal(data, &amp;titles); err != <span class="hljs-literal">nil</span> &#123;<br>	log.Fatalf(<span class="hljs-string">&quot;JSON unmarshaling failed:%s&quot;</span>, err)<br>&#125;<br>fmt.Println(titles) <span class="hljs-comment">// [&#123;Casablanca&#125; &#123;Cool Hand Luke&#125; &#123;Bullitt&#125;]</span><br></code></pre></td></tr></table></figure>
 <p>通过定义合适的Go语言数据结构，可以选择性地解码JSON中感兴趣的成员。<br>
 当Unmarshal函数返回时，slice将只含有Title信息值填充，其它的JSON成员将被忽略。</p>
-<h1>应用</h1>
+<h1 id="应用">应用</h1>
 <h2 id="Github的issue查询服务"><a class="header-anchor" href="#Github的issue查询服务">¶</a>Github的issue查询服务</h2>
 <p>许多web服务都提供JSON接口，通过HTTP接口发送JSON格式请求并返回JSON格式的信息。为了说明这一点，我们通过Github的issue查询服务来演示类似的用法。<br>
 定义合适的类型和常量：<br>
@@ -2584,7 +2681,7 @@ issue/main.go</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;go-learn-gopl/ch/ch4/github&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// windows+label:bug</span><br>	result, err := github.SearchIssues(os.Args[<span class="hljs-number">1</span>:])<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br>	fmt.Printf(<span class="hljs-string">&quot;%d issues:\n&quot;</span>, result.TotalCount)<br>	<span class="hljs-keyword">for</span> _, item := <span class="hljs-keyword">range</span> result.Items &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;#%-5d %9.9s %.55s\n&quot;</span>, item.Number, item.User.Login, item.Title)<br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <p>通过一下命令进行程序运行及输出：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go build ./issues/main.go</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">./main.go windows+label:bug</span><br>649797 issues:<br><span class="hljs-meta prompt_">#</span><span class="language-bash">14     deondreE Windows Integration</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">11948  wujunwei fix: failed testcase on windows</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">20821  joker5bb Build fails on windows</span> <br><span class="hljs-meta prompt_">#</span><span class="language-bash">272    tieugene Windows issues</span><br>...<br></code></pre></td></tr></table></figure>
-<h1>练习</h1>
+<h1 id="练习">练习</h1>
 <p><strong>练习 4.10：</strong>  修改issues程序，根据问题的时间进行分类，比如不到一个月的、不到一年的、超过一年。<br>
 解：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;go-learn-gopl/ch/ch4/github&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> class <span class="hljs-type">string</span><br><br><span class="hljs-keyword">const</span> (<br>	LTOM class = <span class="hljs-string">&quot;less than one month&quot;</span><br>	MTOM class = <span class="hljs-string">&quot;more than one month&quot;</span><br>	LTOY class = <span class="hljs-string">&quot;less than one year&quot;</span><br>	MTOY class = <span class="hljs-string">&quot;more than one year&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	result, err := github.SearchIssues(os.Args[<span class="hljs-number">1</span>:])<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br><br>	issueClass := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[class][]github.Issue)<br>	<span class="hljs-keyword">for</span> _, item := <span class="hljs-keyword">range</span> result.Items &#123;<br>		item := *item<br>		y, m, _ := item.CreatedAt.Date()<br>		cy, cm, _ := time.Now().Date()<br>		<span class="hljs-keyword">switch</span> &#123;<br>		<span class="hljs-keyword">case</span> cm-m &lt;= time.Month(<span class="hljs-number">1</span>):<br>			issueClass[LTOM] = <span class="hljs-built_in">append</span>(issueClass[LTOM], item)<br>		<span class="hljs-keyword">case</span> cm-m &gt; time.Month(<span class="hljs-number">1</span>):<br>			issueClass[MTOM] = <span class="hljs-built_in">append</span>(issueClass[MTOM], item)<br>		<span class="hljs-keyword">case</span> cy-y &lt;= <span class="hljs-number">1</span>:<br>			issueClass[LTOY] = <span class="hljs-built_in">append</span>(issueClass[LTOY], item)<br>		<span class="hljs-keyword">case</span> cy-y &gt; <span class="hljs-number">1</span>:<br>			issueClass[MTOY] = <span class="hljs-built_in">append</span>(issueClass[MTOY], item)<br>		&#125;<br>	&#125;<br><br>	<span class="hljs-keyword">for</span> class, issues := <span class="hljs-keyword">range</span> issueClass &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;class: %s, issue: %v\n&quot;</span>, class, issues)<br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
@@ -2685,9 +2782,21 @@ xkcd/xkcd.go</p>
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -2840,10 +2949,11 @@ xkcd/xkcd.go</p>
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -2903,7 +3013,63 @@ xkcd/xkcd.go</p>
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -2914,10 +3080,16 @@ xkcd/xkcd.go</p>
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -2929,6 +3101,8 @@ xkcd/xkcd.go</p>
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -2942,7 +3116,7 @@ xkcd/xkcd.go</p>
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

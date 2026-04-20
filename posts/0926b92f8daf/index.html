@@ -74,7 +74,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -109,7 +109,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -144,7 +144,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -193,6 +193,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -230,7 +333,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.5k 字
+          15k 字
         
       </span>
     
@@ -241,20 +344,12 @@
         
         
         
-          38 分钟
+          126 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -266,6 +361,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -299,7 +396,7 @@
         aria-expanded="true"
       >
         java
-        <span class="list-group-count">(42)</span>
+        <span class="list-group-count">(41)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -314,19 +411,10 @@
     
       
       
-        <a href="/posts/1646708a3955/" title="JVM哪些事儿：OOM解毒大全"
+        <a href="/posts/5ff5abe6abf1/" title="JVM哪些事儿：OOM解毒大全"
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">JVM哪些事儿：OOM解毒大全</span>
-        </a>
-      
-    
-      
-      
-        <a href="/posts/582a9cc5bfc6/" title="JVM哪些事儿：起始"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">JVM哪些事儿：起始</span>
         </a>
       
     
@@ -358,7 +446,7 @@
     
       
       
-        <a href="/posts/14b3d3a44bab/" title="Mapstruct大法：从凹到凸"
+        <a href="/posts/7b085037866b/" title="Mapstruct大法：从凹到凸"
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">Mapstruct大法：从凹到凸</span>
@@ -1028,7 +1116,7 @@
                 
                 <p>2025.09.16 oracle正式发布JDK 25 LTS，并维护到2033年9月。<br>
 一定很好奇，有什么新特性呢？接下来一览究竟吧。</p>
-<h1>1. 语言特性增强</h1>
+<h1 id="1.-语言特性增强">1. 语言特性增强</h1>
 <h2 id="1-1-Patterns、instanceof-和-switch-使用基本类型增强-3th预览"><a class="header-anchor" href="#1-1-Patterns、instanceof-和-switch-使用基本类型增强-3th预览">¶</a>1.1. Patterns、instanceof 和 switch 使用基本类型增强 (3th预览)</h2>
 <p>核心目标：消除基本类型和引用类型在模式匹配、<code>instanceof</code>和<code>switch</code>使用中的不一致，让开发者能用统一、安全的方式检查和转换所有数据类型。</p>
 <h3 id="1-1-1-扩展instanceof的类型测试"><a class="header-anchor" href="#1-1-1-扩展instanceof的类型测试">¶</a>1.1.1. 扩展instanceof的类型测试</h3>
@@ -1082,7 +1170,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Employee</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Person</span> &#123;<br>    <br>    Employee(<span class="hljs-type">int</span> age) &#123;<br>        <span class="hljs-built_in">super</span>(age);<br>        <span class="hljs-keyword">if</span> (age &lt; <span class="hljs-number">18</span> || age &gt; <span class="hljs-number">65</span>)<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IllegalArgumentException</span>(<span class="hljs-string">&quot;Employee age must be between 18 and 65&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p><strong>新写法：</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Employee</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Person</span> &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-title function_">verifyAge</span><span class="hljs-params">(<span class="hljs-type">int</span> age)</span> &#123;<br>        <span class="hljs-keyword">if</span> (age &lt; <span class="hljs-number">18</span> || age &gt; <span class="hljs-number">65</span>)<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IllegalArgumentException</span>(<span class="hljs-string">&quot;Employee age must be between 18 and 65&quot;</span>);<br>        <span class="hljs-keyword">return</span> age;<br>    &#125;<br>    <br>    Employee(<span class="hljs-type">int</span> age) &#123;<br>        <span class="hljs-built_in">super</span>(verifyAge(age));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>2. 引入新API</h1>
+<h1 id="2.-引入新api">2. 引入新API</h1>
 <h2 id="2-1-结构化并发（Structured-Concurrency）-5th预览"><a class="header-anchor" href="#2-1-结构化并发（Structured-Concurrency）-5th预览">¶</a>2.1. 结构化并发（Structured Concurrency）(5th预览)</h2>
 <p>结构化并发核心思想：<strong>将运行在不同线程中的相关任务组视为一个单一的工作单元。</strong><br>
 假设一个场景：处理一个请求需要并发查询用户信息和订单信息。<br>
@@ -1169,7 +1257,7 @@
 </ul>
 <p>简单的使用例子：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// HKDF 提取</span><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">kdfExtract</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> NoSuchAlgorithmException, NoSuchProviderException, InvalidAlgorithmParameterException &#123;<br>    <span class="hljs-comment">// 初始化密钥</span><br>    <span class="hljs-type">byte</span>[] ikm = <span class="hljs-string">&quot;my-secret-key-material&quot;</span>.getBytes();<br><br>    <span class="hljs-comment">// 盐值 - 可选且推荐</span><br>    <span class="hljs-type">byte</span>[] salt = <span class="hljs-string">&quot;my-salt-value&quot;</span>.getBytes();<br><br>    <span class="hljs-comment">// 上下文信息 - 可选 用于区分不同的派生密钥</span><br>    <span class="hljs-type">byte</span>[] info = <span class="hljs-string">&quot;ase-encryption-key&quot;</span>.getBytes();<br><br>    <span class="hljs-comment">// 1. 获取 KDF 实例 （HKDF 和 SHA-256）</span><br>    <span class="hljs-type">KDF</span> <span class="hljs-variable">hkdf</span> <span class="hljs-operator">=</span> KDF.getInstance(<span class="hljs-string">&quot;HKDF-SHA256&quot;</span>);<br><br>    <span class="hljs-comment">// 2. 创建参数规范 - 使用提取然后扩展模式</span><br>    <span class="hljs-type">HKDFParameterSpec</span> <span class="hljs-variable">params</span> <span class="hljs-operator">=</span> HKDFParameterSpec.ofExtract()<br>            .addIKM(ikm)<br>            .addSalt(salt)<br>            .thenExpand(info, <span class="hljs-number">32</span>); <span class="hljs-comment">// 32字节输出密钥</span><br><br>    <span class="hljs-comment">// 3. 派生 AES 密钥</span><br>    <span class="hljs-type">SecretKey</span> <span class="hljs-variable">aesKey</span> <span class="hljs-operator">=</span> hkdf.deriveKey(<span class="hljs-string">&quot;AES&quot;</span>, params);<br>    System.out.println(<span class="hljs-string">&quot;Derived AES Key: &quot;</span> + HexFormat.of().formatHex(aesKey.getEncoded()));<br><br>    <span class="hljs-comment">// 4. 可以使用同一个 KDF 实例派生更多密钥</span><br>    <span class="hljs-type">byte</span>[] info2 = <span class="hljs-string">&quot;hmac-key&quot;</span>.getBytes();<br>    <span class="hljs-type">HKDFParameterSpec</span> <span class="hljs-variable">params2</span> <span class="hljs-operator">=</span> HKDFParameterSpec.ofExtract()<br>            .addIKM(ikm)<br>            .addSalt(salt)<br>            .thenExpand(info2, <span class="hljs-number">64</span>);<br><br>    <span class="hljs-type">SecretKey</span> <span class="hljs-variable">hmacKey</span> <span class="hljs-operator">=</span> hkdf.deriveKey(<span class="hljs-string">&quot;HmacSHA256&quot;</span>, params2);<br>    System.out.println(<span class="hljs-string">&quot;Derived HMAC Key: &quot;</span> + HexFormat.of().formatHex(hmacKey.getEncoded()));<br>&#125;<br><br><span class="hljs-comment">// 扩展模式</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">kdfExpandOnly</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>    <span class="hljs-comment">// 假设我们已经有了一个提取后的伪随机密钥 (PRK)</span><br>    <span class="hljs-type">byte</span>[] prkBytes = <span class="hljs-literal">null</span>; <span class="hljs-comment">// ... 从之前的提取操作获得的 PRK</span><br>    <span class="hljs-type">SecretKey</span> <span class="hljs-variable">prk</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SecretKeySpec</span>(prkBytes, <span class="hljs-string">&quot;AES&quot;</span>);<br><br>    <span class="hljs-comment">// 上下文信息</span><br>    <span class="hljs-type">byte</span>[] info = <span class="hljs-string">&quot;specific-context&quot;</span>.getBytes();<br><br>    <span class="hljs-type">KDF</span> <span class="hljs-variable">hkdf</span> <span class="hljs-operator">=</span> KDF.getInstance(<span class="hljs-string">&quot;HKDF-SHA256&quot;</span>);<br><br>    <span class="hljs-comment">// 使用仅扩展模式 (需要已经有 PRK)</span><br>    <span class="hljs-type">HKDFParameterSpec</span> <span class="hljs-variable">params</span> <span class="hljs-operator">=</span> HKDFParameterSpec.expandOnly(prk, info, <span class="hljs-number">48</span>);<br><br>    <span class="hljs-comment">// 派生原始数据而不是密钥</span><br>    <span class="hljs-type">byte</span>[] derivedData = hkdf.deriveData(params);<br><br>    System.out.println(<span class="hljs-string">&quot;Derived data: &quot;</span> + HexFormat.of().formatHex(derivedData));<br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>3. 性能相关</h1>
+<h1 id="3.-性能相关">3. 性能相关</h1>
 <h2 id="3-1-紧凑的对象头"><a class="header-anchor" href="#3-1-紧凑的对象头">¶</a>3.1. 紧凑的对象头</h2>
 <p>在64位架构上，将对象标头的大小从96到128位减少到64位，大大减少内存占用。<br>
 <strong>使用</strong>：仅需<code>-XX:+UseCompactObjectHeaders</code>即可启用。<br>
@@ -1193,7 +1281,7 @@
 <p>在训练运行（即一次预先的、非生产环境的程序运行）期间，JVM不仅会缓存类加载和链接信息，还会收集并缓存方法的执行剖析数据。<br>
 随后在生产运行中，启动JVM时，这些预先收集的剖析信息会立即可用，以极大加速了预热过程。<br>
 执行时间提升19%，而缓存容量仅增加了约2.5%。</p>
-<h1>4. 监控相关</h1>
+<h1 id="4.-监控相关">4. 监控相关</h1>
 <h2 id="4-1-JFR-CPU时间分析-实验"><a class="header-anchor" href="#4-1-JFR-CPU时间分析-实验">¶</a>4.1. JFR CPU时间分析 (实验)</h2>
 <p>在 Linux 系统上为 JDK Flight Recorder (JFR) 引入一种​​实验性​​的、​​更精确​​的 CPU 时间分析功能，通过利用 Linux 内核的 CPU 定时器机制来安全地生成 Java 程序的 CPU 使用情况剖析报告。</p>
 <p><strong>​​使用场景与价值：​​</strong></p>
@@ -1213,7 +1301,7 @@
 <li><strong>jdk.MethodTiming</strong>: 记录方法的调用次数、平均/最小/最大执行时间（统计摘要）。</li>
 <li><strong>jdk.MethodTrace</strong>: 记录单次方法调用的开始时间、持续时间和完整的调用堆栈。</li>
 </ul>
-<h1>5. 删除的功能</h1>
+<h1 id="5.-删除的功能">5. 删除的功能</h1>
 <h2 id="5-1-删除实验特性-Graal-JIT"><a class="header-anchor" href="#5-1-删除实验特性-Graal-JIT">¶</a>5.1. 删除实验特性 - Graal JIT</h2>
 <p>可选的实验性 Graal JIT 编译器已被删除。</p>
 
@@ -1297,9 +1385,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -1452,10 +1552,11 @@
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -1515,7 +1616,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -1526,10 +1683,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -1541,6 +1704,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -1554,7 +1719,7 @@
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

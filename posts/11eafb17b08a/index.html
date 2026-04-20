@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -110,7 +110,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -145,7 +145,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -194,6 +194,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -231,7 +334,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          7.1k 字
         
       </span>
     
@@ -242,20 +345,12 @@
         
         
         
-          10 分钟
+          59 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -267,6 +362,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -2523,16 +2620,16 @@
             
               <div class="markdown-body">
                 
-                <h1>前言</h1>
+                <h1 id="前言">前言</h1>
 <p><code>go-micro</code>插件中有实现auth接口的鉴权验证插件<code>jwt</code>，github开源地址：<a target="_blank" rel="noopener" href="https://github.com/micro/plugins/tree/main/v5/auth/jwt">plugins/v5/auth/jwt at main · micro/plugins (github.com)</a>。</p>
 <p>当然，我们也可以自己实现<code>auth</code>接口和<code>rule</code>接口，自定义auth插件。</p>
 <p>下面是官方插件jwt的简单使用。</p>
-<h1>环境</h1>
+<h1 id="环境">环境</h1>
 <ul>
 <li>go-micro v5.3.1</li>
 <li>Ubuntu 22.04.1 LTS</li>
 </ul>
-<h1>使用</h1>
+<h1 id="使用">使用</h1>
 <p><code>jwt</code>插件使用方式分为三种：</p>
 <ul>
 <li>命令行参数引入插件</li>
@@ -2574,7 +2671,7 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sh">curl -XPOST \<br>-H <span class="hljs-string">&#x27;Content-Type: application/json&#x27;</span> \<br>-H <span class="hljs-string">&#x27;Micro-Endpoint: Auth.Gen&#x27;</span> \<br>-d <span class="hljs-string">&#x27;&#123;&quot;id&quot;: &quot;123456&quot;&#125;&#x27;</span> \<br>http://localhost:port<br></code></pre></td></tr></table></figure>
 <p>上面代码都是使用系统分配的端口号，可以在服务启动后，查看日志可知。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">2024-10-05 01:56:37  file=v5@v5.3.1-0.20240826062029-b318b7f097ae/service.go:98 level=info Transport [http] Listening on [::]:40239<br></code></pre></td></tr></table></figure>
-<h1>验证处理</h1>
+<h1 id="验证处理">验证处理</h1>
 <p>使用<code>micro.WrapHandler(w ...server.HandlerWrapper)</code>拦截处理auth。</p>
 <p><code>auth.go</code></p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> auth<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;context&quot;</span><br>	<span class="hljs-string">&quot;errors&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;go-micro.dev/v5&quot;</span><br>	<span class="hljs-string">&quot;go-micro.dev/v5/auth&quot;</span><br>	<span class="hljs-string">&quot;go-micro.dev/v5/metadata&quot;</span><br>	<span class="hljs-string">&quot;go-micro.dev/v5/server&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;strings&quot;</span><br>)<br><br><span class="hljs-keyword">var</span> (<br>	catchallResource = &amp;auth.Resource&#123;<br>		Name:     <span class="hljs-string">&quot;*&quot;</span>,<br>		Type:     <span class="hljs-string">&quot;*&quot;</span>,<br>		Endpoint: <span class="hljs-string">&quot;*&quot;</span>,<br>	&#125;<br><br>	callResource = &amp;auth.Resource&#123;<br>		Name:     <span class="hljs-string">&quot;auth&quot;</span>,<br>		Type:     <span class="hljs-string">&quot;service&quot;</span>,<br>		Endpoint: <span class="hljs-string">&quot;Greeter.greet&quot;</span>,<br>	&#125;<br><br>	<span class="hljs-comment">// rules to validate against</span><br>	rules = []*auth.Rule&#123;<br>		<span class="hljs-comment">// enforce auth on all endpoints</span><br>		&#123;Scope: <span class="hljs-string">&quot;*&quot;</span>, Resource: catchallResource&#125;,<br><br>		<span class="hljs-comment">// enforce auth on one specific endpoint</span><br>		&#123;Scope: <span class="hljs-string">&quot;*&quot;</span>, Resource: callResource&#125;,<br>	&#125;<br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewAuthWrapper</span><span class="hljs-params">(service micro.Service)</span></span> server.HandlerWrapper &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(handlerFunc server.HandlerFunc)</span></span> server.HandlerFunc &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(ctx context.Context, req server.Request, rsp <span class="hljs-keyword">interface</span>&#123;&#125;)</span></span> <span class="hljs-type">error</span> &#123;<br>			<span class="hljs-comment">// fetch metadata from context</span><br>			md, b := metadata.FromContext(ctx)<br>			<span class="hljs-keyword">if</span> !b &#123;<br>				<span class="hljs-keyword">return</span> errors.New(<span class="hljs-string">&quot;no metadata found&quot;</span>)<br>			&#125;<br>			fmt.Println(md)<br><br>			<span class="hljs-comment">// get auth header</span><br>			authHeader, ok := md[<span class="hljs-string">&quot;Authorization&quot;</span>]<br>			<span class="hljs-keyword">if</span> !ok || !strings.HasPrefix(authHeader, auth.BearerScheme) &#123;<br>				log.Println(<span class="hljs-string">&quot;no auth token provided &quot;</span> + authHeader + <span class="hljs-string">&quot; .&quot;</span>)<br>				<span class="hljs-keyword">return</span> errors.New(<span class="hljs-string">&quot;no auth token provided &quot;</span> + authHeader + <span class="hljs-string">&quot; .&quot;</span>)<br>			&#125;<br><br>			<span class="hljs-comment">// extract auth header</span><br>			token := strings.TrimPrefix(authHeader, auth.BearerScheme)<br><br>			<span class="hljs-comment">// extract account from token</span><br>			a := service.Options().Auth<br>			acc, err := a.Inspect(token)<br>			<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>				<span class="hljs-keyword">return</span> errors.New(<span class="hljs-string">&quot;auth token invalid&quot;</span>)<br>			&#125;<br>			fmt.Println(<span class="hljs-string">&quot;acc &quot;</span>, acc)<br><br>			<span class="hljs-comment">// create resource for current endpoint from request headers</span><br>			currentResource := auth.Resource&#123;<br>				Name:     md[<span class="hljs-string">&quot;Micro-Service&quot;</span>],<br>				Type:     <span class="hljs-string">&quot;service&quot;</span>,<br>				Endpoint: md[<span class="hljs-string">&quot;Micro-Endpoint&quot;</span>],<br>			&#125;<br><br>			<span class="hljs-comment">// verify if account has access</span><br>			<span class="hljs-keyword">if</span> err := auth.Verify(rules, acc, &amp;currentResource); err != <span class="hljs-literal">nil</span> &#123;<br>				<span class="hljs-keyword">return</span> errors.New(<span class="hljs-string">&quot;no access&quot;</span>)<br>			&#125;<br><br>			<span class="hljs-keyword">return</span> handlerFunc(ctx, req, rsp)<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -2584,7 +2681,7 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sh">go build -o service main.go plugins.go<br>MICRO_AUTH=jwt \<br>MICRO_AUTH_PUBLIC_KEY=rsa公钥的base编码 \<br>MICRO_AUTH_PRIVATE_KEY=rsa私钥的<span class="hljs-built_in">base64</span>编码 \<br>./service auth_server_verify<br></code></pre></td></tr></table></figure>
 <h2 id="测试-v2"><a class="header-anchor" href="#测试-v2">¶</a>测试</h2>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sh">curl -XPOST \<br>-H <span class="hljs-string">&#x27;Content-Type: application/json&#x27;</span> \<br>-H <span class="hljs-string">&#x27;Micro-Endpoint: Greeter.Greet&#x27;</span> \<br>-H <span class="hljs-string">&#x27;Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiIiwic2NvcGVzIjpudWxsLCJtZXRhZGF0YSI6bnVsbCwiZXhwIjoxNzI4MjAxMTgyLCJpc3MiOiJnby5taWNybyIsInN1YiI6Ium7hOWuneiLkiJ9.YBuzVIwSRBMHhNEFRcVMbRB0LhUbyVkMdjCh9U4BHDlHRR_tjIjKb_PjbOImkVSrrG1EwRri4Z-JgOID2DDRMKzK5iobFUROdDJokk5JRK2H3N-e6MCZ0ZgpDwZaFCNgAZ3xvmiKtEsOTHZ1MrXWfM7IgjfS9CSV4kckkUJtUx1aDq0UiXmHrA-Ub_fJ-FGz5BTOtVKKW7AjqKGfJMOHv-O9jtP04tg6DLoDIGd3xNXyXW-Xy5M5LKS7NGX0HyIhZZIO7Dfe8eBDZOC00S6GSAbDg6i3o6gO31iLYYyaya-bZ2XiITUV71Mgx4iwpB0RwgomQrMzfsgA_HitKMDb5w&#x27;</span> \<br>-d <span class="hljs-string">&#x27;&#123;&quot;name&quot;: &quot;wer&quot;&#125;&#x27;</span> \<br>http://localhost:8888<br></code></pre></td></tr></table></figure>
-<h1>引用</h1>
+<h1 id="引用">引用</h1>
 <p><a target="_blank" rel="noopener" href="https://github.com/micro/plugins/tree/main/v5/auth/jwt">plugins/v5/auth/jwt at main · micro/plugins (github.com)</a></p>
 
                 
@@ -2676,9 +2773,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -2831,10 +2940,11 @@
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -2894,7 +3004,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -2905,10 +3071,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -2920,6 +3092,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -2933,7 +3107,7 @@
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

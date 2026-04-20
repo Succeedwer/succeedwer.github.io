@@ -74,7 +74,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -109,7 +109,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -144,7 +144,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -193,6 +193,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -230,7 +333,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          934 字
+          3.2k 字
         
       </span>
     
@@ -241,20 +344,12 @@
         
         
         
-          8 分钟
+          28 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -266,6 +361,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -2522,9 +2619,9 @@
             
               <div class="markdown-body">
                 
-                <h1>前言</h1>
+                <h1 id="前言">前言</h1>
 <p>泛型generics在Go1.18版本中正式发布，其设计在我看来，较Java的泛型来说自由度更高。</p>
-<h1>泛型的基本概念</h1>
+<h1 id="泛型的基本概念">泛型的基本概念</h1>
 <h2 id="什么是泛型？为什么要使用泛型？"><a class="header-anchor" href="#什么是泛型？为什么要使用泛型？">¶</a>什么是泛型？为什么要使用泛型？</h2>
 <p>泛型，即<strong>参数化类型</strong>。</p>
 <p>以函数举例，函数的参数可分为<strong>形参</strong>和<strong>实参</strong>。</p>
@@ -2541,7 +2638,7 @@
 <li><code>~</code>：底层类型近似约束，如<code>~int</code>包含<code>int</code>和所有底层类型是<code>int</code>的自定义类型。</li>
 <li><code>|</code>：类型联合约束，如<code>int | float</code>表示可以接收<code>int</code>或<code>float</code>类型。</li>
 </ul>
-<h1>类型约束</h1>
+<h1 id="类型约束">类型约束</h1>
 <h2 id="内置约束"><a class="header-anchor" href="#内置约束">¶</a>内置约束</h2>
 <ul>
 <li><code>any</code>：任意类型，等价于<code>interface&#123;&#125;</code></li>
@@ -2551,14 +2648,14 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> IntLike <span class="hljs-keyword">interface</span> &#123;<br>	~<span class="hljs-type">int</span> | ~<span class="hljs-type">int32</span> | ~<span class="hljs-type">int64</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Double</span>[<span class="hljs-title">T</span> <span class="hljs-title">IntLike</span>]<span class="hljs-params">(x T)</span></span> T &#123;<br>	<span class="hljs-keyword">return</span> x * <span class="hljs-number">2</span><br>&#125;<br><br><span class="hljs-keyword">type</span> MyInt <span class="hljs-type">int</span><br>fmt.Println(Double(MyInt(<span class="hljs-number">10</span>))) <span class="hljs-comment">// &quot;20&quot;</span><br>fmt.Println(Double(<span class="hljs-number">10</span>)) <span class="hljs-comment">// &quot;20&quot;</span><br></code></pre></td></tr></table></figure>
 <h2 id="自定义约束"><a class="header-anchor" href="#自定义约束">¶</a>自定义约束</h2>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 定义了int及其长度不等的衍生类型和float32 float64的约束，包含它们的近似类型。</span><br><span class="hljs-keyword">type</span> Number <span class="hljs-keyword">interface</span> &#123;<br>	~<span class="hljs-type">int</span> | ~<span class="hljs-type">int8</span> | ~<span class="hljs-type">int16</span> | ~<span class="hljs-type">int32</span> | ~<span class="hljs-type">int64</span> | ~<span class="hljs-type">float32</span> | ~<span class="hljs-type">float64</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Sum</span>[<span class="hljs-title">T</span> <span class="hljs-title">Number</span>]<span class="hljs-params">(nums []T)</span></span> T &#123;<br>	<span class="hljs-keyword">var</span> sum T<br>	<span class="hljs-keyword">for</span> _, num := <span class="hljs-keyword">range</span> nums &#123;<br>		sum += num<br>	&#125;<br>	<span class="hljs-keyword">return</span> sum<br>&#125;<br><br>fmt.Println(Sum([]<span class="hljs-type">int</span>&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>&#125;))           <span class="hljs-comment">// &quot;6&quot;</span><br>fmt.Println(Sum([]<span class="hljs-type">float64</span>&#123;<span class="hljs-number">1.1</span>, <span class="hljs-number">2.2</span>, <span class="hljs-number">3.3</span>&#125;)) <span class="hljs-comment">// &quot;6.6&quot;</span><br></code></pre></td></tr></table></figure>
-<h1>泛型的使用</h1>
+<h1 id="泛型的使用">泛型的使用</h1>
 <h2 id="泛型函数"><a class="header-anchor" href="#泛型函数">¶</a>泛型函数</h2>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Max</span>[<span class="hljs-title">T</span> <span class="hljs-title">int</span> | <span class="hljs-title">float64</span>]<span class="hljs-params">(a, b T)</span></span> T &#123;<br>	<span class="hljs-keyword">if</span> a &gt; b &#123;<br>		<span class="hljs-keyword">return</span> a<br>	&#125;<br>	<span class="hljs-keyword">return</span> b<br>&#125;<br><br>fmt.Println(Max(<span class="hljs-number">3</span>, <span class="hljs-number">5</span>))      <span class="hljs-comment">// &quot;5&quot;</span><br>fmt.Println(Max(<span class="hljs-number">3.14</span>, <span class="hljs-number">5.2</span>)) <span class="hljs-comment">// &quot;5.2&quot;</span><br></code></pre></td></tr></table></figure>
 <h2 id="泛型类型（struct-slice）"><a class="header-anchor" href="#泛型类型（struct-slice）">¶</a>泛型类型（struct/slice）</h2>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Stack 模拟入栈出栈</span><br><span class="hljs-keyword">type</span> Stack[T any] <span class="hljs-keyword">struct</span> &#123;<br>	items []T<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *Stack[T])</span></span> Push(item T) &#123;<br>	s.items = <span class="hljs-built_in">append</span>(s.items, item)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *Stack[T])</span></span> Pop() T &#123;<br>	item := s.items[<span class="hljs-built_in">len</span>(s.items)<span class="hljs-number">-1</span>]<br>	s.items = s.items[:<span class="hljs-built_in">len</span>(s.items)<span class="hljs-number">-1</span>]<br>	<span class="hljs-keyword">return</span> item<br>&#125;<br><br>intStack := Stack[<span class="hljs-type">int</span>]&#123;&#125;<br>intStack.Push(<span class="hljs-number">12</span>)<br>fmt.Println(intStack.Pop()) <span class="hljs-comment">// &quot;12&quot;</span><br></code></pre></td></tr></table></figure>
 <h2 id="泛型接口"><a class="header-anchor" href="#泛型接口">¶</a>泛型接口</h2>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Stringer 泛型接口 返回格式化接口值</span><br><span class="hljs-keyword">type</span> Stringer[T any] <span class="hljs-keyword">interface</span> &#123;<br>	String(T) <span class="hljs-type">string</span><br>&#125;<br><br><span class="hljs-comment">// IntStringer 实现接口</span><br><span class="hljs-keyword">type</span> IntStringer <span class="hljs-keyword">struct</span>&#123;&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(i IntStringer)</span></span> String(n <span class="hljs-type">int</span>) <span class="hljs-type">string</span> &#123;<br>	<span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;Number: %d&quot;</span>, n)<br>&#125;<br><br><span class="hljs-keyword">var</span> s Stringer[<span class="hljs-type">int</span>] = IntStringer&#123;&#125;<br>fmt.Println(s.String(<span class="hljs-number">45</span>)) <span class="hljs-comment">// &quot;Number: 45&quot;</span><br></code></pre></td></tr></table></figure>
-<h1>应用</h1>
+<h1 id="应用">应用</h1>
 <h2 id="泛型与反射结合"><a class="header-anchor" href="#泛型与反射结合">¶</a>泛型与反射结合</h2>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// TypeName 返回类型的名称</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TypeName</span>[<span class="hljs-title">T</span> <span class="hljs-title">any</span>]<span class="hljs-params">()</span></span> <span class="hljs-type">string</span> &#123;<br>	<span class="hljs-keyword">var</span> t T<br>	<span class="hljs-keyword">return</span> reflect.TypeOf(t).Name()<br>&#125;<br><br>fmt.Println(TypeName[<span class="hljs-type">int</span>]())    <span class="hljs-comment">// &quot;int&quot;</span><br>fmt.Println(TypeName[<span class="hljs-type">string</span>]()) <span class="hljs-comment">// &quot;string&quot;</span><br></code></pre></td></tr></table></figure>
 <h2 id="过滤操作"><a class="header-anchor" href="#过滤操作">¶</a>过滤操作</h2>
@@ -2567,14 +2664,14 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Node 泛型链表</span><br><span class="hljs-keyword">type</span> Node[T any] <span class="hljs-keyword">struct</span> &#123;<br>	Value T<br>	Next  *Node[T]<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewNode</span>[<span class="hljs-title">T</span> <span class="hljs-title">any</span>]<span class="hljs-params">(v T)</span></span> *Node[T] &#123;<br>	<span class="hljs-keyword">return</span> &amp;Node[T]&#123;Value: v&#125;<br>&#125;<br><br>head := NewNode(<span class="hljs-string">&quot;Hello&quot;</span>)<br>head.Next = NewNode(<span class="hljs-string">&quot;World&quot;</span>)<br></code></pre></td></tr></table></figure>
 <h2 id="map函数"><a class="header-anchor" href="#map函数">¶</a>map函数</h2>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Map 泛型Map函数</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Map</span>[<span class="hljs-title">S</span> ~[]<span class="hljs-title">E</span>, <span class="hljs-title">U</span>, <span class="hljs-title">E</span> <span class="hljs-title">any</span>]<span class="hljs-params">(s S, f <span class="hljs-keyword">func</span>(E)</span></span> U) []U &#123;<br>	result := <span class="hljs-built_in">make</span>([]U, <span class="hljs-built_in">len</span>(s))<br>	<span class="hljs-keyword">for</span> i, v := <span class="hljs-keyword">range</span> s &#123;<br>		result[i] = f(v)<br>	&#125;<br>	<span class="hljs-keyword">return</span> result<br>&#125;<br><br><span class="hljs-keyword">type</span> myString <span class="hljs-type">string</span><br>s := []myString&#123;myString(<span class="hljs-string">&quot;one&quot;</span>), myString(<span class="hljs-string">&quot;two&quot;</span>)&#125;<br>lens := Map(s, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(v myString)</span></span> <span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(v)<br>&#125;)<br>fmt.Println(lens) <span class="hljs-comment">// &quot;[3 3]&quot;</span><br></code></pre></td></tr></table></figure>
-<h1>注意事项</h1>
+<h1 id="注意事项">注意事项</h1>
 <ul>
 <li>过多使用泛型会导致二进制文件变大。</li>
 <li>在性能敏感的场景需要谨慎使用。</li>
 <li>不要为了泛型而泛型，仅在真正需要时使用。</li>
 <li>Go的类型断言时，需要显式指定类型。</li>
 </ul>
-<h1>参考</h1>
+<h1 id="参考">参考</h1>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://go.dev/blog/generics-proposal">A Proposal for Adding Generics to Go - The Go Programming Language</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/golang/go/issues/43651">spec: add generic programming using type parameters · Issue #43651 · golang/go</a></li>
@@ -2660,9 +2757,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -2691,8 +2800,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/3ffaea570eb4/" title="如何创建Go项目">
-                        <span class="hidden-mobile">如何创建Go项目</span>
+                      <a href="/posts/9ea651dc7ee0/" title="go框架">
+                        <span class="hidden-mobile">go框架</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -2815,10 +2924,11 @@
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -2878,7 +2988,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -2889,10 +3055,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -2904,6 +3076,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -2917,7 +3091,7 @@
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

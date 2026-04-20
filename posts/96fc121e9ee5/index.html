@@ -78,7 +78,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -113,7 +113,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -148,7 +148,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -197,6 +197,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -234,7 +337,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.6k 字
+          7.3k 字
         
       </span>
     
@@ -245,20 +348,12 @@
         
         
         
-          22 分钟
+          61 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -270,6 +365,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -303,7 +400,7 @@
         aria-expanded="true"
       >
         java
-        <span class="list-group-count">(42)</span>
+        <span class="list-group-count">(41)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -318,19 +415,10 @@
     
       
       
-        <a href="/posts/1646708a3955/" title="JVM哪些事儿：OOM解毒大全"
+        <a href="/posts/5ff5abe6abf1/" title="JVM哪些事儿：OOM解毒大全"
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">JVM哪些事儿：OOM解毒大全</span>
-        </a>
-      
-    
-      
-      
-        <a href="/posts/582a9cc5bfc6/" title="JVM哪些事儿：起始"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">JVM哪些事儿：起始</span>
         </a>
       
     
@@ -362,7 +450,7 @@
     
       
       
-        <a href="/posts/14b3d3a44bab/" title="Mapstruct大法：从凹到凸"
+        <a href="/posts/7b085037866b/" title="Mapstruct大法：从凹到凸"
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">Mapstruct大法：从凹到凸</span>
@@ -1030,15 +1118,15 @@
             
               <div class="markdown-body">
                 
-                <h1>1. 问题：线程和进程的区别？</h1>
+                <h1 id="1.-问题：线程和进程的区别？">1. 问题：线程和进程的区别？</h1>
 <ol>
 <li><code>线程</code>(thread)是操作系统能够进行运算调度的最小单位。被包含于<code>进程</code>中，是<code>进程</code>的实际运行单位。</li>
 <li><code>进程</code>是资源分配的基本单位，<code>线程</code>与资源分配无关，<code>线程</code>属于某一<code>进程</code>, 与<code>进程</code>内的其他<code>线程</code>共享<code>进程</code>的资源。</li>
 </ol>
-<h1>2. 问题：线程的生命周期是怎么样的？</h1>
+<h1 id="2.-问题：线程的生命周期是怎么样的？">2. 问题：线程的生命周期是怎么样的？</h1>
 <p>经典线程模型的生命周期分为5种状态：<code>新建</code>、<code>就绪</code>、<code>运行</code>、<code>等待</code>、<code>退出</code>。</p>
 <p>而Java线程状态有6种，<code>新建(New)</code>，<code>就绪/运行(Runnable)</code>，<code>阻塞(Blocked)</code>，<code>等待(Waiting)</code>，<code>超时等待(Timed_Wait)</code>，<code>终止(Terminated)</code>。</p>
-<p><img src="/posts/96fc121e9ee5/1621102468107.png" srcset="/images/loading.gif" lazyload alt="1621102468107.png"></p>
+<p><img src="/posts/96fc121e9ee5/1621102468107.png" srcset="/img/loading.gif" lazyload alt="1621102468107.png"></p>
 <ul>
 <li><code>新建(NEW)</code>
 <ul>
@@ -1086,12 +1174,12 @@
 <p>因为其天生是不安全的。停止一个线程会导致其解锁其上被锁定的所有监视器（监视器以在栈顶产生ThreadDeath异常的方式被解锁）。如果之前被这些监视器保护的任何对象处于不一致状态，其它线程看到的这些对象就会处于不一致状态。这种对象被称为受损的 （damaged）。当线程在受损的对象上进行操作时，会导致任意行为。这种行为可能微妙且难以检测，也可能会比较明显。不像其他未受检的（unchecked）异常， ThreadDeath 悄无声息的杀死及其他线程。因此，用户得不到程序可能会崩溃的警告。崩溃会在真正破坏发生后的任意时刻显现，甚至在数小时或数天之后。stop 的许多使用都应由只修改某些变量以指示目标线程应该停止运行的代码来取代。目标线程应定期检查该变量，并且如果该变量指示它要停止运行，则从其运行方法依次返回。如果目标线程等待很长时间（例如基于一个条件变量），则应使用 interrupt 方法来中断该等待。</p>
 <p>Thread.stop()会导致线程不安全。</p>
 </blockquote>
-<h1>3. 问题：介绍一下线程池？</h1>
+<h1 id="3.-问题：介绍一下线程池？">3. 问题：介绍一下线程池？</h1>
 <ol>
 <li>线程池是预选创建线程，线程的集合叫线程池。</li>
 <li>线程池能够自动管理线程的生命周期，避免线程的频繁创建和销毁，更专注于业务逻辑，提高性能。</li>
 <li>Java中线程池如图所示：<br>
-<img src="/posts/96fc121e9ee5/1621255349816.png" srcset="/images/loading.gif" lazyload alt="1621255349816.png"></li>
+<img src="/posts/96fc121e9ee5/1621255349816.png" srcset="/img/loading.gif" lazyload alt="1621255349816.png"></li>
 <li><code>Executors</code>是JDK1.5之后的类，提供静态方法创建线程池。
 <ul>
 <li><code>newCachedThreadPool</code><br>
@@ -1123,7 +1211,7 @@
 </ul>
 </li>
 </ol>
-<h1>4. 问题：线程如何创建Task？</h1>
+<h1 id="4.-问题：线程如何创建task？">4. 问题：线程如何创建Task？</h1>
 <ol>
 <li>创建Task常用有4种方式，<code>Thread</code>，<code>Runnable</code>，<code>Callable</code>和<code>ForkJoinTask</code>。</li>
 <li>创建<code>Thread</code>的子类，重写<code>run()</code>方法，但是没有返回值。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MyThread</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Thread</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123;<br>		System.out.println(<span class="hljs-string">&quot;running...&quot;</span>)<br>    &#125;<br>&#125;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span>&#123;<br>	<span class="hljs-type">MyThread</span> <span class="hljs-variable">myThread</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyThread</span>();<br>	myThread.start();<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -1135,7 +1223,7 @@
 <li>创建一个类继承<code>ForkJoinTask</code>或其子类<code>RecursiveTask</code>，拥有异步返回值，用于<code>ForkJoinPool</code>。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MyForkJoinTask</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">RecursiveTask</span>&lt;String&gt; &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> String <span class="hljs-title function_">compute</span><span class="hljs-params">()</span> &#123;<br>			<span class="hljs-comment">//... 一些基于分治思想的递归运算，如快速排序</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;myForkJoinTask....&quot;</span>;<br>    &#125;<br>&#125;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span>&#123;<br>	<span class="hljs-type">ForkJoinPool</span> <span class="hljs-variable">forkJoinPool</span> <span class="hljs-operator">=</span> ForkJoinPool.commonPool();<br>    <span class="hljs-type">String</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> forkJoinPool.invoke(<span class="hljs-keyword">new</span> <span class="hljs-title class_">MyForkJoinTask</span>());<br>    System.out.println(result);<br>    forkJoinPool.shutdown();<br>&#125;<br></code></pre></td></tr></table></figure>
 </li>
 </ol>
-<h1>5. 问题：如何异步获取多线程的返回值？</h1>
+<h1 id="5.-问题：如何异步获取多线程的返回值？">5. 问题：如何异步获取多线程的返回值？</h1>
 <ol>
 <li><code>Runnable</code>在线程池中的固定返回。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">ExecutorService</span> <span class="hljs-variable">executorService</span> <span class="hljs-operator">=</span> Executors.newFixedThreadPool(<span class="hljs-number">10</span>);<br>   <span class="hljs-comment">// 将输入的结果返回</span><br>   Future&lt;String&gt; future = executorService.submit(<span class="hljs-keyword">new</span> <span class="hljs-title class_">MyRunnable</span>(),<span class="hljs-string">&quot;return...&quot;</span>);<br>   System.out.println(future.get()); <span class="hljs-comment">// return...</span><br></code></pre></td></tr></table></figure>
 </li>
@@ -1157,7 +1245,7 @@
 <li>通过CompletionService，jdk1.8之后提供了完成服务CompletionService，可以实现异步接收返回值。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">try</span> &#123;<br>       Callable&lt;String&gt; callable = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Callable</span>&lt;String&gt;() &#123;<br>           <span class="hljs-meta">@Override</span><br>           <span class="hljs-keyword">public</span> String <span class="hljs-title function_">call</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>               <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;asynReturn...&quot;</span>;<br>           &#125;<br>       &#125;;<br>       <span class="hljs-type">ExecutorService</span> <span class="hljs-variable">executorService</span> <span class="hljs-operator">=</span> Executors.newSingleThreadExecutor();<br>       CompletionService&lt;String&gt; completionService = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutorCompletionService</span>&lt;&gt;(executorService);<br>       completionService.submit(callable);<br>       <span class="hljs-type">String</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> completionService.take().get(); <span class="hljs-comment">//阻塞获取</span><br>       System.out.println(result);<br>   &#125; <span class="hljs-keyword">catch</span> (InterruptedException | ExecutionException e) &#123;<br>       e.printStackTrace();<br>   &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 </li>
 </ol>
-<h1>6. 问题：多线程的应用场景有哪些？</h1>
+<h1 id="6.-问题：多线程的应用场景有哪些？">6. 问题：多线程的应用场景有哪些？</h1>
 <p>并发量大的操作，以及无关主流程的操作。</p>
 <ul>
 <li>多线程IO操作，如写入mysql，redis的数据量大。</li>
@@ -1168,7 +1256,7 @@
 <li>多线程验证数据，如验证上百万个url。</li>
 <li>多线程下单抢单。</li>
 </ul>
-<h1>7. 问题： 什么是线程安全，Java如何保证线程安全？</h1>
+<h1 id="7.-问题：-什么是线程安全，java如何保证线程安全？">7. 问题： 什么是线程安全，Java如何保证线程安全？</h1>
 <ol>
 <li>在拥有共享数据的多条线程并行执行的程序中，线程安全的代码会通过同步机制保证各个线程都可以正常且正确的执行，不会出现数据污染等意外情况。</li>
 <li>一个类或者程序所提供的接口对于线程来说是原子操作或者多个线程之间的切换不会导致该接口的执行结果存在二义性，也就是说我们不用考虑同步的问题。</li>
@@ -1176,8 +1264,8 @@
 <li>若每个线程中对<code>全局变量</code>、<code>静态变量</code>只有读操作，而无写操作，一般来说，这个全局变量是线程安全的；若有多个线程同时执行写操作，一般都需要考虑线程同步，否则的话就可能影响线程安全。</li>
 <li>Java中使用锁保证线程安全，解决并发操作引起的脏读、数据不一致的问题，如<code>synchronized</code>对象锁。</li>
 </ol>
-<h1>8. 问题：JVM中对象存储结构是怎么样的？</h1>
-<p><img src="/posts/96fc121e9ee5/1621083916775.png" srcset="/images/loading.gif" lazyload alt="1621083916775.png"></p>
+<h1 id="8.-问题：jvm中对象存储结构是怎么样的？">8. 问题：JVM中对象存储结构是怎么样的？</h1>
+<p><img src="/posts/96fc121e9ee5/1621083916775.png" srcset="/img/loading.gif" lazyload alt="1621083916775.png"></p>
 
                 
               </div>
@@ -1259,9 +1347,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -1414,10 +1514,11 @@
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -1477,7 +1578,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -1488,10 +1645,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -1503,6 +1666,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -1516,7 +1681,7 @@
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

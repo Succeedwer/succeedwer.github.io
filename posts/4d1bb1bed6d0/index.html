@@ -78,7 +78,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -113,7 +113,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -148,7 +148,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -197,6 +197,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -234,7 +337,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.9k 字
+          8.1k 字
         
       </span>
     
@@ -245,20 +348,12 @@
         
         
         
-          16 分钟
+          68 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -270,6 +365,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -2529,7 +2626,7 @@
                 <p>复杂的打印格式可以使用<code>text/template</code>和<code>html\template</code>等模板包实现。<br>
 模版包含一个字符串或一个文件，里面包含一个或多个由双花括号包含的<code>&#123;&#123;action&#125;&#125;</code>对象。<br>
 <code>action</code>对象包含一个用模板语言书写的表达式，如选择结构体的成员、调用函数或方法、表达式控制流if-else语句和range循环语句等等特性。</p>
-<h1>text/template</h1>
+<h1 id="text/template">text/template</h1>
 <p>下面是一个简单的模板字符串：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;go-learn-gopl/ch/ch4/github&quot;</span><br>	<span class="hljs-string">&quot;html/template&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-comment">// !+template</span><br><span class="hljs-keyword">const</span> templ = <span class="hljs-string">`&#123;&#123;.TotalCount&#125;&#125; issues:</span><br><span class="hljs-string">&#123;&#123;range .Items&#125;&#125;---------------------------------------</span><br><span class="hljs-string">Number:	&#123;&#123;.Number&#125;&#125;</span><br><span class="hljs-string">User:	&#123;&#123;.User.Login&#125;&#125;</span><br><span class="hljs-string">Title:	&#123;&#123;.Title | printf &quot;%.64s&quot;&#125;&#125;</span><br><span class="hljs-string">Age:	&#123;&#123;.CreatedAt | daysAgo&#125;&#125; days</span><br><span class="hljs-string">&#123;&#123;end&#125;&#125;`</span><br><br><span class="hljs-comment">//!-template</span><br><br><span class="hljs-comment">// !+daysAgo</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">daysAgo</span><span class="hljs-params">(t time.Time)</span></span> <span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-type">int</span>(time.Since(t).Hours() / <span class="hljs-number">24</span>)<br>&#125;<br><br><span class="hljs-comment">//!-daysAgo</span><br><br><span class="hljs-comment">// !+exec</span><br><span class="hljs-keyword">var</span> report = template.Must(template.New(<span class="hljs-string">&quot;issuelist&quot;</span>).<br>	Funcs(template.FuncMap&#123;<span class="hljs-string">&quot;daysAgo&quot;</span>: daysAgo&#125;).<br>	Parse(templ))<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	result, err := github.SearchIssues(os.Args[<span class="hljs-number">1</span>:])<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br>	<span class="hljs-keyword">if</span> err := report.Execute(os.Stdout, result); err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">// !-exec</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">noMust</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">//!+parse</span><br>	report, err := template.New(<span class="hljs-string">&quot;reprot&quot;</span>).<br>		Funcs(template.FuncMap&#123;<span class="hljs-string">&quot;daysAgo&quot;</span>: daysAgo&#125;).<br>		Parse(templ)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br>	<span class="hljs-comment">//!-parse</span><br><br>	result, err := github.SearchIssues(os.Args[<span class="hljs-number">1</span>:])<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br>	<span class="hljs-keyword">if</span> err := report.Execute(os.Stdout, result); err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">//!+output</span><br><span class="hljs-comment">$ go run main.go windows+label:bug</span><br><span class="hljs-comment">651325 issues:</span><br><span class="hljs-comment">---------------------------------------</span><br><span class="hljs-comment">Number: 1449</span><br><span class="hljs-comment">User:   sensuikan1973</span><br><span class="hljs-comment">Title:  debug windows widget test</span><br><span class="hljs-comment">Age:    0 days</span><br><span class="hljs-comment">---------------------------------------</span><br><span class="hljs-comment">Number: 334</span><br><span class="hljs-comment">User:   mkilgore</span><br><span class="hljs-comment">Title:  Fix keyboard _Device on Windows</span><br><span class="hljs-comment">Age:    0 days</span><br><span class="hljs-comment">---------------------------------------</span><br><span class="hljs-comment">...</span><br><span class="hljs-comment">//!-output</span><br><span class="hljs-comment">*/</span><br><br></code></pre></td></tr></table></figure>
 <p>点操作符<code>.</code>可以引用模板调用参数，当前例子中对应为<code>github.IssuesSearchResult</code>类型的变量。<br>
@@ -2550,12 +2647,12 @@
 <p><code>template.Must</code>辅助函数可以简化模板解析失败的处理：它接受一个模板和一个error类型的参数，检测error是否为nil（如果不是nil则发出panic异常），然后返回传入的模板。</p>
 <p>模板创建、注册函数、并通过分析和检测，可以使用<code>github.IssuesSearchResult</code>作为输入源、<code>os.Stdout</code>作为输出源来执行模板：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> report = template.Must(template.New(<span class="hljs-string">&quot;issuelist&quot;</span>).<br>	Funcs(template.FuncMap&#123;<span class="hljs-string">&quot;daysAgo&quot;</span>: daysAgo&#125;).<br>	Parse(templ))<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	result, err := github.SearchIssues(os.Args[<span class="hljs-number">1</span>:])<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br>	<span class="hljs-keyword">if</span> err := report.Execute(os.Stdout, result); err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>html/template</h1>
+<h1 id="html/template">html/template</h1>
 <p><code>html/template</code>包使用的API和模板语言与<code>text/template</code>包一样，但增加了一个讲字符串自动转义特性，以避免输入字符串和HTML、JavaScript、CSS或URL语法产生冲突的问题。还能避免安全问题，如通过生成HTML注入攻击、通过构造一个含有恶意代码的问题标题。<br>
 下面的模板以HTML格式输出issue列表：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Issueshtml prints an HTML table of issues matching the search terms.</span><br><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;go-learn-gopl/ch/ch4/github&quot;</span><br>	<span class="hljs-string">&quot;html/template&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>)<br><br><span class="hljs-comment">// !+template</span><br><span class="hljs-keyword">var</span> issueList = template.Must(template.New(<span class="hljs-string">&quot;issuelist&quot;</span>).Parse(<span class="hljs-string">`</span><br><span class="hljs-string">&lt;h1&gt;&#123;&#123;.TotalCount&#125;&#125; issues&lt;/h1&gt;</span><br><span class="hljs-string">&lt;table&gt;</span><br><span class="hljs-string">&lt;tr style=&#x27;text-align: left&#x27;&gt;</span><br><span class="hljs-string">	&lt;th&gt;#&lt;/th&gt;</span><br><span class="hljs-string">	&lt;th&gt;State&lt;/th&gt;</span><br><span class="hljs-string">	&lt;th&gt;User&lt;/th&gt;</span><br><span class="hljs-string">	&lt;th&gt;Title&lt;/th&gt;</span><br><span class="hljs-string">&lt;/tr&gt;</span><br><span class="hljs-string">&#123;&#123;range .Items&#125;&#125;</span><br><span class="hljs-string">&lt;tr&gt;</span><br><span class="hljs-string">	&lt;td&gt;&lt;a href=&#x27;&#123;&#123;.HTMLURL&#125;&#125;&#x27;&gt;&#123;&#123;.Number&#125;&#125;&lt;/a&gt;&lt;/td&gt;</span><br><span class="hljs-string">	&lt;td&gt;&#123;&#123;.State&#125;&#125;&lt;/td&gt;</span><br><span class="hljs-string">	&lt;td&gt;&lt;a href=&#x27;&#123;&#123;.User.HTMLURL&#125;&#125;&#x27;&gt;&#123;&#123;.User.Login&#125;&#125;&lt;/a&gt;&lt;/td&gt;</span><br><span class="hljs-string">	&lt;td&gt;&lt;a href=&#x27;&#123;&#123;.HTMLURL&#125;&#125;&#x27;&gt;&#123;&#123;.Title&#125;&#125;&lt;/a&gt;&lt;/td&gt;</span><br><span class="hljs-string">&lt;/tr&gt;</span><br><span class="hljs-string">&#123;&#123;end&#125;&#125;</span><br><span class="hljs-string">&lt;/table&gt;</span><br><span class="hljs-string">`</span>))<br><br><span class="hljs-comment">//!-template</span><br><br><span class="hljs-comment">// !+</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	result, err := github.SearchIssues(os.Args[<span class="hljs-number">1</span>:])<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br>	<span class="hljs-keyword">if</span> err := issueList.Execute(os.Stdout, result); err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">//!-</span><br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">//!+output</span><br><span class="hljs-comment">$ go run main.go windows+label:bug</span><br><span class="hljs-comment">//!-output</span><br><span class="hljs-comment">*/</span><br><br></code></pre></td></tr></table></figure>
 <p>得出结果：<br>
-<img src="/posts/4d1bb1bed6d0/1682529639246.png" srcset="/images/loading.gif" lazyload alt="enter description here"><br>
+<img src="/posts/4d1bb1bed6d0/1682529639246.png" srcset="/img/loading.gif" lazyload alt="enter description here"><br>
 <strong>html/template包自动将特殊字符转义，因此依然可以看到正确的字面值。</strong><br>
 如果使用<code>text/template</code>包的话，如&quot;&amp;It;“四个字符会被当作小于字符”&lt;“处理，同时”<link>&quot;字符串会被当作一个链接元素处理，就会导致HTML文档结构的改变，从而导致有未知的风险。<br>
 通过对信任的HTML字符串使用template.HTML类型来抑制这种自动转义的行为。还有很多采用类型命名的字符串类型分别对应信任的JavaScript、CSS和URL。<br>
@@ -2563,9 +2660,9 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Autoescape demonstrate automatic HTML escaping in html/template.</span><br><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;html/template&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>)<br><br><span class="hljs-comment">// !+</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">const</span> templ = <span class="hljs-string">`&lt;p&gt;A: &#123;&#123;.A&#125;&#125;&lt;/p&gt;&lt;p&gt;B: &#123;&#123;.B&#125;&#125;&lt;/p&gt;`</span><br>	t := template.Must(template.New(<span class="hljs-string">&quot;escape&quot;</span>).Parse(templ))<br>	<span class="hljs-keyword">var</span> data <span class="hljs-keyword">struct</span> &#123;<br>		A <span class="hljs-type">string</span><br>		B template.HTML<br>	&#125;<br>	data.A = <span class="hljs-string">&quot;&lt;b&gt;Hello!&lt;/b&gt;&quot;</span><br>	data.B = <span class="hljs-string">&quot;&lt;b&gt;Hello!&lt;/b&gt;&quot;</span><br>	<span class="hljs-keyword">if</span> err := t.Execute(os.Stdout, data); err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatal(err)<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">//!-</span><br></code></pre></td></tr></table></figure>
 <p>执行命令</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go run main.go &gt;autoescape.html</span><br></code></pre></td></tr></table></figure>
-<p><img src="/posts/4d1bb1bed6d0/1682530571287.png" srcset="/images/loading.gif" lazyload alt="enter description here"><br>
+<p><img src="/posts/4d1bb1bed6d0/1682530571287.png" srcset="/img/loading.gif" lazyload alt="enter description here"><br>
 由上图可知，A的黑体标志被转义失效了，但B没有。</p>
-<h1>练习</h1>
+<h1 id="练习">练习</h1>
 <p><strong>练习 4.14：</strong> 创建一个web服务器，查询一次GitHub，然后生成BUG报告、里程碑和对应的用户信息。<br>
 解：<br>
 issue/issue.go</p>
@@ -2656,9 +2753,21 @@ issue/issue.go</p>
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -2811,10 +2920,11 @@ issue/issue.go</p>
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -2874,7 +2984,63 @@ issue/issue.go</p>
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -2885,10 +3051,16 @@ issue/issue.go</p>
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -2900,6 +3072,8 @@ issue/issue.go</p>
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -2913,7 +3087,7 @@ issue/issue.go</p>
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

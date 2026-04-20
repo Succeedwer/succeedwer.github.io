@@ -63,7 +63,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -98,7 +98,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -133,7 +133,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -182,6 +182,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -191,7 +294,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="think twice before coding"></span>
+            <span id="subtitle" data-typed-text="Think twice before coding"></span>
           
         </div>
 
@@ -206,6 +309,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -222,220 +327,13 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
+<h1 style="display: none">Bug Terminator</h1>
 
   <div class="row mx-auto index-card">
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
-        
-        
-        <a href="/posts/2acbebbb1ff5/" target="_self">
-          隐式转换and强制转换
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/2acbebbb1ff5/" target="_self">
-        <div>
-          A:案例演示  a:int + int b:byte + int  a：int + int = int b: byte + int = int     B:Java中的默认转换规则  取值范围小的数据类型与取值范围大的数据类型进行运算,会先将小的数据类型提升为大的,再运算   A:案例演示  面试题:看下面的程序是否有问题，如果有问题，请指出并说明理由。 byte b1 = 3; byte b2
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-06-11 00:55" pubdate>
-              2025-06-11
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/java/" class="category-chain-item">java</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/java/">#java</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        
-        <a href="/posts/ef95bf14b680/" target="_self">
-          转义字符
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/ef95bf14b680/" target="_self">
-        <div>
-          '\x'， x表示任意，\是转义符号,这种做法叫转移字符。 12345&#x27;\t&#x27; tab键的位置&#x27;\r&#x27; 回车&#x27;\n&#x27; 换行&#x27;\&quot;&#x27; 转义&quot;&#x27;\&#x27;&#x27; 转义&#x27;  注意： &quot;\x&quot; 和'\x'是一样的。
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-06-11 00:55" pubdate>
-              2025-06-11
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/java/" class="category-chain-item">java</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/java/">#java</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        
-        <a href="/posts/f9796d4b6b88/" target="_self">
-          选择结构switch语句
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/f9796d4b6b88/" target="_self">
-        <div>
-          switch语句的格式 1234567891011switch(表达式)&#123; // 基本数据类型可以接受byte,short,char,int.（能升级到int的类型）  引用数据类型可以接受枚举（JDK1.5）String字符串（JDK1.7）                     case 值1:         语句体1;        break;    case 值2:
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-06-11 00:55" pubdate>
-              2025-06-11
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/java/" class="category-chain-item">java</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/java/">#java</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
         
         <a href="/posts/d8f0a1a233ae/" target="_self">
           逻辑运算符
@@ -505,6 +403,141 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/posts/f9796d4b6b88/" target="_self">
+          选择结构switch语句
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/f9796d4b6b88/" target="_self">
+        <div>
+          switch语句的格式 1234567891011switch(表达式)&#123; // 基本数据类型可以接受byte,short,char,int.（能升级到int的类型）  引用数据类型可以接受枚举（JDK1.5）String字符串（JDK1.7）                     case 值1:         语句体1;        break;    case 值2:
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-06-11 00:55" pubdate>
+              2025-06-11
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/java/" class="category-chain-item">java</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/java/">#java</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/posts/ef95bf14b680/" target="_self">
+          转义字符
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/ef95bf14b680/" target="_self">
+        <div>
+          '\x'， x表示任意，\是转义符号,这种做法叫转移字符。 12345&#x27;\t&#x27; tab键的位置&#x27;\r&#x27; 回车&#x27;\n&#x27; 换行&#x27;\&quot;&#x27; 转义&quot;&#x27;\&#x27;&#x27; 转义&#x27;  注意： &quot;\x&quot; 和'\x'是一样的。
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-06-11 00:55" pubdate>
+              2025-06-11
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/java/" class="category-chain-item">java</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/java/">#java</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
         
         <a href="/posts/08a3be0e3035/" target="_self">
           说明书的制作过程
@@ -574,16 +607,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        
-        <a href="/posts/8825483398df/" target="_self">
-          数组
+        <a href="/posts/a62f78655027/" target="_self">
+          方法重写
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/8825483398df/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/a62f78655027/" target="_self">
         <div>
-          数组概念  数组是存储同一种数据类型多个元素的集合。也可以看成是一个容器。 数组既可以存储基本数据类型，也可以存储引用数据类型。  数组定义格式 1数据类型[] 数组名 = new 数据类型[数组的长度]; 数组的初始化动态初始化 ¶什么是数组的初始化  就是为数组开辟连续的内存空间，并为每个数组元素赋予值  ¶如何对数组进行初始化   a:动态初始化 只指定长度，由系统给出初始化值  int[]
+          方法重写的注意事项  父类中私有方法不能被重写  因为父类私有方法子类根本就无法继承   子类重写父类方法时，访问权限不能更低  最好就一致   父类静态方法，子类也必须通过静态方法进行重写  其实这个算不上方法重写，但是现象确实如此(静态只能覆盖静态)   子类重写父类方法的时候，最好声明一模一样。  方法重写的面试题  Override和Overload的区别?Overload能改变返回值类型
         </div>
       </a>
 
@@ -642,76 +674,6 @@
     
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
-        
-        
-        <a href="/posts/731c30951451/" target="_self">
-          构造方法（Constructor）
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/731c30951451/" target="_self">
-        <div>
-          构造方法Constructor概述和格式  A:构造方法概述和作用  给对象的数据(属性)进行初始化   B:构造方法格式特点  a:方法名与类名相同(大小也要与类名一致) b:没有返回值类型，连void都没有 c:没有具体的返回值return;    例子： 1234567public Person() &#123;        	name = &quot;疯狂的小托马斯&quot;;
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-06-11 00:55" pubdate>
-              2025-06-11
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/java/" class="category-chain-item">java</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/java/">#java</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
         
         <a href="/posts/865639345012/" target="_self">
           继承
@@ -781,16 +743,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        
-        <a href="/posts/a62f78655027/" target="_self">
-          方法重写
+        <a href="/posts/731c30951451/" target="_self">
+          构造方法（Constructor）
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/a62f78655027/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/731c30951451/" target="_self">
         <div>
-          方法重写的注意事项  父类中私有方法不能被重写  因为父类私有方法子类根本就无法继承   子类重写父类方法时，访问权限不能更低  最好就一致   父类静态方法，子类也必须通过静态方法进行重写  其实这个算不上方法重写，但是现象确实如此(静态只能覆盖静态)   子类重写父类方法的时候，最好声明一模一样。  方法重写的面试题  Override和Overload的区别?Overload能改变返回值类型
+          构造方法Constructor概述和格式  A:构造方法概述和作用  给对象的数据(属性)进行初始化   B:构造方法格式特点  a:方法名与类名相同(大小也要与类名一致) b:没有返回值类型，连void都没有 c:没有具体的返回值return;    例子： 1234567public Person() &#123;        	name = &quot;疯狂的小托马斯&quot;;
         </div>
       </a>
 
@@ -850,6 +811,73 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/posts/8825483398df/" target="_self">
+          数组
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/8825483398df/" target="_self">
+        <div>
+          数组概念  数组是存储同一种数据类型多个元素的集合。也可以看成是一个容器。 数组既可以存储基本数据类型，也可以存储引用数据类型。  数组定义格式 1数据类型[] 数组名 = new 数据类型[数组的长度]; 数组的初始化动态初始化 ¶什么是数组的初始化  就是为数组开辟连续的内存空间，并为每个数组元素赋予值  ¶如何对数组进行初始化   a:动态初始化 只指定长度，由系统给出初始化值  int[]
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-06-11 00:55" pubdate>
+              2025-06-11
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/java/" class="category-chain-item">java</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/java/">#java</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
         
         <a href="/posts/957615e68d0e/" target="_self">
           工具类中使用静态
@@ -860,6 +888,74 @@
       <a class="index-excerpt index-excerpt__noimg" href="/posts/957615e68d0e/" target="_self">
         <div>
           直接类名调用方法即可。 例子： 12345678910111213141516171819202122232425262728public class ArrayTool &#123;    private ArrayTool() &#123; //防止创建对象    &#125;    public static int getMax(int[] arr) &#123;        int m
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-06-11 00:55" pubdate>
+              2025-06-11
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/java/" class="category-chain-item">java</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-chain-item">java基础</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/java/">#java</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/posts/dc70c2086a19/" target="_self">
+          成员变量&amp;局部变量
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/dc70c2086a19/" target="_self">
+        <div>
+          区别：  A:在类中的位置不同  成员变量：在类中方法外 局部变量：在方法定义中或者方法声明上   B:在内存中的位置不同  成员变量：在堆内存(成员变量属于对象,对象进堆内存) 局部变量：在栈内存(局部变量属于方法,方法进栈内存)   C:生命周期不同  成员变量：随着对象的创建而存在，随着对象的消失而消失 局部变量：随着方法的调用而存在，随着方法的调用完毕而消失   D:初始化值不同  成员变
         </div>
       </a>
 
@@ -987,10 +1083,11 @@
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>

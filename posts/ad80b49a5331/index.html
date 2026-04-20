@@ -77,7 +77,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -112,7 +112,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -147,7 +147,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -196,6 +196,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -233,7 +336,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4k 字
+          18k 字
         
       </span>
     
@@ -244,20 +347,12 @@
         
         
         
-          34 分钟
+          153 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -269,6 +364,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -2525,7 +2622,7 @@
             
               <div class="markdown-body">
                 
-                <h1>概述</h1>
+                <h1 id="概述">概述</h1>
 <p>流量控制：指的是在网络传输中，发送方主动限制自身发送数据的速率，以适用接收方处理数据的速度。</p>
 <p>如果过快发送数据，接收方来不及处理，数据会被积压到内存中，当内存的缓存区被填满后，新接收的数据将被丢弃，发送方将不得不重新发送，就会导致网络宽带的浪费。</p>
 <p>流量控制可以防止数据丢失，提高性能和可靠性。</p>
@@ -2539,7 +2636,7 @@
 <li>connect level流量控制</li>
 <li>stream level流量控制</li>
 </ul>
-<h1>BDP采样流量控制</h1>
+<h1 id="bdp采样流量控制">BDP采样流量控制</h1>
 <p>BDP，<code>Bandwidth and Delay Product</code>，带宽(单位 bps)和延迟(单位 s)的乘积(单位 bit)，也是客户端于服务端之间允许在<code>Flying</code>状态的最大数据量。<code>Flying</code>指的是发送了但还未收到Ack的时间段。</p>
 <p>实际发送速率乘以延迟得到的值越接近BDP说明流量控制算法效率就越高。</p>
 <h2 id="术语概念"><a class="header-anchor" href="#术语概念">¶</a>术语概念</h2>
@@ -2617,7 +2714,7 @@
 <p>流量控制是双向的。</p>
 </blockquote>
 <p><strong>BDP对grpc的影响是动态，还是全局影响。</strong></p>
-<h1>Connection Level流量控制</h1>
+<h1 id="connection-level流量控制">Connection Level流量控制</h1>
 <p>BDP是基于HTTP/2端对端做的流量控制，而Connection Level是针对TCP链接做的流量控制，即client和server之间的TCP链接。</p>
 <blockquote>
 <p>Connection Level流量控制是限制server的流量，而不是client。</p>
@@ -2640,13 +2737,13 @@
 <p>当<code>trInFlow.unacked&gt;=f.limit/4</code>时，发送<code>WINDOW_UPDATE</code>帧<code>n</code>到server。</p>
 <p>server收到后，更新<code>sendQuota+=n</code>。</p>
 <p>当server响应时，判断<code>sendQuota</code>是否等于0，如果是，则停止响应；否则响应数据<code>n，</code>并更新<code>sendQuota=-n</code>。</p>
-<h1>Stream Level 流量控制</h1>
+<h1 id="stream-level-流量控制">Stream Level 流量控制</h1>
 <p>BDP是基于HTTP/2端对端做的流量控制，Connection Level是针对server和client的链接做的流量控制，而stream Level是对tcp链接中的stream进行流量控制。</p>
 <p>多个<code>stream</code>可以共享同一个<code>connection</code>。</p>
 <p>多个<code>stream</code>能够实现对同一个tcp连接的多路复用。</p>
 <p>可以看得出，grpc的流量控制越来越精细化，从全局到connection，再到stream。</p>
 <p>即stream受stream level控制，又受connection level控制，还受全局的BDP采样流量控制。</p>
-<h1>grpc流程</h1>
+<h1 id="grpc流程">grpc流程</h1>
 <p>与connection level类似，stream level也是使用类似的结构体去做限流，只不过<code>trInFlow</code>所属于transport （connection），<code>inFlow</code>所属于stream。</p>
 <p>client和server都维护着<code>inFlow</code>，即stream level流量控制是双向的。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> inFlow <span class="hljs-keyword">struct</span> &#123;<br>	mu sync.Mutex<br>	<span class="hljs-comment">// stream能够接收的数据上限，默认为65535字节，即BDP采样流量控制后的bdp</span><br>	limit <span class="hljs-type">uint32</span><br>	<span class="hljs-comment">// stream接收到但还未消费（未读取）的数据量</span><br>	pendingData <span class="hljs-type">uint32</span><br>	<span class="hljs-comment">// stream收到且消费了（已读未回）的数据量，但还没window_update，用于避免频繁window_update</span><br>	pendingUpdate <span class="hljs-type">uint32</span><br>	<span class="hljs-comment">// delta是子limit基础上额外增加的数据量，当尝试去读取超过limit大小的数据时，可以临时在limit上增加delta,来读取数据</span><br>	delta <span class="hljs-type">uint32</span><br>&#125;<br></code></pre></td></tr></table></figure>
@@ -2666,8 +2763,8 @@
 <h2 id="结论-v3"><a class="header-anchor" href="#结论-v3">¶</a>结论</h2>
 <p>stream level 流量控制从考虑应用消费stream中数据的速度出发，那么流量控制是一个不断平衡到最佳速度的一个过程。</p>
 <p>也可以理解成，stream level 流量控制是一个不断试错的过程，grpc引入<code>delta</code>是作为一个幅度调整，先评估一个较大的值，然后不断平衡成小的值，而这个平衡幅度就是每次数据的大小<code>n</code>，同时又不断积累<code>pendingUpdate</code>，达到一定量(<code>limit/4</code>)时，进行<code>window update</code>更新<code>n</code>，然后进入新一轮提前调整。</p>
-<p><img src="/posts/ad80b49a5331/image-20240409030333839.png" srcset="/images/loading.gif" lazyload alt="image-20240409030333839"></p>
-<h1>引用</h1>
+<p><img src="/posts/ad80b49a5331/image-20240409030333839.png" srcset="/img/loading.gif" lazyload alt="image-20240409030333839"></p>
+<h1 id="引用">引用</h1>
 <p>[^1 ]: <a target="_blank" rel="noopener" href="https://datatracker.ietf.org/doc/html/rfc7540">RFC 7540 - Hypertext Transfer Protocol Version 2 (HTTP/2) (ietf.org)</a></p>
 
                 
@@ -2759,9 +2856,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -2790,8 +2899,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/2d199938c61e/" title="11.Debugging">
-                        <span class="hidden-mobile">11.Debugging</span>
+                      <a href="/posts/c8179a93017f/" title="12.Encryption">
+                        <span class="hidden-mobile">12.Encryption</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -2914,10 +3023,11 @@
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -2977,7 +3087,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -2988,10 +3154,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -3003,6 +3175,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -3016,7 +3190,7 @@
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

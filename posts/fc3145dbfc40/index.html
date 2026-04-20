@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -110,7 +110,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -145,7 +145,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -194,6 +194,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -231,7 +334,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.2k 字
+          9.5k 字
         
       </span>
     
@@ -242,20 +345,12 @@
         
         
         
-          19 分钟
+          79 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -267,6 +362,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -2523,7 +2620,7 @@
             
               <div class="markdown-body">
                 
-                <h1>Handler</h1>
+                <h1 id="handler">Handler</h1>
 <p><code>http.Handler</code>接口用于实现客户端和服务器。具体接口如下:</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Handler <span class="hljs-keyword">interface</span> &#123;<br>	ServeHTTP(ResponseWriter, *Request)<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>而常与<code>func ListenAndServe(address string, h Handler) error</code>结合使用，该方法需要一个服务器地址和接口分派的<code>Handler</code>接口实例。<br>
@@ -2543,7 +2640,7 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go">msg := fmt.Sprintf(<span class="hljs-string">&quot;not such page:%q\n&quot;</span>, req.URL)<br>http.Error(w, msg, http.StatusNotFound)<br></code></pre></td></tr></table></figure>
 <p>下面是编译运行的结果：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">go build ./ch/ch7/http2</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">./http2 &amp;</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">./ch/ch1/fetch http://localhost:8080/list</span><br>shoes:$100.00<br>socks:$50.00<br><span class="hljs-meta prompt_">$ </span><span class="language-bash">./ch/ch1/fetch http://localhost:8080/price?item=shoes</span><br>shoes:$100.00<br><span class="hljs-meta prompt_">$ </span><span class="language-bash">./ch/ch1/fetch http://localhost:8080/price?item=socks</span><br>socks:$50.00<br>./ch/ch1/fetch http://localhost:8080/price?item=hats<br>not such item:&quot;hats&quot;<br><span class="hljs-meta prompt_">$ </span><span class="language-bash">./ch/ch1/fetch http://localhost:8080/help</span><br>not such page:&quot;/help&quot;<br></code></pre></td></tr></table></figure>
-<h1>ServeMux</h1>
+<h1 id="servemux">ServeMux</h1>
 <p>如果有多个接口呢，继续增加<code>case</code>?<br>
 显然，这样过于臃肿。在实际应用中，我们可以使用将每个case中的逻辑定义到一个分开的方法或函数中。此外，相近的URL可能需要相似的逻辑，例如几个图片文件可能有形如<code>/images/*.png</code>的URL。<br>
 在Go语言中，<code>net/http</code>提供了提供了请求多路由器<code>ServeMux</code>来简化<code>URL</code>和<code>handlers</code>的联系。<br>
@@ -2554,14 +2651,14 @@
 <p>该类型实现了<code>http.Handler</code>接口，<code>ServeHttp</code>方法内部调用了自身方法<code>f(w, r)</code>。</p>
 <p>其实，<code>ServeMux</code>有一个简化的函数，<code>HandleFunc</code>。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go">mux := http.NewServeMux()<br>mux.HandleFunc(<span class="hljs-string">&quot;/list&quot;</span>, db.list)<br>mux.HandleFunc(<span class="hljs-string">&quot;/price&quot;</span>, db.price)<br></code></pre></td></tr></table></figure>
-<h1>DefaultServerMux</h1>
+<h1 id="defaultservermux">DefaultServerMux</h1>
 <p>上述例子实现了两个不同的web服务器来监听不同的端口，并且指派了不同的URL给不同的handler。只要构建另外一个<code>ServeMux</code>并且在调用一次ListenAndServe（可能并行的）。<br>
 此外，在一个应用程序的多个文件中定义HTTP handler也是非常典型的，如果它们必须全部都显示的注册到这个应用的ServeMux实例上会比较麻烦。<br>
 为了方便，<code>net/http</code>包提供了一个全局的<code>ServeMux</code>实例<code>DefaultServerMux</code>和包级别的<code>http.Handle</code>和<code>http.HandleFunc</code>函数。<br>
 为了使用<code>DefaultServerMux</code>作为服务器的主handler，我们不需要将它传给ListenAndServe函数；nil值就可以工作。<br>
 下面是修改后的代码：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go">db := database&#123;<span class="hljs-string">&quot;shoes&quot;</span>: <span class="hljs-number">100</span>, <span class="hljs-string">&quot;socks&quot;</span>: <span class="hljs-number">50</span>, <span class="hljs-string">&quot;hats&quot;</span>: <span class="hljs-number">20</span>&#125;<br>http.HandleFunc(<span class="hljs-string">&quot;/list&quot;</span>, db.list)<br>http.HandleFunc(<span class="hljs-string">&quot;/price&quot;</span>, db.price)<br>log.Fatal(http.ListenAndServe(<span class="hljs-string">&quot;localhost:8080&quot;</span>, <span class="hljs-literal">nil</span>))<br></code></pre></td></tr></table></figure>
-<h1>练习</h1>
+<h1 id="练习">练习</h1>
 <p><strong>练习 7.11：</strong> 增加额外的handler让客户端可以创建，读取，更新和删除数据库记录。例如，一个形如 /update?item=socks&amp;price=6 的请求会更新库存清单里一个货品的价格并且当这个货品不存在或价格无效时返回一个错误值。（注意：这个修改会引入变量同时更新的问题）<br>
 解：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;net/http&quot;</span><br>	<span class="hljs-string">&quot;strconv&quot;</span><br>	<span class="hljs-string">&quot;sync&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	db := database&#123;<span class="hljs-string">&quot;shoes&quot;</span>: <span class="hljs-number">100</span>, <span class="hljs-string">&quot;socks&quot;</span>: <span class="hljs-number">50</span>&#125;<br>	http.HandleFunc(<span class="hljs-string">&quot;/list&quot;</span>, db.list)<br>	http.HandleFunc(<span class="hljs-string">&quot;/price&quot;</span>, db.price)<br>	http.HandleFunc(<span class="hljs-string">&quot;/create&quot;</span>, db.create)<br>	http.HandleFunc(<span class="hljs-string">&quot;/delete&quot;</span>, db.<span class="hljs-built_in">delete</span>)<br>	http.HandleFunc(<span class="hljs-string">&quot;/update&quot;</span>, db.update)<br>	http.HandleFunc(<span class="hljs-string">&quot;/read&quot;</span>, db.read)<br>	log.Fatal(http.ListenAndServe(<span class="hljs-string">&quot;localhost:8080&quot;</span>, <span class="hljs-literal">nil</span>))<br>&#125;<br><br><span class="hljs-keyword">var</span> mu sync.Mutex<br><br><span class="hljs-keyword">type</span> dollars <span class="hljs-type">float32</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(d dollars)</span></span> String() <span class="hljs-type">string</span> &#123;<br>	<span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;$%.2f&quot;</span>, d)<br>&#125;<br><br><span class="hljs-keyword">type</span> database <span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]dollars<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(db database)</span></span> list(w http.ResponseWriter, req *http.Request) &#123;<br>	<span class="hljs-keyword">for</span> item, price := <span class="hljs-keyword">range</span> db &#123;<br>		fmt.Fprintf(w, <span class="hljs-string">&quot;%s:%s\n&quot;</span>, item, price)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(db database)</span></span> price(w http.ResponseWriter, req *http.Request) &#123;<br>	item := req.URL.Query().Get(<span class="hljs-string">&quot;item&quot;</span>)<br>	price, ok := db[item]<br>	<span class="hljs-keyword">if</span> !ok &#123;<br>		msg := fmt.Sprintf(<span class="hljs-string">&quot;not such item:%q&quot;</span>, item)<br>		http.Error(w, msg, http.StatusNotFound)<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	fmt.Fprintf(w, <span class="hljs-string">&quot;%s:%s\n&quot;</span>, item, price)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(db database)</span></span> create(w http.ResponseWriter, req *http.Request) &#123;<br>	item := req.URL.Query().Get(<span class="hljs-string">&quot;item&quot;</span>)<br>	price := req.URL.Query().Get(<span class="hljs-string">&quot;price&quot;</span>)<br>	p, err := strconv.ParseFloat(price, <span class="hljs-number">32</span>)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		msg := fmt.Sprintf(<span class="hljs-string">&quot;params err: %s\n&quot;</span>, err)<br>		http.Error(w, msg, http.StatusBadRequest)<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	mu.Lock()<br>	<span class="hljs-keyword">if</span> _, ok := db[item]; ok &#123;<br>		msg := fmt.Sprintf(<span class="hljs-string">&quot;%s is exist.\n&quot;</span>, item)<br>		http.Error(w, msg, http.StatusNotFound)<br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		db[item] = dollars(p)<br>	&#125;<br>	mu.Unlock()<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(db database)</span></span> <span class="hljs-built_in">delete</span>(w http.ResponseWriter, req *http.Request) &#123;<br>	item := req.URL.Query().Get(<span class="hljs-string">&quot;item&quot;</span>)<br>	mu.Lock()<br>	<span class="hljs-keyword">if</span> _, ok := db[item]; !ok &#123;<br>		msg := fmt.Sprintf(<span class="hljs-string">&quot;%s is not exist.\n&quot;</span>, item)<br>		http.Error(w, msg, http.StatusNotFound)<br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		<span class="hljs-built_in">delete</span>(db, item)<br>	&#125;<br>	mu.Unlock()<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(db database)</span></span> update(w http.ResponseWriter, req *http.Request) &#123;<br>	item := req.URL.Query().Get(<span class="hljs-string">&quot;item&quot;</span>)<br>	price := req.URL.Query().Get(<span class="hljs-string">&quot;price&quot;</span>)<br>	p, err := strconv.ParseFloat(price, <span class="hljs-number">32</span>)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		msg := fmt.Sprintf(<span class="hljs-string">&quot;params err: %v.\n&quot;</span>, err)<br>		http.Error(w, msg, http.StatusBadRequest)<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	mu.Lock()<br>	<span class="hljs-keyword">if</span> _, ok := db[item]; !ok &#123;<br>		msg := fmt.Sprintf(<span class="hljs-string">&quot;%s is not exist.\n&quot;</span>, item)<br>		http.Error(w, msg, http.StatusNotFound)<br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		db[item] = dollars(p)<br>	&#125;<br>	mu.Unlock()<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(db database)</span></span> read(w http.ResponseWriter, req *http.Request) &#123;<br>	item := req.URL.Query().Get(<span class="hljs-string">&quot;item&quot;</span>)<br>	price, ok := db[item]<br>	<span class="hljs-keyword">if</span> !ok &#123;<br>		msg := fmt.Sprintf(<span class="hljs-string">&quot;%s is not exist.\n&quot;</span>, item)<br>		http.Error(w, msg, http.StatusNotFound)<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	fmt.Fprintf(w, <span class="hljs-string">&quot;%s:%s\n&quot;</span>, item, price)<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -2653,9 +2750,21 @@ index.html</p>
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -2808,10 +2917,11 @@ index.html</p>
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -2871,7 +2981,63 @@ index.html</p>
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -2882,10 +3048,16 @@ index.html</p>
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -2897,6 +3069,8 @@ index.html</p>
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -2910,7 +3084,7 @@ index.html</p>
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

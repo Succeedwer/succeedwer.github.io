@@ -80,7 +80,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -115,7 +115,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -150,7 +150,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -199,6 +199,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -236,7 +339,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.6k 字
+          23k 字
         
       </span>
     
@@ -247,20 +350,12 @@
         
         
         
-          81 分钟
+          188 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -272,6 +367,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -2528,7 +2625,7 @@
             
               <div class="markdown-body">
                 
-                <h1>数组和切片</h1>
+                <h1 id="数组和切片">数组和切片</h1>
 <h2 id="1-数组和切片有何异同"><a class="header-anchor" href="#1-数组和切片有何异同">¶</a>1. 数组和切片有何异同?</h2>
 <p>切片本质是对数组的封装，描述一个数组的片段。</p>
 <ul>
@@ -2763,7 +2860,7 @@
 <h3 id="8-1-上述情况，如果在复制好s1之后，删除s（s-nil）-会发生内存泄漏？"><a class="header-anchor" href="#8-1-上述情况，如果在复制好s1之后，删除s（s-nil）-会发生内存泄漏？">¶</a>8.1 上述情况，如果在复制好s1之后，删除s（s = nil）, 会发生内存泄漏？</h3>
 <p>如果是使用<strong>深拷贝（copy/append）</strong>，由于底层数组是独立存在，不会影响GC的回收，则不会发生内存泄漏。</p>
 <p>如果是<strong>浅拷贝(截取slice)</strong>，新旧切片共享底层数组，无法被GC回收，导致内存泄漏。</p>
-<h1>散列表map</h1>
+<h1 id="散列表map">散列表map</h1>
 <h2 id="1-map是什么？"><a class="header-anchor" href="#1-map是什么？">¶</a>1. map是什么？</h2>
 <blockquote>
 <p>维基百科中这样定义map：在计算机科学里，被称为相关数组、map、符号表或者字典，它是由一组&lt;key，value&gt;对组成的抽象数据结构，并且同一个key只会出现一次。</p>
@@ -2799,13 +2896,13 @@
 <p>当key/value都不含指针时，启用overflow和oldoverflow字段。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> mapextra <span class="hljs-keyword">struct</span> &#123;<br>	overflow    *[]*bmap<br>	oldoverflow *[]*bmap<br><br>	<span class="hljs-comment">// 包含空闲的overflow bucket, 即预分配的bucket</span><br>	nextOverflow *bmap<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>bmap的内存存储模型如下：</p>
-<img src="/posts/8c7018943094/image-20241129200743741.png" srcset="/images/loading.gif" lazyload alt="image-20241129200743741" style="zoom:45%;">
+<img src="/posts/8c7018943094/image-20241129200743741.png" srcset="/img/loading.gif" lazyload alt="image-20241129200743741" style="zoom:45%;">
 <p>HOB Hash指的是top hash；</p>
 <p>key/key/…/value/value/…这种模式存储，有利于内存对齐，可以省略padding字段，节省内存空间。</p>
 <p>如果是key/value/key/value/…模式存储的话，还需要额外padding7个字节，这样做是为了防止伪共享，需要凑齐8个字节。</p>
 <p>每个bucket被设计成最多能放8个&lt;key, value&gt;键值对，当超过8个时，即第9个键值对被哈希到该桶时，再创建一个bucket，然后通过overflow指针连接起来，这就是链表法。</p>
 <p>map的整体结构如下：</p>
-<p><img src="/posts/8c7018943094/image-20241129025006800.png" srcset="/images/loading.gif" lazyload alt="image-20241129025006800"></p>
+<p><img src="/posts/8c7018943094/image-20241129025006800.png" srcset="/img/loading.gif" lazyload alt="image-20241129025006800"></p>
 <h3 id="2-2-map的创建"><a class="header-anchor" href="#2-2-map的创建">¶</a>2.2 map的创建</h3>
 <p>创建语法：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go">m := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-type">int</span>)<br><br><span class="hljs-comment">// 指定长度</span><br>m := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-type">int</span>, <span class="hljs-number">8</span>)<br><br><span class="hljs-comment">// m = nil 声明变量m 并不能对m进行添加操作</span><br><span class="hljs-keyword">var</span> m <span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-type">int</span><br></code></pre></td></tr></table></figure>
@@ -2837,7 +2934,7 @@
 </ol>
 <p>当两个不同的key落在同一个bucket中，也就是发生了<strong>哈希冲突</strong>。</p>
 <p>使用<strong>链表法</strong>来解决冲突：在bucket中，从前往后找到第一个空位，放入新加入的有冲突的key。</p>
-<p><img src="/posts/8c7018943094/image-20241130225814848.png" srcset="/images/loading.gif" lazyload alt="image-20241130225814848"></p>
+<p><img src="/posts/8c7018943094/image-20241130225814848.png" srcset="/img/loading.gif" lazyload alt="image-20241130225814848"></p>
 <p>上图中，初始化时B=5，那么bucket的数量就是2^5=32个。</p>
 <ol>
 <li>首先计算key的哈希值。</li>
@@ -2969,7 +3066,7 @@
 <p>下面是遍历过程中map的变化过程图：</p>
 <p>假设如下图所示的map，初始时B=1，有2个bucket(左边)，后面触发扩容操作，B变成了2，并且1号的bucket已搬迁到新的bucket，1号裂变成1号和3号；0号bucket暂未搬迁。</p>
 <p>老bucket挂载<code>*oldbuckets</code>指针上，新bucket挂在<code>*buckets</code>指针上。</p>
-<p><img src="/posts/8c7018943094/image-20241220012132154.png" srcset="/images/loading.gif" lazyload alt="map初始状态"></p>
+<p><img src="/posts/8c7018943094/image-20241220012132154.png" srcset="/img/loading.gif" lazyload alt="map初始状态"></p>
 <p>此时，对map进行遍历。</p>
 <p>初始化迭代器时，startBucket=3，offset=2。</p>
 <p>即遍历起点为3号bucket的2号cell。</p>
@@ -3155,9 +3252,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -3310,10 +3419,11 @@
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -3373,7 +3483,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -3384,10 +3550,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -3399,6 +3571,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -3412,7 +3586,7 @@
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

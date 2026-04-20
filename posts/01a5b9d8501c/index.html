@@ -84,7 +84,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -119,7 +119,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -154,7 +154,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -203,6 +203,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -240,7 +343,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.2k 字
+          11k 字
         
       </span>
     
@@ -251,20 +354,12 @@
         
         
         
-          19 分钟
+          95 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -276,6 +371,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -2532,46 +2629,46 @@
             
               <div class="markdown-body">
                 
-                <p><img src="/posts/01a5b9d8501c/1679562639256-1710774522762.png" srcset="/images/loading.gif" lazyload alt="复数"></p>
-<h1>3.3.1. 复数的构建</h1>
+                <p><img src="/posts/01a5b9d8501c/1679562639256-1710774522762.png" srcset="/img/loading.gif" lazyload alt="复数"></p>
+<h1 id="3.3.1.-复数的构建">3.3.1. 复数的构建</h1>
 <p>复数构建：<code>complex()</code><br>
 返回复数的实部：<code>real()</code><br>
 返回复数的虚部：<code>imag()</code></p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> x <span class="hljs-type">complex128</span> = <span class="hljs-built_in">complex</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)<br><span class="hljs-keyword">var</span> y <span class="hljs-type">complex128</span> = <span class="hljs-built_in">complex</span>(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>)<br>fmt.Println(x)           <span class="hljs-comment">// (1 + 2i)</span><br>fmt.Println(x * y)       <span class="hljs-comment">// (1 + 2i) * (3 + 4i) = (1*3 - 2*4) + (2*3 + 1*4)i = -5 + 10i</span><br>fmt.Println(<span class="hljs-built_in">real</span>(x * y)) <span class="hljs-comment">// -5</span><br>fmt.Println(<span class="hljs-built_in">imag</span>(x * y)) <span class="hljs-comment">// 10</span><br></code></pre></td></tr></table></figure>
 <p>复数的声明语句简化：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go">x := <span class="hljs-number">1</span> + <span class="hljs-number">2i</span><br>y := <span class="hljs-number">3</span> + <span class="hljs-number">4i</span><br></code></pre></td></tr></table></figure>
-<h1>3.3.2. 纯虚数</h1>
+<h1 id="3.3.2.-纯虚数">3.3.2. 纯虚数</h1>
 <p>纯虚数，实部为0，如3.141592i。<br>
 <code>i^2 = -1</code></p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">fmt.Println(<span class="hljs-number">1i</span> * <span class="hljs-number">1i</span>) <span class="hljs-comment">// (-1+0i), i^2 = -1</span><br></code></pre></td></tr></table></figure>
-<h1>3.3.3. 复数的比较</h1>
+<h1 id="3.3.3.-复数的比较">3.3.3. 复数的比较</h1>
 <p>复数也可以使用==和!=进行相等比较，只有实部和虚部都相等时，复数才相等。<br>
 （注意浮点数比较的精度问题。）<br>
 复数无大小顺序之分。</p>
-<h1>3.3.4. 复数的运用</h1>
+<h1 id="3.3.4.-复数的运用">3.3.4. 复数的运用</h1>
 <p>math/cmplx包提供了复数处理的许多函数，例如求复数的平方根函数和求幂函数。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go">fmt.Println(cmplx.Sqrt(<span class="hljs-number">-1</span>)) <span class="hljs-comment">// (0+1i)</span><br>fmt.Println(cmplx.Exp(<span class="hljs-number">0</span>))   <span class="hljs-comment">// (1+0i)</span><br></code></pre></td></tr></table></figure>
 <p>下面的程序使用complex128复数算法来生成一个Mandelbrot图像。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Mandelbrot emits a PNG image of the Mandelbrot fractal.</span><br><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;image&quot;</span><br>	<span class="hljs-string">&quot;image/color&quot;</span><br>	<span class="hljs-string">&quot;image/png&quot;</span><br>	<span class="hljs-string">&quot;math/cmplx&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">const</span> (<br>		xmin, ymin, xmax, ymax = <span class="hljs-number">-2</span>, <span class="hljs-number">-2</span>, +<span class="hljs-number">2</span>, +<span class="hljs-number">2</span><br>		width, height          = <span class="hljs-number">1024</span>, <span class="hljs-number">1024</span><br>	)<br><br>	img := image.NewRGBA(image.Rect(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, width, height))<br>	<span class="hljs-keyword">for</span> py := <span class="hljs-number">0</span>; py &lt; height; py++ &#123;<br>		y := <span class="hljs-type">float64</span>(py)/height*(ymax-ymin) + ymin<br>		<span class="hljs-keyword">for</span> px := <span class="hljs-number">0</span>; px &lt; width; px++ &#123;<br>			x := <span class="hljs-type">float64</span>(px)/width*(xmax-xmin) + xmin<br>			z := <span class="hljs-built_in">complex</span>(x, y)<br>			<span class="hljs-comment">// Image point(px,py) represents complex value z.</span><br>			img.Set(px, py, mandlebrot(z))<br>		&#125;<br>	&#125;<br>	png.Encode(os.Stdout, img) <span class="hljs-comment">// <span class="hljs-doctag">NOTE:</span> ignoring errors</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mandlebrot</span><span class="hljs-params">(z <span class="hljs-type">complex128</span>)</span></span> color.Color &#123;<br>	<span class="hljs-keyword">const</span> iterations = <span class="hljs-number">200</span><br>	<span class="hljs-keyword">const</span> contrast = <span class="hljs-number">15</span><br><br>	<span class="hljs-keyword">var</span> v <span class="hljs-type">complex128</span><br>	<span class="hljs-keyword">for</span> n := <span class="hljs-type">uint8</span>(<span class="hljs-number">0</span>); n &lt; iterations; n++ &#123;<br>		v = v*v + z<br>		<span class="hljs-keyword">if</span> cmplx.Abs(v) &gt; <span class="hljs-number">2</span> &#123;<br>			<span class="hljs-keyword">return</span> color.Gray&#123;<span class="hljs-number">255</span> - contrast*n&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> color.Black<br>&#125;<br><br></code></pre></td></tr></table></figure>
-<p><img src="/posts/01a5b9d8501c/1679568526352.png" srcset="/images/loading.gif" lazyload alt="The Mandelbrot set"></p>
-<h1>练习</h1>
+<p><img src="/posts/01a5b9d8501c/1679568526352.png" srcset="/img/loading.gif" lazyload alt="The Mandelbrot set"></p>
+<h1 id="练习">练习</h1>
 <p><strong>练习 3.5</strong>： 实现一个彩色的Mandelbrot图像，使用image.NewRGBA创建图像，使用color.RGBA或color.YCbCr生成颜色。<br>
 解：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Mandelbrot emits a PNG image of the Mandelbrot fractal.</span><br><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;image&quot;</span><br>	<span class="hljs-string">&quot;image/color&quot;</span><br>	<span class="hljs-string">&quot;image/png&quot;</span><br>	<span class="hljs-string">&quot;math/cmplx&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">const</span> (<br>		xmin, ymin, xmax, ymax = <span class="hljs-number">-2</span>, <span class="hljs-number">-2</span>, +<span class="hljs-number">2</span>, +<span class="hljs-number">2</span><br>		width, height          = <span class="hljs-number">1024</span>, <span class="hljs-number">1024</span><br>	)<br><br>	img := image.NewRGBA(image.Rect(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, width, height))<br>	<span class="hljs-keyword">for</span> py := <span class="hljs-number">0</span>; py &lt; height; py++ &#123;<br>		y := <span class="hljs-type">float64</span>(py)/height*(ymax-ymin) + ymin<br>		<span class="hljs-keyword">for</span> px := <span class="hljs-number">0</span>; px &lt; width; px++ &#123;<br>			x := <span class="hljs-type">float64</span>(px)/width*(xmax-xmin) + xmin<br>			z := <span class="hljs-built_in">complex</span>(x, y)<br>			<span class="hljs-comment">// Image point(px,py) represents complex value z.</span><br>			img.Set(px, py, acos(z))<br>		&#125;<br>	&#125;<br>	png.Encode(os.Stdout, img) <span class="hljs-comment">// <span class="hljs-doctag">NOTE:</span> ignoring errors</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">acos</span><span class="hljs-params">(z <span class="hljs-type">complex128</span>)</span></span> color.Color &#123;<br>	v := cmplx.Acos(z)<br>	blue := <span class="hljs-type">uint8</span>(<span class="hljs-built_in">real</span>(v)*<span class="hljs-number">128</span>) + <span class="hljs-number">127</span><br>	red := <span class="hljs-type">uint8</span>(<span class="hljs-built_in">imag</span>(v)*<span class="hljs-number">128</span>) + <span class="hljs-number">127</span><br>	<span class="hljs-keyword">return</span> color.YCbCr&#123;Y: <span class="hljs-number">192</span>, Cb: blue, Cr: red&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>输出图像：<br>
-<img src="/posts/01a5b9d8501c/out.png" srcset="/images/loading.gif" lazyload alt="out"></p>
+<img src="/posts/01a5b9d8501c/out.png" srcset="/img/loading.gif" lazyload alt="out"></p>
 <p><strong>练习 3.6</strong>： 升采样技术可以降低每个像素对计算颜色值和平均值的影响。简单的方法是将每个像素分层四个子像素，实现它。<br>
 解：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Mandelbrot emits a PNG image of the Mandelbrot fractal.</span><br><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;image&quot;</span><br>	<span class="hljs-string">&quot;image/color&quot;</span><br>	<span class="hljs-string">&quot;image/png&quot;</span><br>	<span class="hljs-string">&quot;math/cmplx&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">const</span> (<br>		xmin, ymin, xmax, ymax = <span class="hljs-number">-2</span>, <span class="hljs-number">-2</span>, +<span class="hljs-number">2</span>, +<span class="hljs-number">2</span><br>		width, height          = <span class="hljs-number">2048</span>, <span class="hljs-number">2048</span><br>	)<br><br>	img := image.NewRGBA(image.Rect(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, width, height))<br>	<span class="hljs-keyword">for</span> py := <span class="hljs-number">0</span>; py &lt; height; py += <span class="hljs-number">2</span> &#123;<br>		y1 := <span class="hljs-type">float64</span>(py)/height*(ymax-ymin) + ymin<br>		y2 := <span class="hljs-type">float64</span>(py+<span class="hljs-number">1</span>)/height*(ymax-ymin) + ymin<br>		<span class="hljs-keyword">for</span> px := <span class="hljs-number">0</span>; px &lt; width; px += <span class="hljs-number">2</span> &#123;<br>			x1 := <span class="hljs-type">float64</span>(px)/width*(xmax-xmin) + xmin<br>			x2 := <span class="hljs-type">float64</span>(px+<span class="hljs-number">1</span>)/width*(xmax-xmin) + xmin<br>			z1 := <span class="hljs-built_in">complex</span>(x1, y1)<br>			z2 := <span class="hljs-built_in">complex</span>(x1, y2)<br>			z3 := <span class="hljs-built_in">complex</span>(x2, y1)<br>			z4 := <span class="hljs-built_in">complex</span>(x2, y2)<br>			<span class="hljs-comment">// Image point (px, py) represents complex value z.</span><br>			img.Set(px/<span class="hljs-number">2</span>, py/<span class="hljs-number">2</span>,<br>				color.Gray&#123;Y: (mandelbrot(z1).Y +<br>					mandelbrot(z2).Y +<br>					mandelbrot(z3).Y +<br>					mandelbrot(z4).Y) / <span class="hljs-number">4.0</span>&#125;)<br><br>			<span class="hljs-comment">// acos</span><br>			<span class="hljs-comment">//img.Set(px/2, py/2,</span><br>			<span class="hljs-comment">//	color.YCbCr&#123;</span><br>			<span class="hljs-comment">//		Y:  (acos(z1).Y + acos(z2).Y + acos(z3).Y + acos(z4).Y) / 4,</span><br>			<span class="hljs-comment">//		Cb: (acos(z1).Cb + acos(z2).Cb + acos(z3).Cb + acos(z4).Cb) / 4,</span><br>			<span class="hljs-comment">//		Cr: (acos(z1).Cr + acos(z2).Cr + acos(z3).Cr + acos(z4).Cr) / 4,</span><br>			<span class="hljs-comment">//	&#125;)</span><br><br>			<span class="hljs-comment">// sqrt</span><br>			<span class="hljs-comment">//img.Set(px/2, py/2,</span><br>			<span class="hljs-comment">//	color.YCbCr&#123;</span><br>			<span class="hljs-comment">//		Y:  (sqrt(z1).Y + sqrt(z2).Y + sqrt(z3).Y + sqrt(z4).Y) / 4,</span><br>			<span class="hljs-comment">//		Cb: (sqrt(z1).Cb + sqrt(z2).Cb + sqrt(z3).Cb + sqrt(z4).Cb) / 4,</span><br>			<span class="hljs-comment">//		Cr: (sqrt(z1).Cr + sqrt(z2).Cr + sqrt(z3).Cr + sqrt(z4).Cr) / 4,</span><br>			<span class="hljs-comment">//	&#125;)</span><br><br>			<span class="hljs-comment">// newton</span><br>			<span class="hljs-comment">//img.Set(px/2, py/2,</span><br>			<span class="hljs-comment">//	color.Gray&#123;Y: (newton(z1).Y +</span><br>			<span class="hljs-comment">//		newton(z2).Y +</span><br>			<span class="hljs-comment">//		newton(z3).Y +</span><br>			<span class="hljs-comment">//		newton(z4).Y) / 4.0&#125;)</span><br>		&#125;<br>	&#125;<br>	png.Encode(os.Stdout, img)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mandelbrot</span><span class="hljs-params">(z <span class="hljs-type">complex128</span>)</span></span> color.Gray &#123;<br>	<span class="hljs-keyword">const</span> iterations = <span class="hljs-number">200</span><br>	<span class="hljs-keyword">const</span> contrast = <span class="hljs-number">15</span><br><br>	<span class="hljs-keyword">var</span> v <span class="hljs-type">complex128</span><br>	<span class="hljs-keyword">for</span> n := <span class="hljs-type">uint8</span>(<span class="hljs-number">0</span>); n &lt; iterations; n++ &#123;<br>		v = v*v + z<br>		<span class="hljs-keyword">if</span> cmplx.Abs(v) &gt; <span class="hljs-number">2</span> &#123;<br>			<span class="hljs-keyword">return</span> color.Gray&#123;Y: <span class="hljs-number">255</span> - contrast*n&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> color.Gray&#123;Y: <span class="hljs-number">0</span>&#125;<br>&#125;<br><br><span class="hljs-comment">// Some other interesting functions.</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">acos</span><span class="hljs-params">(z <span class="hljs-type">complex128</span>)</span></span> color.YCbCr &#123;<br>	v := cmplx.Acos(z)<br>	blue := <span class="hljs-type">uint8</span>(<span class="hljs-built_in">real</span>(v)*<span class="hljs-number">128</span>) + <span class="hljs-number">127</span><br>	red := <span class="hljs-type">uint8</span>(<span class="hljs-built_in">imag</span>(v)*<span class="hljs-number">128</span>) + <span class="hljs-number">127</span><br>	<span class="hljs-keyword">return</span> color.YCbCr&#123;<br>		Y:  <span class="hljs-number">128</span>,<br>		Cb: blue,<br>		Cr: red,<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">sqrt</span><span class="hljs-params">(z <span class="hljs-type">complex128</span>)</span></span> color.YCbCr &#123;<br>	v := cmplx.Sqrt(z)<br>	blue := <span class="hljs-type">uint8</span>(<span class="hljs-built_in">real</span>(v)*<span class="hljs-number">128</span>) + <span class="hljs-number">127</span><br>	red := <span class="hljs-type">uint8</span>(<span class="hljs-built_in">imag</span>(v)*<span class="hljs-number">128</span>) + <span class="hljs-number">127</span><br>	<span class="hljs-keyword">return</span> color.YCbCr&#123;<br>		Y:  <span class="hljs-number">128</span>,<br>		Cb: blue,<br>		Cr: red,<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">newton</span><span class="hljs-params">(z <span class="hljs-type">complex128</span>)</span></span> color.Gray &#123;<br>	<span class="hljs-keyword">const</span> iterations = <span class="hljs-number">37</span><br>	<span class="hljs-keyword">const</span> contrast = <span class="hljs-number">7</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-type">uint8</span>(<span class="hljs-number">0</span>); i &lt; iterations; i++ &#123;<br>		z -= (z - <span class="hljs-number">1</span>/(z*z*z)) / <span class="hljs-number">4</span><br>		<span class="hljs-keyword">if</span> cmplx.Abs(z*z*z*z<span class="hljs-number">-1</span>) &lt; <span class="hljs-number">1e-6</span> &#123;<br>			<span class="hljs-keyword">return</span> color.Gray&#123;Y: <span class="hljs-number">255</span> - contrast*i&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> color.Gray&#123;Y: <span class="hljs-number">0</span>&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p><img src="/posts/01a5b9d8501c/1679590373910.png" srcset="/images/loading.gif" lazyload alt="mandelbrot"></p>
-<p><img src="/posts/01a5b9d8501c/1679590413010.png" srcset="/images/loading.gif" lazyload alt="acos"></p>
-<p><img src="./images/1679590471597.png" srcset="/images/loading.gif" lazyload alt="sqrt"></p>
-<p><img src="/posts/01a5b9d8501c/1679590518203.png" srcset="/images/loading.gif" lazyload alt="newton"></p>
+<p><img src="/posts/01a5b9d8501c/1679590373910.png" srcset="/img/loading.gif" lazyload alt="mandelbrot"></p>
+<p><img src="/posts/01a5b9d8501c/1679590413010.png" srcset="/img/loading.gif" lazyload alt="acos"></p>
+<p><img src="./images/1679590471597.png" srcset="/img/loading.gif" lazyload alt="sqrt"></p>
+<p><img src="/posts/01a5b9d8501c/1679590518203.png" srcset="/img/loading.gif" lazyload alt="newton"></p>
 <p><strong>练习 3.7</strong>： 另一个生成分形图像的方式是使用牛顿法来求解一个复数方程，例如<code>!$ z^&#123;4&#125;-1=0 $</code>。每个起点到四个根的迭代次数对应阴影的灰度。方程根对应的点用颜色表示。<br>
 解：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Mandelbrot emits a PNG image of the Mandelbrot fractal.</span><br><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;image&quot;</span><br>	<span class="hljs-string">&quot;image/color&quot;</span><br>	<span class="hljs-string">&quot;image/png&quot;</span><br>	<span class="hljs-string">&quot;math/cmplx&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">const</span> (<br>		xmin, ymin, xmax, ymax = <span class="hljs-number">-2</span>, <span class="hljs-number">-2</span>, +<span class="hljs-number">2</span>, +<span class="hljs-number">2</span><br>		width, height          = <span class="hljs-number">1024</span>, <span class="hljs-number">1024</span><br>	)<br><br>	img := image.NewRGBA(image.Rect(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, width, height))<br>	<span class="hljs-keyword">for</span> py := <span class="hljs-number">0</span>; py &lt; height; py++ &#123;<br>		y := <span class="hljs-type">float64</span>(py)/width*(xmax-xmin) + xmin<br>		<span class="hljs-keyword">for</span> px := <span class="hljs-number">0</span>; px &lt; width; px++ &#123;<br>			x := <span class="hljs-type">float64</span>(px)/width*(xmax-xmin) + xmin<br>			z := <span class="hljs-built_in">complex</span>(x, y)<br>			<span class="hljs-comment">// Image point (px, py) represents complex value z.</span><br>			img.Set(px, py, newton(z))<br>		&#125;<br>	&#125;<br>	png.Encode(os.Stdout, img)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">newton</span><span class="hljs-params">(z <span class="hljs-type">complex128</span>)</span></span> color.Color &#123;<br>	<span class="hljs-keyword">const</span> iterations = <span class="hljs-number">37</span><br>	<span class="hljs-keyword">const</span> contrast = <span class="hljs-number">7</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-type">uint8</span>(<span class="hljs-number">0</span>); i &lt; iterations; i++ &#123;<br>		z -= (z - <span class="hljs-number">1</span>/(z*z*z)) / <span class="hljs-number">4</span><br>		<span class="hljs-keyword">if</span> cmplx.Abs(z*z*z*z<span class="hljs-number">-1</span>) &lt; <span class="hljs-number">1e-6</span> &#123;<br>			<span class="hljs-keyword">return</span> color.Gray&#123;Y: <span class="hljs-number">255</span> - contrast*i&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> color.Black<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>输出图像：<br>
-<img src="/posts/01a5b9d8501c/1679591754515.png" srcset="/images/loading.gif" lazyload alt="newton"></p>
+<img src="/posts/01a5b9d8501c/1679591754515.png" srcset="/img/loading.gif" lazyload alt="newton"></p>
 <p><strong>练习 3.8</strong>： 通过提高精度来生成更多级别的分形。使用四种不同精度类型的数字实现相同的分形：complex64、complex128、big.Float和big.Rat。（后面两种类型在math/big包声明。Float是有指定限精度的浮点数；Rat是无效精度的有理数。）它们间的性能和内存使用对比如何？当渲染图可见时缩放的级别是多少？<br>
 解：<br>
 mandelbrot.go</p>
@@ -2663,9 +2760,21 @@ mandelbrot.go</p>
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -2818,10 +2927,11 @@ mandelbrot.go</p>
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -2881,7 +2991,63 @@ mandelbrot.go</p>
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -2892,10 +3058,16 @@ mandelbrot.go</p>
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -2907,6 +3079,8 @@ mandelbrot.go</p>
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -2920,7 +3094,7 @@ mandelbrot.go</p>
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

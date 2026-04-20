@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -110,7 +110,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -145,7 +145,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -194,6 +194,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -231,7 +334,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          6.3k 字
         
       </span>
     
@@ -242,20 +345,12 @@
         
         
         
-          20 分钟
+          53 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -267,6 +362,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -2523,9 +2620,9 @@
             
               <div class="markdown-body">
                 
-                <h1>定义</h1>
+                <h1 id="定义">定义</h1>
 <p>结构体是一种聚合的数据类型，是由零个或多个任意类型的值聚合成的实体。</p>
-<h1>声明</h1>
+<h1 id="声明">声明</h1>
 <p>下面例子声明了经典的员工信息Employee的结构类型：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Employee <span class="hljs-keyword">struct</span> &#123;<br>	ID        <span class="hljs-type">int</span><br>	Name      <span class="hljs-type">string</span><br>	Address   <span class="hljs-type">string</span><br>	DoB       time.Time<br>	Position  <span class="hljs-type">string</span><br>	Salary    <span class="hljs-type">int</span><br>	ManagerID <span class="hljs-type">int</span><br>&#125;<br><br><span class="hljs-keyword">var</span> dilbert Employee<br></code></pre></td></tr></table></figure>
 <p>结构体成员变量的输入顺序不同，就定义了不同的结构体类型，通常情况下，可以把相同类型的成员变量写到一起。</p>
@@ -2536,7 +2633,7 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> e Employee<br>fmt.Println(e) <span class="hljs-comment">// &#123;0   0001-01-01 00:00:00 +0000 UTC  0 0&#125;</span><br></code></pre></td></tr></table></figure>
 <p>空结构体没有任何成员变量，写作<code>struct&#123;&#125;</code>，大小为0，也不包含任何信息，常用作map模拟set数据结构是，用于替代value。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go">seen := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-keyword">struct</span>&#123;&#125;) <span class="hljs-comment">// set of strings</span><br><span class="hljs-comment">//...</span><br><span class="hljs-keyword">if</span> _, ok := seen[s]; !ok &#123;<br>	seen[s] = <span class="hljs-keyword">struct</span>&#123;&#125;&#123;&#125;<br>	<span class="hljs-comment">// first time seeing ...</span><br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>访问成员变量</h1>
+<h1 id="访问成员变量">访问成员变量</h1>
 <p>结构体成员变量可以通过点操作符访问，如<code>dilbert.Name</code>。<br>
 因为<code>dilbert</code>是一个变量，其所有的成员也是变量，即可以对每个成员变量赋值：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">dilbert.Salary = <span class="hljs-number">30000</span><br></code></pre></td></tr></table></figure>
@@ -2546,18 +2643,18 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> employeeOfTheMonth *Employee = &amp;dilbert<br>employeeOfTheMonth.Position += <span class="hljs-string">&quot;&quot;</span><br></code></pre></td></tr></table></figure>
 <p>简化成下面语句：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">(*employeeOfTheMonth).Position += <span class="hljs-string">&quot;&quot;</span><br></code></pre></td></tr></table></figure>
-<h1>结构体作为函数的参数和返回值</h1>
+<h1 id="结构体作为函数的参数和返回值">结构体作为函数的参数和返回值</h1>
 <p>结构体可以作为函数的参数和返回值。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Scale</span><span class="hljs-params">(p Point, factor <span class="hljs-type">int</span>)</span></span> Point &#123;<br><span class="hljs-keyword">return</span> Point&#123;p.X * factor, p.Y * factor&#125;<br>&#125;<br>fmt.<span class="hljs-built_in">println</span>(Scale(Point&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>&#125;, <span class="hljs-number">5</span>)) <span class="hljs-comment">// &#123;5, 10&#125;</span><br></code></pre></td></tr></table></figure>
 <p>如果考虑性能效率，较大的结构体通常会用指针的方式传入和返回。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Bonus</span><span class="hljs-params">(e *Employee, percent <span class="hljs-type">int</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">return</span> e.Salary * percent / <span class="hljs-number">100</span><br>&#125;<br></code></pre></td></tr></table></figure>
 <p>在Go语言中，所有函数参数都是值拷贝出入，函数参数将不再是函数调用时的原始变量。所以要在函数内部修改结构体成员的话，用指针传入是必须的。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">AwardAnnualRaise</span><span class="hljs-params">(e *Employee)</span></span> &#123;<br>	e.Salary = e.Salay * <span class="hljs-number">105</span> / <span class="hljs-number">100</span><br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>二叉树的插入排序</h1>
+<h1 id="二叉树的插入排序">二叉树的插入排序</h1>
 <p>结构体类型可以包含其自身指针，那么就可以创建递归的数据结构，如链表和树结构。<br>
 下面使用一个二叉树来实现插入排序：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	s := []<span class="hljs-type">int</span>&#123;<span class="hljs-number">6</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>&#125;<br>	Sort(s)<br>	fmt.Println(s) <span class="hljs-comment">// [1 2 3 4 6]</span><br>&#125;<br><br><span class="hljs-keyword">type</span> tree <span class="hljs-keyword">struct</span> &#123;<br>	value       <span class="hljs-type">int</span><br>	left, right *tree<br>&#125;<br><br><span class="hljs-comment">// Sort sorts values in place.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Sort</span><span class="hljs-params">(values []<span class="hljs-type">int</span>)</span></span> &#123;<br>	<span class="hljs-keyword">var</span> root *tree<br>	<span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> values &#123;<br>		root = add(root, v)<br>	&#125;<br>	appendValues(values[:<span class="hljs-number">0</span>], root)<br>&#125;<br><br><span class="hljs-comment">// appendValues appends the elements of t to values in order</span><br><span class="hljs-comment">// and returns the resulting slice.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">appendValues</span><span class="hljs-params">(values []<span class="hljs-type">int</span>, t *tree)</span></span> []<span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">if</span> t != <span class="hljs-literal">nil</span> &#123;<br>		values = appendValues(values, t.left)<br>		values = <span class="hljs-built_in">append</span>(values, t.value)<br>		values = appendValues(values, t.right)<br>	&#125;<br>	<span class="hljs-keyword">return</span> values<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">add</span><span class="hljs-params">(t *tree, value <span class="hljs-type">int</span>)</span></span> *tree &#123;<br>	<span class="hljs-keyword">if</span> t == <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-comment">// Equivalent to return &amp;tree&#123;value:value&#125;.</span><br>		t = <span class="hljs-built_in">new</span>(tree)<br>		t.value = value<br>		<span class="hljs-keyword">return</span> t<br>	&#125;<br>	<span class="hljs-keyword">if</span> value &lt; t.value &#123;<br>		t.left = add(t.left, value)<br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		t.right = add(t.right, value)<br>	&#125;<br>	<span class="hljs-keyword">return</span> t<br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>4.4.1. 结构体面值</h1>
+<h1 id="4.4.1.-结构体面值">4.4.1. 结构体面值</h1>
 <p>结构体值也可以用结构体面值表示，指定每个成员变量的值。<br>
 以结构体成员声明的顺序为每个结构体成员变量赋值，一般用于定义结构体的包内部使用，或小的结构体中使用。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Point <span class="hljs-keyword">struct</span>&#123; X,Y <span class="hljs-type">int</span>&#125;<br>p := Point&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>&#125;<br></code></pre></td></tr></table></figure>
@@ -2572,13 +2669,13 @@
 <p>等价于：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go">pp := <span class="hljs-built_in">new</span>(Point)<br>*pp = Point&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>&#125;<br></code></pre></td></tr></table></figure>
 <p>·<code>&amp;Point&#123;1,2&#125;</code>写法可以直接在表达式中使用，如函数调用。</p>
-<h1>4.4.2. 结构体比较</h1>
+<h1 id="4.4.2.-结构体比较">4.4.2. 结构体比较</h1>
 <p>如果结构体的全部成员变量都是可以比较的，那么结构体也是可以比较的。<br>
 可以使用了<code>==</code>或<code>!=</code>运算符进行比较，将比较两个结构体的每个成员。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Point <span class="hljs-keyword">struct</span>&#123; X, Y <span class="hljs-type">int</span> &#125;<br>	<br>p := Point&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>&#125;<br>q := Point&#123;<span class="hljs-number">2</span>, <span class="hljs-number">1</span>&#125;<br>fmt.Println(p.X == q.X &amp;&amp; p.Y == q.Y) <span class="hljs-comment">// false</span><br>fmt.Println(p == q)                   <span class="hljs-comment">// false</span><br></code></pre></td></tr></table></figure>
 <p>可比较的结构体类型和其他可比较的类型一样，可以用于map的key类型。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> address <span class="hljs-keyword">struct</span> &#123;<br>	hostname <span class="hljs-type">string</span><br>	port     <span class="hljs-type">int</span><br>&#125;<br><br>hits := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[address]<span class="hljs-type">int</span>)<br>hits[address&#123;<span class="hljs-string">&quot;golang.org&quot;</span>, <span class="hljs-number">443</span>&#125;]++<br></code></pre></td></tr></table></figure>
-<h1>4.4.3. 结构体嵌入和匿名成员</h1>
+<h1 id="4.4.3.-结构体嵌入和匿名成员">4.4.3. 结构体嵌入和匿名成员</h1>
 <p>Go语言提供的不同寻常的结构体嵌入机制让一个命名的结构体包含另一个结构体类型的匿名成员，这样就可以通过简单的点运算符x.f来访问匿名成员链中嵌套的x.d.e.f成员。</p>
 <p>如一个二维的绘图程序，提供了各种图形的库，如矩形、椭圆等几何形状：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Circle <span class="hljs-keyword">struct</span> &#123;<br>	X, Y, Radius <span class="hljs-type">int</span><br>&#125;<br><br><span class="hljs-keyword">type</span> Wheel <span class="hljs-keyword">struct</span> &#123;<br>	X, Y, Radius, Spokes <span class="hljs-type">int</span><br>&#125;<br></code></pre></td></tr></table></figure>
@@ -2689,9 +2786,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -2844,10 +2953,11 @@
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -2907,7 +3017,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -2918,10 +3084,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -2933,6 +3105,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -2946,7 +3120,7 @@
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

@@ -77,7 +77,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -112,7 +112,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -147,7 +147,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -196,6 +196,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -233,7 +336,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          4.9k 字
         
       </span>
     
@@ -244,20 +347,12 @@
         
         
         
-          18 分钟
+          42 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -269,6 +364,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -2525,7 +2622,7 @@
             
               <div class="markdown-body">
                 
-                <h1>2.1 延迟语句是什么？</h1>
+                <h1 id="2.1-延迟语句是什么？">2.1 延迟语句是什么？</h1>
 <p>defer是Go语言提供的一种用于注册延迟调用的机制：<strong>让函数或语句可以在当前函数执行完毕后（包括提供return正常结束或者panic导致的异常结束）执行。</strong></p>
 <p>应用场景：</p>
 <ul>
@@ -2538,7 +2635,7 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go">f,err:=os.Open(filename)<br><span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span>&#123;<br>    <span class="hljs-built_in">panic</span>(err)<br>&#125;<br><span class="hljs-keyword">if</span> f != <span class="hljs-literal">nil</span> &#123;<br>    <span class="hljs-keyword">defer</span> f.Close()<br>&#125;<br></code></pre></td></tr></table></figure>
 </blockquote>
 <p>注意：defer会有短暂延迟，对时间要求特别高的程序，注意避免使用。</p>
-<h1>2.2 延迟语句的执行顺序是怎么样的?</h1>
+<h1 id="2.2-延迟语句的执行顺序是怎么样的">2.2 延迟语句的执行顺序是怎么样的?</h1>
 <p>defer语句不会立即执行后面的语句或函数，而是将其压栈，函数return前，会按<strong>先进后出</strong>的顺序执行。</p>
 <blockquote>
 <p>先进后出的原因在于，后面定义的函数可能依赖前面的资源，所以要先执行。</p>
@@ -2578,7 +2675,7 @@
 <p>场景：在一个函数里，需要打开两个文件进行合并操作，合并完成后，在函数结束前关闭打开的文件句柄。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mergeFile</span><span class="hljs-params">()</span></span> <span class="hljs-type">error</span> &#123;<br>	f, _ := os.Open(<span class="hljs-string">&quot;file.txt&quot;</span>)<br>	<span class="hljs-keyword">if</span> f != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(f io.Closer)</span></span> &#123;<br>			<span class="hljs-keyword">if</span> err := f.Close(); err != <span class="hljs-literal">nil</span> &#123;<br>				fmt.Printf(<span class="hljs-string">&quot;defer close file.txt err %v\n&quot;</span>, err)<br>			&#125;<br>		&#125;(f)<br>	&#125;<br><br>	f, _ = os.Open(<span class="hljs-string">&quot;file2.txt&quot;</span>)<br>	<span class="hljs-keyword">if</span> f != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(f io.Closer)</span></span> &#123;<br>			<span class="hljs-keyword">if</span> err := f.Close(); err != <span class="hljs-literal">nil</span> &#123;<br>				fmt.Printf(<span class="hljs-string">&quot;defer close file2.txt err %v\n&quot;</span>, err)<br>			&#125;<br>		&#125;(f)<br>	&#125;<br>	<br>	<span class="hljs-comment">// ...</span><br>	<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br></code></pre></td></tr></table></figure>
 <p>defer函数被定义时，函数参数就被复制了，所以真正执行close()函数的是正确的文件f。</p>
-<h1>2.3 如何拆解延迟语句？</h1>
+<h1 id="2.3-如何拆解延迟语句？">2.3 如何拆解延迟语句？</h1>
 <p>首先可以确定&quot;return xxx&quot;语句并非原子指令，经过编译后，生成三条指令：</p>
 <ol>
 <li>返回值 = xxx</li>
@@ -2595,7 +2692,7 @@
 <p>拆解后：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f</span><span class="hljs-params">()</span></span> (r <span class="hljs-type">int</span>) &#123;<br>	<span class="hljs-comment">// 1. 赋值指令</span><br>	r = <span class="hljs-number">1</span><br><br>	<span class="hljs-comment">// 2. 调用defer语句</span><br>	<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(r <span class="hljs-type">int</span>)</span></span> &#123;<br>		r = r + <span class="hljs-number">5</span><br>	&#125;(r)<br><br>	<span class="hljs-comment">// 3. 空的return</span><br>	<span class="hljs-keyword">return</span><br>    <span class="hljs-comment">// 最终结果返回1</span><br>&#125;<br></code></pre></td></tr></table></figure>
 <p>第2步，改变的是传值进去的r，是形参的复制值，并不会影响实参r。最后，返回的结果为1。</p>
-<h1>2.4 如何确定延迟语句的参数？</h1>
+<h1 id="2.4-如何确定延迟语句的参数？">2.4 如何确定延迟语句的参数？</h1>
 <p><strong>defer语句表达式的值在定义时就已经确定了</strong></p>
 <p>在defer函数定义时，对外部变量的引用有两种方式：</p>
 <ul>
@@ -2608,7 +2705,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shel">&lt;nil&gt;<br>defer2 error<br>&lt;nil&gt;<br></code></pre></td></tr></table></figure>
 <p>func1和func3函数中，defer语句对外部变量使用的函数参数方式，所以在定义的时候，已经复制实参的值到形参了，即err=nil，即使后续实参改变了，也影响不到形参。</p>
 <p>func2函数中，defer函数在定义的时候也会求值，为闭包引用，那么引用的变量err在执行时会变成此时err的值defer2 error。</p>
-<h1>2.5 闭包是什么？</h1>
+<h1 id="2.5-闭包是什么？">2.5 闭包是什么？</h1>
 <p><strong>闭包 = 函数 + 引用环境</strong></p>
 <p>匿名函数被称作闭包，一个闭包继承了函数声明时的作用域。</p>
 <p><strong>闭包捕获的变量和常量是引用传递，不是值传递。</strong></p>
@@ -2618,7 +2715,7 @@
 <p>输出结果：</p>
 <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">(0xc00000a0b8, 0)-1<br>(0xc00000a0b8, 1)-11<br><span class="hljs-section">(0xc00000a0b8, 11)-111</span><br><span class="hljs-section">--------------------</span><br>(0xc00000a110, 0)-1<br>(0xc00000a110, 1)-11<br>(0xc00000a110, 1 1)-111<br></code></pre></td></tr></table></figure>
 <p>很明显可以看出，闭包引用了x变量，a,b为2个不同的闭包实例，实例之间互不影响，各个实力内部x变量都是同一个地址。</p>
-<h1>2.6 延迟语句如何配合恢复语句？</h1>
+<h1 id="2.6-延迟语句如何配合恢复语句？">2.6 延迟语句如何配合恢复语句？</h1>
 <p>在defer语句里定义一个recover语句，捕获panic，防止程序直接挂掉。</p>
 <blockquote>
 <p><strong>注意！recover()函数只在defer的函数中直接调用才有效。</strong></p>
@@ -2629,10 +2726,10 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>			<span class="hljs-built_in">recover</span>()<br>		&#125;()<br>	&#125;()<br>	<span class="hljs-built_in">panic</span>(<span class="hljs-number">404</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>执行结果是直接panic，然后退出程序。</p>
 </blockquote>
-<h1>2.7 defer链如何被遍历执行？</h1>
+<h1 id="2.7-defer链如何被遍历执行？">2.7 defer链如何被遍历执行？</h1>
 <p>函数中有多个<code>defer</code>语句时，<code>defer</code>语句会按照“<strong>先进后出</strong>”的顺序在<code>RET</code>指令前执行。</p>
 <p>下面是defer结构图：</p>
-<p><img src="/posts/c5b46568b2c6/defer%E6%8C%82%E8%BD%BDG%E7%BB%93%E6%9E%84%E4%BD%93%E4%B8%8A.png" srcset="/images/loading.gif" lazyload alt="defer挂载G结构体上"></p>
+<p><img src="/posts/c5b46568b2c6/defer%E6%8C%82%E8%BD%BDG%E7%BB%93%E6%9E%84%E4%BD%93%E4%B8%8A.png" srcset="/img/loading.gif" lazyload alt="defer挂载G结构体上"></p>
 <p><code>defer</code>与调度中的<code>GPM</code>模型相关。</p>
 <p><strong>G</strong>：指的是<code>Goroutine</code>。</p>
 <p><strong>P</strong>：<code>Process</code>，用于管理G队列。</p>
@@ -2644,7 +2741,7 @@
 <p>在执行<strong>RET</strong>指令前（注意不是<code>return</code>之前），调用<code>deferreturn</code>函数完成<code>_defer</code>链表的遍历，执行完这条链上所有被<code>defered</code>的函数（如关闭文件、释放连接、释放锁资源等）。</p>
 <p>在<code>deferreturn</code>函数的最后，会使用<code>jmpdefer</code>跳转到之前被<code>defered</code>的函数，控制权从<code>runtime</code>转到用户自定义的函数。</p>
 <p>这只是执行一个被<code>defered</code>的函数，控制权此时从用户交给<code>runtime</code>，并再次执行<code>deferreturn</code>函数，完成<code>defer</code>列表的遍历，又进行一次。</p>
-<h1>2.8 为什么无法从父goroutine恢复子goroutine的panic?</h1>
+<h1 id="2.8-为什么无法从父goroutine恢复子goroutine的panic">2.8 为什么无法从父goroutine恢复子goroutine的panic?</h1>
 <p>因为<code>goroutine</code>被设计为一个独立的代码执行单元，拥有自己的执行栈，不与其它<code>goroutine</code>共享任何数据。</p>
 <p>即<code>goroutine</code>无法拥有返回值，无自身ID编号。</p>
 <p>如果<code>goroutine</code>之间需要交互，要么使用<code>channel</code>进行通信，要么通过共享内存同步方式对共享内存添加读写锁。</p>
@@ -2731,9 +2828,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -2886,10 +2995,11 @@
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -2949,7 +3059,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -2960,10 +3126,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -2975,6 +3147,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -2988,7 +3162,7 @@
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

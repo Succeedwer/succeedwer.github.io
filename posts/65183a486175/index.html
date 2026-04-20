@@ -86,7 +86,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -121,7 +121,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -156,7 +156,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -205,6 +205,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -242,7 +345,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.7k 字
+          10k 字
         
       </span>
     
@@ -253,20 +356,12 @@
         
         
         
-          23 分钟
+          85 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -278,6 +373,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -440,13 +537,13 @@
             
               <div class="markdown-body">
                 
-                <h1>环境</h1>
+                <h1 id="环境">环境</h1>
 <ul>
 <li>Ubuntu 22.04.1 LTS</li>
 <li>Docker 26.1.1</li>
 <li>Harbor v2.10.3</li>
 </ul>
-<h1>前言</h1>
+<h1 id="前言">前言</h1>
 <p>Harbor是一个开源可信的云原生注册表项目，用于存储、签名和扫描内容。Harbor扩展了开源Docker发行版，增加了用户通常需要的功能，如安全、身份和管理。拥有一个离构建和运行环境更近的注册表可以提高映像传输效率。Harbor支持在注册中心之间复制映像，还提供高级安全特性，如用户管理、访问控制和活动审计。</p>
 <p>特性：</p>
 <ul>
@@ -463,14 +560,14 @@
 <li><strong>RESTful API</strong>：提供RESTful API是为了方便管理操作，并且易于与外部系统集成。内置的Swagger UI可用于探索和测试API。</li>
 <li><strong>易于部署</strong>：Harbor可以通过Docker compose和Helm Chart进行部署，并且最近还添加了一个Harbor Operator。</li>
 </ul>
-<p><img src="/posts/65183a486175/d1b6e5d21e465430b330d9577eb4a2d4.png" srcset="/images/loading.gif" lazyload alt="img"></p>
-<h1>安装</h1>
+<p><img src="/posts/65183a486175/d1b6e5d21e465430b330d9577eb4a2d4.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h1 id="安装">安装</h1>
 <h2 id="硬件要求"><a class="header-anchor" href="#硬件要求">¶</a>硬件要求</h2>
-<p><img src="/posts/65183a486175/image-20240803002913814.png" srcset="/images/loading.gif" lazyload alt="image-20240803002913814"></p>
+<p><img src="/posts/65183a486175/image-20240803002913814.png" srcset="/img/loading.gif" lazyload alt="image-20240803002913814"></p>
 <h2 id="软件要求"><a class="header-anchor" href="#软件要求">¶</a>软件要求</h2>
-<p><img src="/posts/65183a486175/image-20240803002946026.png" srcset="/images/loading.gif" lazyload alt="image-20240803002946026"></p>
+<p><img src="/posts/65183a486175/image-20240803002946026.png" srcset="/img/loading.gif" lazyload alt="image-20240803002946026"></p>
 <h2 id="网络端口"><a class="header-anchor" href="#网络端口">¶</a>网络端口</h2>
-<p><img src="/posts/65183a486175/image-20240803003051405.png" srcset="/images/loading.gif" lazyload alt="image-20240803003051405"></p>
+<p><img src="/posts/65183a486175/image-20240803003051405.png" srcset="/img/loading.gif" lazyload alt="image-20240803003051405"></p>
 <h2 id="docker-compose"><a class="header-anchor" href="#docker-compose">¶</a>docker-compose</h2>
 <p>安装包分为：</p>
 <ul>
@@ -510,7 +607,7 @@
 <p>用户名和密码为harbor.yml配置文件中默认值。</p>
 <p>用户名：admin</p>
 <p>密码：Harbor12345</p>
-<p><img src="/posts/65183a486175/image-20240804011126949.png" srcset="/images/loading.gif" lazyload alt="image-20240804011126949"></p>
+<p><img src="/posts/65183a486175/image-20240804011126949.png" srcset="/img/loading.gif" lazyload alt="image-20240804011126949"></p>
 </li>
 </ol>
 <h3 id="推送镜像"><a class="header-anchor" href="#推送镜像">¶</a>推送镜像</h3>
@@ -528,7 +625,7 @@
 <p>推送镜像到Harbor。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">$ docker push 172.31.201.147:8910/library/redis:latest<br></code></pre></td></tr></table></figure>
 <p>在Harbor查看推送的镜像。</p>
-<p><img src="/posts/65183a486175/image-20240804012913073.png" srcset="/images/loading.gif" lazyload alt="image-20240804012913073"></p>
+<p><img src="/posts/65183a486175/image-20240804012913073.png" srcset="/img/loading.gif" lazyload alt="image-20240804012913073"></p>
 <h2 id="HTTPS配置"><a class="header-anchor" href="#HTTPS配置">¶</a>HTTPS配置</h2>
 <p>在生成环境中，需要从受信任的第三方CA处签名证书；而开发和测试环境则可以使用自签名证书。这里使用的是自签名证书。</p>
 <h3 id="生成CA证书"><a class="header-anchor" href="#生成CA证书">¶</a>生成CA证书</h3>
@@ -583,7 +680,7 @@
 <p>浏览器会显示警告：证书颁发机构(CA)未知。</p>
 <p>当然如果使用受信任的第三方CA时，就不会出现该警告。</p>
 <p>可以将CA证书导入浏览器，以消除该警告。</p>
-<p><img src="/posts/65183a486175/image-20240806011008069.png" srcset="/images/loading.gif" lazyload alt="image-20240806011008069"></p>
+<p><img src="/posts/65183a486175/image-20240806011008069.png" srcset="/img/loading.gif" lazyload alt="image-20240806011008069"></p>
 <p>注意：在docker主机上，<code>/etc/docker/daemon.json</code>文件中确保<code>https://172.31.201.147</code>没有设置<code>-insecure-registry</code>选项。</p>
 <h4 id="拉取镜像"><a class="header-anchor" href="#拉取镜像">¶</a>拉取镜像</h4>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sh">$ docker pull 172.31.201.147/library/redis:latest<br>latest: Pulling from library/redis<br>Digest: sha256:81b3f591e366489b97021be95e117f81ba6bfa3ffca4c056d6bcc6a9db5f3e7f<br>Status: Downloaded newer image <span class="hljs-keyword">for</span> 172.31.201.147/library/redis:latest<br>172.31.201.147/library/redis:latest<br></code></pre></td></tr></table></figure>
@@ -604,23 +701,23 @@
 </li>
 <li>
 <p>在Harbor页面上验证my-redis是否存在</p>
-<p><img src="/posts/65183a486175/image-20240806013212215.png" srcset="/images/loading.gif" lazyload alt="image-20240806013212215"></p>
+<p><img src="/posts/65183a486175/image-20240806013212215.png" srcset="/img/loading.gif" lazyload alt="image-20240806013212215"></p>
 </li>
 </ol>
-<h1>使用</h1>
+<h1 id="使用">使用</h1>
 <h2 id="远程复制"><a class="header-anchor" href="#远程复制">¶</a>远程复制</h2>
 <p>在大规模集群环境下，如果所有docker都需要从一个镜像仓库中拉取镜像，那么该镜像仓库就成为镜像分发的瓶颈。</p>
 <p>通过搭建多个镜像仓库并配合使用远程复制是解决该问题的好方法。</p>
-<p><img src="/posts/65183a486175/image-20240806230046889.png" srcset="/images/loading.gif" lazyload alt="image-20240806230046889"></p>
+<p><img src="/posts/65183a486175/image-20240806230046889.png" srcset="/img/loading.gif" lazyload alt="image-20240806230046889"></p>
 <p>镜像仓库分为主仓库和子仓库，主仓库和子仓库直接配置远程复制策略。</p>
 <p>当推送镜像到主仓库时，根据所配置的复制策略，镜像可以立即被分发到其他子镜像仓库，那么docker就可以从子仓库中拉取所需镜像。</p>
 <h3 id="创建目标仓库"><a class="header-anchor" href="#创建目标仓库">¶</a>创建目标仓库</h3>
-<p><img src="/posts/65183a486175/image-20240806231254923.png" srcset="/images/loading.gif" lazyload alt="image-20240806231254923"></p>
+<p><img src="/posts/65183a486175/image-20240806231254923.png" srcset="/img/loading.gif" lazyload alt="image-20240806231254923"></p>
 <h3 id="新建规则"><a class="header-anchor" href="#新建规则">¶</a>新建规则</h3>
 <h3 id="配置证书"><a class="header-anchor" href="#配置证书">¶</a>配置证书</h3>
 <h2 id="漏洞扫描"><a class="header-anchor" href="#漏洞扫描">¶</a>漏洞扫描</h2>
 <h2 id="镜像签名"><a class="header-anchor" href="#镜像签名">¶</a>镜像签名</h2>
-<h1>引用</h1>
+<h1 id="引用">引用</h1>
 <p><a target="_blank" rel="noopener" href="https://github.com/goharbor/harbor">goharbor/harbor: An open source trusted cloud native registry project that stores, signs, and scans content. (github.com)</a></p>
 <p><a target="_blank" rel="noopener" href="https://goharbor.io/docs/2.11.0/">Harbor docs | Harbor 2.11 Documentation (goharbor.io)</a></p>
 
@@ -699,9 +796,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -854,10 +963,11 @@
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -917,7 +1027,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -928,10 +1094,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -943,6 +1115,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -956,7 +1130,7 @@
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

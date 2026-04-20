@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -110,7 +110,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -145,7 +145,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -194,6 +194,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -231,7 +334,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          9k 字
         
       </span>
     
@@ -242,20 +345,12 @@
         
         
         
-          12 分钟
+          75 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -267,6 +362,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -2523,11 +2620,11 @@
             
               <div class="markdown-body">
                 
-                <h1>概述</h1>
+                <h1 id="概述">概述</h1>
 <p>grpc提供了简单的api来在每个ClientConn/Server的基础上实现并安装拦截器。</p>
 <p>拦截器拦截每个RPC调用的执行。</p>
 <p>可以使用拦截器实现执行日志记录、身份验证/授权、指标收集和许多其它可以跨rpc共享的功能。</p>
-<h1>使用</h1>
+<h1 id="使用">使用</h1>
 <p>根据拦截rpc调用的类型，可以将拦截器分为两类。</p>
 <ul>
 <li>一元拦截器</li>
@@ -2552,12 +2649,12 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">grpc.UnaryInterceptor(unaryInterceptor)<br></code></pre></td></tr></table></figure>
 <h3 id="流拦截器-v2"><a class="header-anchor" href="#流拦截器-v2">¶</a>流拦截器</h3>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">grpc.StreamInterceptor(streamInterceptor)<br></code></pre></td></tr></table></figure>
-<h1>实现</h1>
+<h1 id="实现">实现</h1>
 <p>server.go</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;context&quot;</span><br>	<span class="hljs-string">&quot;flag&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;google.golang.org/grpc&quot;</span><br>	<span class="hljs-string">&quot;google.golang.org/grpc/codes&quot;</span><br>	<span class="hljs-string">&quot;google.golang.org/grpc/credentials&quot;</span><br>	<span class="hljs-string">&quot;google.golang.org/grpc/metadata&quot;</span><br>	<span class="hljs-string">&quot;google.golang.org/grpc/status&quot;</span><br>	<span class="hljs-string">&quot;grpc-learn/data&quot;</span><br>	pb <span class="hljs-string">&quot;grpc-learn/feature/proto/echo&quot;</span><br>	<span class="hljs-string">&quot;io&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;net&quot;</span><br>	<span class="hljs-string">&quot;strings&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-keyword">var</span> port = flag.Int(<span class="hljs-string">&quot;port&quot;</span>, <span class="hljs-number">50051</span>, <span class="hljs-string">&quot;port to serve on&quot;</span>)<br><br><span class="hljs-keyword">type</span> server <span class="hljs-keyword">struct</span> &#123;<br>	pb.UnimplementedEchoServer<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *server)</span></span> UnaryEcho(ctx context.Context, request *pb.EchoRequest) (*pb.EchoResponse, <span class="hljs-type">error</span>) &#123;<br>	fmt.Printf(<span class="hljs-string">&quot;unary echoing message %v&quot;</span>, request.Message)<br>	<span class="hljs-keyword">return</span> &amp;pb.EchoResponse&#123;Message: request.Message&#125;, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *server)</span></span> BidirectionalStreamingEcho(stream pb.Echo_BidirectionalStreamingEchoServer) <span class="hljs-type">error</span> &#123;<br>	<span class="hljs-keyword">for</span> &#123;<br>		recv, err := stream.Recv()<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-keyword">if</span> err == io.EOF &#123;<br>				<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>			&#125;<br>			fmt.Printf(<span class="hljs-string">&quot;server: error receiving from stream: %v\n&quot;</span>, err)<br>			<span class="hljs-keyword">return</span> err<br>		&#125;<br>		fmt.Printf(<span class="hljs-string">&quot;bidi echoing message %q\n&quot;</span>, recv.Message)<br>		stream.Send(&amp;pb.EchoResponse&#123;Message: recv.Message&#125;)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">unaryInterceptor</span><span class="hljs-params">(ctx context.Context, req any, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler)</span></span> (resp any, err <span class="hljs-type">error</span>) &#123;<br>	md, ok := metadata.FromIncomingContext(ctx)<br>	<span class="hljs-keyword">if</span> !ok &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, status.Errorf(codes.InvalidArgument, <span class="hljs-string">&quot;missing metadata: %v&quot;</span>, err)<br>	&#125;<br><br>	<span class="hljs-keyword">if</span> !valid(md[<span class="hljs-string">&quot;authorization&quot;</span>]) &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, status.Errorf(codes.InvalidArgument, <span class="hljs-string">&quot;missing metadata: %v&quot;</span>, err)<br>	&#125;<br><br>	m, err := handler(ctx, req)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		logger(<span class="hljs-string">&quot;RPC failed with error: %v&quot;</span>, err)<br>	&#125;<br>	<span class="hljs-keyword">return</span> m, err<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">valid</span><span class="hljs-params">(authorization []<span class="hljs-type">string</span>)</span></span> <span class="hljs-type">bool</span> &#123;<br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(authorization) &lt; <span class="hljs-number">1</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>	&#125;<br>	token := strings.TrimPrefix(authorization[<span class="hljs-number">0</span>], <span class="hljs-string">&quot;Bearer &quot;</span>)<br>	<span class="hljs-keyword">return</span> token == <span class="hljs-string">&quot;some-secret-token&quot;</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">logger</span><span class="hljs-params">(format <span class="hljs-type">string</span>, a ...any)</span></span> &#123;<br>	fmt.Printf(<span class="hljs-string">&quot;LOG:\t&quot;</span>+format+<span class="hljs-string">&quot;\n&quot;</span>, a...)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">streamInterceptor</span><span class="hljs-params">(srv any, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler)</span></span> <span class="hljs-type">error</span> &#123;<br>	<span class="hljs-comment">// authentication (token verification)</span><br>	md, ok := metadata.FromIncomingContext(ss.Context())<br>	<span class="hljs-keyword">if</span> !ok &#123;<br>		<span class="hljs-keyword">return</span> status.Errorf(codes.InvalidArgument, <span class="hljs-string">&quot;missing metadata&quot;</span>)<br><br>	&#125;<br>	<span class="hljs-keyword">if</span> !valid(md[<span class="hljs-string">&quot;authorization&quot;</span>]) &#123;<br>		<span class="hljs-keyword">return</span> status.Errorf(codes.InvalidArgument, <span class="hljs-string">&quot;invalid token&quot;</span>)<br><br>	&#125;<br><br>	err := handler(srv, newWrappedStream(ss))<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		logger(<span class="hljs-string">&quot;RPC failed with error: %v&quot;</span>, err)<br>	&#125;<br>	<span class="hljs-keyword">return</span> err<br>&#125;<br><br><span class="hljs-keyword">type</span> wrappedStream <span class="hljs-keyword">struct</span> &#123;<br>	grpc.ServerStream<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(w *wrappedStream)</span></span> RecvMsg(m any) <span class="hljs-type">error</span> &#123;<br>	logger(<span class="hljs-string">&quot;Receive a message (Type: %T) at %s&quot;</span>, m, time.Now().Format(time.RFC3339))<br>	<span class="hljs-keyword">return</span> w.ServerStream.RecvMsg(m)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(w *wrappedStream)</span></span> SendMsg(m any) <span class="hljs-type">error</span> &#123;<br>	logger(<span class="hljs-string">&quot;Send a message (Type: %T) at %v&quot;</span>, m, time.Now().Format(time.RFC3339))<br>	<span class="hljs-keyword">return</span> w.ServerStream.SendMsg(m)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">newWrappedStream</span><span class="hljs-params">(ss grpc.ServerStream)</span></span> grpc.ServerStream &#123;<br>	<span class="hljs-keyword">return</span> &amp;wrappedStream&#123;ss&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	flag.Parse()<br><br>	lis, err := net.Listen(<span class="hljs-string">&quot;tcp&quot;</span>, fmt.Sprintf(<span class="hljs-string">&quot;:%v&quot;</span>, *port))<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatalf(<span class="hljs-string">&quot;failed to listen: %v&quot;</span>, err)<br>	&#125;<br><br>	<span class="hljs-comment">// Create tls based credential.</span><br>	creds, err := credentials.NewServerTLSFromFile(data.Path(<span class="hljs-string">&quot;x509/server_cert.pem&quot;</span>), data.Path(<span class="hljs-string">&quot;x509/server_key.pem&quot;</span>))<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatalf(<span class="hljs-string">&quot;failed to create credentials: %v&quot;</span>, err)<br>	&#125;<br><br>	<span class="hljs-keyword">var</span> opt = []grpc.ServerOption&#123;<br>		grpc.Creds(creds),<br>		grpc.UnaryInterceptor(unaryInterceptor),<br>		grpc.StreamInterceptor(streamInterceptor),<br>	&#125;<br>	s := grpc.NewServer(opt...)<br><br>	pb.RegisterEchoServer(s, &amp;server&#123;&#125;)<br><br>	<span class="hljs-keyword">if</span> err := s.Serve(lis); err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatalf(<span class="hljs-string">&quot;failed to serve； %v&quot;</span>, err)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>client.go</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;context&quot;</span><br>	<span class="hljs-string">&quot;flag&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;golang.org/x/oauth2&quot;</span><br>	<span class="hljs-string">&quot;google.golang.org/grpc&quot;</span><br>	<span class="hljs-string">&quot;google.golang.org/grpc/credentials&quot;</span><br>	<span class="hljs-string">&quot;google.golang.org/grpc/credentials/oauth&quot;</span><br>	<span class="hljs-string">&quot;grpc-learn/data&quot;</span><br>	pb <span class="hljs-string">&quot;grpc-learn/feature/proto/echo&quot;</span><br>	<span class="hljs-string">&quot;io&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-keyword">var</span> addr = flag.String(<span class="hljs-string">&quot;addr&quot;</span>, <span class="hljs-string">&quot;localhost:50051&quot;</span>, <span class="hljs-string">&quot;the address to connect to&quot;</span>)<br><br><span class="hljs-keyword">const</span> fallbackToken = <span class="hljs-string">&quot;some-secret-token&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">logger</span><span class="hljs-params">(format <span class="hljs-type">string</span>, a ...any)</span></span> &#123;<br>	fmt.Printf(<span class="hljs-string">&quot;LOG:\t&quot;</span>+format+<span class="hljs-string">&quot;\n&quot;</span>, a...)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">callUnaryEcho</span><span class="hljs-params">(client pb.EchoClient, message <span class="hljs-type">string</span>)</span></span> &#123;<br>	ctx, cancel := context.WithTimeout(context.Background(), <span class="hljs-number">10</span>*time.Second)<br>	<span class="hljs-keyword">defer</span> cancel()<br>	resp, err := client.UnaryEcho(ctx, &amp;pb.EchoRequest&#123;Message: message&#125;)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatalf(<span class="hljs-string">&quot;client.UnaryEcho(_) = _, %v: &quot;</span>, err)<br>	&#125;<br>	fmt.Println(<span class="hljs-string">&quot;UnaryEcho: &quot;</span>, resp.Message)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">callBidiStreamingEcho</span><span class="hljs-params">(client pb.EchoClient)</span></span> &#123;<br>	ctx, cancel := context.WithTimeout(context.Background(), <span class="hljs-number">10</span>*time.Second)<br>	<span class="hljs-keyword">defer</span> cancel()<br>	c, err := client.BidirectionalStreamingEcho(ctx)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++ &#123;<br>		<span class="hljs-keyword">if</span> err := c.Send(&amp;pb.EchoRequest&#123;Message: fmt.Sprintf(<span class="hljs-string">&quot;Request %d&quot;</span>, i+<span class="hljs-number">1</span>)&#125;); err != <span class="hljs-literal">nil</span> &#123;<br>			log.Fatalf(<span class="hljs-string">&quot;failed to send request due to error: %v&quot;</span>, err)<br>		&#125;<br>	&#125;<br>	c.CloseSend()<br>	<span class="hljs-keyword">for</span> &#123;<br>		resp, err := c.Recv()<br>		<span class="hljs-keyword">if</span> err == io.EOF &#123;<br>			<span class="hljs-keyword">break</span><br>		&#125;<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			log.Fatalf(<span class="hljs-string">&quot;failed to receive response due to error: %v&quot;</span>, err)<br>		&#125;<br>		fmt.Println(<span class="hljs-string">&quot;BidiStreaming Echo: &quot;</span>, resp.Message)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">unaryInterceptor</span><span class="hljs-params">(ctx context.Context, method <span class="hljs-type">string</span>, req any, reply any, cc *grpc.ClientConn, invoker grpc.UnaryInvoker, opts ...grpc.CallOption)</span></span> <span class="hljs-type">error</span> &#123;<br>	<span class="hljs-keyword">var</span> credsConfigured <span class="hljs-type">bool</span><br>	<span class="hljs-keyword">for</span> _, opt := <span class="hljs-keyword">range</span> opts &#123;<br>		_, ok := opt.(grpc.PerRPCCredsCallOption)<br>		<span class="hljs-keyword">if</span> ok &#123;<br>			credsConfigured = <span class="hljs-literal">true</span><br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">if</span> !credsConfigured &#123;<br>		opts = <span class="hljs-built_in">append</span>(opts, grpc.PerRPCCredentials(oauth.TokenSource&#123;<br>			oauth2.StaticTokenSource(&amp;oauth2.Token&#123;AccessToken: fallbackToken&#125;),<br>		&#125;))<br>	&#125;<br><br>	start := time.Now()<br>	err := invoker(ctx, method, req, reply, cc, opts...)<br>	end := time.Now()<br>	logger(<span class="hljs-string">&quot;RPC: %s, start time: %s, end time: %s, err: %v&quot;</span>, method, start.Format(<span class="hljs-string">&quot;Basic&quot;</span>), end.Format(time.RFC3339), err)<br>	<span class="hljs-keyword">return</span> err<br>&#125;<br><br><span class="hljs-keyword">type</span> wrappedStream <span class="hljs-keyword">struct</span> &#123;<br>	grpc.ClientStream<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(w *wrappedStream)</span></span> RecvMsg(m any) <span class="hljs-type">error</span> &#123;<br>	logger(<span class="hljs-string">&quot;Receive a message (Type: %T) at %v&quot;</span>, m, time.Now().Format(time.RFC3339))<br>	<span class="hljs-keyword">return</span> w.ClientStream.RecvMsg(m)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(w *wrappedStream)</span></span> SendMsg(m any) <span class="hljs-type">error</span> &#123;<br>	logger(<span class="hljs-string">&quot;Send a message (Type: %T) at %v&quot;</span>, m, time.Now().Format(time.RFC3339))<br>	<span class="hljs-keyword">return</span> w.ClientStream.SendMsg(m)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">newWrappedStream</span><span class="hljs-params">(s grpc.ClientStream)</span></span> grpc.ClientStream &#123;<br>	<span class="hljs-keyword">return</span> &amp;wrappedStream&#123;s&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">streamInterceptor</span><span class="hljs-params">(ctx context.Context, desc *grpc.StreamDesc, cc *grpc.ClientConn, method <span class="hljs-type">string</span>, streamer grpc.Streamer, opts ...grpc.CallOption)</span></span> (grpc.ClientStream, <span class="hljs-type">error</span>) &#123;<br>	<span class="hljs-keyword">var</span> credsConfigured <span class="hljs-type">bool</span><br>	<span class="hljs-keyword">for</span> _, o := <span class="hljs-keyword">range</span> opts &#123;<br>		_, ok := o.(*grpc.PerRPCCredsCallOption)<br>		<span class="hljs-keyword">if</span> ok &#123;<br>			credsConfigured = <span class="hljs-literal">true</span><br>			<span class="hljs-keyword">break</span><br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">if</span> !credsConfigured &#123;<br>		opts = <span class="hljs-built_in">append</span>(opts, grpc.PerRPCCredentials(oauth.TokenSource&#123;<br>			TokenSource: oauth2.StaticTokenSource(&amp;oauth2.Token&#123;AccessToken: fallbackToken&#125;),<br>		&#125;))<br>	&#125;<br>	s, err := streamer(ctx, desc, cc, method, opts...)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err<br>	&#125;<br>	<span class="hljs-keyword">return</span> newWrappedStream(s), <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	flag.Parse()<br><br>	creds, err := credentials.NewClientTLSFromFile(data.Path(<span class="hljs-string">&quot;x509/ca_cert.pem&quot;</span>), <span class="hljs-string">&quot;x.test.example.com&quot;</span>)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatalf(<span class="hljs-string">&quot;failed to load credentials: %v&quot;</span>, err)<br>	&#125;<br><br>	conn, err := grpc.Dial(*addr,<br>		grpc.WithTransportCredentials(creds),<br>		grpc.WithUnaryInterceptor(unaryInterceptor),<br>		grpc.WithStreamInterceptor(streamInterceptor))<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatalf(<span class="hljs-string">&quot;did not connect: %v&quot;</span>, err)<br>	&#125;<br>	<span class="hljs-keyword">defer</span> conn.Close()<br><br>	rgc := pb.NewEchoClient(conn)<br>	callUnaryEcho(rgc, <span class="hljs-string">&quot;hello world&quot;</span>)<br>	callBidiStreamingEcho(rgc)<br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>引用</h1>
+<h1 id="引用">引用</h1>
 <p>[^1 ]: <a target="_blank" rel="noopener" href="https://github.com/grpc/grpc-go/tree/master/examples/features/interceptor">grpc-go/examples/features/interceptor at master · grpc/grpc-go (github.com)</a></p>
 
                 
@@ -2649,9 +2746,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -2670,9 +2779,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/12b48a574667/" title="3.基础教程">
+                      <a href="/posts/31e11d13f39d/" title="5.特征">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">3.基础教程</span>
+                        <span class="hidden-mobile">5.特征</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -2804,10 +2913,11 @@
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -2867,7 +2977,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -2878,10 +3044,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -2893,6 +3065,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -2906,7 +3080,7 @@
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

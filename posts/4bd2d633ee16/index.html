@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -110,7 +110,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -145,7 +145,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -194,6 +194,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -231,7 +334,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.8k 字
+          12k 字
         
       </span>
     
@@ -242,20 +345,12 @@
         
         
         
-          24 分钟
+          101 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -267,6 +362,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -2536,7 +2633,7 @@ tempconv.go</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Package tempconv performs Celsius and Fahrenheit conversions.</span><br><span class="hljs-keyword">package</span> tempconv<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-keyword">type</span> Celsius <span class="hljs-type">float64</span><br><span class="hljs-keyword">type</span> Fahrenheit <span class="hljs-type">float64</span><br><span class="hljs-keyword">type</span> Kelvin <span class="hljs-type">float64</span><br><br><span class="hljs-keyword">const</span> (<br>	AbsoluteZeroC Celsius = <span class="hljs-number">-273.15</span><br>	FreezingC     Celsius = <span class="hljs-number">0</span><br>	BoilingC      Celsius = <span class="hljs-number">100</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c Celsius)</span></span> String() <span class="hljs-type">string</span> &#123;<br>	<span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;%g°C&quot;</span>, c)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(f Fahrenheit)</span></span> String() <span class="hljs-type">string</span> &#123;<br>	<span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;%g°F&quot;</span>, f)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(k Kelvin)</span></span> String() <span class="hljs-type">string</span> &#123;<br>	<span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;%gK&quot;</span>, k)<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>conve.go</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> tempconv<br><br><span class="hljs-comment">// CToF converts a Celsius temperature to Fahrenheit.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">CToF</span><span class="hljs-params">(c Celsius)</span></span> Fahrenheit &#123;<br>	<span class="hljs-keyword">return</span> Fahrenheit(c*<span class="hljs-number">9</span>/<span class="hljs-number">5</span> + <span class="hljs-number">32</span>)<br>&#125;<br><br><span class="hljs-comment">// FToC converts a Fahrenheit temperature to Celsius.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">FToC</span><span class="hljs-params">(f Fahrenheit)</span></span> Celsius &#123;<br>	<span class="hljs-keyword">return</span> Celsius((f - <span class="hljs-number">32</span>) * <span class="hljs-number">5</span> / <span class="hljs-number">9</span>)<br>&#125;<br><br><span class="hljs-comment">// CToK converts a Celsius temperature to Kelvin.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">CToK</span><span class="hljs-params">(c Celsius)</span></span> Kelvin &#123;<br>	<span class="hljs-keyword">return</span> Kelvin(c)<br>&#125;<br><br><span class="hljs-comment">// KToC converts a Kelvin temperature to Celsius.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">KToC</span><span class="hljs-params">(k Kelvin)</span></span> Celsius &#123;<br>	<span class="hljs-keyword">return</span> Celsius(k)<br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>2.6.1. 导入包</h1>
+<h1 id="2.6.1.-导入包">2.6.1. 导入包</h1>
 <p>每个包都是有一个全局唯一的导入路径。如：<code>go-learn-gopl/ch/ch2/tempconv</code>。<br>
 一个导入路径代表一个目录中的一个或多个Go源文件。</p>
 <p>除了包路径，每个包还有一个包民，包名通常是短小的名字（并不要求包名是唯一的），包名在包的声明处指定。<br>
@@ -2557,7 +2654,7 @@ unitconv.go</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;flag&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;go-learn-gopl/ex/ex2/unitconv&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>)<br><br><span class="hljs-keyword">var</span> m = flag.Float64(<span class="hljs-string">&quot;m&quot;</span>, <span class="hljs-number">-1</span>, <span class="hljs-string">&quot;converts Meter to Foot.&quot;</span>)<br><span class="hljs-keyword">var</span> f = flag.Float64(<span class="hljs-string">&quot;f&quot;</span>, <span class="hljs-number">-1</span>, <span class="hljs-string">&quot;converts Foot to Meter.&quot;</span>)<br><span class="hljs-keyword">var</span> k = flag.Float64(<span class="hljs-string">&quot;k&quot;</span>, <span class="hljs-number">-1</span>, <span class="hljs-string">&quot;converts Kilogram to Pounds.&quot;</span>)<br><span class="hljs-keyword">var</span> p = flag.Float64(<span class="hljs-string">&quot;p&quot;</span>, <span class="hljs-number">-1</span>, <span class="hljs-string">&quot;converts Pounds to Kilogram.&quot;</span>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	flag.Parse()<br>	<span class="hljs-keyword">if</span> *m &gt;= <span class="hljs-number">0</span> &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;%s = %s\n&quot;</span>, unitconv.Meter(*m), unitconv.MToF(unitconv.Meter(*m)))<br>	&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> *f &gt;= <span class="hljs-number">0</span> &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;%s = %s\n&quot;</span>, unitconv.Foot(*f), unitconv.FToM(unitconv.Foot(*f)))<br>	&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> *k &gt;= <span class="hljs-number">0</span> &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;%s = %s\n&quot;</span>, unitconv.Kilogram(*k), unitconv.KToP(unitconv.Kilogram(*k)))<br>	&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> *p &gt;= <span class="hljs-number">0</span> &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;%s = %s\n&quot;</span>, unitconv.Pounds(*p), unitconv.PToK(unitconv.Pounds(*p)))<br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		fmt.Fprintln(os.Stderr, <span class="hljs-string">&quot;value must be granter than 0.&quot;</span>)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>编译运行：</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs markdown">$ go build conv/uconv.go<br>$ ./uconv -m 1<br>1 m = 3.28083989501 ft<br>$ ./uconv -f 1<br>1 ft = 0.3048 m<br>$ ./uconv -k 10<br>10 kg = 22.0462262185 lb<br>$ ./uconv -p 2<br>2 lb = 0.9071848 kg<br>$ ./uconv -m -1<br>value must be granter than 0.<br>$ ./uconv -h<br>Usage of ./uconv:<br>  -f float<br><span class="hljs-code">        converts Foot to Meter. (default -1)</span><br><span class="hljs-code">  -k float</span><br><span class="hljs-code">        converts Kilogram to Pounds. (default -1)</span><br><span class="hljs-code">  -m float</span><br><span class="hljs-code">        converts Meter to Foot. (default -1)</span><br><span class="hljs-code">  -p float</span><br><span class="hljs-code">        converts Pounds to Kilogram. (default -1)</span><br><span class="hljs-code"></span><br></code></pre></td></tr></table></figure>
-<h1>2.6.2. 包的初始化</h1>
+<h1 id="2.6.2.-包的初始化">2.6.2. 包的初始化</h1>
 <p>包的初始化首先是解决包级变量的依赖顺序，然后安装包级变量声明出现的顺序依次初始化。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> a = b + c <span class="hljs-comment">// a 第三个初始化, 为 3</span><br><span class="hljs-keyword">var</span> b = f()   <span class="hljs-comment">// b 第二个初始化, 为 2, 通过调用 f (依赖c)</span><br><span class="hljs-keyword">var</span> c = <span class="hljs-number">1</span>     <span class="hljs-comment">// c 第一个初始化, 为 1</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f</span><span class="hljs-params">()</span></span> <span class="hljs-type">int</span> &#123; <span class="hljs-keyword">return</span> c + <span class="hljs-number">1</span> &#125;<br></code></pre></td></tr></table></figure>
 <p>如果包中含有多个.go源文件，它们将按照发给编译器的顺序进行初始化，Go语言的构建工具首先会将.go文件根据文件名排序，然后依次调用编译器编译。</p>
@@ -2672,9 +2769,21 @@ popcount.go</p>
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -2827,10 +2936,11 @@ popcount.go</p>
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -2890,7 +3000,63 @@ popcount.go</p>
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -2901,10 +3067,16 @@ popcount.go</p>
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -2916,6 +3088,8 @@ popcount.go</p>
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -2929,7 +3103,7 @@ popcount.go</p>
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible

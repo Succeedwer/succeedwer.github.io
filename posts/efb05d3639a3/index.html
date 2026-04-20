@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -110,7 +110,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -145,7 +145,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>笔记集</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -194,6 +194,109 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -231,7 +334,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.2k 字
+          11k 字
         
       </span>
     
@@ -242,20 +345,12 @@
         
         
         
-          19 分钟
+          89 分钟
         
       </span>
     
 
     
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
     
   </div>
 
@@ -267,6 +362,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -2523,13 +2620,13 @@
             
               <div class="markdown-body">
                 
-                <h1>创建记录</h1>
+                <h1 id="创建记录">创建记录</h1>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go">birthday, _ := time.Parse(<span class="hljs-string">&quot;2006-01-02&quot;</span>, <span class="hljs-string">&quot;1993-12-15&quot;</span>)<br>user := User&#123;<br>	Name:     <span class="hljs-string">&quot;WER&quot;</span>,<br>	Age:      <span class="hljs-number">18</span>,<br>	Birthday: &amp;birthday,<br>&#125;<br><span class="hljs-comment">// 创建记录 成功后会回填数据到&amp;user</span><br>result := db.Create(&amp;user)<br><span class="hljs-comment">//  INSERT INTO `tb_user` (`created_at`,`updated_at`,`deleted_at`,`name`,`age`,`birthday`) VALUES</span><br><span class="hljs-comment">// (&#x27;2024-03-27 21:52:11.627&#x27;,&#x27;2024-03-27 21:52:11.627&#x27;,NULL,&#x27;WER&#x27;,18,&#x27;1993-12-15 08:00:00&#x27;)</span><br><span class="hljs-comment">// 打印错误</span><br>fmt.Println(result.Error)<br><span class="hljs-comment">// 打印插入记录的条数</span><br>fmt.Println(result.RowsAffected)<br></code></pre></td></tr></table></figure>
 <h2 id="指定字段赋值"><a class="header-anchor" href="#指定字段赋值">¶</a>指定字段赋值</h2>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 创建记录并为指定字段赋值</span><br>db.Select(<span class="hljs-string">&quot;Name&quot;</span>, <span class="hljs-string">&quot;Age&quot;</span>, <span class="hljs-string">&quot;CreatedAt&quot;</span>).Create(&amp;user)<br><span class="hljs-comment">// INSERT INTO `tb_user` (`created_at`,`updated_at`,`name`,`age`) VALUES</span><br><span class="hljs-comment">//(&#x27;2024-03-27 21:52:11.627&#x27;,&#x27;2024-03-27 21:52:11.627&#x27;,&#x27;WER&#x27;,18)</span><br></code></pre></td></tr></table></figure>
 <h2 id="忽略某些字段"><a class="header-anchor" href="#忽略某些字段">¶</a>忽略某些字段</h2>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 创建记录并忽略某些字段</span><br>db.Omit(<span class="hljs-string">&quot;Name&quot;</span>, <span class="hljs-string">&quot;Age&quot;</span>, <span class="hljs-string">&quot;CreatedAt&quot;</span>, <span class="hljs-string">&quot;ID&quot;</span>).Create(&amp;user)<br></code></pre></td></tr></table></figure>
-<h1>批量插入</h1>
+<h1 id="批量插入">批量插入</h1>
 <p>只需将slice传递给<code>Create</code>方法即可，生成sql来插入数据，并返回所有主键，而且还会触发<code>Hook</code>，将记录分割成多个批次。当然，这些都会在事务下来处理。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 批量插入</span><br><span class="hljs-keyword">var</span> users = []User&#123;&#123;Name: <span class="hljs-string">&quot;盖伦&quot;</span>&#125;, &#123;Name: <span class="hljs-string">&quot;艾希&quot;</span>&#125;, &#123;Name: <span class="hljs-string">&quot;蛮王&quot;</span>&#125;&#125;<br>db.Create(&amp;users)<br><span class="hljs-keyword">for</span> _, u := <span class="hljs-keyword">range</span> users &#123;<br>	<span class="hljs-built_in">println</span>(u.ID)<br>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="指定批次大小"><a class="header-anchor" href="#指定批次大小">¶</a>指定批次大小</h2>
@@ -2541,7 +2638,7 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">db := db.Session(&amp;gorm.Session&#123;CreateBatchSize: <span class="hljs-number">1000</span>&#125;)<br></code></pre></td></tr></table></figure>
 <p>全局指定批次大小后，所有的create和关联操作时所有的<code>INSERT</code>行为都会遵循初始化时的配置。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go">users = [<span class="hljs-number">5000</span>]User&#123;&#123;Name: <span class="hljs-string">&quot;jinzhu&quot;</span>, Pets: []Pet&#123;pet1, pet2, pet3&#125;&#125;...&#125;<br><br>db.Create(&amp;users)<br><span class="hljs-comment">// INSERT INTO users xxx (5 batches)</span><br><span class="hljs-comment">// INSERT INTO pets xxx (15 batches)</span><br></code></pre></td></tr></table></figure>
-<h1>创建Hook钩子</h1>
+<h1 id="创建hook钩子">创建Hook钩子</h1>
 <p><code>gorm</code>允许用户提供实现接口来自定义钩子函数。</p>
 <ul>
 <li>
@@ -2565,17 +2662,17 @@
 <blockquote>
 <p>注意：当使用map来创建时，钩子函数不会执行，关联不会被保存且不会回写主键。</p>
 </blockquote>
-<h1>使用SQL表达式、Context Valuer创建记录</h1>
+<h1 id="使用sql表达式、context-valuer创建记录">使用SQL表达式、Context Valuer创建记录</h1>
 <h2 id="map"><a class="header-anchor" href="#map">¶</a>map</h2>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// create form map</span><br>db.Model(&amp;user).Create(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-keyword">interface</span>&#123;&#125;&#123;<br>	<span class="hljs-string">&quot;Name&quot;</span>: <span class="hljs-string">&quot;wer&quot;</span>,<br>	<span class="hljs-string">&quot;Birthday&quot;</span>: clause.Expr&#123;<br>		SQL:  <span class="hljs-string">&quot;cast(? as date)&quot;</span>,<br>		Vars: []<span class="hljs-keyword">interface</span>&#123;&#125;&#123;<span class="hljs-string">&quot;19931215&quot;</span>&#125;,<br>	&#125;,<br>&#125;)<br><span class="hljs-comment">// INSERT INTO `tb_user` (`birthday`,`name`) VALUES (cast(&#x27;19931215&#x27; as date),&#x27;wer&#x27;)</span><br></code></pre></td></tr></table></figure>
 <h2 id="Customized-Data-Types"><a class="header-anchor" href="#Customized-Data-Types">¶</a>Customized Data Types</h2>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Location <span class="hljs-keyword">struct</span> &#123;<br>	X, Y <span class="hljs-type">int</span><br>&#125;<br><br><span class="hljs-comment">// sql.Scanner interface</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(loc *Location)</span></span> Scan(v <span class="hljs-keyword">interface</span>&#123;&#125;) <span class="hljs-type">error</span> &#123;<br>	<span class="hljs-comment">// 从数据库驱动扫描数据插入到struct</span><br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-comment">// schema.GormDataTypeInterface</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(loc *Location)</span></span> GormDataType() <span class="hljs-type">string</span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;geometry&quot;</span><br>&#125;<br><br><span class="hljs-comment">// gorm.Valuer interface</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(loc Location)</span></span> GormValue(ctx context.Context, db *gorm.DB) clause.Expr &#123;<br>	<span class="hljs-keyword">return</span> clause.Expr&#123;<br>		SQL:  <span class="hljs-string">&quot;ST_PointFromText(?)&quot;</span>,<br>		Vars: []<span class="hljs-keyword">interface</span>&#123;&#125;&#123;fmt.Sprintf(<span class="hljs-string">&quot;POINT(%d %d)&quot;</span>, loc.X, loc.Y)&#125;,<br>	&#125;<br>&#125;<br><br><span class="hljs-keyword">type</span> Worker <span class="hljs-keyword">struct</span> &#123;<br>	Name     <span class="hljs-type">string</span><br>	Location Location<br>&#125;<br><br>db.Create(&amp;Worker&#123;<br>	Name:     <span class="hljs-string">&quot;WER&quot;</span>,<br>	Location: Location&#123;X: <span class="hljs-number">100</span>, Y: <span class="hljs-number">100</span>&#125;,<br>&#125;)<br><span class="hljs-comment">// INSERT INTO `tb_worker` (`name`,`location`) VALUES (&#x27;WER&#x27;,ST_PointFromText(&#x27;POINT(100 100)&#x27;))</span><br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>关联创建</h1>
+<h1 id="关联创建">关联创建</h1>
 <p>创建关联数据时，当关联值非零，这些关联数据会被插入，而关联数据的<code>Hooks</code>方法会被调用。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> CreditCard <span class="hljs-keyword">struct</span> &#123;<br>	gorm.Model<br>	Number <span class="hljs-type">string</span><br>	UserId <span class="hljs-type">uint</span><br>&#125;<br><br><span class="hljs-keyword">type</span> User <span class="hljs-keyword">struct</span> &#123;<br>	gorm.Model<br>	Name       <span class="hljs-type">string</span><br>	CreditCard CreditCard<br>&#125;<br><br>db.Set(<span class="hljs-string">&quot;gorm:table_options&quot;</span>, <span class="hljs-string">&quot;ENGINE=InnoDB&quot;</span>).AutoMigrate(&amp;User&#123;&#125;, &amp;CreditCard&#123;&#125;)<br><br>db.Create(&amp;User&#123;<br>	Name:       <span class="hljs-string">&quot;WER&quot;</span>,<br>	CreditCard: CreditCard&#123;Number: <span class="hljs-string">&quot;1201010210&quot;</span>&#125;,<br>&#125;)<br><span class="hljs-comment">// INSERT INTO `tb_credit_card` (`created_at`,`updated_at`,`deleted_at`,`number`,`user_id`)</span><br><span class="hljs-comment">//VALUES  (&#x27;2024-03-28 16:07:19.373&#x27;,&#x27;2024-03-28 16:07:19.373&#x27;,NULL,&#x27;1201010210&#x27;,1) ON DUPLICATE KEY UPDATE `user_id`=VALUES(`user_id`)</span><br><span class="hljs-comment">// INSERT INTO `tb_user` (`created_at`,`updated_at`,`deleted_at`,`name`)</span><br><span class="hljs-comment">//VALUES (&#x27;2024-03-28 16:07:19.372&#x27;,&#x27;2024-03-28 16:07:19.372&#x27;,NULL,&#x27;WER&#x27;)</span><br></code></pre></td></tr></table></figure>
 <p>可以使用<code>Select</code>、<code>Omit</code>方法来跳过关联更新，如下：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 跳过`CreditCard`字段</span><br>db.Omit(<span class="hljs-string">&quot;CreditCard&quot;</span>).Create(&amp;user)<br><span class="hljs-comment">// 跳过所有关联</span><br>db.Omit(clause.Associations).Create(&amp;user)<br></code></pre></td></tr></table></figure>
-<h1>默认值</h1>
+<h1 id="默认值">默认值</h1>
 <p>可以通过结构体<code>Tag</code>：<code>default</code>字段来定义默认值，示例如下：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> User <span class="hljs-keyword">struct</span> &#123;<br>  ID   <span class="hljs-type">int64</span><br>  Name <span class="hljs-type">string</span> <span class="hljs-string">`gorm:&quot;default:galeone&quot;`</span><br>  Age  <span class="hljs-type">int64</span>  <span class="hljs-string">`gorm:&quot;default:18&quot;`</span><br>&#125;<br></code></pre></td></tr></table></figure>
 <p>这些默认值会被当做结构体字段的<code>零值</code>插入到数据库中。</p>
@@ -2592,7 +2689,7 @@
 <p><strong>SQLite</strong> 不支持批量插入的时候使用默认值。可以跳过hook函数来设置默认值。</p>
 </blockquote>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p *Pet)</span></span> BeforeCreate(tx *gorm.DB) (err <span class="hljs-type">error</span>) &#123;<br>    <span class="hljs-keyword">if</span> p.Name == <span class="hljs-string">&quot;&quot;</span> &#123;<br>        p.Name = <span class="hljs-string">&quot;cat&quot;</span><br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">type</span> Pet <span class="hljs-keyword">struct</span> &#123;<br>   <span class="hljs-comment">// Name string `gorm:&quot;default:cat&quot;`</span><br>    Name <span class="hljs-type">string</span><br>&#125;<br><br><span class="hljs-comment">// 在SqlLite中，这是不允许的, 所以GORM会通过构建错误的SQL来返回错误:</span><br><span class="hljs-comment">// INSERT INTO `pets` (`name`) VALUES (&quot;dog&quot;),(DEFAULT) RETURNING `name`</span><br>db.Create(&amp;[]Pet&#123;&#123;Name: <span class="hljs-string">&quot;dog&quot;</span>&#125;, &#123;&#125;&#125;)<br></code></pre></td></tr></table></figure>
-<h1>Upsert和冲突</h1>
+<h1 id="upsert和冲突">Upsert和冲突</h1>
 <blockquote>
 <p><code>upsert</code>是数据库插入操作的扩展，如果唯一字段已经存在，则将本次新增插入操作变成更新操作，否则就正常执行插入操作。</p>
 </blockquote>
@@ -2608,7 +2705,7 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs go">unc TestUpsert4(t *testing.T) &#123;<br>	user1 := User&#123;<br>		Model: gorm.Model&#123;<br>			ID: <span class="hljs-number">1</span>,<br>		&#125;,<br>		Name: <span class="hljs-string">&quot;zhansan1&quot;</span>,<br>		Age:  <span class="hljs-number">33</span>,<br>	&#125;<br>	user2 := User&#123;<br>		Model: gorm.Model&#123;<br>			ID: <span class="hljs-number">2</span>,<br>		&#125;,<br>		Name: <span class="hljs-string">&quot;lisi1&quot;</span>,<br>		Age:  <span class="hljs-number">22</span>,<br>	&#125;<br>	db.Set(<span class="hljs-string">&quot;gorm:table_options&quot;</span>, <span class="hljs-string">&quot;ENGINE=InnoDB&quot;</span>).AutoMigrate(&amp;User&#123;&#125;)<br>	<span class="hljs-keyword">var</span> users = []User&#123;user1, user2&#125;<br>	db.Clauses(clause.OnConflict&#123;<br>		Columns:   []clause.Column&#123;&#123;Name: <span class="hljs-string">&quot;id&quot;</span>&#125;&#125;,<br>		DoUpdates: clause.AssignmentColumns([]<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;age&quot;</span>&#125;),<br>	&#125;).Create(&amp;users)<br>    <span class="hljs-comment">// 发生冲突时，更新字段`name`、`age`</span><br>	<span class="hljs-comment">// INSERT INTO `tb_user` (`created_at`,`updated_at`,`deleted_at`,`name`,`age`,`birthday`,`id`)</span><br>	<span class="hljs-comment">// VALUES (&#x27;2024-03-28 22:07:36.064&#x27;,&#x27;2024-03-28 22:07:36.064&#x27;,NULL,&#x27;zhansan1&#x27;,33,NULL,1),</span><br>	<span class="hljs-comment">//(&#x27;2024-03-28 22:07:36.064&#x27;,&#x27;2024-03-28 22:07:36.064&#x27;,NULL,&#x27;lisi1&#x27;,22,NULL,2) ON DUPLICATE KEY UPDATE `name`=VALUES(`name`),`age`=VALUES(`age`)</span><br>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="冲突时更新所有字段"><a class="header-anchor" href="#冲突时更新所有字段">¶</a>冲突时更新所有字段</h2>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestUpsert5</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	user1 := User&#123;<br>		Model: gorm.Model&#123;<br>			ID: <span class="hljs-number">1</span>,<br>		&#125;,<br>		Name: <span class="hljs-string">&quot;zhansan2&quot;</span>,<br>		Age:  <span class="hljs-number">34</span>,<br>	&#125;<br>	user2 := User&#123;<br>		Model: gorm.Model&#123;<br>			ID: <span class="hljs-number">2</span>,<br>		&#125;,<br>		Name: <span class="hljs-string">&quot;lisi2&quot;</span>,<br>		Age:  <span class="hljs-number">23</span>,<br>	&#125;<br>	db.Set(<span class="hljs-string">&quot;gorm:table_options&quot;</span>, <span class="hljs-string">&quot;ENGINE=InnoDB&quot;</span>).AutoMigrate(&amp;User&#123;&#125;)<br>	<span class="hljs-keyword">var</span> users = []User&#123;user1, user2&#125;<br>	db.Clauses(clause.OnConflict&#123;<br>		UpdateAll: <span class="hljs-literal">true</span>,<br>	&#125;).Create(&amp;users)<br>	<span class="hljs-comment">// 当主键冲突时，更新全部字段除了默认值的字段和主键</span><br>	<span class="hljs-comment">// INSERT INTO `tb_user` (`created_at`,`updated_at`,`deleted_at`,`name`,`age`,`birthday`,`id`)</span><br>	<span class="hljs-comment">//VALUES (&#x27;2024-03-28 22:10:37.117&#x27;,&#x27;2024-03-28 22:10:37.117&#x27;,NULL,&#x27;zhansan2&#x27;,34,NULL,1),</span><br>	<span class="hljs-comment">//(&#x27;2024-03-28 22:10:37.117&#x27;,&#x27;2024-03-28 22:10:37.117&#x27;,NULL,&#x27;lisi2&#x27;,23,NULL,2)</span><br>	<span class="hljs-comment">//ON DUPLICATE KEY UPDATE `updated_at`=&#x27;2024-03-28 22:10:37.117&#x27;,`deleted_at`=VALUES(`deleted_at`),`name`=VALUES(`name`),`age`=VALUES(`age`),`birthday`=VALUES(`birthday`)</span><br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>引用</h1>
+<h1 id="引用">引用</h1>
 <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://gorm.io/docs/">GORM 文档</a>
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
@@ -2700,9 +2797,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
@@ -2731,8 +2840,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/cadae650c102/" title="2.连接数据库">
-                        <span class="hidden-mobile">2.连接数据库</span>
+                      <a href="/posts/e2367d6e0bde/" title="3.定义model">
+                        <span class="hidden-mobile">3.定义model</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -2855,10 +2964,11 @@
       </span>
     
     
-  
-</div>
 
   
+
+</div>
+
   
   
 </div>
@@ -2918,7 +3028,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -2929,10 +3095,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -2944,6 +3116,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -2957,7 +3131,7 @@
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible
