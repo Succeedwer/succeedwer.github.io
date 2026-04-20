@@ -620,84 +620,6 @@
       <h2 class="index-header">
         
         
-        <a href="/posts/d993ed58aea0/" target="_self">
-          10.Deadline
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/d993ed58aea0/" target="_self">
-        <div>
-          概述 Deadline语义上是截止日期的意思，但一般场景下，都叫超时。 超时是指客户端不愿意超过一定时间来等待服务器的响应。 在分布式系统架构中，超时尤为重要，何时放弃请求有利于提高服务器的资源利用率和降低延迟。 使用 在客户端的调用时，在上下文中加入超时即可。 12345ctx, cancel := context.WithTimeout(context.Background(), time.S
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-06-11 00:55" pubdate>
-              2025-06-11
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/go/" class="category-chain-item">go</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/grpc/" class="category-chain-item">grpc</a>
-  
-  
-
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/go/">#go</a>
-            
-              <a href="/tags/grpc/">#grpc</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        
         <a href="/posts/1623316a431a/" target="_self">
           1.grpc简介
         </a>
@@ -776,15 +698,93 @@
       <h2 class="index-header">
         
         
-        <a href="/posts/cadae650c102/" target="_self">
-          2.连接数据库
+        <a href="/posts/d993ed58aea0/" target="_self">
+          10.Deadline
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/cadae650c102/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/d993ed58aea0/" target="_self">
         <div>
-          基本使用 当前数据库用的是mysql。 123456dsn := &quot;root:1234@tcp(192.168.31.109:3306)/practice?charset=utf8mb4&amp;parseTime=True&amp;loc=Local&quot;_, err := gorm.Open(mysql.Open(dsn), &amp;gorm.Config&#123;&#12
+          概述 Deadline语义上是截止日期的意思，但一般场景下，都叫超时。 超时是指客户端不愿意超过一定时间来等待服务器的响应。 在分布式系统架构中，超时尤为重要，何时放弃请求有利于提高服务器的资源利用率和降低延迟。 使用 在客户端的调用时，在上下文中加入超时即可。 12345ctx, cancel := context.WithTimeout(context.Background(), time.S
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-06-11 00:55" pubdate>
+              2025-06-11
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/grpc/" class="category-chain-item">grpc</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/grpc/">#grpc</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        
+        <a href="/posts/e2367d6e0bde/" target="_self">
+          3.定义model
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/e2367d6e0bde/" target="_self">
+        <div>
+          基本格式 go中是使用struct进行编写model，由下几种数据类型组成：  go的基本数据类型 实现Scanner、Valuer接口的自定义类型及其指针或别名  1234567891011type User struct &#123;  ID           uint				// 主键  Name         string			// 单数字符串字段  Email        *str
         </div>
       </a>
 
@@ -854,15 +854,15 @@
       <h2 class="index-header">
         
         
-        <a href="/posts/e2367d6e0bde/" target="_self">
-          3.定义model
+        <a href="/posts/083fd7faa9df/" target="_self">
+          1.快速入门
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/e2367d6e0bde/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/083fd7faa9df/" target="_self">
         <div>
-          基本格式 go中是使用struct进行编写model，由下几种数据类型组成：  go的基本数据类型 实现Scanner、Valuer接口的自定义类型及其指针或别名  1234567891011type User struct &#123;  ID           uint				// 主键  Name         string			// 单数字符串字段  Email        *str
+          特性  全功能ORM 关联 (Has One，Has Many，Belongs To，Many To Many，多态，单表继承) Create，Save，Update，Delete，Find 中钩子方法 支持 Preload、Joins 的预加载 事务，嵌套事务，Save Point，Rollback To Saved Point Context、预编译模式、DryRun 模式 批量插入，Find
         </div>
       </a>
 

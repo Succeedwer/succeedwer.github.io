@@ -308,15 +308,15 @@
       <h2 class="index-header">
         
         
-        <a href="/posts/70ab7268f3f8/" target="_self">
-          1.快速入门
+        <a href="/posts/006e1e1ef472/" target="_self">
+          9.Compression
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/70ab7268f3f8/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/006e1e1ef472/" target="_self">
         <div>
-          导包 用命令导入 1go get github.com/sirupsen/logrus 直接import, 然后执行命令go mod tidy 1import &quot;github.com/sirupsen/logrus&quot; 特点  兼容Go标准库log 支持7种日志级别：Trace、Debug、Info、Warn、Error、Fatal、Panic。 支持结构化日志记录，即key-v
+          概述 grpc可以实现对发送的数据进行压缩，已达到减少通信时的带宽。 还可以根据消息的级别和调用，启用和禁用压缩。 可以对通道进行不同的压缩设置，以及支持不同算法，和自定义压缩器。 非对称的压缩 grpc允许非对称的通信，如：响应不被压缩，而请求进行压缩。 响应还可以使用与请求不同的压缩方法。 如果客户端的请求消息被服务器不支持的算法压缩，那么服务器将导致UNIMPLEMENTED的错误码。 而且
         </div>
       </a>
 
@@ -350,7 +350,7 @@
   
     <span>></span>
     
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/logrus/" class="category-chain-item">logrus</a>
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/grpc/" class="category-chain-item">grpc</a>
   
   
 
@@ -371,7 +371,7 @@
             
               <a href="/tags/go/">#go</a>
             
-              <a href="/tags/logrus/">#logrus</a>
+              <a href="/tags/grpc/">#grpc</a>
             
           </div>
         
@@ -620,15 +620,15 @@
       <h2 class="index-header">
         
         
-        <a href="/posts/12b48a574667/" target="_self">
-          3.基础教程
+        <a href="/posts/31e11d13f39d/" target="_self">
+          5.特征
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/12b48a574667/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/31e11d13f39d/" target="_self">
         <div>
-          基础教程 通过演练该示例，可以了解到：  在.proto文件中定义服务。 使用protobuf编译器生成服务器和客户端代码。 使用Go gRpc API为服务编写简单的客户端和服务器。  ¶环境  proto3 grpc  设置   下载[protobuf](Release Protocol Buffers v26.1 · protocolbuffers/protobuf (github.com)
+          本文为grpc的功能归纳。 Authorization Authz-rbac Authorization Authorization Authorization Authorization Authorization Authorization Authorization Authorization
         </div>
       </a>
 
@@ -776,93 +776,15 @@
       <h2 class="index-header">
         
         
-        <a href="/posts/31e11d13f39d/" target="_self">
-          5.特征
+        <a href="/posts/12b48a574667/" target="_self">
+          3.基础教程
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/31e11d13f39d/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/12b48a574667/" target="_self">
         <div>
-          本文为grpc的功能归纳。 Authorization Authz-rbac Authorization Authorization Authorization Authorization Authorization Authorization Authorization Authorization
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-06-11 00:55" pubdate>
-              2025-06-11
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/go/" class="category-chain-item">go</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/grpc/" class="category-chain-item">grpc</a>
-  
-  
-
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/go/">#go</a>
-            
-              <a href="/tags/grpc/">#grpc</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        
-        <a href="/posts/e07de7099fd0/" target="_self">
-          15.Health
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/e07de7099fd0/" target="_self">
-        <div>
-          概述 grpc提供了health包用于服务器将其系统健康状况传达给它们的客户端。 允许服务器应用程序发出它们不正常的信号，而不会破坏与客户端的连接。 如服务器本身是正常的，但是它依赖于另一个不可用的服务器。 使用场景 这种机制可以使用在外置负载均衡上，负责集中运行服务器的状况检查。 原理 其实不难看出，health包其实就是一个服务，grpc_health_v1包就使用protobuf生成的代码。
+          基础教程 通过演练该示例，可以了解到：  在.proto文件中定义服务。 使用protobuf编译器生成服务器和客户端代码。 使用Go gRpc API为服务编写简单的客户端和服务器。  ¶环境  proto3 grpc  设置   下载[protobuf](Release Protocol Buffers v26.1 · protocolbuffers/protobuf (github.com)
         </div>
       </a>
 
@@ -941,6 +863,84 @@
       <a class="index-excerpt index-excerpt__noimg" href="/posts/5f2b243c0084/" target="_self">
         <div>
           概述 grpc提供了简单的api来在每个ClientConn/Server的基础上实现并安装拦截器。 拦截器拦截每个RPC调用的执行。 可以使用拦截器实现执行日志记录、身份验证/授权、指标收集和许多其它可以跨rpc共享的功能。 使用 根据拦截rpc调用的类型，可以将拦截器分为两类。  一元拦截器 流拦截器  客户端和服务端都可以实现拦截器。 ¶客户端 ¶一元拦截器 客户端的一元拦截器的类型为Una
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-06-11 00:55" pubdate>
+              2025-06-11
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/grpc/" class="category-chain-item">grpc</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/grpc/">#grpc</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        
+        <a href="/posts/e07de7099fd0/" target="_self">
+          15.Health
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/e07de7099fd0/" target="_self">
+        <div>
+          概述 grpc提供了health包用于服务器将其系统健康状况传达给它们的客户端。 允许服务器应用程序发出它们不正常的信号，而不会破坏与客户端的连接。 如服务器本身是正常的，但是它依赖于另一个不可用的服务器。 使用场景 这种机制可以使用在外置负载均衡上，负责集中运行服务器的状况检查。 原理 其实不难看出，health包其实就是一个服务，grpc_health_v1包就使用protobuf生成的代码。
         </div>
       </a>
 

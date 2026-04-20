@@ -230,15 +230,15 @@
       <h2 class="index-header">
         
         
-        <a href="/posts/6ee7621fa73c/" target="_self">
-          下载文件
+        <a href="/posts/eaeaa2c34fde/" target="_self">
+          上传文件
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/6ee7621fa73c/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/eaeaa2c34fde/" target="_self">
         <div>
-          直接响应下载 123456789101112131415161718192021package mainimport &quot;github.com/gin-gonic/gin&quot;func main() &#123;	r := gin.Default()	// 直接响应下载文件	r.GET(&quot;/download&quot;, func(c *gin.Context) &#123
+          单文件 123456789101112131415161718192021222324252627282930func main() &#123;	r := gin.Default()	// 为multipart forms设置内存限制，默认为32Mib	r.MaxMultipartMemory = 8 &lt;&lt; 20 // 8 Mib	r.POST(&quot;/upload&quot;
         </div>
       </a>
 
@@ -546,15 +546,15 @@
       <h2 class="index-header">
         
         
-        <a href="/posts/113a3908a211/" target="_self">
-          6.workflow模式
+        <a href="/posts/e77c386c7940/" target="_self">
+          7.其它事务模式
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/113a3908a211/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/e77c386c7940/" target="_self">
         <div>
-          介绍 workflow模式是dtm首创模式。简单来说，就是混合使用XA、SAGA、TCC事务模式，还可以混用Http、GRPC、本地操作。 该模式有着极大灵活性，给予开发人员极大的定制内容。 使用 ¶简单使用 以saga模式简述workflow事务的实现流程。 需要使用混合协议进行事务，有三个步骤。   初始化SDK   HTTP 1workflow.InitHTTP(server.DtmHTTP
+          前言 dtm实现了四种事务模式：  SAGA 二阶段消息 TCC XA  其它事务消息 ¶本地消息表 大致流程如下：  最大的特点是：将写本地表消息和业务操作放在一个事务里，保证了业务和发消息的原子性。 容错机制：  扣减余额事务 失败时，事务直接回滚，无后续步骤 轮序生产消息失败， 增加余额事务失败都会进行重试  本地消息表的特点：  长事务仅需要分拆成多个任务，使用简单 生产者需要额外的创建消
         </div>
       </a>
 
@@ -626,15 +626,15 @@
       <h2 class="index-header">
         
         
-        <a href="/posts/e77c386c7940/" target="_self">
-          7.其它事务模式
+        <a href="/posts/113a3908a211/" target="_self">
+          6.workflow模式
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/e77c386c7940/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/113a3908a211/" target="_self">
         <div>
-          前言 dtm实现了四种事务模式：  SAGA 二阶段消息 TCC XA  其它事务消息 ¶本地消息表 大致流程如下：  最大的特点是：将写本地表消息和业务操作放在一个事务里，保证了业务和发消息的原子性。 容错机制：  扣减余额事务 失败时，事务直接回滚，无后续步骤 轮序生产消息失败， 增加余额事务失败都会进行重试  本地消息表的特点：  长事务仅需要分拆成多个任务，使用简单 生产者需要额外的创建消
+          介绍 workflow模式是dtm首创模式。简单来说，就是混合使用XA、SAGA、TCC事务模式，还可以混用Http、GRPC、本地操作。 该模式有着极大灵活性，给予开发人员极大的定制内容。 使用 ¶简单使用 以saga模式简述workflow事务的实现流程。 需要使用混合协议进行事务，有三个步骤。   初始化SDK   HTTP 1workflow.InitHTTP(server.DtmHTTP
         </div>
       </a>
 

@@ -230,15 +230,15 @@
       <h2 class="index-header">
         
         
-        <a href="/posts/d49f1ab4b67b/" target="_self">
-          5.查询
+        <a href="/posts/cadae650c102/" target="_self">
+          2.连接数据库
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/d49f1ab4b67b/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/cadae650c102/" target="_self">
         <div>
-          检索单个对象 ¶First 123456// 获取第一条记录（主键升序）func TestFirst(t *testing.T) &#123;	var user User	db.First(&amp;user)	// SELECT * FROM `tb_user` WHERE `tb_user`.`deleted_at` IS NULL ORDER BY `tb_user`.`id` LIMIT
+          基本使用 当前数据库用的是mysql。 123456dsn := &quot;root:1234@tcp(192.168.31.109:3306)/practice?charset=utf8mb4&amp;parseTime=True&amp;loc=Local&quot;_, err := gorm.Open(mysql.Open(dsn), &amp;gorm.Config&#123;&#12
         </div>
       </a>
 
@@ -308,15 +308,15 @@
       <h2 class="index-header">
         
         
-        <a href="/posts/083fd7faa9df/" target="_self">
-          1.快速入门
+        <a href="/posts/d49f1ab4b67b/" target="_self">
+          5.查询
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/083fd7faa9df/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/d49f1ab4b67b/" target="_self">
         <div>
-          特性  全功能ORM 关联 (Has One，Has Many，Belongs To，Many To Many，多态，单表继承) Create，Save，Update，Delete，Find 中钩子方法 支持 Preload、Joins 的预加载 事务，嵌套事务，Save Point，Rollback To Saved Point Context、预编译模式、DryRun 模式 批量插入，Find
+          检索单个对象 ¶First 123456// 获取第一条记录（主键升序）func TestFirst(t *testing.T) &#123;	var user User	db.First(&amp;user)	// SELECT * FROM `tb_user` WHERE `tb_user`.`deleted_at` IS NULL ORDER BY `tb_user`.`id` LIMIT
         </div>
       </a>
 
@@ -932,15 +932,15 @@
       <h2 class="index-header">
         
         
-        <a href="/posts/9461d22a9588/" target="_self">
-          路径参数Param
+        <a href="/posts/f5e8e6ae5a4c/" target="_self">
+          路由分组
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/9461d22a9588/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/f5e8e6ae5a4c/" target="_self">
         <div>
-          动态参数Param，即url的path上获取参数。 1http://path/to/[参数值] 12345678910func main() &#123;	r := gin.Default()	// http://127.0.0.1:8080/userInfo/123456	r.POST(&quot;/userInfo/:id&quot;, func(c *gin.Context) &#123;
+          路由分组 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101
         </div>
       </a>
 

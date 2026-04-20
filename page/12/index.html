@@ -230,93 +230,15 @@
       <h2 class="index-header">
         
         
-        <a href="/posts/f5e8e6ae5a4c/" target="_self">
-          路由分组
+        <a href="/posts/9461d22a9588/" target="_self">
+          路径参数Param
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/f5e8e6ae5a4c/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/9461d22a9588/" target="_self">
         <div>
-          路由分组 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-06-11 00:55" pubdate>
-              2025-06-11
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/go/" class="category-chain-item">go</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/go/%E6%A1%86%E6%9E%B6/gin/" class="category-chain-item">gin</a>
-  
-  
-
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/go/">#go</a>
-            
-              <a href="/tags/gin/">#gin</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        
-        <a href="/posts/f3850fa307dc/" target="_self">
-          查询参数Query
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/f3850fa307dc/" target="_self">
-        <div>
-          Query即从url的查询参数中获取参数。 1http://path/to/query?[参数名1]=[参数值1]&amp;[参数名2]=[参数值2] 12345678910111213141516171819package mainimport (	&quot;fmt&quot;	gin &quot;github.com/gin-gonic/gin&quot;)func main() &#123
+          动态参数Param，即url的path上获取参数。 1http://path/to/[参数值] 12345678910func main() &#123;	r := gin.Default()	// http://127.0.0.1:8080/userInfo/123456	r.POST(&quot;/userInfo/:id&quot;, func(c *gin.Context) &#123;
         </div>
       </a>
 
@@ -464,15 +386,15 @@
       <h2 class="index-header">
         
         
-        <a href="/posts/8dc21406f20b/" target="_self">
-          响应
+        <a href="/posts/f3850fa307dc/" target="_self">
+          查询参数Query
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/8dc21406f20b/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/f3850fa307dc/" target="_self">
         <div>
-          字符串 1234567891011func text(c *gin.Context) &#123;	c.String(http.StatusOK, &quot;我是字符串&quot;)&#125;func main() &#123;	r := gin.Default()	r.GET(&quot;/text&quot;, text)	r.Run()&#125; 响应： 1我是字符串 json 123
+          Query即从url的查询参数中获取参数。 1http://path/to/query?[参数名1]=[参数值1]&amp;[参数名2]=[参数值2] 12345678910111213141516171819package mainimport (	&quot;fmt&quot;	gin &quot;github.com/gin-gonic/gin&quot;)func main() &#123
         </div>
       </a>
 
@@ -551,6 +473,84 @@
       <a class="index-excerpt index-excerpt__noimg" href="/posts/9352152e0cfc/" target="_self">
         <div>
           安装 在go项目根目录下，下载Gin包。 1go get github.com/gin-gonic/gin 等待下载完成后，即可引用。 Hello, world 在项目中，创建1.hello_world.go。 123456789101112131415package mainimport &quot;github.com/gin-gonic/gin&quot;func main() &#123;
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-06-11 00:55" pubdate>
+              2025-06-11
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-chain-item">框架</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/go/%E6%A1%86%E6%9E%B6/gin/" class="category-chain-item">gin</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/gin/">#gin</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        
+        <a href="/posts/8dc21406f20b/" target="_self">
+          响应
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/8dc21406f20b/" target="_self">
+        <div>
+          字符串 1234567891011func text(c *gin.Context) &#123;	c.String(http.StatusOK, &quot;我是字符串&quot;)&#125;func main() &#123;	r := gin.Default()	r.GET(&quot;/text&quot;, text)	r.Run()&#125; 响应： 1我是字符串 json 123
         </div>
       </a>
 
@@ -932,15 +932,15 @@
       <h2 class="index-header">
         
         
-        <a href="/posts/eaeaa2c34fde/" target="_self">
-          上传文件
+        <a href="/posts/6ee7621fa73c/" target="_self">
+          下载文件
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/posts/eaeaa2c34fde/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/6ee7621fa73c/" target="_self">
         <div>
-          单文件 123456789101112131415161718192021222324252627282930func main() &#123;	r := gin.Default()	// 为multipart forms设置内存限制，默认为32Mib	r.MaxMultipartMemory = 8 &lt;&lt; 20 // 8 Mib	r.POST(&quot;/upload&quot;
+          直接响应下载 123456789101112131415161718192021package mainimport &quot;github.com/gin-gonic/gin&quot;func main() &#123;	r := gin.Default()	// 直接响应下载文件	r.GET(&quot;/download&quot;, func(c *gin.Context) &#123
         </div>
       </a>
 
