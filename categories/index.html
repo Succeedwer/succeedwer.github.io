@@ -1,0 +1,4125 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta property="og:type" content="website">
+<meta property="og:title" content="笔记集">
+<meta property="og:url" content="https://succeedwer.github.io/categories/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="WER">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>笔记集 - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu+b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g==" crossorigin="anonymous" referrerpolicy="no-referrer" /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="笔记集"></span>
+          
+        </div>
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div id="board"
+          >
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="go"
+        id="heading-34d1f91fb2e514b8576fab1a75a89a6b" role="tab" data-toggle="collapse" href="#collapse-34d1f91fb2e514b8576fab1a75a89a6b"
+        aria-expanded="true"
+      >
+        go
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/go/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>183</span>
+        </a>
+      
+      <div class="category-collapse collapse show" id="collapse-34d1f91fb2e514b8576fab1a75a89a6b"
+           role="tabpanel" aria-labelledby="heading-34d1f91fb2e514b8576fab1a75a89a6b">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/9ea651dc7ee0/" title="go框架"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go框架</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Go语言圣经"
+        id="heading-33788affbf7997f1ebd563f7aacce3ad" role="tab" data-toggle="collapse" href="#collapse-33788affbf7997f1ebd563f7aacce3ad"
+        aria-expanded="false"
+      >
+        Go语言圣经
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>97</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-33788affbf7997f1ebd563f7aacce3ad"
+           role="tabpanel" aria-labelledby="heading-33788affbf7997f1ebd563f7aacce3ad">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/b721eb61c1a0/" title="第一章 入门"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">第一章 入门</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/02fc6779c7cd/" title="1.1. Hello, World"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.1. Hello, World</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b7c6dc0a75aa/" title="1.2. 命令行参数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.2. 命令行参数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c749b9e4bafd/" title="1.3. 查找重复的行"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.3. 查找重复的行</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d37e56e6ca24/" title="1.4. GIF动画"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.4. GIF动画</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8855378318a6/" title="1.5. 获取URL"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.5. 获取URL</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c84dc5dd7597/" title="1.6. 并发获取多个URL"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.6. 并发获取多个URL</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/94de4df7cd79/" title="1.7. Web服务"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.7. Web服务</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f529e3c31d9e/" title="1.8. 本章要点"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.8. 本章要点</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/04348d4815af/" title="第二章 程序结构"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">第二章 程序结构</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/feafd476469a/" title="2.1. 命名"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.1. 命名</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/2628b27da087/" title="2.2. 声明"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.2. 声明</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/7095472d910d/" title="2.3.变量"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.3.变量</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/3bab4b966165/" title="2.4. 赋值"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.4. 赋值</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/9f13bfd0f9d8/" title="2.5. 类型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.5. 类型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/4bd2d633ee16/" title="2.6. 包和文件"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.6. 包和文件</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/5b89ef7a41d0/" title="2.7. 作用域"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.7. 作用域</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/0a1ced1a832c/" title="第三章 基础数据类型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">第三章 基础数据类型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/2a4f4f65e7ca/" title="3.1. 整型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.1. 整型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/01a5b9d8501c/" title="3.3. 复数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.3. 复数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d98a81de6430/" title="3.4. 布尔型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.4. 布尔型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a309a7c16f6a/" title="3.5. 字符串"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.5. 字符串</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/68c22f5501fb/" title="3.6. 常量"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.6. 常量</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/681582df4225/" title="4.1. 数组"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.1. 数组</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a27051ca627c/" title="第四章 复合数据类型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">第四章 复合数据类型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/53445ef771d8/" title="4.2. Slice"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.2. Slice</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/610def108dde/" title="4.3. Map"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.3. Map</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/556653fe988e/" title="4.4. Struct"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.4. Struct</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b184f11121f4/" title="4.5. JSON"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.5. JSON</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/4d1bb1bed6d0/" title="4.6 文本和HTML模版"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.6 文本和HTML模版</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/9ebdd846b6d6/" title="5.1. 函数声明"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.1. 函数声明</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/3e816bbb7aaa/" title="5.2. 递归"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.2. 递归</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/3b104e15a027/" title="5.3. 多返回值"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.3. 多返回值</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b269706cb426/" title="5.4. 错误"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.4. 错误</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e0d18dccf0bc/" title="5.5. 函数值"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.5. 函数值</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f29c530bb54f/" title="5.6. 匿名函数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.6. 匿名函数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f16f86776a10/" title="5.7. 可变参数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.7. 可变参数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/6f685641f7fc/" title="5.8. Deferred函数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.8. Deferred函数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b0cbde1e1f43/" title="5.9. Panic异常"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.9. Panic异常</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/9b9419099212/" title="5.10. Recover捕获异常"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.10. Recover捕获异常</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b376389fd346/" title="第六章 方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">第六章 方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/627a83e633ba/" title="6.1. 方法声明"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.1. 方法声明</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8633284a6bad/" title="6.2. 基于指针对象的方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.2. 基于指针对象的方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/3d2bce45dc58/" title="6.3. 通过嵌入结构体来扩展类型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.3. 通过嵌入结构体来扩展类型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/4fa1929ae9d9/" title="6.4. 方法值和方法表达式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.4. 方法值和方法表达式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/aaab166a7bb7/" title="6.5. 示例：Bit数组"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.5. 示例：Bit数组</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/387bb90cfe97/" title="6.6. 封装"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.6. 封装</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f2552a5080b3/" title="第七章 接口"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">第七章 接口</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8e657f0750ec/" title="7.1. 接口约定"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.1. 接口约定</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/55bc49f4b7cc/" title="7.2. 接口类型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.2. 接口类型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/categories/go/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F/" class="list-group-item list-group-item-action">
+          <span class="category-post">More...</span>
+        </a>
+        
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="框架"
+        id="heading-41f1d2b62436eded1a6776504b6895d7" role="tab" data-toggle="collapse" href="#collapse-41f1d2b62436eded1a6776504b6895d7"
+        aria-expanded="false"
+      >
+        框架
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/go/%E6%A1%86%E6%9E%B6/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>71</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-41f1d2b62436eded1a6776504b6895d7"
+           role="tabpanel" aria-labelledby="heading-41f1d2b62436eded1a6776504b6895d7">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="gin"
+        id="heading-a6c72983f8a0a002155d67b12b345629" role="tab" data-toggle="collapse" href="#collapse-a6c72983f8a0a002155d67b12b345629"
+        aria-expanded="false"
+      >
+        gin
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/go/%E6%A1%86%E6%9E%B6/gin/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>18</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-a6c72983f8a0a002155d67b12b345629"
+           role="tabpanel" aria-labelledby="heading-a6c72983f8a0a002155d67b12b345629">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/7871524827cb/" title="gin集成logrus"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">gin集成logrus</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/eaeaa2c34fde/" title="上传文件"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">上传文件</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/6ee7621fa73c/" title="下载文件"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">下载文件</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8dd44114ce32/" title="中间件"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">中间件</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/dabf925e077a/" title="参数的原始数据"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">参数的原始数据</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/83f6ed85bcff/" title="参数绑定Bind"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">参数绑定Bind</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8dc21406f20b/" title="响应"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">响应</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/9352152e0cfc/" title="快速入门"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">快速入门</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/97c5a64d7b73/" title="日志"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">日志</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f3850fa307dc/" title="查询参数Query"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">查询参数Query</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/2738ed645774/" title="表单参数Form"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">表单参数Form</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/412f66053fff/" title="请求头和响应头"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">请求头和响应头</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/9461d22a9588/" title="路径参数Param"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">路径参数Param</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f5e8e6ae5a4c/" title="路由分组"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">路由分组</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/5e9f88587266/" title="静态文件服务"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">静态文件服务</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/fb4394cca253/" title="重定向"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">重定向</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/6c404fb1fb2d/" title="验证器-基本使用"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">验证器-基本使用</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a77442a26c87/" title="验证器-自定义"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">验证器-自定义</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="grpc"
+        id="heading-5d738324e2189d8e9a1c3974d34f5a95" role="tab" data-toggle="collapse" href="#collapse-5d738324e2189d8e9a1c3974d34f5a95"
+        aria-expanded="false"
+      >
+        grpc
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/go/%E6%A1%86%E6%9E%B6/grpc/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>17</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-5d738324e2189d8e9a1c3974d34f5a95"
+           role="tabpanel" aria-labelledby="heading-5d738324e2189d8e9a1c3974d34f5a95">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/d993ed58aea0/" title="10.Deadline"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10.Deadline</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/1623316a431a/" title="1.grpc简介"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.grpc简介</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/2d199938c61e/" title="11.Debugging"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11.Debugging</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c8179a93017f/" title="12.Encryption"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">12.Encryption</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b8b65293ce07/" title="13.Error-detail"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">13.Error-detail</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/ad80b49a5331/" title="14.flow-control"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">14.flow-control</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e07de7099fd0/" title="15.Health"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">15.Health</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/5f2b243c0084/" title="16.Interceptor"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">16.Interceptor</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/244c79b2c1c9/" title="2.快速开始"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.快速开始</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/12b48a574667/" title="3.基础教程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.基础教程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/93f46a078700/" title="4.认证"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.认证</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/31e11d13f39d/" title="5.特征"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.特征</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a68fb238e99a/" title="5.Authorization"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.Authorization</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/5293a05010ad/" title="7.Authz-rbac"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.Authz-rbac</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/2aa46e8ad5fe/" title="8.Cancellation"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.Cancellation</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/006e1e1ef472/" title="9.Compression"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">9.Compression</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b1c488b944c1/" title="17.Keepalive"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">17.Keepalive</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="dtm"
+        id="heading-e7c0596d00d6d1d17e64d6547cd732cf" role="tab" data-toggle="collapse" href="#collapse-e7c0596d00d6d1d17e64d6547cd732cf"
+        aria-expanded="false"
+      >
+        dtm
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/go/%E6%A1%86%E6%9E%B6/dtm/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>11</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-e7c0596d00d6d1d17e64d6547cd732cf"
+           role="tabpanel" aria-labelledby="heading-e7c0596d00d6d1d17e64d6547cd732cf">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/81ae6967bd97/" title="1.介绍"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.介绍</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/2f4b2a7fb543/" title="10.应用场景之订单系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10.应用场景之订单系统</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f98f4e6918bb/" title="11.应用场景之秒杀"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11.应用场景之秒杀</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8a697c75e36b/" title="2.saga事务模式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.saga事务模式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f9dbc3f23a0f/" title="3.二阶段消息事务模式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.二阶段消息事务模式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e72b7298b2f4/" title="4.tcc事务模式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.tcc事务模式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/ef563ae5abd3/" title="5.xa事务模式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.xa事务模式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/113a3908a211/" title="6.workflow模式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.workflow模式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e77c386c7940/" title="7.其它事务模式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.其它事务模式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/0b0a0c08094d/" title="8.子事务屏障"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.子事务屏障</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/046a093386ca/" title="9.自定义请求头"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">9.自定义请求头</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="logrus"
+        id="heading-b6c7fa78ba16862c1577434471a612a4" role="tab" data-toggle="collapse" href="#collapse-b6c7fa78ba16862c1577434471a612a4"
+        aria-expanded="false"
+      >
+        logrus
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/go/%E6%A1%86%E6%9E%B6/logrus/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>8</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-b6c7fa78ba16862c1577434471a612a4"
+           role="tabpanel" aria-labelledby="heading-b6c7fa78ba16862c1577434471a612a4">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/e87f2b2f1b93/" title="2. 日志格式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2. 日志格式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/70ab7268f3f8/" title="1.快速入门"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.快速入门</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8c30e6c2733a/" title="3.控制台颜色"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.控制台颜色</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/92427569a20a/" title="4.输出到日志文件"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.输出到日志文件</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/1be64d1ca9ae/" title="5.自定义输出格式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.自定义输出格式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/1613843e05bb/" title="6.Hook机制"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.Hook机制</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/0bca2afe96ab/" title="6.Field"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.Field</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b6c1de869ad5/" title="8.Hook应用场景"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.Hook应用场景</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="gorm"
+        id="heading-a12fc2584cb0e7f305298c2ae1005bc1" role="tab" data-toggle="collapse" href="#collapse-a12fc2584cb0e7f305298c2ae1005bc1"
+        aria-expanded="false"
+      >
+        gorm
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/go/%E6%A1%86%E6%9E%B6/gorm/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>5</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-a12fc2584cb0e7f305298c2ae1005bc1"
+           role="tabpanel" aria-labelledby="heading-a12fc2584cb0e7f305298c2ae1005bc1">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/cadae650c102/" title="2.连接数据库"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.连接数据库</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e2367d6e0bde/" title="3.定义model"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.定义model</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/efb05d3639a3/" title="4.创建"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.创建</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d49f1ab4b67b/" title="5.查询"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.查询</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/083fd7faa9df/" title="1.快速入门"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.快速入门</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="go-micro"
+        id="heading-4ad20ca1a6b5a88a6e50fff0b431cd34" role="tab" data-toggle="collapse" href="#collapse-4ad20ca1a6b5a88a6e50fff0b431cd34"
+        aria-expanded="false"
+      >
+        go-micro
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/go/%E6%A1%86%E6%9E%B6/go-micro/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>4</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-4ad20ca1a6b5a88a6e50fff0b431cd34"
+           role="tabpanel" aria-labelledby="heading-4ad20ca1a6b5a88a6e50fff0b431cd34">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/e028373ceb83/" title="2.go-micro之介绍"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.go-micro之介绍</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/0f6fd53ee6ae/" title="3.go-micro之protobuf"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.go-micro之protobuf</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/11eafb17b08a/" title="4.go-micro之auth"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.go-micro之auth</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a8e132c00fed/" title="5.go-micro之broker"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.go-micro之broker</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="rabbitmq"
+        id="heading-aedb75dfc563674e1263316b01879722" role="tab" data-toggle="collapse" href="#collapse-aedb75dfc563674e1263316b01879722"
+        aria-expanded="false"
+      >
+        rabbitmq
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/go/%E6%A1%86%E6%9E%B6/rabbitmq/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>4</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-aedb75dfc563674e1263316b01879722"
+           role="tabpanel" aria-labelledby="heading-aedb75dfc563674e1263316b01879722">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/e5e384b09360/" title="1.rabbitmq之介绍"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.rabbitmq之介绍</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/23b76e6d5281/" title="1.rabbitmq之使用"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.rabbitmq之使用</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/beaaf946d614/" title="3.rabbitmq之死信队列"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.rabbitmq之死信队列</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/4b98cadffa3c/" title="4.rabbitmq之延迟队列"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.rabbitmq之延迟队列</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="go-zero"
+        id="heading-83fdcc64aab02add29c4974fa58e8dc7" role="tab" data-toggle="collapse" href="#collapse-83fdcc64aab02add29c4974fa58e8dc7"
+        aria-expanded="false"
+      >
+        go-zero
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/go/%E6%A1%86%E6%9E%B6/go-zero/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>2</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-83fdcc64aab02add29c4974fa58e8dc7"
+           role="tabpanel" aria-labelledby="heading-83fdcc64aab02add29c4974fa58e8dc7">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/c80da2c229a4/" title="1.快速开始"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.快速开始</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a9f11f629522/" title="2.goctl"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.goctl</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="protobuf"
+        id="heading-606eaf846c6579916354199b45953ee2" role="tab" data-toggle="collapse" href="#collapse-606eaf846c6579916354199b45953ee2"
+        aria-expanded="false"
+      >
+        protobuf
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/go/%E6%A1%86%E6%9E%B6/protobuf/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-606eaf846c6579916354199b45953ee2"
+           role="tabpanel" aria-labelledby="heading-606eaf846c6579916354199b45953ee2">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/bb4e499389aa/" title="proto3功法大全"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">proto3功法大全</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="micro"
+        id="heading-1c21d9b19298645fa2534d9828ee0778" role="tab" data-toggle="collapse" href="#collapse-1c21d9b19298645fa2534d9828ee0778"
+        aria-expanded="false"
+      >
+        micro
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/go/%E6%A1%86%E6%9E%B6/micro/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-1c21d9b19298645fa2534d9828ee0778"
+           role="tabpanel" aria-labelledby="heading-1c21d9b19298645fa2534d9828ee0778">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/5dbbb5d306ca/" title="1.micro的简单使用"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.micro的简单使用</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Go宝典"
+        id="heading-d952b63b3b235fba6a1c68e8df7f65fd" role="tab" data-toggle="collapse" href="#collapse-d952b63b3b235fba6a1c68e8df7f65fd"
+        aria-expanded="false"
+      >
+        Go宝典
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/go/Go%E5%AE%9D%E5%85%B8/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>4</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-d952b63b3b235fba6a1c68e8df7f65fd"
+           role="tabpanel" aria-labelledby="heading-d952b63b3b235fba6a1c68e8df7f65fd">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/1384e13dd62a/" title="1.逃逸分析"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.逃逸分析</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c5b46568b2c6/" title="2.延迟语句"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.延迟语句</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8c7018943094/" title="3.数据容器"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.数据容器</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/41f72ccc8d86/" title="4.通道"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.通道</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="微服务"
+        id="heading-79c287218d34050f6bd19986cd05b499" role="tab" data-toggle="collapse" href="#collapse-79c287218d34050f6bd19986cd05b499"
+        aria-expanded="false"
+      >
+        微服务
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/go/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>4</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-79c287218d34050f6bd19986cd05b499"
+           role="tabpanel" aria-labelledby="heading-79c287218d34050f6bd19986cd05b499">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/f0a079c04aee/" title="01.搭建项目环境"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">01.搭建项目环境</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c0ee0c16a654/" title="02.搭建nginx网关"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">02.搭建nginx网关</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e2cefb55238b/" title="服务监控"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">服务监控</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c0de96506a9c/" title="链路追踪"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">链路追踪</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Go知识点"
+        id="heading-ec29eb0e47c3d42ef48491438b3281b8" role="tab" data-toggle="collapse" href="#collapse-ec29eb0e47c3d42ef48491438b3281b8"
+        aria-expanded="false"
+      >
+        Go知识点
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/go/Go%E7%9F%A5%E8%AF%86%E7%82%B9/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>3</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-ec29eb0e47c3d42ef48491438b3281b8"
+           role="tabpanel" aria-labelledby="heading-ec29eb0e47c3d42ef48491438b3281b8">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/7cd3afb4f00a/" title="导入包"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">导入包</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/3ffaea570eb4/" title="如何创建Go项目"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">如何创建Go项目</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/ca9538243073/" title="泛型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">泛型</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="工具"
+        id="heading-20dce2c6fa909a5cd62526615fe2788a" role="tab" data-toggle="collapse" href="#collapse-20dce2c6fa909a5cd62526615fe2788a"
+        aria-expanded="false"
+      >
+        工具
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/go/%E5%B7%A5%E5%85%B7/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>3</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-20dce2c6fa909a5cd62526615fe2788a"
+           role="tabpanel" aria-labelledby="heading-20dce2c6fa909a5cd62526615fe2788a">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="gorm"
+        id="heading-a12fc2584cb0e7f305298c2ae1005bc1" role="tab" data-toggle="collapse" href="#collapse-a12fc2584cb0e7f305298c2ae1005bc1"
+        aria-expanded="false"
+      >
+        gorm
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/go/%E5%B7%A5%E5%85%B7/gorm/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-a12fc2584cb0e7f305298c2ae1005bc1"
+           role="tabpanel" aria-labelledby="heading-a12fc2584cb0e7f305298c2ae1005bc1">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/6291e5dfe3f7/" title="gorm-gen"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">gorm-gen</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="air"
+        id="heading-3c4588116394d2164657875b7430907e" role="tab" data-toggle="collapse" href="#collapse-3c4588116394d2164657875b7430907e"
+        aria-expanded="false"
+      >
+        air
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/go/%E5%B7%A5%E5%85%B7/air/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-3c4588116394d2164657875b7430907e"
+           role="tabpanel" aria-labelledby="heading-3c4588116394d2164657875b7430907e">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/aaa9776c2d87/" title="air热重载"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">air热重载</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="protoc"
+        id="heading-ec54e3daa848fc6eceb37e2ccc7c1c74" role="tab" data-toggle="collapse" href="#collapse-ec54e3daa848fc6eceb37e2ccc7c1c74"
+        aria-expanded="false"
+      >
+        protoc
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/go/%E5%B7%A5%E5%85%B7/protoc/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-ec54e3daa848fc6eceb37e2ccc7c1c74"
+           role="tabpanel" aria-labelledby="heading-ec54e3daa848fc6eceb37e2ccc7c1c74">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/71d3ec04462a/" title="protoc"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">protoc</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java"
+        id="heading-93f725a07423fe1c889f448b33d21f46" role="tab" data-toggle="collapse" href="#collapse-93f725a07423fe1c889f448b33d21f46"
+        aria-expanded="true"
+      >
+        java
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/java/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>42</span>
+        </a>
+      
+      <div class="category-collapse collapse show" id="collapse-93f725a07423fe1c889f448b33d21f46"
+           role="tabpanel" aria-labelledby="heading-93f725a07423fe1c889f448b33d21f46">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/1646708a3955/" title="JVM哪些事儿：OOM解毒大全"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">JVM哪些事儿：OOM解毒大全</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/582a9cc5bfc6/" title="JVM哪些事儿：起始"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">JVM哪些事儿：起始</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java基础"
+        id="heading-df7759872e49dfa342518015262abb95" role="tab" data-toggle="collapse" href="#collapse-df7759872e49dfa342518015262abb95"
+        aria-expanded="false"
+      >
+        java基础
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/java/java%E5%9F%BA%E7%A1%80/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>24</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-df7759872e49dfa342518015262abb95"
+           role="tabpanel" aria-labelledby="heading-df7759872e49dfa342518015262abb95">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/2de11af85dfa/" title="Collection"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Collection</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c131da4759d3/" title="Java中的内存分配以及栈和堆的区别"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Java中的内存分配以及栈和堆的区别</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b0c543d38971/" title="Java中的引用"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Java中的引用</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/0bf5527ff036/" title="final关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">final关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/fb4bcf06d658/" title="Static关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Static关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e5ec1dd12f5e/" title="main方法的格式详细解释"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">main方法的格式详细解释</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/4035e7454296/" title="this关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">this关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/51e5f5269a71/" title="private关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">private关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/551019549513/" title="创建对象的内存操作"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">创建对象的内存操作</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e6a3cffa55aa/" title="代码块"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">代码块</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/424bb708aa6d/" title="字符串参与运算"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">字符串参与运算</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/957615e68d0e/" title="工具类中使用静态"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">工具类中使用静态</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a9b711582174/" title="控制跳转语句标号"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">控制跳转语句标号</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/dc70c2086a19/" title="成员变量&amp;局部变量"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">成员变量&amp;局部变量</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8825483398df/" title="数组"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数组</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/731c30951451/" title="构造方法（Constructor）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">构造方法（Constructor）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a62f78655027/" title="方法重写"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">方法重写</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/865639345012/" title="继承"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">继承</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/08a3be0e3035/" title="说明书的制作过程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">说明书的制作过程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/ef95bf14b680/" title="转义字符"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">转义字符</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f9796d4b6b88/" title="选择结构switch语句"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">选择结构switch语句</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d8f0a1a233ae/" title="逻辑运算符"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">逻辑运算符</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d94cb6fc725d/" title="键盘录入的基本格式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">键盘录入的基本格式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/2acbebbb1ff5/" title="隐式转换and强制转换"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">隐式转换and强制转换</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="spring cloud"
+        id="heading-33d0d327026a3129f67aeecf0300507b" role="tab" data-toggle="collapse" href="#collapse-33d0d327026a3129f67aeecf0300507b"
+        aria-expanded="false"
+      >
+        spring cloud
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/java/spring-cloud/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>7</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-33d0d327026a3129f67aeecf0300507b"
+           role="tabpanel" aria-labelledby="heading-33d0d327026a3129f67aeecf0300507b">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="gateway"
+        id="heading-3e21ab62fb17400301d9f0156b6c3031" role="tab" data-toggle="collapse" href="#collapse-3e21ab62fb17400301d9f0156b6c3031"
+        aria-expanded="false"
+      >
+        gateway
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/java/spring-cloud/gateway/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>6</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-3e21ab62fb17400301d9f0156b6c3031"
+           role="tabpanel" aria-labelledby="heading-3e21ab62fb17400301d9f0156b6c3031">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/c20d781ca172/" title="1.gateway之动态路由实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.gateway之动态路由实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b443e2c441b9/" title="gateway之2025.0.0版本"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">gateway之2025.0.0版本</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d56da4745c40/" title="gateway之大纲"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">gateway之大纲</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/5a9674f0e8eb/" title="gateway之路由配置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">gateway之路由配置</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b5e8062f3af5/" title="gateway之服务发现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">gateway之服务发现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c7cf77858a04/" title="gateway之配置中心"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">gateway之配置中心</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="dubbo"
+        id="heading-aa4e1b8c2cc9deed96fe012ef2e0752a" role="tab" data-toggle="collapse" href="#collapse-aa4e1b8c2cc9deed96fe012ef2e0752a"
+        aria-expanded="false"
+      >
+        dubbo
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/java/spring-cloud/dubbo/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-aa4e1b8c2cc9deed96fe012ef2e0752a"
+           role="tabpanel" aria-labelledby="heading-aa4e1b8c2cc9deed96fe012ef2e0752a">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/a87c46ee82ff/" title="1.dubbo之缓存文件冲突"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.dubbo之缓存文件冲突</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="framework"
+        id="heading-756457dc85f13450b3dfba2cbc1465e5" role="tab" data-toggle="collapse" href="#collapse-756457dc85f13450b3dfba2cbc1465e5"
+        aria-expanded="false"
+      >
+        framework
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/java/framework/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>2</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-756457dc85f13450b3dfba2cbc1465e5"
+           role="tabpanel" aria-labelledby="heading-756457dc85f13450b3dfba2cbc1465e5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/1b0525f461aa/" title="Mockito究极指南：从基础到生产实战"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Mockito究极指南：从基础到生产实战</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/14b3d3a44bab/" title="Mapstruct大法：从凹到凸"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Mapstruct大法：从凹到凸</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java面试题"
+        id="heading-ad2aaee8db2e74079d35223ebbf1338c" role="tab" data-toggle="collapse" href="#collapse-ad2aaee8db2e74079d35223ebbf1338c"
+        aria-expanded="false"
+      >
+        java面试题
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/java/java%E9%9D%A2%E8%AF%95%E9%A2%98/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>2</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-ad2aaee8db2e74079d35223ebbf1338c"
+           role="tabpanel" aria-labelledby="heading-ad2aaee8db2e74079d35223ebbf1338c">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/2c488b803b42/" title="面试题之Java基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">面试题之Java基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/96fc121e9ee5/" title="面试题之Java多线程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">面试题之Java多线程</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="other"
+        id="heading-795f3202b17cb6bc3d4b771d8c6c9eaf" role="tab" data-toggle="collapse" href="#collapse-795f3202b17cb6bc3d4b771d8c6c9eaf"
+        aria-expanded="false"
+      >
+        other
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/java/other/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-795f3202b17cb6bc3d4b771d8c6c9eaf"
+           role="tabpanel" aria-labelledby="heading-795f3202b17cb6bc3d4b771d8c6c9eaf">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/0926b92f8daf/" title="JDK 25 LTS 新特性一览"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">JDK 25 LTS 新特性一览</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java进阶"
+        id="heading-f37659ce2630cc205815e63e97ca680d" role="tab" data-toggle="collapse" href="#collapse-f37659ce2630cc205815e63e97ca680d"
+        aria-expanded="false"
+      >
+        java进阶
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/java/java%E8%BF%9B%E9%98%B6/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-f37659ce2630cc205815e63e97ca680d"
+           role="tabpanel" aria-labelledby="heading-f37659ce2630cc205815e63e97ca680d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/e78ec63eaa48/" title="Spring Cloud"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Spring Cloud</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java错误集"
+        id="heading-15f313469c4c1a0934d8aadb7bf7e364" role="tab" data-toggle="collapse" href="#collapse-15f313469c4c1a0934d8aadb7bf7e364"
+        aria-expanded="false"
+      >
+        java错误集
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/java/java%E9%94%99%E8%AF%AF%E9%9B%86/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-15f313469c4c1a0934d8aadb7bf7e364"
+           role="tabpanel" aria-labelledby="heading-15f313469c4c1a0934d8aadb7bf7e364">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/53341e20ebbb/" title="Jedis连接Redis Cluster的java.net.SocketTimeoutException: connect timed out"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Jedis连接Redis Cluster的java.net.SocketTimeoutException: connect timed out</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="spring boot"
+        id="heading-926e67801e570a3898ddaef281c23075" role="tab" data-toggle="collapse" href="#collapse-926e67801e570a3898ddaef281c23075"
+        aria-expanded="false"
+      >
+        spring boot
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/java/spring-boot/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-926e67801e570a3898ddaef281c23075"
+           role="tabpanel" aria-labelledby="heading-926e67801e570a3898ddaef281c23075">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/04599e749896/" title="1.从0-1构建项目"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.从0-1构建项目</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="spring framework"
+        id="heading-765e2c55e032e733dab87b4fcd8998d6" role="tab" data-toggle="collapse" href="#collapse-765e2c55e032e733dab87b4fcd8998d6"
+        aria-expanded="false"
+      >
+        spring framework
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/java/spring-framework/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-765e2c55e032e733dab87b4fcd8998d6"
+           role="tabpanel" aria-labelledby="heading-765e2c55e032e733dab87b4fcd8998d6">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/a86d01bfdca1/" title="Spring Test终极功法：从练气初期到大乘圆满"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Spring Test终极功法：从练气初期到大乘圆满</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="docker"
+        id="heading-05b6053c41a2130afd6fc3b158bda4e6" role="tab" data-toggle="collapse" href="#collapse-05b6053c41a2130afd6fc3b158bda4e6"
+        aria-expanded="true"
+      >
+        docker
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/docker/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>7</span>
+        </a>
+      
+      <div class="category-collapse collapse show" id="collapse-05b6053c41a2130afd6fc3b158bda4e6"
+           role="tabpanel" aria-labelledby="heading-05b6053c41a2130afd6fc3b158bda4e6">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/65183a486175/" title="docker安装harbor"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">docker安装harbor</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/fb1b5fefa0b9/" title="docker安装kafka"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">docker安装kafka</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/ee7625c8c678/" title="docker安装nacos"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">docker安装nacos</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/08565cf461f7/" title="docker安裝elk日志系統"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">docker安裝elk日志系統</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/7847c1635235/" title="docker构建本地镜像"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">docker构建本地镜像</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/9606ddb114fc/" title="kafka之cluster.id不匹配"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">kafka之cluster.id不匹配</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="apt"
+        id="heading-583f72a833c7dfd63c03edba3776247a" role="tab" data-toggle="collapse" href="#collapse-583f72a833c7dfd63c03edba3776247a"
+        aria-expanded="false"
+      >
+        apt
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/docker/apt/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-583f72a833c7dfd63c03edba3776247a"
+           role="tabpanel" aria-labelledby="heading-583f72a833c7dfd63c03edba3776247a">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/c525662bcfb5/" title="docker之apt换国内源"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">docker之apt换国内源</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="k8s"
+        id="heading-bfd47ab5b430c23c83ea0d7b87b6e244" role="tab" data-toggle="collapse" href="#collapse-bfd47ab5b430c23c83ea0d7b87b6e244"
+        aria-expanded="true"
+      >
+        k8s
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/k8s/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>6</span>
+        </a>
+      
+      <div class="category-collapse collapse show" id="collapse-bfd47ab5b430c23c83ea0d7b87b6e244"
+           role="tabpanel" aria-labelledby="heading-bfd47ab5b430c23c83ea0d7b87b6e244">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/e97f1e713a28/" title="k8s之安装"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">k8s之安装</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="ingress-nginx"
+        id="heading-a5f7099dddefa45864ff26e2f2dedfbb" role="tab" data-toggle="collapse" href="#collapse-a5f7099dddefa45864ff26e2f2dedfbb"
+        aria-expanded="false"
+      >
+        ingress-nginx
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/k8s/ingress-nginx/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-a5f7099dddefa45864ff26e2f2dedfbb"
+           role="tabpanel" aria-labelledby="heading-a5f7099dddefa45864ff26e2f2dedfbb">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/7063a21b0bda/" title="k8s之ingress-nginx"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">k8s之ingress-nginx</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="harbor"
+        id="heading-a3f7b4175eb3c1da2f477685808422a5" role="tab" data-toggle="collapse" href="#collapse-a3f7b4175eb3c1da2f477685808422a5"
+        aria-expanded="false"
+      >
+        harbor
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/k8s/harbor/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-a3f7b4175eb3c1da2f477685808422a5"
+           role="tabpanel" aria-labelledby="heading-a3f7b4175eb3c1da2f477685808422a5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/1e6190e1d2c6/" title="k8s之harbor"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">k8s之harbor</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="registry-proxy"
+        id="heading-d000ceb4bf55afdd312a979af8116246" role="tab" data-toggle="collapse" href="#collapse-d000ceb4bf55afdd312a979af8116246"
+        aria-expanded="false"
+      >
+        registry-proxy
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/k8s/registry-proxy/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-d000ceb4bf55afdd312a979af8116246"
+           role="tabpanel" aria-labelledby="heading-d000ceb4bf55afdd312a979af8116246">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/aaef35a6d09c/" title="k8s之registry-proxy"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">k8s之registry-proxy</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="helm"
+        id="heading-e7d07ed8aa8dd8cafce4a527a523d6c5" role="tab" data-toggle="collapse" href="#collapse-e7d07ed8aa8dd8cafce4a527a523d6c5"
+        aria-expanded="false"
+      >
+        helm
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/k8s/helm/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-e7d07ed8aa8dd8cafce4a527a523d6c5"
+           role="tabpanel" aria-labelledby="heading-e7d07ed8aa8dd8cafce4a527a523d6c5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/fd0414066736/" title="k8s之helm"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">k8s之helm</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="nfs"
+        id="heading-2521ef5d58fc027d3121662b7d8f9ac2" role="tab" data-toggle="collapse" href="#collapse-2521ef5d58fc027d3121662b7d8f9ac2"
+        aria-expanded="false"
+      >
+        nfs
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/k8s/nfs/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-2521ef5d58fc027d3121662b7d8f9ac2"
+           role="tabpanel" aria-labelledby="heading-2521ef5d58fc027d3121662b7d8f9ac2">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/7d056396495c/" title="k8s之nfs挂载"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">k8s之nfs挂载</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="algorithm"
+        id="heading-ed469618898d75b149e5c7c4b6a1c415" role="tab" data-toggle="collapse" href="#collapse-ed469618898d75b149e5c7c4b6a1c415"
+        aria-expanded="true"
+      >
+        algorithm
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/algorithm/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>6</span>
+        </a>
+      
+      <div class="category-collapse collapse show" id="collapse-ed469618898d75b149e5c7c4b6a1c415"
+           role="tabpanel" aria-labelledby="heading-ed469618898d75b149e5c7c4b6a1c415">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="acwing"
+        id="heading-16fdcfc6c844fd3226d809645b3c1086" role="tab" data-toggle="collapse" href="#collapse-16fdcfc6c844fd3226d809645b3c1086"
+        aria-expanded="false"
+      >
+        acwing
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/algorithm/acwing/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>6</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-16fdcfc6c844fd3226d809645b3c1086"
+           role="tabpanel" aria-labelledby="heading-16fdcfc6c844fd3226d809645b3c1086">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/969f3ae9580c/" title="1.A+B"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.A+B</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/1691f145d6ef/" title="2.01背包问题"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.01背包问题</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e337a46bcad7/" title="3.完全背包问题"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.完全背包问题</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/0d97e2d6a241/" title="4.多重背包问题I"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.多重背包问题I</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/533f8eae1880/" title="5.多重背包问题II"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.多重背包问题II</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/6c11318f50e8/" title="6.多重背包问题III"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.多重背包问题III</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="database"
+        id="heading-11e0eed8d3696c0a632f822df385ab3c" role="tab" data-toggle="collapse" href="#collapse-11e0eed8d3696c0a632f822df385ab3c"
+        aria-expanded="true"
+      >
+        database
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/database/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>4</span>
+        </a>
+      
+      <div class="category-collapse collapse show" id="collapse-11e0eed8d3696c0a632f822df385ab3c"
+           role="tabpanel" aria-labelledby="heading-11e0eed8d3696c0a632f822df385ab3c">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="redis"
+        id="heading-86a1b907d54bf7010394bf316e183e67" role="tab" data-toggle="collapse" href="#collapse-86a1b907d54bf7010394bf316e183e67"
+        aria-expanded="false"
+      >
+        redis
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/database/redis/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>2</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-86a1b907d54bf7010394bf316e183e67"
+           role="tabpanel" aria-labelledby="heading-86a1b907d54bf7010394bf316e183e67">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/b65370309db3/" title="Redis缓存"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Redis缓存</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a68e5a6523bb/" title="Redis集群"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Redis集群</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="mysql"
+        id="heading-81c3b080dad537de7e10e0987a4bf52e" role="tab" data-toggle="collapse" href="#collapse-81c3b080dad537de7e10e0987a4bf52e"
+        aria-expanded="false"
+      >
+        mysql
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/database/mysql/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>2</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-81c3b080dad537de7e10e0987a4bf52e"
+           role="tabpanel" aria-labelledby="heading-81c3b080dad537de7e10e0987a4bf52e">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/7ad9a3aca863/" title="1.mysql剖析之架构篇"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.mysql剖析之架构篇</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a2104043a9a3/" title="mysql杂记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">mysql杂记</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="other"
+        id="heading-795f3202b17cb6bc3d4b771d8c6c9eaf" role="tab" data-toggle="collapse" href="#collapse-795f3202b17cb6bc3d4b771d8c6c9eaf"
+        aria-expanded="true"
+      >
+        other
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/other/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>3</span>
+        </a>
+      
+      <div class="category-collapse collapse show" id="collapse-795f3202b17cb6bc3d4b771d8c6c9eaf"
+           role="tabpanel" aria-labelledby="heading-795f3202b17cb6bc3d4b771d8c6c9eaf">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/1054178e58ab/" title="构建开发环境-windows"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">构建开发环境-windows</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b13d8980370b/" title="编译运行命令"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">编译运行命令</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="ssl/tls"
+        id="heading-3bc72fb1f9383f6e3e353b7a024a8a26" role="tab" data-toggle="collapse" href="#collapse-3bc72fb1f9383f6e3e353b7a024a8a26"
+        aria-expanded="false"
+      >
+        ssl/tls
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/other/ssl-tls/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-3bc72fb1f9383f6e3e353b7a024a8a26"
+           role="tabpanel" aria-labelledby="heading-3bc72fb1f9383f6e3e353b7a024a8a26">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/11cb4878e391/" title="tls的证书们"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">tls的证书们</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="编程思想"
+        id="heading-a30bf6fda13c2315aaacc2e0f5d292e9" role="tab" data-toggle="collapse" href="#collapse-a30bf6fda13c2315aaacc2e0f5d292e9"
+        aria-expanded="true"
+      >
+        编程思想
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>3</span>
+        </a>
+      
+      <div class="category-collapse collapse show" id="collapse-a30bf6fda13c2315aaacc2e0f5d292e9"
+           role="tabpanel" aria-labelledby="heading-a30bf6fda13c2315aaacc2e0f5d292e9">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="缓存一致性"
+        id="heading-c43a140615ac663ca727724bf8d7a5c2" role="tab" data-toggle="collapse" href="#collapse-c43a140615ac663ca727724bf8d7a5c2"
+        aria-expanded="false"
+      >
+        缓存一致性
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3/%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>2</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-c43a140615ac663ca727724bf8d7a5c2"
+           role="tabpanel" aria-labelledby="heading-c43a140615ac663ca727724bf8d7a5c2">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/f8e8a253b9ca/" title="1.缓存一致性之概念"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.缓存一致性之概念</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/dfa9f6bf64fc/" title="2.缓存最终一致性方案"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.缓存最终一致性方案</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="http"
+        id="heading-80791b3ae7002cb88c246876d9faa8f8" role="tab" data-toggle="collapse" href="#collapse-80791b3ae7002cb88c246876d9faa8f8"
+        aria-expanded="false"
+      >
+        http
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3/http/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-80791b3ae7002cb88c246876d9faa8f8"
+           role="tabpanel" aria-labelledby="heading-80791b3ae7002cb88c246876d9faa8f8">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/7b637fc0e593/" title="1.http各版本详解"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.http各版本详解</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="ai"
+        id="heading-4921c0e2d1f6005abe1f9ec2e2041909" role="tab" data-toggle="collapse" href="#collapse-4921c0e2d1f6005abe1f9ec2e2041909"
+        aria-expanded="false"
+      >
+        ai
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/ai/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-4921c0e2d1f6005abe1f9ec2e2041909"
+           role="tabpanel" aria-labelledby="heading-4921c0e2d1f6005abe1f9ec2e2041909">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/7ebc9ae29ccf/" title="人工智能学习路线"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">人工智能学习路线</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="nfs"
+        id="heading-2521ef5d58fc027d3121662b7d8f9ac2" role="tab" data-toggle="collapse" href="#collapse-2521ef5d58fc027d3121662b7d8f9ac2"
+        aria-expanded="false"
+      >
+        nfs
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/nfs/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-2521ef5d58fc027d3121662b7d8f9ac2"
+           role="tabpanel" aria-labelledby="heading-2521ef5d58fc027d3121662b7d8f9ac2">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/ea05e145d696/" title="nfs之安装"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">nfs之安装</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Linux"
+        id="heading-edc9f0a5a5d57797bf68e37364743831" role="tab" data-toggle="collapse" href="#collapse-edc9f0a5a5d57797bf68e37364743831"
+        aria-expanded="false"
+      >
+        Linux
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/Linux/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-edc9f0a5a5d57797bf68e37364743831"
+           role="tabpanel" aria-labelledby="heading-edc9f0a5a5d57797bf68e37364743831">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/c7e28a71ed38/" title="Elasticsearch和Kibana的使用"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Elasticsearch和Kibana的使用</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="mq"
+        id="heading-1d8a4975693ef1eb9ca54878098d608f" role="tab" data-toggle="collapse" href="#collapse-1d8a4975693ef1eb9ca54878098d608f"
+        aria-expanded="true"
+      >
+        mq
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/mq/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse show" id="collapse-1d8a4975693ef1eb9ca54878098d608f"
+           role="tabpanel" aria-labelledby="heading-1d8a4975693ef1eb9ca54878098d608f">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="kafka"
+        id="heading-541661622185851c248b41bf0cea7ad0" role="tab" data-toggle="collapse" href="#collapse-541661622185851c248b41bf0cea7ad0"
+        aria-expanded="false"
+      >
+        kafka
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/mq/kafka/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-541661622185851c248b41bf0cea7ad0"
+           role="tabpanel" aria-labelledby="heading-541661622185851c248b41bf0cea7ad0">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/1822849354ca/" title="1.kafka之术语"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.kafka之术语</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

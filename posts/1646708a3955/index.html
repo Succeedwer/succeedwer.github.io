@@ -1,0 +1,1666 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言 本文通过模拟OOM实例，通过使用各种相关工具解决OOM问题。 环境  JDK 17.0.18 Arthas 4.1.8 MAT 1.16.1.20250109  什么是OOM? 导致 OOM（OutOfMemoryError）的原因通常对应 JVM 不同的内存区域。简单来说，只要**“内存不够用”或者“内存无法释放”**，就可能触发 OOM。 结合 JDK 版本和内存区域的不同，常见的 OO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM哪些事儿：OOM解毒大全">
+<meta property="og:url" content="https://succeedwer.github.io/posts/1646708a3955/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:description" content="前言 本文通过模拟OOM实例，通过使用各种相关工具解决OOM问题。 环境  JDK 17.0.18 Arthas 4.1.8 MAT 1.16.1.20250109  什么是OOM? 导致 OOM（OutOfMemoryError）的原因通常对应 JVM 不同的内存区域。简单来说，只要**“内存不够用”或者“内存无法释放”**，就可能触发 OOM。 结合 JDK 版本和内存区域的不同，常见的 OO">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://succeedwer.github.io/posts/1646708a3955/image-20260412110258964.png">
+<meta property="og:image" content="https://succeedwer.github.io/posts/1646708a3955/image-20260412110618302.png">
+<meta property="og:image" content="https://succeedwer.github.io/posts/1646708a3955/image-20260412144815154.png">
+<meta property="article:published_time" content="2026-04-11T15:43:34.742Z">
+<meta property="article:modified_time" content="2026-04-11T15:47:55.000Z">
+<meta property="article:author" content="WER">
+<meta property="article:tag" content="JVM">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://succeedwer.github.io/posts/1646708a3955/image-20260412110258964.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>JVM哪些事儿：OOM解毒大全 - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu+b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g==" crossorigin="anonymous" referrerpolicy="no-referrer" /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="JVM哪些事儿：OOM解毒大全"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        WER
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-11 23:43" pubdate>
+          2026年4月11日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          20 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java"
+        id="heading-93f725a07423fe1c889f448b33d21f46" role="tab" data-toggle="collapse" href="#collapse-93f725a07423fe1c889f448b33d21f46"
+        aria-expanded="true"
+      >
+        java
+        <span class="list-group-count">(42)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-93f725a07423fe1c889f448b33d21f46"
+           role="tabpanel" aria-labelledby="heading-93f725a07423fe1c889f448b33d21f46">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/1646708a3955/" title="JVM哪些事儿：OOM解毒大全"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">JVM哪些事儿：OOM解毒大全</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/582a9cc5bfc6/" title="JVM哪些事儿：起始"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">JVM哪些事儿：起始</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="framework"
+        id="heading-756457dc85f13450b3dfba2cbc1465e5" role="tab" data-toggle="collapse" href="#collapse-756457dc85f13450b3dfba2cbc1465e5"
+        aria-expanded="false"
+      >
+        framework
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-756457dc85f13450b3dfba2cbc1465e5"
+           role="tabpanel" aria-labelledby="heading-756457dc85f13450b3dfba2cbc1465e5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/14b3d3a44bab/" title="Mapstruct大法：从凹到凸"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Mapstruct大法：从凹到凸</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/1b0525f461aa/" title="Mockito究极指南：从基础到生产实战"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Mockito究极指南：从基础到生产实战</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java基础"
+        id="heading-df7759872e49dfa342518015262abb95" role="tab" data-toggle="collapse" href="#collapse-df7759872e49dfa342518015262abb95"
+        aria-expanded="false"
+      >
+        java基础
+        <span class="list-group-count">(24)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-df7759872e49dfa342518015262abb95"
+           role="tabpanel" aria-labelledby="heading-df7759872e49dfa342518015262abb95">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/2de11af85dfa/" title="Collection"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Collection</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c131da4759d3/" title="Java中的内存分配以及栈和堆的区别"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Java中的内存分配以及栈和堆的区别</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b0c543d38971/" title="Java中的引用"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Java中的引用</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/fb4bcf06d658/" title="Static关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Static关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/0bf5527ff036/" title="final关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">final关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e5ec1dd12f5e/" title="main方法的格式详细解释"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">main方法的格式详细解释</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/51e5f5269a71/" title="private关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">private关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/4035e7454296/" title="this关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">this关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e6a3cffa55aa/" title="代码块"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">代码块</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/551019549513/" title="创建对象的内存操作"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">创建对象的内存操作</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/424bb708aa6d/" title="字符串参与运算"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">字符串参与运算</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/957615e68d0e/" title="工具类中使用静态"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">工具类中使用静态</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/dc70c2086a19/" title="成员变量&amp;局部变量"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">成员变量&amp;局部变量</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a9b711582174/" title="控制跳转语句标号"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">控制跳转语句标号</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8825483398df/" title="数组"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数组</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a62f78655027/" title="方法重写"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">方法重写</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/731c30951451/" title="构造方法（Constructor）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">构造方法（Constructor）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/865639345012/" title="继承"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">继承</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/08a3be0e3035/" title="说明书的制作过程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">说明书的制作过程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/ef95bf14b680/" title="转义字符"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">转义字符</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f9796d4b6b88/" title="选择结构switch语句"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">选择结构switch语句</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d8f0a1a233ae/" title="逻辑运算符"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">逻辑运算符</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d94cb6fc725d/" title="键盘录入的基本格式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">键盘录入的基本格式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/2acbebbb1ff5/" title="隐式转换and强制转换"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">隐式转换and强制转换</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java进阶"
+        id="heading-f37659ce2630cc205815e63e97ca680d" role="tab" data-toggle="collapse" href="#collapse-f37659ce2630cc205815e63e97ca680d"
+        aria-expanded="false"
+      >
+        java进阶
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-f37659ce2630cc205815e63e97ca680d"
+           role="tabpanel" aria-labelledby="heading-f37659ce2630cc205815e63e97ca680d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/e78ec63eaa48/" title="Spring Cloud"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Spring Cloud</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java错误集"
+        id="heading-15f313469c4c1a0934d8aadb7bf7e364" role="tab" data-toggle="collapse" href="#collapse-15f313469c4c1a0934d8aadb7bf7e364"
+        aria-expanded="false"
+      >
+        java错误集
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-15f313469c4c1a0934d8aadb7bf7e364"
+           role="tabpanel" aria-labelledby="heading-15f313469c4c1a0934d8aadb7bf7e364">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/53341e20ebbb/" title="Jedis连接Redis Cluster的java.net.SocketTimeoutException: connect timed out"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Jedis连接Redis Cluster的java.net.SocketTimeoutException: connect timed out</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java面试题"
+        id="heading-ad2aaee8db2e74079d35223ebbf1338c" role="tab" data-toggle="collapse" href="#collapse-ad2aaee8db2e74079d35223ebbf1338c"
+        aria-expanded="false"
+      >
+        java面试题
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-ad2aaee8db2e74079d35223ebbf1338c"
+           role="tabpanel" aria-labelledby="heading-ad2aaee8db2e74079d35223ebbf1338c">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/2c488b803b42/" title="面试题之Java基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">面试题之Java基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/96fc121e9ee5/" title="面试题之Java多线程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">面试题之Java多线程</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="other"
+        id="heading-795f3202b17cb6bc3d4b771d8c6c9eaf" role="tab" data-toggle="collapse" href="#collapse-795f3202b17cb6bc3d4b771d8c6c9eaf"
+        aria-expanded="false"
+      >
+        other
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-795f3202b17cb6bc3d4b771d8c6c9eaf"
+           role="tabpanel" aria-labelledby="heading-795f3202b17cb6bc3d4b771d8c6c9eaf">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/0926b92f8daf/" title="JDK 25 LTS 新特性一览"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">JDK 25 LTS 新特性一览</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="spring boot"
+        id="heading-926e67801e570a3898ddaef281c23075" role="tab" data-toggle="collapse" href="#collapse-926e67801e570a3898ddaef281c23075"
+        aria-expanded="false"
+      >
+        spring boot
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-926e67801e570a3898ddaef281c23075"
+           role="tabpanel" aria-labelledby="heading-926e67801e570a3898ddaef281c23075">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/04599e749896/" title="1.从0-1构建项目"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.从0-1构建项目</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="spring cloud"
+        id="heading-33d0d327026a3129f67aeecf0300507b" role="tab" data-toggle="collapse" href="#collapse-33d0d327026a3129f67aeecf0300507b"
+        aria-expanded="false"
+      >
+        spring cloud
+        <span class="list-group-count">(7)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-33d0d327026a3129f67aeecf0300507b"
+           role="tabpanel" aria-labelledby="heading-33d0d327026a3129f67aeecf0300507b">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="dubbo"
+        id="heading-aa4e1b8c2cc9deed96fe012ef2e0752a" role="tab" data-toggle="collapse" href="#collapse-aa4e1b8c2cc9deed96fe012ef2e0752a"
+        aria-expanded="false"
+      >
+        dubbo
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-aa4e1b8c2cc9deed96fe012ef2e0752a"
+           role="tabpanel" aria-labelledby="heading-aa4e1b8c2cc9deed96fe012ef2e0752a">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/a87c46ee82ff/" title="1.dubbo之缓存文件冲突"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.dubbo之缓存文件冲突</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="gateway"
+        id="heading-3e21ab62fb17400301d9f0156b6c3031" role="tab" data-toggle="collapse" href="#collapse-3e21ab62fb17400301d9f0156b6c3031"
+        aria-expanded="false"
+      >
+        gateway
+        <span class="list-group-count">(6)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-3e21ab62fb17400301d9f0156b6c3031"
+           role="tabpanel" aria-labelledby="heading-3e21ab62fb17400301d9f0156b6c3031">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/c20d781ca172/" title="1.gateway之动态路由实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.gateway之动态路由实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b443e2c441b9/" title="gateway之2025.0.0版本"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">gateway之2025.0.0版本</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d56da4745c40/" title="gateway之大纲"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">gateway之大纲</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b5e8062f3af5/" title="gateway之服务发现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">gateway之服务发现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/5a9674f0e8eb/" title="gateway之路由配置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">gateway之路由配置</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c7cf77858a04/" title="gateway之配置中心"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">gateway之配置中心</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="spring framework"
+        id="heading-765e2c55e032e733dab87b4fcd8998d6" role="tab" data-toggle="collapse" href="#collapse-765e2c55e032e733dab87b4fcd8998d6"
+        aria-expanded="false"
+      >
+        spring framework
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-765e2c55e032e733dab87b4fcd8998d6"
+           role="tabpanel" aria-labelledby="heading-765e2c55e032e733dab87b4fcd8998d6">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/a86d01bfdca1/" title="Spring Test终极功法：从练气初期到大乘圆满"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Spring Test终极功法：从练气初期到大乘圆满</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">JVM哪些事儿：OOM解毒大全</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1>前言</h1>
+<p>本文通过模拟OOM实例，通过使用各种相关工具解决OOM问题。</p>
+<h1>环境</h1>
+<ul>
+<li>JDK 17.0.18</li>
+<li>Arthas 4.1.8</li>
+<li>MAT 1.16.1.20250109</li>
+</ul>
+<h1>什么是OOM?</h1>
+<p>导致 OOM（OutOfMemoryError）的原因通常对应 JVM 不同的内存区域。简单来说，只要**“内存不够用”<strong>或者</strong>“内存无法释放”**，就可能触发 OOM。</p>
+<p>结合 JDK 版本和内存区域的不同，常见的 OOM 主要分为以下 <strong>7 种类型</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>错误类型 (Error Message)</th>
+<th>对应区域</th>
+<th>常见原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Java heap space</strong></td>
+<td>堆内存</td>
+<td>对象太多、内存泄漏、堆设置太小</td>
+</tr>
+<tr>
+<td><strong>Metaspace (或 PermGen space)</strong></td>
+<td>元空间/永久代</td>
+<td>加载类过多（如反射、动态代理）</td>
+</tr>
+<tr>
+<td><strong>Unable to create new native thread</strong></td>
+<td>本地线程</td>
+<td>线程数超限、系统资源不足</td>
+</tr>
+<tr>
+<td><strong>Direct buffer memory</strong></td>
+<td>直接内存</td>
+<td>NIO 使用不当、堆外内存泄漏</td>
+</tr>
+<tr>
+<td><strong>GC Overhead limit exceeded</strong></td>
+<td>堆内存</td>
+<td>GC 效率极低，大部分时间在回收但收效甚微</td>
+</tr>
+<tr>
+<td><strong>Requested array size exceeds VM limit</strong></td>
+<td>堆内存</td>
+<td>申请超大数组（超过 int 最大值或 VM 限制）</td>
+</tr>
+<tr>
+<td><strong>StackOverflowError</strong> (虽不是 OOM 但相关)</td>
+<td>虚拟机栈</td>
+<td>死递归、方法调用层级过深</td>
+</tr>
+</tbody>
+</table>
+<h1>模拟</h1>
+<h2 id="堆内存溢出测试（Java-heap-space）"><a class="header-anchor" href="#堆内存溢出测试（Java-heap-space）">¶</a><strong>堆内存溢出测试（Java heap space）</strong></h2>
+<p><strong>测试原理</strong>：通过不断创建对象并添加到集合中，直到堆内存耗尽。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> org.terminator;<br><br><span class="hljs-keyword">import</span> java.util.ArrayList;<br><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HeapOOM</span> &#123;<br><br>    <span class="hljs-comment">// 用来存放数据的列表，模拟内存泄漏</span><br>    <span class="hljs-keyword">static</span> List&lt;HeapOOM&gt; mockList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> InterruptedException &#123;<br>        System.out.println(<span class="hljs-string">&quot;程序启动... 目标运行 5 分钟&quot;</span>);<br><br>        <span class="hljs-type">int</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br><br>        <span class="hljs-comment">// 循环 5 分钟 (300秒)</span><br>        <span class="hljs-type">long</span> <span class="hljs-variable">startTime</span> <span class="hljs-operator">=</span> System.currentTimeMillis();<br>        <span class="hljs-type">long</span> <span class="hljs-variable">duration</span> <span class="hljs-operator">=</span> <span class="hljs-number">5</span> * <span class="hljs-number">60</span> * <span class="hljs-number">1000</span>; <span class="hljs-comment">// 5分钟的毫秒数</span><br><br>        <span class="hljs-keyword">while</span> (System.currentTimeMillis() - startTime &lt; duration) &#123;<br><br>            <span class="hljs-comment">// 1. 制造对象并加入列表 (模拟内存占用)</span><br>            mockList.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">HeapOOM</span>());<br>            count++;<br><br>            <span class="hljs-comment">// 2. 关键修改：增加延时</span><br>            <span class="hljs-comment">// 每创建 1000 个对象，暂停 10 毫秒</span><br>            <span class="hljs-comment">// 这能极大地降低内存分配速率，防止瞬间撑爆堆内存</span><br>            <span class="hljs-keyword">if</span> (count % <span class="hljs-number">1000</span> == <span class="hljs-number">0</span>) &#123;<br>                Thread.sleep(<span class="hljs-number">10</span>);<br>                <span class="hljs-comment">// 可选：打印日志看进度</span><br>                System.out.println(<span class="hljs-string">&quot;已创建对象数: &quot;</span> + count + <span class="hljs-string">&quot;, 当前列表大小: &quot;</span> + mockList.size());<br>            &#125;<br>        &#125;<br><br>        System.out.println(<span class="hljs-string">&quot;程序运行结束，共创建对象: &quot;</span> + count);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>运行下面命令，打包成jar</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">javac org/terminator/HeapOOM.java<br><br>echo &quot;Manifest-Version: 1.0&quot; &gt;&gt; manifest.txt<br>echo &quot;Main-Class: org.terminator.HeapOOM&quot; &gt;&gt; manifest.txt<br>echo &quot;&quot; &gt;&gt; manifest.txt<br><br>jar cvfm heap-oom.jar manifest.txt org/terminator/*.class<br></code></pre></td></tr></table></figure>
+<p>运行jar包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">java -Xms200m -Xmx200m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=./dump.hprof -jar heap-oom.jar<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>-Xms200m -Xmx200m</code> ：将堆内存初始和堆内存最大都设置为200m，能都快速达到OOM。</li>
+<li><code>-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=./dump.hprof</code>当发生OOM时，将<strong>内存转储文件</strong>保存到指定目录。</li>
+</ul>
+<h1>解决过程</h1>
+<p>当监控发现堆内存持续增长且无法释放时，通常可按以下两种场景分析：程序未崩溃和程序已崩溃（发生 OOM）。针对这两种场景，我们介绍对应的分析工具：</p>
+<ul>
+<li>Arthas：一款强大的 Java 诊断工具，支持在线分析运行中的 Java 程序，无需重启即可实时排查问题。</li>
+<li>MAT（Eclipse Memory Analyzer Tool）：专业的堆转储分析工具，能快速定位内存泄漏、大对象等内存问题，生成直观的报告。</li>
+</ul>
+<p>通过以上工具的组合使用，可以高效定位内存问题的根源，无论是程序运行中还是崩溃后，都能找到对应的解决方案。</p>
+<h2 id="程序运行中内存过高"><a class="header-anchor" href="#程序运行中内存过高">¶</a>程序运行中内存过高</h2>
+<p>下载并运行Arthas</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">curl -O https://arthas.aliyun.com/arthas-boot.jar<br>java -jar arthas-boot.jar<br></code></pre></td></tr></table></figure>
+<p>Arthas运行运行后，出现以下信息，选1即可：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">java -jar arthas-boot.jar</span><br>[INFO] JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64<br>[INFO] arthas-boot version: 4.1.8<br>[INFO] Found existing java process, please choose one and input the serial number of the process, eg : 1. Then hit ENTER.<br>* [1]: 31537 heap-oom.jar<br>1<br></code></pre></td></tr></table></figure>
+<p>输入<a target="_blank" rel="noopener" href="https://arthas.aliyun.com/doc/dashboard.html">dashboard</a>，按<code>回车/enter</code>，会展示当前进程的信息，按<code>ctrl+c</code>可以中断执行。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">[arthas@33811]$ </span><span class="language-bash">dashboard</span><br>ID   NAME                          GROUP          PRIORITY  STATE     %CPU      DELTA_TIM TIME      INTERRUPT DAEMON<br>1    main                          main           5         TIMED_WAI 0.0       0.000     0:1.256   false     false<br>28   arthas-NettyHttpTelnetBootstr system         5         RUNNABLE  0.0       0.000     0:0.066   false     true<br>14   Attach Listener               system         9         RUNNABLE  0.0       0.000     0:0.044   false     true<br>21   arthas-NettyHttpTelnetBootstr system         5         RUNNABLE  0.0       0.000     0:0.014   false     true<br>29   arthas-command-execute        system         5         TIMED_WAI 0.0       0.000     0:0.002   false     true<br>2    Reference Handler             system         10        RUNNABLE  0.0       0.000     0:0.001   false     true<br>22   arthas-NettyWebsocketTtyBoots system         5         RUNNABLE  0.0       0.000     0:0.001   false     true<br>30   Timer-for-arthas-dashboard-cf system         5         RUNNABLE  0.0       0.000     0:0.001   false     true<br>13   Common-Cleaner                InnocuousThrea 8         TIMED_WAI 0.0       0.000     0:0.001   false     true<br>3    Finalizer                     system         8         WAITING   0.0       0.000     0:0.000   false     true<br>4    Signal Dispatcher             system         9         RUNNABLE  0.0       0.000     0:0.000   false     true<br>Memory                    used    total    max     usage    GC<br>heap                      130M    200M     200M    65.46%   gc.g1_young_generation.count  6<br>g1_eden_space             16M     22M      -1      72.73%   gc.g1_young_generation.time(m 169<br>g1_old_gen                106M    170M     200M    53.46%   s)<br>g1_survivor_space         8M      8M       -1      100.00%  gc.g1_old_generation.count    0<br>nonheap                   34M     38M      -1      91.49%   gc.g1_old_generation.time(ms) 0<br>codeheap_&#x27;non-nmethods&#x27;   1M      2M       5M      22.70%<br>metaspace                 26M     26M      -1      99.01%<br><br>Runtime<br>os.name                                                     Linux<br>os.version                                                  6.6.87.2-microsoft-standard-WSL2<br>java.version                                                17.0.18<br>java.home                                                   /usr/lib/jvm/java-17-openjdk-amd64<br>systemload.average                                          0.25<br>processors                                                  12<br>timestamp/uptime                                            Sun Apr 12 10:21:42 CST 2026/52s<br></code></pre></td></tr></table></figure>
+<p>可以重点关注下<code>Memory</code>中的信息：</p>
+<ul>
+<li>
+<p>表头含义</p>
+<ul>
+<li><strong>Memory</strong>：内存区域名称。</li>
+<li><strong>used</strong>：已使用的内存大小。</li>
+<li><strong>total</strong>：当前已申请的内存大小（committed）。</li>
+<li><strong>max</strong>：该区域最大可扩展到的内存大小（-1 表示不限制或由 JVM 自动管理）。</li>
+<li><strong>usage</strong>：使用率（used / total）。</li>
+<li><strong>GC</strong>：与垃圾回收相关的统计信息。</li>
+</ul>
+</li>
+<li>
+<p>堆内存 (Heap) 区域</p>
+<ul>
+<li><strong>heap (堆总计)</strong>
+<ul>
+<li><strong>含义</strong>：整个 Java 堆内存的汇总数据。</li>
+<li><strong>数据解读</strong>：总共申请了 200M，用了 130M，使用率 65.46%。</li>
+</ul>
+</li>
+<li><strong>g1_eden_space (伊甸园区)</strong>
+<ul>
+<li><strong>含义</strong>：G1 收集器中新对象诞生的区域。</li>
+<li><strong>数据解读</strong>：用了 16M，使用率 72.73%。当这里满了会触发 Young GC。</li>
+</ul>
+</li>
+<li><strong>g1_old_gen (老年代)</strong>
+<ul>
+<li><strong>含义</strong>：存放存活时间较长的对象。</li>
+<li><strong>数据解读</strong>：用了 106M，占堆内存的大部分。</li>
+<li><strong>关键点</strong>：右侧 GC 数据显示 <code>gc.g1_old_generation.count</code> 为 <strong>0</strong>，说明目前为止<strong>从未发生过老年代 GC (Full GC/Mixed GC)</strong>，系统还算健康。</li>
+</ul>
+</li>
+<li><strong>g1_survivor_space (幸存者区)</strong>
+<ul>
+<li><strong>含义</strong>：存放从伊甸园 GC 后存活下来的对象。</li>
+<li><strong>数据解读</strong>：<strong>使用率 100% (8M/8M)</strong>。</li>
+<li><strong>注意</strong>：虽然显示 100%，但在 G1 收集器中这是正常的。Survivor 区的大小是动态调整的，填满后对象会晋升到老年代，或者触发 GC。只要没报错，暂时不用担心。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>非堆内存 (Non-Heap) 区域</p>
+<ul>
+<li><strong>nonheap (非堆总计)</strong>
+<ul>
+<li><strong>含义</strong>：非堆内存的汇总。</li>
+<li><strong>数据解读</strong>：使用率 <strong>91.49%</strong>，较高，主要由 Metaspace 贡献。</li>
+</ul>
+</li>
+<li><strong>metaspace (元空间)</strong>
+<ul>
+<li><strong>含义</strong>：存放类的结构信息（类名、方法、字段等）。</li>
+<li><strong>数据解读</strong>：<strong>使用率 99.01% (26M/26M)</strong>。</li>
+<li><strong>警报</strong>：<strong>非常高</strong>。<code>total</code> 和 <code>used</code> 都是 26M，说明元空间可能达到了初始配额，或者加载的类非常多。如果继续加载类，会触发元空间的 GC，甚至导致 <code>OutOfMemoryError: Metaspace</code>。</li>
+</ul>
+</li>
+<li><strong>codeheap_‘non-nmethods’ (代码缓存区)</strong>
+<ul>
+<li><strong>含义</strong>：JVM 用于存储编译后的本地代码（JIT 编译）的区域之一。</li>
+<li><strong>数据解读</strong>：使用率 22.70%，正常。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>GC 统计信息 (右侧栏)</p>
+<ul>
+<li><strong>gc.g1_young_generation.count: 6</strong>
+<ul>
+<li><strong>含义</strong>：年轻代 GC 发生的次数。</li>
+<li><strong>解读</strong>：发生了 6 次 Young GC，说明系统运行了一段时间，有对象分配和回收。</li>
+</ul>
+</li>
+<li><strong>gc.g1_young_generation.time(ms): 169</strong>
+<ul>
+<li><strong>含义</strong>：年轻代 GC 消耗的总时间。</li>
+<li><strong>解读</strong>：总共停了 169 毫秒，平均每次约 28ms，属于正常范围。</li>
+</ul>
+</li>
+<li><strong>gc.g1_old_generation.count: 0</strong>
+<ul>
+<li><strong>含义</strong>：老年代 GC 发生的次数。</li>
+<li><strong>解读</strong>：<strong>0 次</strong>。这是好消息，说明老年代还没有满，没有发生耗时的 Full GC。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>导出堆转储文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">heapdump --live ./heapdump-live.hprof</span><br>Dumping heap to ./heapdump-live.hprof ...<br>Heap dump file created<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>Jmap 同样可以导出堆转储文件，需要执行<code>jmap -dump</code>，这会<strong>触发Full GC并暂停应用</strong>（STW），在生产环境高流量时段可能导致服务不可用。</p>
+</blockquote>
+<p>使用MAT打开已导出的堆转储文件，打开<code>histogram</code>查看类所占堆内存，并打开引用关系。</p>
+<blockquote>
+<p>可以去国内镜像网站[清华同方](<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/eclipse/mat/1.16.1/rcp/">Index of /eclipse/mat/1.16.1/rcp/ | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror</a>)下载MAT，路径<code>eclipse/mat/1.16.1/rcp/</code>。</p>
+</blockquote>
+<p><img src="/posts/1646708a3955/image-20260412110258964.png" srcset="/images/loading.gif" lazyload alt="image-20260412110258964"></p>
+<p>打开后，会得到一个树状的引用关系，逐层点开，可以明确发现是那个成员变量持有这么大的内存。</p>
+<p><img src="/posts/1646708a3955/image-20260412110618302.png" srcset="/images/loading.gif" lazyload alt="image-20260412110618302"></p>
+<p>这可以定位到那个成员变量，接着根据逻辑进行修改即可。</p>
+<h2 id="程序已崩溃（OOM"><a class="header-anchor" href="#程序已崩溃（OOM">¶</a>程序已崩溃（OOM)</h2>
+<p>前提是启动程序时开启了堆转储文件。</p>
+<p><code>-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=./dump.hprof</code></p>
+<p>使用MAT分析文件，可以使用<code>histogram</code>、<code>thread_overview</code>等交叉分析，是什么问题。</p>
+<p><img src="/posts/1646708a3955/image-20260412144815154.png" srcset="/images/loading.gif" lazyload alt="image-20260412144815154"></p>
+<p>这里在主线程中，一个List有360145个元素，导致OOM。</p>
+<h1>总结</h1>
+<p><strong>核心逻辑</strong>：<strong>实时监控+自动捕获堆转储+MAT深度分析</strong>，精准定位内存泄漏源头。</p>
+<h2 id="程序运行中内存过高（在线排查）"><a class="header-anchor" href="#程序运行中内存过高（在线排查）">¶</a>程序运行中内存过高（在线排查）</h2>
+<h3 id="紧急处理"><a class="header-anchor" href="#紧急处理">¶</a>紧急处理</h3>
+<p>临时扩容内存（调整 <code>-Xmx</code>）或重启服务以恢复业务。</p>
+<h3 id="导出堆转储文件（堆快照）"><a class="header-anchor" href="#导出堆转储文件（堆快照）">¶</a>导出堆转储文件（堆快照）</h3>
+<blockquote>
+<p>注意：Arthas相比 jmap 更加安全，生产环境影响较小。</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">启动 Arthas 并连接目标进程</span><br>java -jar arthas-boot.jar &lt;pid&gt;<br><span class="hljs-meta prompt_"># </span><span class="language-bash">执行导出命令 （推荐使用 --live 只导出存活对象）</span><br>heapdump --live /path/to/heapdump-live.hprof<br><span class="hljs-meta prompt_"># </span><span class="language-bash">停止 或 reset</span><br>stop<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">慎用 jmap 可能触发Full GC</span><br>jmap -dump:live,format=b,file=/path/to/heapdump-live.hprof &lt;pid&gt;<br></code></pre></td></tr></table></figure>
+<h3 id="堆转储文件分析（MAT）"><a class="header-anchor" href="#堆转储文件分析（MAT）">¶</a>堆转储文件分析（MAT）</h3>
+<p>拿到 <code>heapdump-live.hprof</code> 文件下载到本地后，使用 Eclipse MAT 打开，按以下步骤操作：</p>
+<ul>
+<li><strong>第一步：看自动报告</strong>
+<ul>
+<li>打开文件后，MAT 会自动生成 <strong>Leak Suspects Report</strong>。</li>
+<li><strong>重点关注</strong>：饼图中占比最大的部分，以及下方的 “Shortest Paths To the Accumulation Point”。这是 MAT 自动推断的最可能的泄漏点。</li>
+</ul>
+</li>
+<li><strong>第二步：Dominator Tree</strong>
+<ul>
+<li>点击工具栏的 <strong>Dominator Tree</strong>。</li>
+<li><strong>操作</strong>：按 <strong>Retained Heap</strong>（保留堆大小）降序排列。</li>
+<li><strong>分析</strong>：找到占用内存最大的对象。右键点击该对象 -&gt; <strong>Path to GC Roots</strong> -&gt; <strong>exclude all phantom/weak/soft etc. references</strong>（排除虚/弱/软引用）。</li>
+<li><strong>目的</strong>：查看是谁在强引用这个对象，导致它无法被回收。</li>
+</ul>
+</li>
+<li><strong>第三步：Histogram</strong>
+<ul>
+<li>点击工具栏的 <strong>Histogram</strong>。</li>
+<li><strong>操作</strong>：在正则框输入类名（如 <code>com.yourpackage.*</code>）进行搜索。</li>
+<li><strong>分析</strong>：查看 <strong>Objects</strong>（实例数量）列。如果某个业务类实例数量异常多（例如几万个小对象），说明存在对象堆积。</li>
+<li><strong>后续</strong>：右键该类 -&gt; <strong>List objects</strong> -&gt; <strong>with incoming references</strong>，查看具体是哪些数据。</li>
+</ul>
+</li>
+</ul>
+<h2 id="程序崩溃日志显示OOM"><a class="header-anchor" href="#程序崩溃日志显示OOM">¶</a>程序崩溃日志显示OOM</h2>
+<h3 id="分析日志"><a class="header-anchor" href="#分析日志">¶</a>分析日志</h3>
+<p>定位OOM堆栈（如<code>java.lang.OutOfMemoryError</code>）。</p>
+<h3 id="事后排查（MAT"><a class="header-anchor" href="#事后排查（MAT">¶</a>事后排查（MAT)</h3>
+<p>同上。</p>
+<p><strong>对比分析</strong>：导入正常/异常期堆转储，用<code>Compare Baselines</code>定位增长点。</p>
+<p><strong>线程分析</strong>：检查<code>Thread Overview</code>中<code>RUNNABLE</code>线程的本地变量。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/java/" class="category-chain-item">java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/JVM/" class="print-no-link">#JVM</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>JVM哪些事儿：OOM解毒大全</div>
+      <div>https://succeedwer.github.io/posts/1646708a3955/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WER</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月11日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2026年4月11日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/582a9cc5bfc6/" title="JVM哪些事儿：起始">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JVM哪些事儿：起始</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/c7cf77858a04/" title="gateway之配置中心">
+                        <span class="hidden-mobile">gateway之配置中心</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

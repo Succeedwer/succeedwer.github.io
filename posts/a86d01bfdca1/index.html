@@ -1,0 +1,1868 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言 单元测试中，JUnit和Mockito的知识是必不可少的，虽然足以满足大部分的测试工作，但是当前Java开发中目前最流行的体系就是Spring，其的依赖注入特性需要与测试工作相结合。 测试需要与业务代码所处的生态环境密切结合，才能算得上是优秀的测试代码。 Spring Test体系 Spring Test体系中包含下面的包：  spring-test: 提供了用于单元测试的Runner、Mo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Test终极功法：从练气初期到大乘圆满">
+<meta property="og:url" content="https://succeedwer.github.io/posts/a86d01bfdca1/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:description" content="前言 单元测试中，JUnit和Mockito的知识是必不可少的，虽然足以满足大部分的测试工作，但是当前Java开发中目前最流行的体系就是Spring，其的依赖注入特性需要与测试工作相结合。 测试需要与业务代码所处的生态环境密切结合，才能算得上是优秀的测试代码。 Spring Test体系 Spring Test体系中包含下面的包：  spring-test: 提供了用于单元测试的Runner、Mo">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-23T12:20:24.772Z">
+<meta property="article:modified_time" content="2025-07-11T15:00:36.000Z">
+<meta property="article:author" content="WER">
+<meta property="article:tag" content="spring test">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Spring Test终极功法：从练气初期到大乘圆满 - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu+b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g==" crossorigin="anonymous" referrerpolicy="no-referrer" /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Spring Test终极功法：从练气初期到大乘圆满"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        WER
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-03-23 20:20" pubdate>
+          2026年3月23日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          36 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java"
+        id="heading-93f725a07423fe1c889f448b33d21f46" role="tab" data-toggle="collapse" href="#collapse-93f725a07423fe1c889f448b33d21f46"
+        aria-expanded="true"
+      >
+        java
+        <span class="list-group-count">(42)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-93f725a07423fe1c889f448b33d21f46"
+           role="tabpanel" aria-labelledby="heading-93f725a07423fe1c889f448b33d21f46">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/1646708a3955/" title="JVM哪些事儿：OOM解毒大全"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">JVM哪些事儿：OOM解毒大全</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/582a9cc5bfc6/" title="JVM哪些事儿：起始"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">JVM哪些事儿：起始</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="framework"
+        id="heading-756457dc85f13450b3dfba2cbc1465e5" role="tab" data-toggle="collapse" href="#collapse-756457dc85f13450b3dfba2cbc1465e5"
+        aria-expanded="false"
+      >
+        framework
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-756457dc85f13450b3dfba2cbc1465e5"
+           role="tabpanel" aria-labelledby="heading-756457dc85f13450b3dfba2cbc1465e5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/14b3d3a44bab/" title="Mapstruct大法：从凹到凸"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Mapstruct大法：从凹到凸</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/1b0525f461aa/" title="Mockito究极指南：从基础到生产实战"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Mockito究极指南：从基础到生产实战</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java基础"
+        id="heading-df7759872e49dfa342518015262abb95" role="tab" data-toggle="collapse" href="#collapse-df7759872e49dfa342518015262abb95"
+        aria-expanded="false"
+      >
+        java基础
+        <span class="list-group-count">(24)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-df7759872e49dfa342518015262abb95"
+           role="tabpanel" aria-labelledby="heading-df7759872e49dfa342518015262abb95">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/2de11af85dfa/" title="Collection"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Collection</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c131da4759d3/" title="Java中的内存分配以及栈和堆的区别"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Java中的内存分配以及栈和堆的区别</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b0c543d38971/" title="Java中的引用"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Java中的引用</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/fb4bcf06d658/" title="Static关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Static关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/0bf5527ff036/" title="final关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">final关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e5ec1dd12f5e/" title="main方法的格式详细解释"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">main方法的格式详细解释</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/51e5f5269a71/" title="private关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">private关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/4035e7454296/" title="this关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">this关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e6a3cffa55aa/" title="代码块"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">代码块</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/551019549513/" title="创建对象的内存操作"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">创建对象的内存操作</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/424bb708aa6d/" title="字符串参与运算"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">字符串参与运算</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/957615e68d0e/" title="工具类中使用静态"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">工具类中使用静态</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/dc70c2086a19/" title="成员变量&amp;局部变量"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">成员变量&amp;局部变量</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a9b711582174/" title="控制跳转语句标号"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">控制跳转语句标号</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8825483398df/" title="数组"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数组</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a62f78655027/" title="方法重写"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">方法重写</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/731c30951451/" title="构造方法（Constructor）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">构造方法（Constructor）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/865639345012/" title="继承"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">继承</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/08a3be0e3035/" title="说明书的制作过程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">说明书的制作过程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/ef95bf14b680/" title="转义字符"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">转义字符</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f9796d4b6b88/" title="选择结构switch语句"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">选择结构switch语句</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d8f0a1a233ae/" title="逻辑运算符"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">逻辑运算符</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d94cb6fc725d/" title="键盘录入的基本格式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">键盘录入的基本格式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/2acbebbb1ff5/" title="隐式转换and强制转换"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">隐式转换and强制转换</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java进阶"
+        id="heading-f37659ce2630cc205815e63e97ca680d" role="tab" data-toggle="collapse" href="#collapse-f37659ce2630cc205815e63e97ca680d"
+        aria-expanded="false"
+      >
+        java进阶
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-f37659ce2630cc205815e63e97ca680d"
+           role="tabpanel" aria-labelledby="heading-f37659ce2630cc205815e63e97ca680d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/e78ec63eaa48/" title="Spring Cloud"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Spring Cloud</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java错误集"
+        id="heading-15f313469c4c1a0934d8aadb7bf7e364" role="tab" data-toggle="collapse" href="#collapse-15f313469c4c1a0934d8aadb7bf7e364"
+        aria-expanded="false"
+      >
+        java错误集
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-15f313469c4c1a0934d8aadb7bf7e364"
+           role="tabpanel" aria-labelledby="heading-15f313469c4c1a0934d8aadb7bf7e364">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/53341e20ebbb/" title="Jedis连接Redis Cluster的java.net.SocketTimeoutException: connect timed out"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Jedis连接Redis Cluster的java.net.SocketTimeoutException: connect timed out</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java面试题"
+        id="heading-ad2aaee8db2e74079d35223ebbf1338c" role="tab" data-toggle="collapse" href="#collapse-ad2aaee8db2e74079d35223ebbf1338c"
+        aria-expanded="false"
+      >
+        java面试题
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-ad2aaee8db2e74079d35223ebbf1338c"
+           role="tabpanel" aria-labelledby="heading-ad2aaee8db2e74079d35223ebbf1338c">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/2c488b803b42/" title="面试题之Java基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">面试题之Java基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/96fc121e9ee5/" title="面试题之Java多线程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">面试题之Java多线程</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="other"
+        id="heading-795f3202b17cb6bc3d4b771d8c6c9eaf" role="tab" data-toggle="collapse" href="#collapse-795f3202b17cb6bc3d4b771d8c6c9eaf"
+        aria-expanded="false"
+      >
+        other
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-795f3202b17cb6bc3d4b771d8c6c9eaf"
+           role="tabpanel" aria-labelledby="heading-795f3202b17cb6bc3d4b771d8c6c9eaf">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/0926b92f8daf/" title="JDK 25 LTS 新特性一览"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">JDK 25 LTS 新特性一览</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="spring boot"
+        id="heading-926e67801e570a3898ddaef281c23075" role="tab" data-toggle="collapse" href="#collapse-926e67801e570a3898ddaef281c23075"
+        aria-expanded="false"
+      >
+        spring boot
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-926e67801e570a3898ddaef281c23075"
+           role="tabpanel" aria-labelledby="heading-926e67801e570a3898ddaef281c23075">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/04599e749896/" title="1.从0-1构建项目"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.从0-1构建项目</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="spring cloud"
+        id="heading-33d0d327026a3129f67aeecf0300507b" role="tab" data-toggle="collapse" href="#collapse-33d0d327026a3129f67aeecf0300507b"
+        aria-expanded="false"
+      >
+        spring cloud
+        <span class="list-group-count">(7)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-33d0d327026a3129f67aeecf0300507b"
+           role="tabpanel" aria-labelledby="heading-33d0d327026a3129f67aeecf0300507b">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="dubbo"
+        id="heading-aa4e1b8c2cc9deed96fe012ef2e0752a" role="tab" data-toggle="collapse" href="#collapse-aa4e1b8c2cc9deed96fe012ef2e0752a"
+        aria-expanded="false"
+      >
+        dubbo
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-aa4e1b8c2cc9deed96fe012ef2e0752a"
+           role="tabpanel" aria-labelledby="heading-aa4e1b8c2cc9deed96fe012ef2e0752a">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/a87c46ee82ff/" title="1.dubbo之缓存文件冲突"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.dubbo之缓存文件冲突</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="gateway"
+        id="heading-3e21ab62fb17400301d9f0156b6c3031" role="tab" data-toggle="collapse" href="#collapse-3e21ab62fb17400301d9f0156b6c3031"
+        aria-expanded="false"
+      >
+        gateway
+        <span class="list-group-count">(6)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-3e21ab62fb17400301d9f0156b6c3031"
+           role="tabpanel" aria-labelledby="heading-3e21ab62fb17400301d9f0156b6c3031">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/c20d781ca172/" title="1.gateway之动态路由实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.gateway之动态路由实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b443e2c441b9/" title="gateway之2025.0.0版本"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">gateway之2025.0.0版本</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d56da4745c40/" title="gateway之大纲"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">gateway之大纲</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b5e8062f3af5/" title="gateway之服务发现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">gateway之服务发现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/5a9674f0e8eb/" title="gateway之路由配置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">gateway之路由配置</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c7cf77858a04/" title="gateway之配置中心"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">gateway之配置中心</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="spring framework"
+        id="heading-765e2c55e032e733dab87b4fcd8998d6" role="tab" data-toggle="collapse" href="#collapse-765e2c55e032e733dab87b4fcd8998d6"
+        aria-expanded="true"
+      >
+        spring framework
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-765e2c55e032e733dab87b4fcd8998d6"
+           role="tabpanel" aria-labelledby="heading-765e2c55e032e733dab87b4fcd8998d6">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/a86d01bfdca1/" title="Spring Test终极功法：从练气初期到大乘圆满"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">Spring Test终极功法：从练气初期到大乘圆满</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Spring Test终极功法：从练气初期到大乘圆满</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1>前言</h1>
+<p>单元测试中，<code>JUnit</code>和<code>Mockito</code>的知识是必不可少的，虽然足以满足大部分的测试工作，但是当前<code>Java</code>开发中目前最流行的体系就是<code>Spring</code>，其的依赖注入特性需要与测试工作相结合。<br>
+测试需要与业务代码所处的生态环境密切结合，才能算得上是优秀的测试代码。</p>
+<h1>Spring Test体系</h1>
+<p><code>Spring Test</code>体系中包含下面的包：</p>
+<ul>
+<li><strong>spring-test</strong>: 提供了用于单元测试的<code>Runner</code>、<code>MockMvc</code>相关的类。</li>
+<li><strong>spring-boot-test-autoconfigure</strong>: 提供了测试自动相关配置。</li>
+<li><strong>spring-boot-test</strong>: 提供了<code>@SpringBootTest</code>这类自动化配置的注解及自动化测试配置。</li>
+<li><strong>spring-security-test</strong>: 提供了针对安全功能的测试工具（如模拟用户认证、CSRF测试等）。</li>
+</ul>
+<blockquote>
+<p>通常情况下，<code>spring-security-test</code>不认为在<code>Spring Test</code>下，而是<code>Spring Security</code>的子模块。<br>
+而<code>Spring Test</code>通常指的是<code>spring-boot-starter-test</code>下的测试框架集合。<br>
+该小节只是具体介绍<code>Spring</code>中相关的<code>Test</code>的框架。</p>
+</blockquote>
+<p>除了<code>Spring</code>体系下的包，还有一些工具包：</p>
+<ul>
+<li><strong>JUnit</strong>: Java单元测试的默认事实标准。</li>
+<li><strong>Mockito</strong>: 模拟工具，测试替身，有效隔离测试环境。</li>
+<li><strong>AssertJ</strong>: 流式断言工具库，使得语法简单明了。</li>
+<li><strong>Hamcrest</strong>: 断言工具库，JUnit旧版本内置的依赖断言库，在<code>JUnit 4.13+</code>后被移除。</li>
+<li><strong>JsonPath</strong>: 可以通过<code>XPath</code>语法访问<code>JSON</code>。</li>
+<li><strong>Jakarta</strong>: 用于实现<code>Java</code>对象与<code>XML</code>数据双向绑定的工具库。</li>
+<li><strong>JsonSmart</strong>: 一款专注于低内存和高性能的轻量级的<code>JSON</code>处理库，包括正反序列化等。</li>
+<li><strong>Awaitility</strong>: 轻量级的异步测试工具，简化异步操作和基于时间的条件验证。</li>
+<li><strong>JsonAssert</strong>: 用于断言<code>JSON</code>节点。</li>
+<li><strong>Xmluntil</strong>: 用于<code>XML</code>数据的验证和比较的工具库。</li>
+</ul>
+<h1>依赖</h1>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.5.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>test<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h1>分类</h1>
+<p>在实际项目中，测试可以分成下面几种：</p>
+<ul>
+<li><strong>单元测试</strong>：只使用<code>JUnit</code>就可以的测试，如工具类测试。</li>
+<li><strong>使用Spring上下文测试</strong>：测试对象是<code>IOC</code>容器管理中的<code>Bean</code>对象。</li>
+<li><strong>使用Spring Boot上下文测试</strong>：全量化启动<code>Spring Boot</code>的测试完整流程。<br>
+假设一个<code>Spring Boot</code>的<code>web</code>项目，包含<code>Controller</code>、<code>Service</code>、<code>Entity</code>、<code>Mapper</code>等分层。下面就以此项目为例子，详细介绍各个测试分类。</li>
+</ul>
+<h1>简单的单元测试</h1>
+<p>一般情况下，<code>Service</code>包含主要的逻辑，也就是我们的主要测试目标。<br>
+如<code>UserService</code>中，主要逻辑包括<code>添加用户</code>、<code>获取用户信息</code>、<code>列出用户</code>等功能。<br>
+<code>UserService</code>依赖于<code>UserMapper</code>，这里只是测试<code>UserService</code>，所以可以使用<code>Mockito</code>对<code>Mapper</code>进行模拟。<br>
+示例代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserServiceUnitTest</span> &#123;<br><br>    <span class="hljs-keyword">private</span> UserService userService;<br>    <span class="hljs-keyword">private</span> UserMapper userMapper;<br><br>    <span class="hljs-meta">@BeforeEach</span><br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">setUp</span><span class="hljs-params">()</span> &#123;<br>        userMapper = Mockito.mock(UserMapper.class);<br>        userService = <span class="hljs-keyword">new</span> <span class="hljs-title class_">UserService</span>(userMapper);<br>    &#125;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">should_add_user</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> User.builder()<br>                .name(<span class="hljs-string">&quot;Bob&quot;</span>)<br>                .age(<span class="hljs-number">20</span>)<br>                .address(<span class="hljs-string">&quot;Some Address&quot;</span>)<br>                .email(<span class="hljs-string">&quot;123@test.com&quot;</span>)<br>                .build();<br><br>        userService.add(user);<br><br>        ArgumentCaptor&lt;User&gt; userCaptor = ArgumentCaptor.forClass(User.class);<br>        verify(userMapper).insert(userCaptor.capture());<br><br>        assertEquals(<span class="hljs-string">&quot;Bob&quot;</span>, userCaptor.getValue().getName());<br>        assertEquals(<span class="hljs-number">20</span>, userCaptor.getValue().getAge());<br>    &#125;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">getUserById_ShouldReturnUser</span><span class="hljs-params">()</span> &#123;<br>        when(userMapper.selectByPrimaryKey(<span class="hljs-number">1L</span>))<br>                .thenReturn(User.builder().id(<span class="hljs-number">1L</span>).name(<span class="hljs-string">&quot;K&quot;</span>).build());<br><br>        <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> userService.getUserById(<span class="hljs-number">1L</span>);<br><br>        assertEquals(<span class="hljs-string">&quot;K&quot;</span>, user.getName());<br>        verify(userMapper).selectByPrimaryKey(<span class="hljs-number">1L</span>);<br>    &#125;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">should_list_users</span><span class="hljs-params">()</span> &#123;<br>        userService.listAll();<br>        verify(userMapper).selectAll();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在上例代码中，不难看出<code>userService</code>使用了构造方法注入模拟对象<code>userMapper</code>。其实<code>Mockito</code>有一个<code>JUnit</code>扩展<code>MockitoExtension</code>, 可以使用<code>@InjectMocks</code>直接注入模拟对象，无需手动注入。<br>
+修改后的示例代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@ExtendWith(MockitoExtension.class)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserService2Test</span> &#123;<br><br>    <span class="hljs-meta">@InjectMocks</span><br>    <span class="hljs-keyword">private</span> UserService userService;<br><br>    <span class="hljs-meta">@Mock</span><br>    <span class="hljs-keyword">private</span> UserMapper userMapper;<br><br>    <span class="hljs-comment">// 测试代码如上例</span><br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>该类测试完全不依赖于<code>Spring</code>,常用于工具类测试或不需要注入<code>Spring</code>依赖的测试。</p>
+<h1>使用Spring上下文测试</h1>
+<p>将上面例子，改成启用<code>Spring</code>上下文测试，即需要从<code>IOC</code>容器中取出<code>Bean</code>进行测试。<br>
+这时就需要使用<code>SpringExtension</code>扩展，写上类注解<code>@ExtendWith(SpringExtension.class)</code>即可。</p>
+<p>示例代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@ExtendWith(SpringExtension.class)</span><br><span class="hljs-meta">@ContextConfiguration(classes = &#123;UserService.class, UserMapper.class&#125;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserServiceSpringTest</span> &#123;<br><br>    <span class="hljs-comment">// 不能使用 构造器注入 因为 userService 是在 spring 启动时创建的，但 @MockitoBean userMapper还没创建</span><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> UserService userService;<br><br>    <span class="hljs-meta">@MockitoBean</span><br>    <span class="hljs-keyword">private</span> UserMapper userMapper;<br><br>    <span class="hljs-comment">// 测试代码不变</span><br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>如上代码所示，这里使用了<code>@Autowired</code>注解注入依赖，该<code>Bean</code>是<code>Spring</code>中<code>IOC</code>容器中的，想要使用，必须要加入扩展<code>SpringExtension</code>。<br>
+<code>@MockitoBean</code>是<code>spring-test</code>框架中的注解，是直接集成<code>Mockito</code>的<code>Api</code>。其作用是将容器中的<code>Bean</code>替换成模拟对象。<br>
+类注解<code>@ContextConfiguration(classes = &#123;UserService.class, UserMapper.class&#125;)</code>表示仅注册显式指定的类，不会自动扫描包，能够最小化<code>Spring</code>上下文。即当前测试中，<code>IOC</code>容器仅注册了<code>UserService</code>和<code>UserMapper</code>。</p>
+<h1>使用Spring Boot上下文测试</h1>
+<p><code>SpringExtension</code>扩展可以使用<code>@Autowired</code>来加载容器中的对象。而<code>Sprin Boot</code>的作用就是实现自动化配置，实现定义大量的<code>Bean</code>。<br>
+如上面例子中，仅测试<code>service</code>逻辑和模拟<code>Mapper</code>，数据无法直接写入到数据库中。<br>
+那么，启动<code>Spring Boot</code>测试就能够进行完整功能测试。<br>
+示例代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootTest</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ApplicationTest</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> UserService userService;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> JdbcTemplate jdbcTemplate;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">should_add_user</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> User.builder()<br>                .name(<span class="hljs-string">&quot;Bob&quot;</span>)<br>                .age(<span class="hljs-number">20</span>)<br>                .address(<span class="hljs-string">&quot;Some Address&quot;</span>)<br>                .email(<span class="hljs-string">&quot;123@test.com&quot;</span>)<br>                .build();<br><br>        userService.add(user);<br>        <span class="hljs-type">int</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> JdbcTestUtils.countRowsInTable(jdbcTemplate, <span class="hljs-string">&quot;`user`&quot;</span>);<br>        assertEquals(<span class="hljs-number">3</span>, count);<br>    &#125;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">getUserById_ShouldReturnUser</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> userService.getUserById(<span class="hljs-number">1L</span>);<br>        assertEquals(<span class="hljs-string">&quot;寒冰&quot;</span>, user.getName());<br>    &#125;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">should_list_users</span><span class="hljs-params">()</span> &#123;<br>        List&lt;User&gt; users = userService.listAll();<br>        assertEquals(<span class="hljs-number">3</span>, users.size());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>@SpringBootTest</code>会加载所有的<code>bean</code>，包括<code>Controller</code>、<code>service</code>、<code>mapper</code>等等。<br>
+这样就能够测试完整的流程，但是却加载一些测试中用不到的<code>bean</code>。<br>
+如该测试中，只用到了<code>service</code>和<code>mapper</code>。</p>
+<p>严格意义上来说，这种测试不算是单元测试。最简单的理由就是，该测试并没进行基础设施隔离（数据库）。测试用的基础设施，仍然是主代码中的。</p>
+<p>测试中的基础设施，应该是隔离的，常用的是内嵌式的。<br>
+内嵌式数据库有<code>h2</code>，也是单元测试中的常客。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.h2database<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>h2<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.3.232<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>test<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>而<code>ORM</code>框架，可以使用<code>JPA</code>(内置<code>Hibernate</code>)、<code>Mybatis</code>或<code>Mybatis Plus</code>。</p>
+<p>上面例子中，还用了<code>JdbcTestUtils</code>，这是<code>Sprin Test</code>框架提供的轻量级数据库操作类。<br>
+<code>JdbcTestUtils.countRowsInTable()</code>用于统计数据库中数据行数，以此进行断言。</p>
+<p>其实<code>@SpringBootTest</code>并没有启动了全部的上下文环境，默认情况下，<code>@SpringBootTest</code>没有启动<code>Web</code>服务器，只是启动了上下文和模拟的服务器环境。<br>
+可以通过配置注解<code>@SpringBootTest</code>的属性<code>webEnvironment</code>来修改默认配置。<br>
+<code>webEnvironment</code>的默认配置有：</p>
+<ul>
+<li><strong>SpringBootTest.WebEnvironment.MOCK</strong>：默认配置，加载<code>Web</code>类型的上下文环境，提供模拟的运行环境，不启动<code>web</code>服务器。</li>
+<li><strong>SpringBootTest.WebEnvironment.RANDOM_PORT</strong>：启动随机端口真实内嵌的<code>web</code>服务器。</li>
+<li><strong>SpringBootTest.WebEnvironment.DEFINED_PORT</strong>：启动固定端口真实内嵌的<code>web</code>服务器， 从测试配置中读取端口。</li>
+<li><strong>SpringBootTest.WebEnvironment.NONE</strong>：不加载<code>Web</code>类型的上下文，也不使用真实或模拟的<code>web</code>服务器。</li>
+</ul>
+<p>同样的，为了隔离测试环境，还应该和主代码的配置文件进行隔离。可以在<code>/test/resource/</code>目录下创建专门的配置文件<code>application.yml</code>，以供测试使用，避免测试时影响正常的启动。</p>
+<h2 id="Spring-Boot切片配置"><a class="header-anchor" href="#Spring-Boot切片配置">¶</a>Spring Boot切片配置</h2>
+<p><code>@SpringBootTest</code>启动了所有需要的配置，意味着测试变成了集成测试，启动测试速度不可避免得被拖慢。<br>
+理想状态是，我们需要测试什么，就启动什么。<br>
+下面是一些相关注解的介绍：</p>
+<table>
+<thead>
+<tr>
+<th>注解</th>
+<th>测试范围</th>
+<th>自动配置类</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@WebMvcTest</code></td>
+<td>Controller</td>
+<td><code>WebMvcAutoConfiguration</code></td>
+</tr>
+<tr>
+<td><code>@DataJpaTest</code></td>
+<td>JPA Repository</td>
+<td><code>HibernateJpaAutoConfiguration</code></td>
+</tr>
+<tr>
+<td><code>@MybatisTest</code></td>
+<td>Mybatis Mapper</td>
+<td><code>MybatisAutoConfiguration</code></td>
+</tr>
+<tr>
+<td><code>@MybatisPlusTest</code></td>
+<td>MybatisPlus Mapper</td>
+<td><code>MybatisPlusAutoConfiguration</code></td>
+</tr>
+<tr>
+<td><code>@JsonTest</code></td>
+<td>JSON序列化</td>
+<td><code>JacksonAutoConfiguration</code></td>
+</tr>
+<tr>
+<td><code>@RestClientTest</code></td>
+<td>REST客户端</td>
+<td><code>RestTemplateAutoConfiguration</code></td>
+</tr>
+<tr>
+<td><code>@WebFluxTest</code></td>
+<td>WebFlux Controller</td>
+<td><code>WebFluxAutoConfiguration</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="WebMvcTest"><a class="header-anchor" href="#WebMvcTest">¶</a>@WebMvcTest</h3>
+<p><code>@WebMvcTest</code>默认只加载<code>Controller</code>, 而不必加载其他的<code>Bean</code>。<br>
+示例代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@WebMvcTest(UserController.class)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ApplicationTestOnlyController</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> MockMvc mockMvc;<br><br>    <span class="hljs-meta">@MockitoBean</span><br>    <span class="hljs-keyword">private</span> UserService userService;<br><br>    <span class="hljs-meta">@MockitoBean</span><br>    <span class="hljs-keyword">private</span> UserMapper userMapper; <span class="hljs-comment">// 因为@WebMvcTest 默认不加载数据层，所以需要模拟mapper以供注入service</span><br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> ObjectMapper objectMapper; <span class="hljs-comment">// Spring Boot 自动注入的 Jackson 工具</span><br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">should_list_users</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> User.builder()<br>                .name(<span class="hljs-string">&quot;剑圣&quot;</span>)<br>                .age(<span class="hljs-number">21</span>)<br>                .address(<span class="hljs-string">&quot;德玛西亚&quot;</span>)<br>                .email(<span class="hljs-string">&quot;js@lol.com&quot;</span>)<br>                .build();<br>        given(userService.listAll()).willReturn(List.of(user));<br><br>        mockMvc.perform(MockMvcRequestBuilders.get(<span class="hljs-string">&quot;/user/list&quot;</span>)<br>                        .accept(MediaType.APPLICATION_JSON_VALUE))<br>                .andExpect(status().isOk())<br>                .andExpect(content().string(objectMapper.writeValueAsString(List.of(user))));<br>    &#125;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">getUser_ShouldReturn404_WhenUserNotFound</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        when(userService.getUserById(<span class="hljs-number">100L</span>))<br>                .thenThrow(<span class="hljs-keyword">new</span> <span class="hljs-title class_">UserNotFoundException</span>(<span class="hljs-string">&quot;User not found&quot;</span>));<br><br>        mockMvc.perform(MockMvcRequestBuilders.get(<span class="hljs-string">&quot;/user/100&quot;</span>))<br>                .andExpect(status().isNotFound())<br>                .andExpect(jsonPath(<span class="hljs-string">&quot;$.detail&quot;</span>).value(<span class="hljs-string">&quot;User not found&quot;</span>));<br>    &#125;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">getUser_ShouldReturnUser</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        given(userService.getUserById(<span class="hljs-number">1L</span>))<br>                .willReturn(User.builder().id(<span class="hljs-number">1L</span>).name(<span class="hljs-string">&quot;寒冰&quot;</span>).build());<br><br>        mockMvc.perform(MockMvcRequestBuilders.get(<span class="hljs-string">&quot;/user/1&quot;</span>).accept(MediaType.APPLICATION_JSON))<br>                .andExpect(status().isOk())<br>                .andExpect(jsonPath(<span class="hljs-string">&quot;$.name&quot;</span>).value(<span class="hljs-string">&quot;寒冰&quot;</span>));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>上面示例中，可以从启动日志看出，只加载了<code>Spring Boot</code>基本的上下文和<code>Spring MVC</code>相关的配置，并没有启动与数据库相关的配置。<br>
+所以，代码中对<code>userService</code>和<code>userMapper</code>使用<code>@MockitoBean</code>进行了模拟，这里<code>userService</code>要注入<code>userMapper</code>，又因为<code>userMapper</code>没有被加载，所以需要对<code>userMapper</code>进行模拟，以供注入<code>userSerivce</code>。<br>
+而<code>mockMvc</code>用于构建、响应验证接口数据，具体用法见下一小节。</p>
+<p>上面三个例子有<code>响应验证</code>和<code>异常处理</code>处理方式。可以查询文档，学习更多验证用法。</p>
+<h2 id="DataJpaTest、-MybatisTest和-MybatisPlusTest"><a class="header-anchor" href="#DataJpaTest、-MybatisTest和-MybatisPlusTest">¶</a>@DataJpaTest、@MybatisTest和@MybatisPlusTest</h2>
+<h3 id="核心对比"><a class="header-anchor" href="#核心对比">¶</a>核心对比</h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>@DataJpaTest</th>
+<th>@MybatisTest</th>
+<th>@MybatisPlusTest</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>所属框架</strong></td>
+<td>Spring Boot（spring-boot-starter-test）</td>
+<td>Mybatis(mybatis-spring-boot-starter-test)</td>
+<td>Mybatis-Plus(mybatis-plus-spring-boot3-starter-test)</td>
+</tr>
+<tr>
+<td><strong>核心用途</strong></td>
+<td>测试JPA（Spring Data JPA）组件（spring-boot-starter-data-jpa）</td>
+<td>测试原生Mybatis的Mapper接口和SQL映射</td>
+<td>额外支持Mybatis-Plus增强功能（如BaseMapper、条件构造器、分页插件、自动填充）</td>
+</tr>
+<tr>
+<td><strong>核心Bean</strong></td>
+<td>EnityManager、JapRepository</td>
+<td>SqlSessionFactory、Mapper接口</td>
+<td>SqlSessionFactory、Mapper接口</td>
+</tr>
+<tr>
+<td><strong>数据库操作工具</strong></td>
+<td>TestEntityManager</td>
+<td>JdbcTemplate（需手动注入）</td>
+<td>JdbcTemplate (需手动注入）</td>
+</tr>
+<tr>
+<td><strong>嵌入式数据库</strong></td>
+<td>默认h2内存数据库</td>
+<td>默认h2内存数据库</td>
+<td>默认h2内存数据库</td>
+</tr>
+<tr>
+<td><strong>事务管理</strong></td>
+<td>默认开启事务并回滚</td>
+<td>默认开启事务并回滚</td>
+<td>默认开启事务并回滚</td>
+</tr>
+</tbody>
+</table>
+<h3 id="数据库策略"><a class="header-anchor" href="#数据库策略">¶</a>数据库策略</h3>
+<ul>
+<li><strong>默认数据库</strong>：三者都默认使用<strong>H2内存数据库</strong>（需要添加<code>H2</code>依赖）;</li>
+<li><strong>切换真实数据库</strong>：均可通过<code>@AutoConfigureTestDatabase(replace = Replace.NONE)</code>使用<code>test/resouces/application.yml</code>的数据库配置。</li>
+</ul>
+<h3 id="事务管理"><a class="header-anchor" href="#事务管理">¶</a>事务管理</h3>
+<ul>
+<li><strong>默认回滚</strong>：三者的所有测试方法执行完成后均<strong>自动回滚</strong>数据库操作，无需<code>@Transactional</code>注解。</li>
+<li><strong>禁用回滚</strong>：三者均可添加 <code>@Rollback(false)</code>可使的测试方法持久化到数据库。</li>
+</ul>
+<h3 id="使用示例"><a class="header-anchor" href="#使用示例">¶</a>使用示例</h3>
+<p>示例均在<code>spring boot 3.0</code>以上测试，具体依赖如下：</p>
+<table>
+<thead>
+<tr>
+<th>依赖范围</th>
+<th>JPA测试</th>
+<th>Mybatis测试</th>
+<th>Mybatis-Plus测试</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>规范/ORM框架</strong></td>
+<td>spring-boot-starter-data-jpa （内置集成Hibernate（orm框架）、Spring Data自动配置）</td>
+<td>mybatis-spring-boot-starter</td>
+<td>mybatis-plus-spring-boot3-starter</td>
+</tr>
+<tr>
+<td><strong>生产环境数据库驱动（使用mysql 9.0）</strong></td>
+<td>mysql-connector-j</td>
+<td>mysql-connector-j</td>
+<td>mysql-connector-j</td>
+</tr>
+<tr>
+<td><strong>测试依赖</strong></td>
+<td>spring-boot-starter-test</td>
+<td>mybatis-spring-boot-starter-test</td>
+<td>mybatis-plus-spring-boot3-starter-test</td>
+</tr>
+<tr>
+<td><strong>测试环境数据库依赖（h2)</strong></td>
+<td>h2</td>
+<td>h2</td>
+<td>h2</td>
+</tr>
+</tbody>
+</table>
+<h4 id="JPA测试"><a class="header-anchor" href="#JPA测试">¶</a>JPA测试</h4>
+<p>maven依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 存储层Jpa 默认集成了 Hibernate --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-data-jpa<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.4.7<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p><code>@DataJpaTest</code>注解是在<code>spring-boot-starter-test</code>中，<code>spring-boot-starter-data-jpa</code>是集成JPA所需依赖。<br>
+示例代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@DataJpaTest</span><br><span class="hljs-meta">@EntityScan(&quot;org.terminator.entity&quot;)</span><br><span class="hljs-meta">@EnableJpaRepositories(&quot;org.terminator.jpa.repository&quot;)</span><br><span class="hljs-meta">@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)</span> <span class="hljs-comment">// 切换到手动配置数据库</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserRepositoryJPATest</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> TestEntityManager entityManager; <span class="hljs-comment">// 测试工具</span><br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> UserRepository userRepository;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">findByName_ShouldReturnUser</span><span class="hljs-params">()</span> &#123;<br><br>        entityManager.persist(User.builder()<br>                .name(<span class="hljs-string">&quot;沙皇&quot;</span>)<br>                .age(<span class="hljs-number">200</span>)<br>                .email(<span class="hljs-string">&quot;sha@lol.com&quot;</span>)<br>                .address(<span class="hljs-string">&quot;恕瑞玛&quot;</span>)<br>                .build()<br>        );<br>        List&lt;User&gt; users = userRepository.findByName(<span class="hljs-string">&quot;沙皇&quot;</span>);<br>        Assertions.assertEquals(<span class="hljs-number">1</span>, users.size());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>如上例所示，用到了几个注解：<br>
+<strong>@EntityScan(“org.terminator.entity”)</strong>：指定需要扫描的实体，注意是JPA格式的。<br>
+<strong>@EnableJpaRepositories(“org.terminator.jpa.repository”)</strong>：指定需要扫描的<code>repository</code>接口。<br>
+上面两个注解可以隔离测试范围，减少不必要的开销。<br>
+<strong>TestEntityManager</strong>：负责管理实体对象的生命周期、持久化操作和事务协调。（具体用法请看后面的小节）</p>
+<h4 id="MybatisPlus-测试"><a class="header-anchor" href="#MybatisPlus-测试">¶</a>MybatisPlus 测试</h4>
+<p>maven依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.baomidou<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>mybatis-plus-spring-boot3-starter-test<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.5.12<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>test<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>示例代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@MybatisPlusTest</span><br><span class="hljs-meta">@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)</span> <span class="hljs-comment">// 启用 test/resources/application.yml 的数据库</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserMapperMybatisPlusTest</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> UserMapper userMapper;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">selectByUserId_ShouldReturnUser</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> userMapper.selectByPrimaryKey(<span class="hljs-number">1L</span>);<br><br>        assertEquals(<span class="hljs-string">&quot;寒冰&quot;</span>, user.getName());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>@MybatisPlusTest</code>只会加载其相关的<code>bean</code>, 包括<code>mapper</code>。而其他的<code>bean</code>，包括<code>spring</code>容器中的<code>bean</code>就不会被加载。<br>
+而指定<code>mapper</code>的方式有以下两种：</p>
+<ul>
+<li>在<code>mapper</code>接口上显示声明<code>@Mapper</code>。</li>
+<li>在<code>Application</code>启动类上使用<code>@MapperScan()</code>进行指定<code>mapper</code>路径。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Mapper</span><br><span class="hljs-keyword">public</span> Interface UserMapper &#123;<br>    ...<br>&#125;<br><br>或<br><br><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-meta">@MapperScan(&quot;org.terminator.mybatis.mapper&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Application</span> &#123;<br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>如果没有用上述两种方式<code>@Mapper</code> 或 <code>@MapperScan</code> 指定扫描的<code>mapper</code>。<br>
+可以用配置类进行扫描路径的配置，示例代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MybatisConfig</span> &#123;<br><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> MapperScannerConfigurer <span class="hljs-title function_">mapperScannerConfigurer</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">MapperScannerConfigurer</span> <span class="hljs-variable">configurer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MapperScannerConfigurer</span>();<br>        configurer.setBasePackage(<span class="hljs-string">&quot;org.terminator.mybatis.mapper&quot;</span>);<br>        <span class="hljs-keyword">return</span> configurer;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>由于<code>@MybatisPlusTest</code>只加载<code>mybatis-plus</code>相关的<code>bean</code>，所以需要在测试中进行配置加载<code>MybatisConfig</code>配置类。<br>
+有以下两种方式:</p>
+<ul>
+<li>在测试类中使用<code>@Import</code>类注解加载<code>MybatisConfig</code>配置类。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@MybatisPlusTest</span><br><span class="hljs-meta">@Import(&#123;MybatisConfig.class&#125;)</span> <span class="hljs-comment">// 可以加载指定类</span><br><span class="hljs-meta">@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserMapperMybatisPlusTest</span> &#123; <br>  ...<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li>添加扫描过滤器。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@MybatisPlusTest(includeFilters = @ComponentScan.Filter(</span><br><span class="hljs-meta">      type = FilterType.ASSIGNABLE_TYPE,</span><br><span class="hljs-meta">      classes = MybatisConfig.class</span><br><span class="hljs-meta">))</span><br><span class="hljs-meta">@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserMapperMybatisPlusTest</span> &#123;<br>  ...<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="Mybatis-测试"><a class="header-anchor" href="#Mybatis-测试">¶</a>Mybatis 测试</h4>
+<p><code>Mybatis</code>测试和<code>MybatisPlus</code>测试其实一样的，只不过注解变成<code>@MybatisTest</code>。<br>
+maven依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>mybatis-spring-boot-starter-test<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.0.4<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>test<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>示例代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@MybatisTest</span><br><span class="hljs-meta">@Import(&#123;MybatisConfig.class&#125;)</span><br><span class="hljs-meta">@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserMapperMybatisTest</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> UserMapper userMapper;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">selectByUserId_ShouldReturnUser</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> userMapper.selectByPrimaryKey(<span class="hljs-number">1L</span>);<br><br>        assertEquals(<span class="hljs-string">&quot;寒冰&quot;</span>, user.getName());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="JsonTest"><a class="header-anchor" href="#JsonTest">¶</a>@JsonTest</h2>
+<p><code>@JsonTest</code>用于测试<code>JSON</code>的序列化，可以有针对性进行测试。<br>
+其加载了与<code>JSON</code>相关的自动化配置，示例代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><br></code></pre></td></tr></table></figure>
+<h1>分层测试</h1>
+<h1>MockitoExtension 和 SpringExtension 的区别</h1>
+<p>下面图示：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>MockitoExtension</th>
+<th>SpringExtension</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>所属框架</strong></td>
+<td>Mockito</td>
+<td>Spring test</td>
+</tr>
+<tr>
+<td><strong>核心功能</strong></td>
+<td>自动化管理Mock对象（@Mock、@Spy）和依赖注入(@InjectMocks)</td>
+<td>加载Spring容器，支持依赖注入（@Autowired）、事务管理等</td>
+</tr>
+<tr>
+<td><strong>容器依赖</strong></td>
+<td>❌无需启用Spring容器</td>
+<td>✅需要启动Spring应用上下文</td>
+</tr>
+<tr>
+<td><strong>测试类型</strong></td>
+<td><strong>单元测试</strong>（隔离被测试类、模拟外部依赖）</td>
+<td><strong>集成测试</strong>（测试Spring Bean交互、数据库、Web层）</td>
+</tr>
+<tr>
+<td><strong>启动速度</strong></td>
+<td>快(轻量级、无容器初始化)</td>
+<td>慢（需加载Spring上下文）</td>
+</tr>
+<tr>
+<td><strong>性能</strong></td>
+<td>低内存/CPU</td>
+<td>高内存/CPU（容器开销）</td>
+</tr>
+<tr>
+<td>值得注意得是，<code>SpringExtension</code>作为<code>JUnit</code>扩展，同时具有<code>MockitoExtension</code>的相关行为，可以使用<code>@InjectMock</code>和<code>@Mock</code>注解。</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1>JPA 的 TestEntityMananager 的用法</h1>
+<p>一些常用方法如下所示：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>persist()</td>
+<td>实体纳入管理（托管状态），延迟同步到数据库</td>
+</tr>
+<tr>
+<td>persistAndFlush()</td>
+<td>实体纳入管理并立即同步到数据库</td>
+</tr>
+<tr>
+<td>find()</td>
+<td>按ID查询实体（优先缓存）</td>
+</tr>
+<tr>
+<td>createQuery()</td>
+<td>执行JPQL/SQL查询（默认绕过缓存）</td>
+</tr>
+<tr>
+<td>detach()/clear()</td>
+<td>将实体变成游离状态</td>
+</tr>
+</tbody>
+</table>
+<h2 id="entity的状态"><a class="header-anchor" href="#entity的状态">¶</a>entity的状态</h2>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>是否关联EntityManager</th>
+<th>数据库同步</th>
+<th>触发条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>新建/瞬时</td>
+<td>否</td>
+<td>否</td>
+<td>new Entity()</td>
+</tr>
+<tr>
+<td>托管</td>
+<td>是</td>
+<td>自动</td>
+<td>persist(),find()</td>
+</tr>
+<tr>
+<td>游离</td>
+<td>否</td>
+<td>否</td>
+<td>detach(),close(),事务结束</td>
+</tr>
+<tr>
+<td>删除</td>
+<td>是（临时）</td>
+<td>待删除</td>
+<td>remove()</td>
+</tr>
+</tbody>
+</table>
+<h2 id="persist-方法的特性"><a class="header-anchor" href="#persist-方法的特性">¶</a><code>persist()</code>方法的特性</h2>
+<p><strong>persist()的作用</strong>：将实体从<code>Transient</code>(瞬态) 状态转为<code>Managed</code>（托管）状态，此时实体进存在于<code>JPA</code>的持久化上下文中，并<strong>未生成SQL语句写入数据库</strong>。<br>
+那么以下例子的运行结果是怎么样的？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">void</span> <span class="hljs-title function_">findByName_ShouldReturnUser</span><span class="hljs-params">()</span> &#123;<br>    entityManager.persist(User.builder()<br>                .name(<span class="hljs-string">&quot;沙皇&quot;</span>)<br>                .age(<span class="hljs-number">200</span>)<br>                .email(<span class="hljs-string">&quot;sha@lol.com&quot;</span>)<br>                .address(<span class="hljs-string">&quot;恕瑞玛&quot;</span>)<br>                .build()<br>        );<br>    List&lt;User&gt; users = userRepository.findByName(<span class="hljs-string">&quot;沙皇&quot;</span>);<br>    Assertions.assertEquals(<span class="hljs-number">1</span>, users.size());<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>persist</code>一个<code>user</code>实体，接着就是通过名称查询，最后就是断言查找结果的数量为1。<br>
+结果是断言成功，测试通过。<br>
+为什么呢？不是还没落库？为什么会查询到结果呢？<br>
+当然，数据库本身是不带有<code>沙皇</code>这个记录的。</p>
+<p><strong>先提出个问题，怎么样才能真实落库呢？</strong><br>
+其实真实落库的条件有三个，满足任一即可：</p>
+<ul>
+<li><strong>显式调用<code>flush()</code></strong></li>
+<li><strong>事务提交 <code>commit()</code></strong></li>
+<li><strong>查询执行前自动触发<code>flush()</code></strong></li>
+</ul>
+<p>显然，上例代码满足了第三个条件。<br>
+新的问题已经出现，怎么能够停滞不前。</p>
+<p><strong>为什么能够查询得到未落库的数据？</strong><br>
+原因有2：<br>
+<strong>1. 持久化上下文作为一级缓存</strong></p>
+<ul>
+<li>所有<code>Managed</code>状态实体均存储在持久化上下文中(类内存缓存)。</li>
+<li><strong>查询逻辑优先级</strong>：<code>JPA</code>执行查询时，会<strong>先检查持久化上下文</strong>中是否存在匹配的托管实体。若存在，则直接返回该对象，无法访问数据库。注意这里查询<code>find()</code>和 <code>persist()</code>都需要同一个<code>EntityManager</code>。</li>
+</ul>
+<p><strong>2. 查询操作自动触发<code>flush</code></strong></p>
+<ul>
+<li><strong>隐式同步机制</strong>：当执行某些查询（如<code>JPQL</code>或派生查询方法）时，<code>JPA</code>会<strong>自动调用flush()</strong>，确保上下文中的变更同步到数据库，避免脏读。<br>
+所以上例中的<code>findByName()</code>方法作为派生查询方法，触发隐式<code>flush()</code>, 产生以下行为：
+<ol>
+<li>生成<code>INSERT</code>语句将<code>persist()</code>的实体写入数据库。</li>
+<li>执行<code>SELECT</code>语句查询数据库。</li>
+</ol>
+</li>
+</ul>
+<h1>总结</h1>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/java/" class="category-chain-item">java</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/java/spring-framework/" class="category-chain-item">spring framework</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/spring-test/" class="print-no-link">#spring test</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Spring Test终极功法：从练气初期到大乘圆满</div>
+      <div>https://succeedwer.github.io/posts/a86d01bfdca1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WER</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年3月23日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2025年7月11日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/b443e2c441b9/" title="gateway之2025.0.0版本">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">gateway之2025.0.0版本</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/0926b92f8daf/" title="JDK 25 LTS 新特性一览">
+                        <span class="hidden-mobile">JDK 25 LTS 新特性一览</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

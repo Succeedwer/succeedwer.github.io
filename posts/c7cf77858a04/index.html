@@ -1,0 +1,1883 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/cat.png">
+  <link rel="icon" href="/images/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WER">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="环境   idea 2025.1   jdk 17   spring-boot 4.0.4   spring-cloud 2025.1.1   spring-cloud-alibaba 2025.1.0.0   nacos 2.4   lombok 1.18.36   Nacos ¶依赖 1234&lt;dependency&gt;	&lt;groupId&gt;com.alibaba.cloud">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gateway之配置中心">
+<meta property="og:url" content="https://succeedwer.github.io/posts/c7cf77858a04/index.html">
+<meta property="og:site_name" content="Bug Terminator">
+<meta property="og:description" content="环境   idea 2025.1   jdk 17   spring-boot 4.0.4   spring-cloud 2025.1.1   spring-cloud-alibaba 2025.1.0.0   nacos 2.4   lombok 1.18.36   Nacos ¶依赖 1234&lt;dependency&gt;	&lt;groupId&gt;com.alibaba.cloud">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-25T02:49:58.059Z">
+<meta property="article:modified_time" content="2026-03-25T02:50:42.000Z">
+<meta property="article:author" content="WER">
+<meta property="article:tag" content="java，spring cloud">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>gateway之配置中心 - Bug Terminator</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"succeedwer.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"umami":{"src":null,"data_website_id":null,"data_domains":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu+b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g==" crossorigin="anonymous" referrerpolicy="no-referrer" /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bug Terminator</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>笔记集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="gateway之配置中心"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        WER
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-03-25 10:49" pubdate>
+          2026年3月25日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          40 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java"
+        id="heading-93f725a07423fe1c889f448b33d21f46" role="tab" data-toggle="collapse" href="#collapse-93f725a07423fe1c889f448b33d21f46"
+        aria-expanded="true"
+      >
+        java
+        <span class="list-group-count">(42)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-93f725a07423fe1c889f448b33d21f46"
+           role="tabpanel" aria-labelledby="heading-93f725a07423fe1c889f448b33d21f46">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/1646708a3955/" title="JVM哪些事儿：OOM解毒大全"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">JVM哪些事儿：OOM解毒大全</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/582a9cc5bfc6/" title="JVM哪些事儿：起始"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">JVM哪些事儿：起始</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="framework"
+        id="heading-756457dc85f13450b3dfba2cbc1465e5" role="tab" data-toggle="collapse" href="#collapse-756457dc85f13450b3dfba2cbc1465e5"
+        aria-expanded="false"
+      >
+        framework
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-756457dc85f13450b3dfba2cbc1465e5"
+           role="tabpanel" aria-labelledby="heading-756457dc85f13450b3dfba2cbc1465e5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/14b3d3a44bab/" title="Mapstruct大法：从凹到凸"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Mapstruct大法：从凹到凸</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/1b0525f461aa/" title="Mockito究极指南：从基础到生产实战"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Mockito究极指南：从基础到生产实战</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java基础"
+        id="heading-df7759872e49dfa342518015262abb95" role="tab" data-toggle="collapse" href="#collapse-df7759872e49dfa342518015262abb95"
+        aria-expanded="false"
+      >
+        java基础
+        <span class="list-group-count">(24)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-df7759872e49dfa342518015262abb95"
+           role="tabpanel" aria-labelledby="heading-df7759872e49dfa342518015262abb95">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/2de11af85dfa/" title="Collection"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Collection</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c131da4759d3/" title="Java中的内存分配以及栈和堆的区别"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Java中的内存分配以及栈和堆的区别</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b0c543d38971/" title="Java中的引用"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Java中的引用</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/fb4bcf06d658/" title="Static关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Static关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/0bf5527ff036/" title="final关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">final关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e5ec1dd12f5e/" title="main方法的格式详细解释"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">main方法的格式详细解释</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/51e5f5269a71/" title="private关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">private关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/4035e7454296/" title="this关键字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">this关键字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/e6a3cffa55aa/" title="代码块"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">代码块</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/551019549513/" title="创建对象的内存操作"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">创建对象的内存操作</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/424bb708aa6d/" title="字符串参与运算"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">字符串参与运算</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/957615e68d0e/" title="工具类中使用静态"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">工具类中使用静态</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/dc70c2086a19/" title="成员变量&amp;局部变量"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">成员变量&amp;局部变量</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a9b711582174/" title="控制跳转语句标号"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">控制跳转语句标号</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/8825483398df/" title="数组"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数组</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/a62f78655027/" title="方法重写"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">方法重写</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/731c30951451/" title="构造方法（Constructor）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">构造方法（Constructor）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/865639345012/" title="继承"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">继承</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/08a3be0e3035/" title="说明书的制作过程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">说明书的制作过程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/ef95bf14b680/" title="转义字符"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">转义字符</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/f9796d4b6b88/" title="选择结构switch语句"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">选择结构switch语句</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d8f0a1a233ae/" title="逻辑运算符"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">逻辑运算符</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d94cb6fc725d/" title="键盘录入的基本格式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">键盘录入的基本格式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/2acbebbb1ff5/" title="隐式转换and强制转换"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">隐式转换and强制转换</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java进阶"
+        id="heading-f37659ce2630cc205815e63e97ca680d" role="tab" data-toggle="collapse" href="#collapse-f37659ce2630cc205815e63e97ca680d"
+        aria-expanded="false"
+      >
+        java进阶
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-f37659ce2630cc205815e63e97ca680d"
+           role="tabpanel" aria-labelledby="heading-f37659ce2630cc205815e63e97ca680d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/e78ec63eaa48/" title="Spring Cloud"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Spring Cloud</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java错误集"
+        id="heading-15f313469c4c1a0934d8aadb7bf7e364" role="tab" data-toggle="collapse" href="#collapse-15f313469c4c1a0934d8aadb7bf7e364"
+        aria-expanded="false"
+      >
+        java错误集
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-15f313469c4c1a0934d8aadb7bf7e364"
+           role="tabpanel" aria-labelledby="heading-15f313469c4c1a0934d8aadb7bf7e364">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/53341e20ebbb/" title="Jedis连接Redis Cluster的java.net.SocketTimeoutException: connect timed out"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Jedis连接Redis Cluster的java.net.SocketTimeoutException: connect timed out</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java面试题"
+        id="heading-ad2aaee8db2e74079d35223ebbf1338c" role="tab" data-toggle="collapse" href="#collapse-ad2aaee8db2e74079d35223ebbf1338c"
+        aria-expanded="false"
+      >
+        java面试题
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-ad2aaee8db2e74079d35223ebbf1338c"
+           role="tabpanel" aria-labelledby="heading-ad2aaee8db2e74079d35223ebbf1338c">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/2c488b803b42/" title="面试题之Java基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">面试题之Java基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/96fc121e9ee5/" title="面试题之Java多线程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">面试题之Java多线程</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="other"
+        id="heading-795f3202b17cb6bc3d4b771d8c6c9eaf" role="tab" data-toggle="collapse" href="#collapse-795f3202b17cb6bc3d4b771d8c6c9eaf"
+        aria-expanded="false"
+      >
+        other
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-795f3202b17cb6bc3d4b771d8c6c9eaf"
+           role="tabpanel" aria-labelledby="heading-795f3202b17cb6bc3d4b771d8c6c9eaf">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/0926b92f8daf/" title="JDK 25 LTS 新特性一览"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">JDK 25 LTS 新特性一览</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="spring boot"
+        id="heading-926e67801e570a3898ddaef281c23075" role="tab" data-toggle="collapse" href="#collapse-926e67801e570a3898ddaef281c23075"
+        aria-expanded="false"
+      >
+        spring boot
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-926e67801e570a3898ddaef281c23075"
+           role="tabpanel" aria-labelledby="heading-926e67801e570a3898ddaef281c23075">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/04599e749896/" title="1.从0-1构建项目"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.从0-1构建项目</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="spring cloud"
+        id="heading-33d0d327026a3129f67aeecf0300507b" role="tab" data-toggle="collapse" href="#collapse-33d0d327026a3129f67aeecf0300507b"
+        aria-expanded="true"
+      >
+        spring cloud
+        <span class="list-group-count">(7)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-33d0d327026a3129f67aeecf0300507b"
+           role="tabpanel" aria-labelledby="heading-33d0d327026a3129f67aeecf0300507b">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="dubbo"
+        id="heading-aa4e1b8c2cc9deed96fe012ef2e0752a" role="tab" data-toggle="collapse" href="#collapse-aa4e1b8c2cc9deed96fe012ef2e0752a"
+        aria-expanded="false"
+      >
+        dubbo
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-aa4e1b8c2cc9deed96fe012ef2e0752a"
+           role="tabpanel" aria-labelledby="heading-aa4e1b8c2cc9deed96fe012ef2e0752a">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/a87c46ee82ff/" title="1.dubbo之缓存文件冲突"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.dubbo之缓存文件冲突</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="gateway"
+        id="heading-3e21ab62fb17400301d9f0156b6c3031" role="tab" data-toggle="collapse" href="#collapse-3e21ab62fb17400301d9f0156b6c3031"
+        aria-expanded="true"
+      >
+        gateway
+        <span class="list-group-count">(6)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-3e21ab62fb17400301d9f0156b6c3031"
+           role="tabpanel" aria-labelledby="heading-3e21ab62fb17400301d9f0156b6c3031">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/c20d781ca172/" title="1.gateway之动态路由实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.gateway之动态路由实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b443e2c441b9/" title="gateway之2025.0.0版本"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">gateway之2025.0.0版本</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/d56da4745c40/" title="gateway之大纲"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">gateway之大纲</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/b5e8062f3af5/" title="gateway之服务发现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">gateway之服务发现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/5a9674f0e8eb/" title="gateway之路由配置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">gateway之路由配置</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/c7cf77858a04/" title="gateway之配置中心"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">gateway之配置中心</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="spring framework"
+        id="heading-765e2c55e032e733dab87b4fcd8998d6" role="tab" data-toggle="collapse" href="#collapse-765e2c55e032e733dab87b4fcd8998d6"
+        aria-expanded="false"
+      >
+        spring framework
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-765e2c55e032e733dab87b4fcd8998d6"
+           role="tabpanel" aria-labelledby="heading-765e2c55e032e733dab87b4fcd8998d6">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/a86d01bfdca1/" title="Spring Test终极功法：从练气初期到大乘圆满"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Spring Test终极功法：从练气初期到大乘圆满</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">gateway之配置中心</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1>环境</h1>
+<ul>
+<li>
+<p><code>idea 2025.1</code></p>
+</li>
+<li>
+<p><code>jdk 17</code></p>
+</li>
+<li>
+<p><code>spring-boot 4.0.4</code></p>
+</li>
+<li>
+<p><code>spring-cloud 2025.1.1</code></p>
+</li>
+<li>
+<p><code>spring-cloud-alibaba 2025.1.0.0</code></p>
+</li>
+<li>
+<p><code>nacos 2.4</code></p>
+</li>
+<li>
+<p><code>lombok 1.18.36</code></p>
+</li>
+</ul>
+<h1>Nacos</h1>
+<h2 id="依赖"><a class="header-anchor" href="#依赖">¶</a>依赖</h2>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.alibaba.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-config<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h2 id="客户端配置"><a class="header-anchor" href="#客户端配置">¶</a>客户端配置</h2>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>	<span class="hljs-attr">cloud:</span><br>		<span class="hljs-attr">nacos:</span><br>			<span class="hljs-attr">config:</span><br>        		<span class="hljs-attr">server-addr:</span> <span class="hljs-string">wsl.com:8848,wsl.com:8849,wsl.com:8850</span> <span class="hljs-comment"># 集群地址 ，分隔</span><br>        		<span class="hljs-attr">namespace:</span> <span class="hljs-string">acf4bdc5-a3e1-4c40-8cb9-ca6ed5cbb0ed</span> <span class="hljs-comment"># 命名空间 nacos取</span><br>        		<span class="hljs-attr">group:</span> <span class="hljs-string">group_name</span> 	<span class="hljs-comment"># 分组 根据功能/环境取</span><br>        		<span class="hljs-attr">file-extension:</span> <span class="hljs-string">yaml</span> <span class="hljs-comment"># 配置文件格式</span><br>        		<span class="hljs-attr">username:</span> <span class="hljs-string">nacos</span><br>        		<span class="hljs-attr">password:</span> <span class="hljs-string">nacos</span><br>        		<span class="hljs-attr">refresh-enabled:</span> <span class="hljs-literal">true</span> <span class="hljs-comment"># 刷新配置的主开关，默认true</span><br></code></pre></td></tr></table></figure>
+<p>启动客户端程序，会发现控制台出现以下错误：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs shell">***************************<br>APPLICATION FAILED TO START<br>***************************<br><br>Description:<br><br>No spring.config.import property has been defined<br><br>Action:<br><br>Add a spring.config.import=nacos: property to your configuration.<br>	If configuration is not required add spring.config.import=optional:nacos: instead.<br>	To disable this check, set spring.cloud.nacos.config.import-check.enabled=false.<br><br></code></pre></td></tr></table></figure>
+<p>为什么？</p>
+<p>在Spring Cloud 2020.0.0版本（Spring Boot 2.4+)引入了新配置加载机制导致的，即不再自动创建<code>bootstrap</code>上下文，需要通过<code>spring.config.import</code>属性显式导入外部配置源。</p>
+<p>为什么要这么改动呢？</p>
+<p>在2.4版本之前，Spring Boot自身的配置加载机制和Spring Cloud的<code>Bootstrap</code>上下文是<strong>两套独立、复杂且嵌套的系统</strong>。变更的核心目的是<strong>用一套更简洁、一致、强大的机制取代旧的两套模型</strong>。</p>
+<p>2.4版本之前的问题：</p>
+<ul>
+<li>
+<p>生命周期复杂</p>
+<p>&lt;2.4 版本之前，配置优先级 (bootstrap.yml &gt; application.yml)，即 先启动一个<code>bootstrap</code>上下文加载<code>bootstrap.yml</code>和远程配置（nacos)，然后再启动应用上下文，作为<code>bootstrap</code>上下文的子上下文。这种父子上下文层级结构导致日志、Bean生命周期、属性源查找变得非常晦涩、调试困难。</p>
+</li>
+<li>
+<p>配置优先级规则晦涩难懂</p>
+<p>配置来源分散，bootstrap 和 application 两个文件中，且与<code>spring.config.additional-location</code>、<code>spring.config.location</code>等属性交互时，优先级规则极其复杂，容易出错。</p>
+</li>
+<li>
+<p>与Spring Boot原生机制割裂</p>
+<p>Bootstrap 上下文是Spring Cloud引入的一个补丁式解决方案，绕过了Spring Boot原生的<code>ConfigFileApplicationListener</code>等机制。</p>
+<p>使得在增强核心配置系统时，必须额外考虑如何与Spring Cloud的这套“外部系统”兼容，极大程度限制了配置系统的发展。</p>
+</li>
+</ul>
+<p>而2.4版本之后，引入了全新的<code>ConfigDataAPI</code>和<strong>统一的spring.config.import协议</strong>，旨在从根本上解决上述问题。</p>
+<ul>
+<li>单一、线性的配置加载生命周期
+<ul>
+<li>一个应用上下文，配置加载过程是从上到下清晰的“管道”。</li>
+<li><code>spring.config.import</code>属性允许在加载过程的任何阶段显式地导入其他配置源（如本地文件、Nacos、Consul还是Git)。</li>
+<li>配置加载顺序取决于<code>spring.config.import</code>语句的声明顺序，</li>
+</ul>
+</li>
+<li>配置导入是显式声明的
+<ul>
+<li>旧版本是<strong>隐式</strong>的：只要在Classpath加入了<code>spring-cloud-starter-bootstrap</code>，Bootstrap上下文就会自动创建。</li>
+<li>新版本是<strong>显式</strong>的：必须通过<code>spring.config.import=XXX:XXX</code>来明确告诉Spring Boot从哪里导入配置。</li>
+</ul>
+</li>
+<li>与Spring Boot生态深度统一
+<ul>
+<li>新的<code>ConfigDataAPI</code>是<code>Spring Boot</code>原生的一部分。Nacos、Consul等配置中心只需要实现<code>ConfigDataLocationResolver</code>和<code>ConfigDataLoader</code>，即可以插件形式无缝插入。</li>
+<li>将Spring Boot和Spring Cloud的配置加载扁平化，无论远程还是本地的配置源都处于同一平面，遵循同一套规则进行处理。</li>
+</ul>
+</li>
+</ul>
+<h3 id="全新import标准语法格式"><a class="header-anchor" href="#全新import标准语法格式">¶</a>全新import标准语法格式</h3>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">config:</span><br>    <span class="hljs-attr">import:</span><br>      <span class="hljs-bullet">-</span> [<span class="hljs-string">optional:</span>]<span class="hljs-string">&lt;protocol&gt;:&lt;location&gt;[?&lt;params&gt;]</span><br>      <span class="hljs-bullet">-</span> [<span class="hljs-string">optional:</span>]<span class="hljs-string">&lt;protocol&gt;:&lt;location2&gt;[?&lt;params&gt;]</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>optinal</code>: 可选，标识该配置文件可选
+<ul>
+<li>有<code>optional</code>：如果文件不存在、网络连接不上或解析失败，Spring Boot 忽略错误，继续启动，不会报错。</li>
+<li>无<code>optional</code>：默认，如果找不到文、连接失败或解析失败，Spring Boot直接抛出异常并终止启动。</li>
+</ul>
+</li>
+<li><code>protocol</code>：必需，指定配置来源的协议
+<ul>
+<li><code>nacos</code>：来自 Alibaba Nacos Config (需引入<code>spring-cloud-starter-alibaba-nacos-config</code>)。nacos启动器里包含，无需重复引入。</li>
+<li><code>configserver</code>：来自 Spring Cloud Config Server。</li>
+<li><code>file</code>：来自本地文件系统路径。</li>
+<li><code>classpath</code>：来自类路径下的文件。</li>
+<li><code>http/https</code>：来自远程 HTTP URL 。</li>
+</ul>
+</li>
+<li><code>localtion</code>: 必须，具体的资源标识，格式取决于协议
+<ul>
+<li><code>nacos</code>：配置文件的<code>DataID</code>（如 <code>application-dev.yaml</code>，<code>user-service.yaml</code>)</li>
+<li><code>file</code>：相对路径或绝对路径 （如 <code>./config/application.yaml</code>，<code>/etc/myapp/config.yaml</code>)</li>
+<li><code>classpath</code>：类路径资源名 （如 <code>config/settings.yaml</code>)</li>
+</ul>
+</li>
+<li><code>params</code>：可选，查询参数，常用于 Nacos
+<ul>
+<li>对于 Nacos 协议，可以在后面加<code>?</code> 传递参数，常见参数包括：
+<ul>
+<li><code>group</code>：指定 Nacos Group （默认 <code>DEFAULT_GROUP</code>)</li>
+<li><code>refreshEnabled</code>：是否开启动态刷新 （<code>true</code>/<code>false</code>，默认 true)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="常用示例"><a class="header-anchor" href="#常用示例">¶</a>常用示例</h3>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">config:</span><br>    <span class="hljs-attr">import:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">optional:nacos:db-config.yaml?group=DB_GROUP&amp;refreshEnabled=true</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">optional:nacos:mq-config.properties?group=MQ_GROUP</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">nacos:$&#123;spring.application.name&#125;.yaml</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">file:application-@active.profile@.yaml</span><br></code></pre></td></tr></table></figure>
+<p>同样可以使用<code>spring</code>占位符 和 <code>maven</code>过滤占位符。</p>
+<ul>
+<li>优先级 = 加载顺序，从上到下加载，优先级越往后越大，也可以说后面的同名配置可以覆盖前面的配置。</li>
+<li>通常把<strong>全局/共享</strong>配置放前面，<code>应用特定配置</code>放后面。</li>
+</ul>
+<h3 id="模板"><a class="header-anchor" href="#模板">¶</a>模板</h3>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">config:</span><br>    <span class="hljs-attr">import:</span><br>      <span class="hljs-comment"># 1. 全局配置（最低优先级）</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">optional:nacos:application.$&#123;spring.cloud.nacos.config.file-extension&#125;?group=DEFAULT_GROUP&amp;refreshEnabled=false</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">optional:nacos:application-$&#123;spring.profiles.active&#125;.$&#123;spring.cloud.nacos.config.file-extension&#125;?group=DEFAULT_GROUP&amp;refreshEnabled=false</span><br><br>      <span class="hljs-comment"># 2. 共享中间件配置</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">optional:nacos:redis-config.$&#123;spring.cloud.nacos.config.file-extension&#125;?group=MIDDLEWARE_GROUP</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">optional:nacos:mysql-config.$&#123;spring.cloud.nacos.config.file-extension&#125;?group=MIDDLEWARE_GROUP</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">optional:nacos:rabbitmq-config.$&#123;spring.cloud.nacos.config.file-extension&#125;?group=MIDDLEWARE_GROUP</span><br><br>      <span class="hljs-comment"># 3. 业务共享配置</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">optional:nacos:business-common.$&#123;spring.cloud.nacos.config.file-extension&#125;?group=BUSINESS_GROUP</span><br><br>      <span class="hljs-comment"># 4. 应用通用配置</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">optional:nacos:$&#123;spring.application.name&#125;.$&#123;spring.cloud.nacos.config.file-extension&#125;?group=$&#123;spring.application.name&#125;-GROUP</span><br><br>      <span class="hljs-comment"># 5. 应用环境配置</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">optional:nacos:$&#123;spring.application.name&#125;-$&#123;spring.profiles.active&#125;.$&#123;spring.cloud.nacos.config.file-extension&#125;?group=$&#123;spring.application.name&#125;-GROUP</span><br><br>      <span class="hljs-comment"># 6. 本地覆盖</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">optional:file:./application-$&#123;spring.profiles.active&#125;.$&#123;spring.cloud.nacos.config.file-extension&#125;</span><br><br></code></pre></td></tr></table></figure>
+<h3 id="监听器-自动刷新"><a class="header-anchor" href="#监听器-自动刷新">¶</a>监听器+自动刷新</h3>
+<p>有时间我不想自动刷新某些配置，有些配置又要刷新，怎么处理呢？</p>
+<p>换个说法，会更好，我想给某些配置添加监听器，某些又不要。</p>
+<p><strong>自动刷新的前提是要存在监听器</strong></p>
+<p>监听器的添加，有以下方式：</p>
+<ul>
+<li><code>spring.config.nacos.refresh-enable</code> ：全局开关，默认true</li>
+<li><code>spring.config.import=nacos:xxx&amp;refreshEnabled=true</code>：针对某个配置是否监听，默认true</li>
+<li><code>@NacosConfigListener</code>：注解创建监听器</li>
+</ul>
+<p>如果``spring.config.nacos.refresh-enable=false<code>，那么就不会创建</code>spring.config.import=nacos:xxx&amp;refreshEnable=true<code>的监听器，但手动创建</code>@NacosConfigListener`的监听器正常运行，但但是就算代码中加入自动更新的操作，也不会生效。</p>
+<p>代码创建的监听器优先级最高。</p>
+<p>反之，如果<code>spring.config.nacos.refresh-enable=true</code>，<code>spring.config.import=nacos:xxx&amp;refreshEnable=false</code>并不会创建监听器。</p>
+<p><strong>监听器 + 全局开关为true =&gt; 自动刷新 。</strong></p>
+<p><strong>全局开关不单是监听器创建的开关，还是自动刷新的总开关</strong>。</p>
+<p>大白话，好比房子里的开关，全局开关就是电闸，每个配置上的<code>refrehEnabled</code>是房间的开关，电闸关了，房间的开关开了也亮不了灯；而自动刷新好比你晚上在房间里看书，如果不把灯打开，你也看不了书；而自动刷新那些注释好比书，有了书才能看书。</p>
+<p>如果关闭了监听器，在代码中，用<code>@RefreshScope</code> + <code>@Value</code>、<code>@NacosConfig</code>、<code>@NacosValue</code>、<code>@NacosConfigurationProperties</code>等注解一样无法自动刷新。</p>
+<p>所以，要自动刷新和加载一次的配置通过使用<code>spring.config.import</code>的参数<code>refreshEnable=true/false</code>来控制。</p>
+<p>常用到的注解：</p>
+<ul>
+<li><code>@RefreshScope</code>：类注解， 指明该<code>Bean</code>需要自动刷新</li>
+<li><code>@Value</code>:  <code>Spring</code>提供的注解，注入配置值，但会受到其他属性源的影响，优先级<code>JVM&gt;ENV&gt;Nacos</code></li>
+<li><code>@NacosValue</code>: 注入配置值，只接收naocs属性源，支持自动刷新</li>
+<li><code>@NacosConfig</code>: 类注解，属性注解， 注入配置值
+<ul>
+<li>默认支持动态刷新</li>
+<li>需要设置目标的<code>dataId</code>和<code>group</code>以及配置种的指定<code>key</code></li>
+<li>不受其他属性源影响，准确度高</li>
+<li>支持复杂对象注入，如自定义<code>JavaBean</code>及其集合类型</li>
+<li>可用于<code>Bean</code>，类似<code>@ConfigurationProperties</code></li>
+</ul>
+</li>
+<li><code>@ConfigurationProperties</code>：类注解，可以指定配置前缀</li>
+<li><code>@NacosConfigurationProperties</code>:</li>
+<li><code>@NacosConfigListener</code>：接收配置变更回调事件
+<ul>
+<li>默认不会回调初始值，如需，通过指定<code>initNotify=true</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>核心对比总览</strong></p>
+<table>
+<thead>
+<tr>
+<th>注解</th>
+<th>@RefreshScope</th>
+<th>@Value</th>
+<th>@NacosValue</th>
+<th>@NacosConfig</th>
+<th>@ConfigurationProperties</th>
+<th>@NacosConfigurationProperties</th>
+<th>@NacosConfigListener</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>所属框架</strong></td>
+<td>Spring Cloud Context</td>
+<td>Spring Boot</td>
+<td>Nacos</td>
+<td>Nacos</td>
+<td>Spring Boot</td>
+<td>Nacos</td>
+<td>Nacos</td>
+</tr>
+<tr>
+<td><strong>主要功能</strong></td>
+<td>定义刷新作用域</td>
+<td>注入单个属性</td>
+<td>注入单个属性 + 自动刷新</td>
+<td>注入单个属性 + 自动刷新</td>
+<td>批量属性绑定</td>
+<td>批量属性绑定 + 自动刷新</td>
+<td>配置变更监听器</td>
+</tr>
+<tr>
+<td><strong>自动刷新</strong></td>
+<td>作用域基础</td>
+<td>不支持，需@RefreshScope</td>
+<td>内置支持</td>
+<td>内置支持</td>
+<td>spring context内置支持</td>
+<td>内置支持</td>
+<td>事件驱动</td>
+</tr>
+<tr>
+<td><strong>使用场景</strong></td>
+<td>配置刷新作用域</td>
+<td>简单属性注入</td>
+<td>Nacos动态配置</td>
+<td>Nacos动态配置</td>
+<td>复杂配置对象</td>
+<td>Nacos复杂配置对象</td>
+<td>配置变更回调</td>
+</tr>
+<tr>
+<td><strong>默认值</strong></td>
+<td>-</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td><strong>SpEL支持</strong></td>
+<td>-</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h5 id><a class="header-anchor" href="#">¶</a></h5>
+<h2 id="最佳实践"><a class="header-anchor" href="#最佳实践">¶</a>最佳实践</h2>
+<h3 id="一套完整的配置文件方案"><a class="header-anchor" href="#一套完整的配置文件方案">¶</a>一套完整的配置文件方案</h3>
+<p>项目使用 Nacos 作为配置中心和服务发现，现在给出一套配置文件模板。</p>
+<p><strong>引入依赖</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-gateway-server-webflux<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br>	<span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.alibaba.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br>	<span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.alibaba.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-config<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>需要用到 maven 占位符，需要在<code>pom</code>文件加入：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 开启profiles: 声明属性值 active.profile --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">profiles</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">profile</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>dev<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">properties</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">active.profile</span>&gt;</span>dev<span class="hljs-tag">&lt;/<span class="hljs-name">active.profile</span>&gt;</span><br>		<span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">activation</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">activeByDefault</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">activeByDefault</span>&gt;</span><br>		<span class="hljs-tag">&lt;/<span class="hljs-name">activation</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">profile</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">profile</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>test<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">properties</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">active.profile</span>&gt;</span>test<span class="hljs-tag">&lt;/<span class="hljs-name">active.profile</span>&gt;</span><br>		<span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">profile</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">profile</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>prod<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">properties</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">active.profile</span>&gt;</span>prod<span class="hljs-tag">&lt;/<span class="hljs-name">active.profile</span>&gt;</span><br>		<span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">profile</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">profiles</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">build</span>&gt;</span><br>    <span class="hljs-comment">&lt;!-- 开启 maven 过滤 --&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">resources</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">resource</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">directory</span>&gt;</span>src/main/resources<span class="hljs-tag">&lt;/<span class="hljs-name">directory</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">filtering</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">filtering</span>&gt;</span><br>		<span class="hljs-tag">&lt;/<span class="hljs-name">resource</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">resources</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">plugins</span>&gt;</span><br>        <span class="hljs-comment">&lt;!-- 指定 maven 过滤插件: 为了解决占位符嵌套问题 --&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>maven-resources-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.6<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">delimiters</span>&gt;</span><br>					<span class="hljs-tag">&lt;<span class="hljs-name">delimiter</span>&gt;</span>@<span class="hljs-tag">&lt;/<span class="hljs-name">delimiter</span>&gt;</span><br>				<span class="hljs-tag">&lt;/<span class="hljs-name">delimiters</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">useDefaultDelimiters</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">useDefaultDelimiters</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br>		<span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">plugins</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">build</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p><strong>设计配置文件</strong>：优先级从低到高</p>
+<ul>
+<li>应用本地配置文件：<code>application.yaml</code></li>
+<li>全局配置：<code>nacos:application.yaml</code>，<code>nacos:application-dev/prod/test.yaml</code></li>
+<li>共享中间件配置：<code>nacos:redis-config.yaml</code>，<code>nacos:mysql-config.yaml</code>，<code>nacos:rabbitmq-config.yaml</code></li>
+<li>业务共享配置：<code>nacos:business-common.yaml</code></li>
+<li>应用通用配置：<code>nacos:$&#123;spring.application.name&#125;.yaml</code></li>
+<li>应用环境配置：<code>nacos:$&#123;spring.application.name&#125;-$&#123;spring.profiles.active&#125;.yaml</code></li>
+<li>本地覆盖：<code>file:./application-$&#123;spring.profiles.active&#125;.yaml</code></li>
+</ul>
+<p><strong>nacos分组</strong></p>
+<ul>
+<li>全局配置：<code>DEFAULT_GROUP</code></li>
+<li>共享中间件配置：<code>MIDDLEWARE_GROUP</code></li>
+<li>业务共享配置：<code>BUSINESS_GROUP</code></li>
+<li>应用通用配置：<code>$&#123;spring.application.name&#125;-GROUP</code></li>
+<li>应用环境配置：<code>$&#123;spring.application.name&#125;-GROUP</code></li>
+</ul>
+<h4 id="应用本地配置文件"><a class="header-anchor" href="#应用本地配置文件">¶</a>应用本地配置文件</h4>
+<p><code>resources/application.yaml</code>: 应用运行的基本骨架。</p>
+<ul>
+<li>端口</li>
+<li>应用名</li>
+<li>启用的<code>profile</code></li>
+<li><code>nacos</code> 的 注册中心 和 配置中心 连接配置</li>
+<li><code>spring.config.import</code>导入相关配置</li>
+</ul>
+<p>针对服务不同，可以适当去除某些配置文件，如网关不需要中间件 mysql 。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">server:</span><br>  <span class="hljs-attr">port:</span> <span class="hljs-string">$&#123;SERVER_PORT:8080&#125;</span> <span class="hljs-comment"># 网关服务端口，默认8080</span><br><br><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">application:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">@project.artifactId@</span><br>  <span class="hljs-attr">profiles:</span><br>    <span class="hljs-attr">active:</span> <span class="hljs-string">$&#123;ACTIVE_PROFILE:@active.profile@&#125;</span><br><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">nacos:</span><br>      <span class="hljs-attr">config:</span><br>        <span class="hljs-attr">server-addr:</span> <span class="hljs-string">$&#123;NACOS_SERVER_ADDR:wsl.com:8848,wsl.com:8858,wsl.com:8868&#125;</span><br>        <span class="hljs-attr">namespace:</span> <span class="hljs-string">$&#123;NACOS_NAMESPACE_ID:acf4bdc5-a3e1-4c40-8cb9-ca6ed5cbb0ed&#125;</span><br>        <span class="hljs-attr">group:</span> <span class="hljs-string">DEFAULT_GROUP</span><br>        <span class="hljs-attr">file-extension:</span> <span class="hljs-string">yaml</span><br>        <span class="hljs-attr">username:</span> <span class="hljs-string">$&#123;NACOS_USERNAME:nacos&#125;</span><br>        <span class="hljs-attr">password:</span> <span class="hljs-string">$&#123;NACOS_PASSWORD:nacos&#125;</span><br>        <span class="hljs-attr">refresh-enabled:</span> <span class="hljs-literal">true</span><br>        <span class="hljs-attr">max-retry:</span> <span class="hljs-number">3</span><br>        <span class="hljs-attr">config-retry-time:</span> <span class="hljs-number">2000</span><br>        <span class="hljs-attr">config-long-poll-timeout:</span> <span class="hljs-number">30000</span><br>      <span class="hljs-attr">discovery:</span><br>        <span class="hljs-attr">server-addr:</span> <span class="hljs-string">$&#123;NACOS_SERVER_ADDR:wsl.com:8848,wsl.com:8858,wsl.com:8868&#125;</span><br>        <span class="hljs-attr">namespace:</span> <span class="hljs-string">$&#123;NACOS_NAMESPACE_ID:acf4bdc5-a3e1-4c40-8cb9-ca6ed5cbb0ed&#125;</span><br>        <span class="hljs-attr">group:</span> <span class="hljs-string">DEFAULT_GROUP</span><br>        <span class="hljs-attr">username:</span> <span class="hljs-string">$&#123;NACOS_USERNAME:nacos&#125;</span><br>        <span class="hljs-attr">password:</span> <span class="hljs-string">$&#123;NACOS_PASSWORD:nacos&#125;</span><br>  <span class="hljs-attr">config:</span><br>    <span class="hljs-attr">import:</span><br>      <span class="hljs-comment"># 1. 全局配置（最低优先级）</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">optional:nacos:application.$&#123;spring.cloud.nacos.config.file-extension&#125;?group=DEFAULT_GROUP&amp;refreshEnabled=false</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">optional:nacos:application-$&#123;spring.profiles.active&#125;.$&#123;spring.cloud.nacos.config.file-extension&#125;?group=DEFAULT_GROUP&amp;refreshEnabled=false</span><br><br>      <span class="hljs-comment"># 2. 共享中间件配置</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">optional:nacos:redis-config.$&#123;spring.cloud.nacos.config.file-extension&#125;?group=MIDDLEWARE_GROUP</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">optional:nacos:mysql-config.$&#123;spring.cloud.nacos.config.file-extension&#125;?group=MIDDLEWARE_GROUP</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">optional:nacos:rabbitmq-config.$&#123;spring.cloud.nacos.config.file-extension&#125;?group=MIDDLEWARE_GROUP</span><br><br>      <span class="hljs-comment"># 3. 业务共享配置</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">optional:nacos:business-common.$&#123;spring.cloud.nacos.config.file-extension&#125;?group=BUSINESS_GROUP</span><br><br>      <span class="hljs-comment"># 4. 应用通用配置</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">optional:nacos:$&#123;spring.application.name&#125;.$&#123;spring.cloud.nacos.config.file-extension&#125;?group=$&#123;spring.application.name&#125;-GROUP</span><br><br>      <span class="hljs-comment"># 5. 应用环境配置</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">optional:nacos:$&#123;spring.application.name&#125;-$&#123;spring.profiles.active&#125;.$&#123;spring.cloud.nacos.config.file-extension&#125;?group=$&#123;spring.application.name&#125;-GROUP</span><br><br>      <span class="hljs-comment"># 6. 本地覆盖</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">optional:file:./application-$&#123;spring.profiles.active&#125;.$&#123;spring.cloud.nacos.config.file-extension&#125;</span><br><br><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>这里不由疑问，为什么需要在这里就加入注册中心的配置？放在nacos注册中心，自由操控，岂不妙哉。</p>
+<p>其实，<code>Spring Boot</code>启动时，先启动了配置中心检测程序，接着启动注册中心检测程序。</p>
+<p>这么说吧，只要加入注册中心的依赖<code>spring-cloud-starter-alibaba-nacos-discovery</code>，就会用默认配置去连接nacos。</p>
+<p>如果加入依赖了，但没配置naocs地址，就会出现<code>user not foud</code>类似错误。</p>
+<p>所以只能先配置注册中心。</p>
+</blockquote>
+<h4 id="远程nacos的配置文件"><a class="header-anchor" href="#远程nacos的配置文件">¶</a>远程nacos的配置文件</h4>
+<h5 id="全局配置-application-yaml-application-env-yaml"><a class="header-anchor" href="#全局配置-application-yaml-application-env-yaml">¶</a>全局配置 <code>application.yaml</code> &amp; <code>application-&#123;env&#125;.yaml</code></h5>
+<p><strong>定位</strong>：团队的标准规范，所有微服务都继承的配置。</p>
+<ul>
+<li><code>application.yaml</code>: 所有环境通用
+<ul>
+<li>统一的基础设施超时时间：如 Feign/Ribbon 的默认读取超时、连接超时等。</li>
+<li>统一的日志格式：格式定义、TraceID打印规则。</li>
+<li>公共拦截器/过滤器配置等。</li>
+<li>健康检查默认策略</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># ===================================================================</span><br><span class="hljs-comment"># application.yaml</span><br><span class="hljs-comment"># 适用：Gateway, Spring MVC Services, Dubbo Services</span><br><span class="hljs-comment"># ===================================================================</span><br><br><span class="hljs-comment"># 1. 应用基础信息 (所有服务都需要)</span><br><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">application:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">$&#123;spring.application.name&#125;</span><br>  <span class="hljs-attr">main:</span><br>    <span class="hljs-comment"># 允许循环依赖 (微服务常见，虽不推荐但常需兜底)</span><br>    <span class="hljs-attr">allow-circular-references:</span> <span class="hljs-literal">true</span><br>    <span class="hljs-comment"># 关闭 Banner，减少日志噪音</span><br>    <span class="hljs-attr">banner-mode:</span> <span class="hljs-string">off</span><br><br>  <span class="hljs-comment"># jackson 配置 (所有服务都需要统一日期格式和时区)</span><br>  <span class="hljs-attr">jackson:</span><br>    <span class="hljs-attr">locale:</span> <span class="hljs-string">zh_CN</span><br>    <span class="hljs-attr">time-zone:</span> <span class="hljs-string">GMT+8</span><br>    <span class="hljs-comment"># ISO 8601 格式</span><br>    <span class="hljs-attr">date-format:</span> <span class="hljs-string">yyyy-MM-dd</span> <span class="hljs-string">HH:mm:ss</span><br>    <span class="hljs-attr">serialization:</span><br>      <span class="hljs-comment"># 赋值空对象时不报错，避免接口变更导致的序列化问题</span><br>      <span class="hljs-attr">fail-on-empty-beans:</span> <span class="hljs-literal">false</span><br>    <span class="hljs-attr">deserialization:</span><br>      <span class="hljs-comment"># 反序列化时遇到未知属性不报错，避免接口变更导致的兼容性问题</span><br>      <span class="hljs-attr">fail-on-unknown-properties:</span> <span class="hljs-literal">false</span><br>    <span class="hljs-comment"># 只序列化非空属性，避免JSON中出现null值，减少数据传输量和前端处理复杂度</span><br>    <span class="hljs-attr">default-property-inclusion:</span> <span class="hljs-string">non_null</span><br>    <span class="hljs-comment"># 统一使用下划线命名，兼容前端和其他语言习惯</span><br>    <span class="hljs-attr">property-naming-strategy:</span> <span class="hljs-string">SNAKE_CASE</span><br>    <span class="hljs-attr">json:</span><br>      <span class="hljs-attr">read:</span><br>        <span class="hljs-comment"># 不允许 JSON 中的属性名不加引号，默认 false，开启后可以兼容一些非标准 JSON，但可能带来安全风险</span><br>        <span class="hljs-attr">allow-unquoted-property-names:</span> <span class="hljs-literal">false</span><br>        <span class="hljs-comment"># 不允许 JSON 中出现控制字符，默认 false</span><br>        <span class="hljs-attr">allow-unescaped-control-chars:</span> <span class="hljs-literal">false</span><br>        <span class="hljs-comment"># 不允许 JSON 中出现单引号</span><br>        <span class="hljs-attr">allow-single-quotes:</span> <span class="hljs-literal">false</span><br>      <span class="hljs-attr">write:</span><br>        <span class="hljs-attr">write-hex-upper-case:</span><br><br><br><span class="hljs-comment"># 2. 链路追踪与日志规范 (所有服务都需要打印 TraceID)</span><br><span class="hljs-attr">logging:</span><br>  <span class="hljs-attr">level:</span><br>    <span class="hljs-attr">root:</span> <span class="hljs-string">INFO</span><br>    <span class="hljs-attr">org.terminator.learn.forJob:</span> <span class="hljs-string">WARN</span><br>    <span class="hljs-comment"># 统一框架日志级别，避免生产环境日志爆炸</span><br>    <span class="hljs-attr">org.springframework:</span> <span class="hljs-string">WARN</span><br>    <span class="hljs-attr">org.apache.dubbo:</span> <span class="hljs-string">WARN</span><br>    <span class="hljs-attr">org.springframework.cloud.gateway:</span> <span class="hljs-string">WARN</span><br>    <span class="hljs-attr">com.alibaba.nacos:</span> <span class="hljs-string">WARN</span><br>  <span class="hljs-attr">pattern:</span><br>    <span class="hljs-comment"># 关键：所有服务统一日志格式，包含 TraceID/SpanID</span><br>    <span class="hljs-attr">console:</span> <span class="hljs-string">&quot;%d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125; %highlight(%-5level) [%thread] %cyan(%logger&#123;36&#125;) - %msg%n&quot;</span><br><br><span class="hljs-comment"># 3. 健康检查与监控 (Actuator) - 所有服务都需要被监控</span><br><span class="hljs-attr">management:</span><br>  <span class="hljs-attr">endpoints:</span><br>    <span class="hljs-attr">web:</span><br>      <span class="hljs-attr">exposure:</span><br>        <span class="hljs-attr">include:</span> <span class="hljs-string">health,info,metrics,prometheus</span><br>  <span class="hljs-attr">endpoint:</span><br>    <span class="hljs-attr">health:</span><br>      <span class="hljs-attr">show-details:</span> <span class="hljs-string">when_authorized</span><br>      <span class="hljs-attr">probes:</span><br>        <span class="hljs-comment"># K8s 探针支持</span><br>        <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span><br>      <span class="hljs-attr">group:</span><br>        <span class="hljs-attr">liveness:</span><br>          <span class="hljs-attr">include:</span> <span class="hljs-string">livenessState</span><br>        <span class="hljs-attr">readiness:</span><br>          <span class="hljs-attr">include:</span> <span class="hljs-string">readinessState</span><br>  <span class="hljs-attr">metrics:</span><br>    <span class="hljs-attr">tags:</span><br>      <span class="hljs-attr">application:</span> <span class="hljs-string">$&#123;spring.application.name&#125;</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>
+<p><code>application-&#123;env&#125;.yaml</code>：环境差异化</p>
+<ul>
+<li>压缩、日志信息、缓存、健康检查和监控细节信息等</li>
+</ul>
+</li>
+</ul>
+<h5 id="共享中间件配置"><a class="header-anchor" href="#共享中间件配置">¶</a>共享中间件配置</h5>
+<p>显然，写一些微服务共享的中间件即可，如<code>mysql</code>、<code>redis</code>、<code>rabbitMq</code>、<code>kafka</code>等。</p>
+<h5 id="业务共享配置"><a class="header-anchor" href="#业务共享配置">¶</a>业务共享配置</h5>
+<p>一些业务开关（如支付路由切换）、订单超时时间、公用的支付信息等等。</p>
+<h5 id="应用通用配置-swig￼10"><a class="header-anchor" href="#应用通用配置-swig￼10">¶</a>应用通用配置  <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi>s</mi><mi>p</mi><mi>r</mi><mi>i</mi><mi>n</mi><mi>g</mi><mi mathvariant="normal">.</mi><mi>a</mi><mi>p</mi><mi>p</mi><mi>l</mi><mi>i</mi><mi>c</mi><mi>a</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi><mi mathvariant="normal">.</mi><mi>n</mi><mi>a</mi><mi>m</mi><mi>e</mi></mrow><mi mathvariant="normal">.</mi><mi>y</mi><mi>a</mi><mi>m</mi><mi>l</mi></mrow><annotation encoding="application/x-tex">{spring.application.name}.yaml</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="mord mathnormal">p</span><span class="mord mathnormal" style="margin-right:0.0278em;">r</span><span class="mord mathnormal">in</span><span class="mord mathnormal" style="margin-right:0.0359em;">g</span><span class="mord">.</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.0197em;">ppl</span><span class="mord mathnormal">i</span><span class="mord mathnormal">c</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">i</span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mord">.</span><span class="mord mathnormal">nam</span><span class="mord mathnormal">e</span></span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="mord mathnormal">am</span><span class="mord mathnormal" style="margin-right:0.0197em;">l</span></span></span></span></h5>
+<p>当前业务服务特有的配置规则，如独占的中间件（如数据库）、特有的业务规则、网关的白名单和路由等。</p>
+<p>一般来说，各个环境都通用的配置，如有不同，写在应用环境配置文件里。</p>
+<p>当然，并非固化，如果配置过多，或需要经常修改，完全可以再独立一个配置，如白名单、路由等。</p>
+<h5 id="应用环境配置-swig￼11"><a class="header-anchor" href="#应用环境配置-swig￼11">¶</a>应用环境配置 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi>s</mi><mi>p</mi><mi>r</mi><mi>i</mi><mi>n</mi><mi>g</mi><mi mathvariant="normal">.</mi><mi>a</mi><mi>p</mi><mi>p</mi><mi>l</mi><mi>i</mi><mi>c</mi><mi>a</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi><mi mathvariant="normal">.</mi><mi>n</mi><mi>a</mi><mi>m</mi><mi>e</mi></mrow><mo>−</mo><mrow><mi>e</mi><mi>n</mi><mi>v</mi></mrow><mi mathvariant="normal">.</mi><mi>y</mi><mi>a</mi><mi>m</mi><mi>l</mi></mrow><annotation encoding="application/x-tex">{spring.application.name}-{env}.yaml</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="mord mathnormal">p</span><span class="mord mathnormal" style="margin-right:0.0278em;">r</span><span class="mord mathnormal">in</span><span class="mord mathnormal" style="margin-right:0.0359em;">g</span><span class="mord">.</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.0197em;">ppl</span><span class="mord mathnormal">i</span><span class="mord mathnormal">c</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">i</span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mord">.</span><span class="mord mathnormal">nam</span><span class="mord mathnormal">e</span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.0359em;">v</span></span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="mord mathnormal">am</span><span class="mord mathnormal" style="margin-right:0.0197em;">l</span></span></span></span></h5>
+<p>如上，不同环境对应的规则配置。</p>
+<h5 id="本地覆盖配置-application-swig￼12"><a class="header-anchor" href="#本地覆盖配置-application-swig￼12">¶</a>本地覆盖配置 application-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi>e</mi><mi>n</mi><mi>v</mi></mrow><mi mathvariant="normal">.</mi><mi>y</mi><mi>a</mi><mi>m</mi><mi>l</mi></mrow><annotation encoding="application/x-tex">{env}.yaml</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.0359em;">v</span></span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="mord mathnormal">am</span><span class="mord mathnormal" style="margin-right:0.0197em;">l</span></span></span></span></h5>
+<p>大多数情况下，都是用于开发时的本地调试，如连接本地数据库、联调时直接回调到自己电脑和自定义日志输出。</p>
+<p>一般也只有<code>application-dev.yaml</code>，可以不需要提交到代码库，自己独有。</p>
+<blockquote>
+<p>共享的配置，任何环境都适用，一般不用经常改；</p>
+<p>共享且配合环境的配置，根据不同环境做出对应的修改；</p>
+<p>应用通用配置，任何环境都适用；</p>
+<p>应用环境配置，不同环境不同配置；</p>
+<p>本地覆盖配置，自己独有配置，多用于本地开发；</p>
+</blockquote>
+<h3 id="自定义配置"><a class="header-anchor" href="#自定义配置">¶</a>自定义配置</h3>
+<p>需要用到的场景：</p>
+<ul>
+<li>
+<p>应用启动时加载配置：只加载一次，后续修改无效</p>
+<ul>
+<li><code>spring.config.import=nacos:xxx&amp;refreshEnable=false</code></li>
+<li>或关闭全局开关<code>spring.config.nacos.refresh-enabled=false</code></li>
+</ul>
+</li>
+<li>
+<p>需要动态刷新的配置：动态刷新，保持一致性</p>
+<ul>
+<li><code>spring.config.nacos.refresh-enable=true</code> + <code>spring.config.import=nacos:xxx&amp;refreshEnable=true</code></li>
+</ul>
+</li>
+</ul>
+<p>常用到的注解：</p>
+<ul>
+<li><code>@RefreshScope</code>：类注解， 指明该<code>Bean</code>需要自动刷新</li>
+<li><code>@Value</code>:  <code>Spring</code>提供的注解，注入配置值，但会受到其他属性源的影响，优先级<code>JVM&gt;ENV&gt;Nacos</code></li>
+<li><code>@NacosValue</code>: 注入配置值，只接收naocs属性源，支持自动刷新</li>
+<li><code>@NacosConfig</code>: 类注解，属性注解， 注入配置值
+<ul>
+<li>默认支持动态刷新</li>
+<li>需要设置目标的<code>dataId</code>和<code>group</code>以及配置种的指定<code>key</code></li>
+<li>不受其他属性源影响，准确度高</li>
+<li>支持复杂对象注入，如自定义<code>JavaBean</code>及其集合类型</li>
+<li>可用于<code>Bean</code>，类似<code>@ConfigurationProperties</code></li>
+</ul>
+</li>
+<li><code>@ConfigurationProperties</code>：类注解，可以指定配置前缀</li>
+<li><code>@NacosConfigurationProperties</code>:</li>
+<li><code>@NacosConfigListener</code>：接收配置变更回调事件
+<ul>
+<li>默认不会回调初始值，如需，通过指定<code>initNotify=true</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>核心对比总览</strong></p>
+<table>
+<thead>
+<tr>
+<th>注解</th>
+<th>@RefreshScope</th>
+<th>@Value</th>
+<th>@NacosValue</th>
+<th>@NacosConfig</th>
+<th>@ConfigurationProperties</th>
+<th>@NacosConfigurationProperties</th>
+<th>@NacosConfigListener</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>所属框架</strong></td>
+<td>Spring Cloud Context</td>
+<td>Spring Boot</td>
+<td>Nacos</td>
+<td>Nacos</td>
+<td>Spring Boot</td>
+<td>Nacos</td>
+<td>Nacos</td>
+</tr>
+<tr>
+<td><strong>主要功能</strong></td>
+<td>定义刷新作用域</td>
+<td>注入单个属性</td>
+<td>注入单个属性 + 自动刷新</td>
+<td>注入单个属性 + 自动刷新</td>
+<td>批量属性绑定</td>
+<td>批量属性绑定 + 自动刷新</td>
+<td>配置变更监听器</td>
+</tr>
+<tr>
+<td><strong>自动刷新</strong></td>
+<td>作用域基础</td>
+<td>不支持，需@RefreshScope</td>
+<td>内置支持</td>
+<td>内置支持</td>
+<td>支持</td>
+<td>内置支持</td>
+<td>事件驱动</td>
+</tr>
+<tr>
+<td><strong>使用场景</strong></td>
+<td>配置刷新作用域</td>
+<td>简单属性注入</td>
+<td>Nacos动态配置</td>
+<td>Nacos动态配置</td>
+<td>复杂配置对象</td>
+<td>Nacos复杂配置对象</td>
+<td>配置变更回调</td>
+</tr>
+<tr>
+<td><strong>默认值</strong></td>
+<td>-</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td><strong>SpEL支持</strong></td>
+<td>-</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h5 id="示例"><a class="header-anchor" href="#示例">¶</a>示例</h5>
+<h5 id="Value-RefreshScope"><a class="header-anchor" href="#Value-RefreshScope">¶</a>@Value + @RefreshScope</h5>
+<p>值得注意的是：</p>
+<ul>
+<li>使用<code>@NacosConfig</code>时，需要指定<code>dataId</code>，所有就算没在<code>application.yaml</code>中声明导入<code>white-list.yaml</code>，nacos仍然会去监听该配置。建议统一在<code>application.yaml</code>统一导入配置文件，使用<code>@NacosValue</code>/ <code>@Value</code>去注入，避免产生混乱。</li>
+<li>同理<code>@NacosConfigListener</code>指定<code>dataId</code>，就会去监听该配置，不管有没有<code>spring.config.import</code>。</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/java/" class="category-chain-item">java</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/java/spring-cloud/" class="category-chain-item">spring cloud</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/java/spring-cloud/gateway/" class="category-chain-item">gateway</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/java%EF%BC%8Cspring-cloud/" class="print-no-link">#java，spring cloud</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>gateway之配置中心</div>
+      <div>https://succeedwer.github.io/posts/c7cf77858a04/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WER</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年3月25日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2026年3月25日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/1646708a3955/" title="JVM哪些事儿：OOM解毒大全">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JVM哪些事儿：OOM解毒大全</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/b5e8062f3af5/" title="gateway之服务发现">
+                        <span class="hidden-mobile">gateway之服务发现</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
